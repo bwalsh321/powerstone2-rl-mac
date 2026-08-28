@@ -71,11 +71,41 @@ the M2. Protocol, in order:
    pool; 500k-step snapshots will refresh it), zero tracebacks.
    4M-step leg ETA ~12h (~14:00 Aug 28). Reattach:
    `tmux attach -t ps2train` (tmux via brew, NEW on this Mac).
-4. **Update this file when the leg completes** (final steps/s,
-   snapshots produced, pool growth, checkpoints_sp contents, any
-   crashes). Then eval the product vs legG (eval_parity slot 2 is an
-   imperfect but comparable yardstick; the A/B probe vs pool peers is
-   the self-play-native one).
+4. **LEG 1 COMPLETE (Aug 28, 01:48 -> 15:01, ~13.2h).** 4.00M steps
+   (27.918M -> 31.918M), 84 steps/s sustained the whole way, 7,458
+   self-play episodes (learner 81% by the end — climbed from the
+   50/50 launch as it outgrew the frozen pool), 10 selfplay_* pool
+   snapshots, 40 checkpoints_sp zips, ZERO crashes. Product:
+   linux_port/powerstone_v6_ppo_selfplay_leg1.zip.
+   **EVALS (Aug 28 afternoon):**
+   - A/B vs legG (27.9M warm start): **7W/5L** (n=12, stochastic)
+   - A/B vs ps_v6_31915459 (strongest old): **7W/5L** (n=12)
+   - eval_parity slot 2, 50 eps deterministic (parity_leg1_out.txt):
+     **win 98.0% (49W/1L), picks 9.76, forms 3.00** — vs legG's port
+     numbers 74.0 / 8.06 / 2.30 on the identical protocol.
+   Reading: modest peer-vs-peer edge (58% both probes; n=12 is
+   noisy), but a LARGE jump on the COM benchmark — and leg 1 trained
+   only on slot1 desert 1v1, so the slot2 FFA gain is generalization,
+   not eval overfit. Self-play works on this port. Next-leg
+   decisions (Blake + rig-session concurrence, Aug 28 evening):
+   - **PROMOTED: leg1 IS the warm start** — powerstone_v6_ppo.zip =
+     selfplay_leg1 (md5-verified); legG preserved as
+     powerstone_v6_ppo_legG_backup.zip.
+   - **Widen STATE_SLOTS: yes, but it needs a Blake controller
+     session first.** Self-play slots must be VS-mode 2P stamps
+     (both DC ports human — selfplay_env docstring); slot2 as
+     stamped is a COM FFA (eval-only). Plan: make_savestates, 2-3
+     more stages, TAB both ports in, BOTH PORTS FALCON (the Ayame
+     lesson), stamp F3-F5 at round start, verify face_norm ~0.991
+     per seat.
+   - **Null-video: parked for the 7950X era** — its value case was
+     M2 GPU contention; the new box renders on a 3090.
+   - Before leg 2 buries it: record the reddit video via
+     watch_play.py --model ./powerstone_v6_ppo_selfplay_leg1.zip
+     (the 49-1 champion) while it still holds the crown.
+   Note: eval boot flake bit once during the battery (the 31.9M probe
+   died at init, silent); rerun succeeded — always check the output
+   file has an AB RESULT line.
 Known cosmetics: mutex abort at exit; "SHORT OPPONENT SET slot1" is
 expected (slot1 = 1v1 self-play state); sb3 gym-wrap warning is fine.
 
