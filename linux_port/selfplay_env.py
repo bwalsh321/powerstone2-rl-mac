@@ -62,6 +62,10 @@ class OpponentPool:
             return None
         pick = (random.choice(self.paths[-self.recent_k:])
                 if random.random() < 0.5 else random.choice(self.paths))
+        self.last_path = pick   # Aug 28: exposed so the env can log WHO
+                                # each episode was against — without it a
+                                # high learner win% is unreadable (crushing
+                                # 0.2M-15M relics vs beating 27.9M peers)
         if pick not in self._cache:
             if len(self._cache) > 20:      # LRU-ish: don't hold 250 models
                 self._cache.pop(next(iter(self._cache)))
@@ -81,6 +85,7 @@ class SelfPlayEnv(PowerStoneEnvLibretro):
         self._opp_det = opp_deterministic
         self._view_prev = {}   # agent_player -> previous parsed state
                                # (velocity deltas in _observe; cleared per ep)
+        self._view_last = {}   # agent_player -> that view's own last action
         # a P1-perspective obs builder: reuse this env's own machinery by
         # keeping a light second parser state. AGENT_PLAYER handling: the v6
         # obs builder is written around index (AGENT_PLAYER-1); we flip it
@@ -89,7 +94,10 @@ class SelfPlayEnv(PowerStoneEnvLibretro):
     # -------------------------------------------------------- lifecycle
     def reset(self):
         self._opp_model = self._pool.sample()
+        if self._opp_model is not None:
+            print(f"[opp] {os.path.basename(self._pool.last_path)}")
         self._view_prev.clear()
+        self._view_last.clear()
         return super().reset()
 
     def step(self, action):
@@ -99,6 +107,7 @@ class SelfPlayEnv(PowerStoneEnvLibretro):
             opp_obs = self._obs_from_view(self._opp_synth, agent_player=1)
             opp_action, _ = self._opp_model.predict(
                 opp_obs, deterministic=self._opp_det)
+            self._view_last[1] = int(opp_action)
             self._apply_action_for(int(opp_action), player_port=0,
                                    run=False)   # set mask only, no frames
         # 2) learner acts; frames run inside (both masks held during them)
@@ -125,25 +134,43 @@ class SelfPlayEnv(PowerStoneEnvLibretro):
         the velocity deltas — tracked per view in self._view_prev (the
         parent passes (s, s) on its own reset, so first-call = s is the
         same convention). _active_opp must ALSO flip: the learner's
-        [0] would make the P1 view list ITSELF as its opponent."""
+        [0] would make the P1 view list ITSELF as its opponent.
+
+        Aug 28 fix #7: parse the view's line via _parse_line DIRECTLY.
+        The first wiring pinned it onto _lr_synth.line and called
+        _parse_state_once — but the pump-on-stale check fires on EVERY
+        opponent read (last parse is always the same frame), runs a
+        frame, and the tick invalidates the pin: the opponent was
+        parsing the LEARNER-sorted line all along (own pos/health fine —
+        player blocks are port-ordered — but stones/chests/projectiles
+        sorted around its enemy). Signature: learner 62W/4L in bring-up.
+        _parse_line is the pure path: no pin, no pump, no
+        _last_parsed_frame touch — learner cadence is unaffected."""
         line = synth.line
-        saved_line = self._lr_synth.line
+        if not line:
+            return np.zeros(self.OBS_DIM, dtype=np.float32)
         saved_agent = self.AGENT_PLAYER
         saved_active = self._active_opp
+        saved_last = self.last_action
         try:
-            self._lr_synth.line = line
             type(self).AGENT_PLAYER = agent_player
             # 1v1 mirror: the other port is the whole opponent set
             self._active_opp = [1] if agent_player == 1 else [0]
-            s = self._parse_state_once()
+            # last-action one-hot must be the VIEW's own last action, not
+            # the learner's (obs[_ACT0+..] reads self.last_action — combo/
+            # timing state; feeding the enemy's action corrupts it)
+            self.last_action = self._view_last.get(agent_player, 0)
+            s = self._parse_line(line)
+            if s is None:
+                return np.zeros(self.OBS_DIM, dtype=np.float32)
             prev = self._view_prev.get(agent_player, s)
             obs = self._observe(s, prev)
             self._view_prev[agent_player] = s
             return obs
         finally:
-            self._lr_synth.line = saved_line
             type(self).AGENT_PLAYER = saved_agent
             self._active_opp = saved_active
+            self.last_action = saved_last
 
 
 # NOTE resolved Aug 28: the obs constructor is _observe(s, prev) — wired

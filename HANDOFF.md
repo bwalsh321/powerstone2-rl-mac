@@ -1,5 +1,84 @@
 # HANDOFF — Power Stone 2 RL, M2 MacBook port session (Aug 22–28, 2026)
 
+## NEXT SESSION BRIEF (Claude Code, cwd = macbook_migration/) — Aug 28
+
+Immediate mission while the 7950X ships: first real training leg on
+the M2. Protocol, in order:
+
+1. **Warm-start audition: DONE (Aug 28) — legG KEEPS the seat.**
+   legM_final, eval_parity 20 eps slot 2 deterministic
+   (legM_eval_out.txt): **win 70.0% (14W/6L), picks 6.70, forms
+   1.70** vs legG's 74.0 / 8.06 / 2.30 (n=50). Below legG on all
+   three (picks even a hair under the band). Not weird — just worse
+   on this matchup; linux_port/powerstone_v6_ppo.zip stays legG
+   (md5-verified distinct from legM). Note: a first attempt died
+   silently at ep 10 (9W/1L!) — it was killed by a shell timeout,
+   not a crash; the full 20-ep rerun regressed to the mean.
+2. **Training bring-up, PS2_NENVS=2: PAST STEP 0, AND THE P1-VIEW
+   EYEBALL CAUGHT A REAL BUG (Aug 28).** First relaunch trained fine
+   mechanically (22+ PPO iterations, ~40 steps/s aggregate at
+   NENVS=2, timesteps continuing from legG's 27.911M, snapshot
+   callback fired) — but the ep_stats CSVs read learner 62W/4L with
+   dmg_out flat 2.000, opponent picking only 2.85 stones/ep. The
+   opponent moved, picked, formed, even won 4 — NOT frozen — but far
+   off the ~50%-by-construction expectation. Root cause (fix #7,
+   selfplay_env._obs_from_view): the P1 line was PINNED onto
+   _lr_synth.line, but _parse_state_once's pump-on-stale check fires
+   on every opponent read (last parse is always the same frame), runs
+   a frame, and tick() invalidates the pin — the opponent parsed the
+   LEARNER-sorted line every step (own pos/health correct — player
+   blocks are port-ordered — but stones/chests/projectiles sorted
+   around its ENEMY). FIXED: parse the view's line via the pure
+   _parse_line path (no pin, no pump); relaunched with
+   PYTHONUNBUFFERED=1 so spawn workers' [ep] lines actually stream
+   (they were block-buffered — that's why the log looked [ep]-less).
+   Pre-fix CSVs archived as bridge_i*/ep_stats_v6.prefix7.csv.
+   Post-fix the stats did NOT move (23W/2L) — the obs-sort fix was
+   real but minor (1v1 has few stones; both sort orders nearly match).
+   An A/B probe (ab_selfplay_probe.py NEW: learner vs ONE chosen
+   frozen opponent) went 12-0 vs even the 31.9M checkpoint ->
+   structural seat handicap, and an obs-fidelity probe (obs_probe.py
+   NEW) proved the P1 VIEW FAITHFUL (positions/deltas/healths exact,
+   varied policy actions on both views). Real root cause, found via
+   RAM_MAP's face_norm character fingerprint (facing row carries
+   character scale): **slot1 was stamped P1=AYAME (0.895) vs
+   P2=Falcon (0.991) — every pool policy is a Falcon policy, so the
+   opponent seat was a Falcon expert driving Ayame.** FIXED Aug 28
+   without the interactive savestate maker: menu_drive.py (NEW) =
+   headless menu navigation via get_frame screenshots + scripted
+   button steps; drove pause -> CHANGE CHARACTER -> cycled P1 to
+   FALCON -> stage select Desert Area -> re-stamped states/slot1.state
+   at round start (old state kept as slot1.state.ayame_backup).
+   Fingerprint now 0.991/0.991. Also fixed while in there: the P1
+   view's last-action one-hot leaked the LEARNER's last action
+   (now per-view, selfplay_env._view_last), and [opp] lines now log
+   which pool zip each episode faces. **A/B re-probe on the new
+   state: 7W/5L (58%) vs the 31.9M checkpoint — the seat is FAIR;
+   bring-up BLESSED. Both sides actually fight.**
+   ALSO: macOS "app crashed — restore windows?" modal can hang ANY
+   headless emu boot after a prior crash (stack: NSAlert runModal) —
+   cured with `defaults write org.python.python
+   ApplePersistenceIgnoreState YES` (do this on any new Mac).
+3. **SCALED — LEG 1 RUNNING (Aug 28 ~01:48, tmux session `ps2train`,
+   caffeinate -is, log train_leg1_out.txt).** PS2_NENVS=6,
+   dolphin-2..5 seeded, warm start legG. Health at launch: first 18
+   eps 9W/9L (exactly the 50% self-play construction), all 9 pool
+   zips sampling ([opp] lines), episodes contested (sample loss:
+   dealt 1.95 bars / took 1.00). 35 min in: **92 steps/s aggregate**
+   (vs ~175 hoped — GPU contention with 6 renderers; null-video is
+   the known lever for a future leg, don't touch this one), 28.01M
+   total steps, learner 97W/40L (71% — learning against the frozen
+   pool; 500k-step snapshots will refresh it), zero tracebacks.
+   4M-step leg ETA ~12h (~14:00 Aug 28). Reattach:
+   `tmux attach -t ps2train` (tmux via brew, NEW on this Mac).
+4. **Update this file when the leg completes** (final steps/s,
+   snapshots produced, pool growth, checkpoints_sp contents, any
+   crashes). Then eval the product vs legG (eval_parity slot 2 is an
+   imperfect but comparable yardstick; the A/B probe vs pool peers is
+   the self-play-native one).
+Known cosmetics: mutex abort at exit; "SHORT OPPONENT SET slot1" is
+expected (slot1 = 1v1 self-play state); sb3 gym-wrap warning is fine.
+
 ## THE FORK (Aug 28) — plan for the next session
 
 The port is PROVEN (gate 4 passed; rig tiebreaker confirms obs
@@ -17,15 +96,18 @@ fidelity). The project pivots from porting to scaling. Blake's list:
 3. **Share it** — video via watch_play.py (NEW, linux_port/): renders
    every frame at real-time pacing while the model plays; screen-record
    it. Plus a short write-up for reddit.
-4. **Compute: BUY, don't rent (decided Aug 28).** Hetzner's June-2026
-   price adjustment killed the rental math: AX102 (16c 7950X3D) is now
-   EUR 259/mo + EUR 129 setup; AX162 (48c EPYC) EUR 614/mo. A Ryzen 9
-   9950X streets at ~$434-584 — one to two months of rent buys the
-   chip outright for Blake's existing AM5 board. At ~25-30 steps/s x
-   ~14 workers that's the ~350-420 steps/s aggregate tier, always on.
-   Hourly cloud (no setup fee) remains the burst option only.
-   HOWTO_LINUX_SERVER.md stays current either way — the recipe is the
-   same for a home Linux box; run bench_fps.py before sizing N_ENVS.
+4. **Compute: DECIDED (Aug 28) — buy a Ryzen 9 7950X (~$279) for
+   Blake's existing AM5 board.** Rental rejected (Hetzner post-hike:
+   AX102 EUR 259/mo + setup; XLC $209+/mo, small vendor; marketplace
+   compute like QuickPod = stranger-hardware burst only, never the
+   checkpoint home). Threadripper rejected (5975WX P620 ~$3300; 2x
+   cores but only ~1.3-1.6x aggregate — per-core speed rules this
+   workload). 7950X projection: ~26-28 steps/s x 14 workers = ~370-400
+   steps/s aggregate, ~5x the old rig, for six weeks of rent money.
+   Build notes: reputable retailer only (clearance era = counterfeit
+   listings), real cooling (230W PPT), 64GB RAM comfortable, BIOS
+   update first. Day one: setup script -> bench_fps.py -> let the
+   measured number set N_ENVS.
 5. Remaining technical threads, in order: finish the first Mac
    training bring-up (fixes #5/#6 committed, next run starts at the
    first real training step); eyeball the P1 opponent view (never
