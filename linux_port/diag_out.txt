@@ -1,0 +1,71 @@
+Set variable override: flycast_hle_bios = enabled
+Set variable override: reicast_hle_bios = enabled
+Set variable override: flycast_device_port1_slot1 = VMU
+Set variable override: flycast_device_port2_slot1 = VMU
+Set variable override: flycast_threaded_rendering = disabled
+Set variable override: reicast_threaded_rendering = disabled
+t= 1s frame=   66 h=[    0.0,    0.0,    0.0,    0.0] ready=False
+t= 2s frame=  126 h=[    0.0,    0.0,    0.0,    0.0] ready=False
+t= 3s frame=  186 h=[    0.0,    0.0,    0.0,    0.0] ready=False
+t= 4s frame=  246 h=[    0.0,    0.0,    0.0,    0.0] ready=False
+*** MATCH READY at frame 306, phase A (hands-off) ***
+t= 5s frame=  306 h=[ 1000.0, 1000.0, 1000.0, 1000.0] ready=True
+t= 6s frame=  366 h=[ 1000.0, 1000.0, 1000.0, 1000.0] ready=True
+t= 7s frame=  426 h=[ 1000.0, 1000.0, 1000.0, 1000.0] ready=True
+t= 8s frame=  486 h=[ 1000.0, 1000.0, 1000.0, 1000.0] ready=True
+t= 9s frame=  546 h=[ 1000.0, 1000.0,  954.0, 1000.0] ready=True
+t=10s frame=  606 h=[ 1000.0, 1000.0,  954.0, 1000.0] ready=True
+t=11s frame=  666 h=[ 1000.0, 1000.0,  954.0, 1000.0] ready=True
+t=12s frame=  726 h=[ 1000.0, 1000.0,  954.0, 1000.0] ready=True
+t=13s frame=  786 h=[ 1000.0, 1000.0,  954.0, 1000.0] ready=True
+t=14s frame=  846 h=[ 1000.0, 1000.0,  954.0, 1000.0] ready=True
+t=15s frame=  906 h=[ 1000.0, 1000.0,  954.0,  995.6] ready=True
+t=16s frame=  966 h=[ 1000.0, 1000.0,  954.0,  991.1] ready=True
+t=17s frame= 1026 h=[ 1000.0, 1000.0,  954.0,  991.1] ready=True
+t=18s frame= 1086 h=[  967.2, 1000.0,  954.0,  991.1] ready=True
+t=19s frame= 1146 h=[  967.2, 1000.0,  954.0,  991.1] ready=True
+t=20s frame= 1206 h=[  967.2, 1000.0,  954.0,  991.1] ready=True
+t=21s frame= 1266 h=[  967.2, 1000.0,  954.0,  991.1] ready=True
+t=22s frame= 1326 h=[  967.2, 1000.0,  954.0,  991.1] ready=True
+t=23s frame= 1386 h=[  967.2, 1000.0,  921.1,  991.1] ready=True
+t=24s frame= 1446 h=[  967.2, 1000.0,  921.1,  991.1] ready=True
+t=25s frame= 1506 h=[  967.2, 1000.0,  921.1,  991.1] ready=True
+t=26s frame= 1566 h=[  967.2,  944.5,  921.1,  991.1] ready=True
+t=27s frame= 1626 h=[  967.2,  944.5,  921.1,  991.1] ready=True
+t=28s frame= 1686 h=[  967.2,  944.5,  921.1,  991.1] ready=True
+t=29s frame= 1746 h=[  967.2,  944.5,  921.1,  991.1] ready=True
+t=30s frame= 1806 h=[  967.2,  944.5,  921.1,  991.1] ready=True
+--- phase B: tapping DC A once/sec ---
+t=31s frame= 1866 h=[  967.2,  944.5,  921.1,  991.1] ready=True
+t=32s frame= 1926 h=[  967.2,  944.5,  921.1,  991.1] ready=True
+t=33s frame= 1986 h=[  967.2,  944.5,  921.1,  991.1] ready=True
+t=34s frame= 2046 h=[  967.2,  944.5,  921.1,  991.1] ready=True
+t=35s frame= 2106 h=[  967.2,  944.5,  921.1,  991.1] ready=True
+t=36s frame= 2166 h=[  967.2,  944.5,  921.1,  991.1] ready=True
+t=37s frame= 2226 h=[  967.2,  944.5,  921.1,  991.1] ready=True
+t=38s frame= 2286 h=[  953.5,  944.5,  921.1,  991.1] ready=True
+t=39s frame= 2346 h=[  953.5,  944.5,  894.8,  991.1] ready=True
+t=40s frame= 2406 h=[  953.5,  944.5,  894.8,  991.1] ready=True
+t=41s frame= 2466 h=[  953.5,  944.5,  894.8,  991.1] ready=True
+t=42s frame= 2526 h=[  953.5,  944.5,  894.8,  991.1] ready=True
+t=43s frame= 2586 h=[  953.5,  837.7,  879.7,  977.9] ready=True
+t=44s frame= 2646 h=[  953.5,  826.6,  823.3,  957.9] ready=True
+t=45s frame= 2706 h=[  953.5,  748.9,  815.8,  934.7] ready=True
+--- phase C: tapping Start once/sec ---
+t=46s frame= 2766 h=[  953.5,  748.9,  815.8,  934.7] ready=True
+t=47s frame= 2826 h=[  953.5,  748.9,  815.8,  924.7] ready=True
+t=48s frame= 2886 h=[  953.5,  748.9,  815.8,  914.7] ready=True
+t=49s frame= 2946 h=[  953.5,  748.9,  815.8,  904.8] ready=True
+t=50s frame= 3006 h=[  953.5,  748.9,  815.8,  904.8] ready=True
+t=51s frame= 3066 h=[  953.5,  748.9,  785.8,  904.8] ready=True
+t=52s frame= 3126 h=[  953.5,  748.9,  785.8,  904.8] ready=True
+t=53s frame= 3186 h=[  953.5,  748.9,  785.8,  904.8] ready=True
+t=54s frame= 3246 h=[  953.5,  748.9,  785.8,  904.8] ready=True
+t=55s frame= 3306 h=[  953.5,  698.9,  785.8,  904.8] ready=True
+t=56s frame= 3366 h=[  953.5,  698.9,  785.8,  904.8] ready=True
+t=57s frame= 3426 h=[  953.5,  698.9,  785.8,  904.8] ready=True
+t=58s frame= 3486 h=[  953.5,  698.9,  785.8,  904.8] ready=True
+t=59s frame= 3546 h=[  953.5,  698.9,  785.8,  904.8] ready=True
+t=60s frame= 3606 h=[  953.5,  698.9,  785.8,  904.8] ready=True
+VERDICT: reaches fight (first ready at frame 306).
+libc++abi: terminating due to uncaught exception of type std::__1::system_error: mutex lock failed: Invalid argument

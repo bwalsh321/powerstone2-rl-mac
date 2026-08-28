@@ -1,0 +1,67 @@
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+Set variable override: flycast_hle_bios = enabled
+Set variable override: reicast_hle_bios = enabled
+Set variable override: flycast_device_port1_slot1 = VMU
+Set variable override: flycast_device_port2_slot1 = VMU
+Set variable override: flycast_threaded_rendering = disabled
+Set variable override: reicast_threaded_rendering = disabled
+[env] bridge alive (frame 8, line=v7 obs_dim=122 actions=10)
+/Users/blakewalsh/ps2rl/lib/python3.11/site-packages/stable_baselines3/common/save_util.py:167: UserWarning: Could not deserialize object clip_range. Consider using `custom_objects` argument to replace this object.
+Exception: code() argument 13 must be str, not int
+  warnings.warn(
+/Users/blakewalsh/ps2rl/lib/python3.11/site-packages/stable_baselines3/common/save_util.py:167: UserWarning: Could not deserialize object lr_schedule. Consider using `custom_objects` argument to replace this object.
+Exception: code() argument 13 must be str, not int
+  warnings.warn(
+[ep] slot2 opps=3    loss len= 688  dmg +3.14/-1.00  stones: picked=0 lost=1 opp=10(-7) forms=0/3  gem_rew=+0.00 shape=+0.00 appr=+0.00  chests=0(0) stonev=558 dmgF=0.00
+[env] match ready after 1 tries
+[ep] slot2 opps=3    loss len= 923  dmg +2.97/-1.00  stones: picked=4 lost=5 opp=13(-13) forms=0/2  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=0(0) stonev=923 dmgF=0.00
+[env] match ready after 1 tries
+[ep] slot2 opps=3    loss len=1488  dmg +5.20/-1.00  stones: picked=7 lost=8 opp=21(-19) forms=0/2  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=0(0) stonev=1341 dmgF=0.00
+[env] match ready after 1 tries
+[ep] slot2 opps=3    loss len= 940  dmg +3.73/-1.00  stones: picked=1 lost=2 opp=13(-6) forms=0/3  gem_rew=+3.00 shape=+0.00 appr=+0.00  chests=0(0) stonev=910 dmgF=0.00
+[env] match ready after 1 tries
+[ep] slot2 opps=3    loss len= 895  dmg +5.19/-1.00  stones: picked=5 lost=3 opp=10(-7) forms=1/2  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=0(0) stonev=852 dmgF=1.75
+[env] match ready after 1 tries
+[ep] slot2 opps=3     win len=1181  dmg +6.42/-0.83  stones: picked=10 lost=4 opp=20(-10) forms=2/3  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=0(0) stonev=1111 dmgF=3.73
+[env] match ready after 1 tries
+[ep] slot2 opps=3    loss len= 625  dmg +3.36/-1.00  stones: picked=4 lost=5 opp=10(-12) forms=0/2  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=0(0) stonev=623 dmgF=0.00
+[env] match ready after 1 tries
+[ep] slot2 opps=3    loss len=1279  dmg +6.10/-1.00  stones: picked=7 lost=5 opp=19(-14) forms=1/2  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=0(0) stonev=1229 dmgF=2.33
+[env] match ready after 1 tries
+[ep] slot2 opps=3    loss len= 792  dmg +3.73/-1.00  stones: picked=6 lost=7 opp=16(-14) forms=0/3  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=0(0) stonev=792 dmgF=0.00
+[env] match ready after 1 tries
+[ep] slot2 opps=3    loss len=1440  dmg +4.97/-1.00  stones: picked=3 lost=4 opp=18(-14) forms=0/4  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=0(0) stonev=1326 dmgF=0.00
+[env] match ready after 1 tries
+[ep] slot2 opps=3    loss len= 868  dmg +3.46/-1.00  stones: picked=2 lost=3 opp=15(-13) forms=0/2  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=0(0) stonev=850 dmgF=0.00
+[env] match ready after 1 tries
+[ep] slot2 opps=3    loss len=1132  dmg +6.27/-1.00  stones: picked=5 lost=2 opp=20(-14) forms=1/5  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=0(0) stonev=770 dmgF=2.26
+[env] match ready after 1 tries
+[ep] slot2 opps=3    loss len= 941  dmg +4.21/-1.00  stones: picked=4 lost=5 opp=17(-7) forms=0/3  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=0(0) stonev=798 dmgF=0.00
+[env] match ready after 1 tries
+[ep] slot2 opps=3    loss len= 897  dmg +4.80/-1.00  stones: picked=3 lost=4 opp=15(-8) forms=0/4  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=0(0) stonev=599 dmgF=0.00
+[env] match ready after 1 tries
+[ep] slot2 opps=3    loss len=1416  dmg +5.83/-1.00  stones: picked=6 lost=4 opp=18(-16) forms=1/3  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=0(0) stonev=1294 dmgF=2.20
+[env] match ready after 1 tries
+[ep] slot2 opps=3    loss len=1150  dmg +3.46/-1.00  stones: picked=4 lost=5 opp=16(-8) forms=0/3  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=0(0) stonev=988 dmgF=0.00
+[env] match ready after 1 tries
+[ep] slot2 opps=3    loss len= 889  dmg +3.68/-1.00  stones: picked=3 lost=4 opp=21(-17) forms=0/5  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=0(0) stonev=860 dmgF=0.00
+[env] match ready after 1 tries
+[ep] slot2 opps=3    loss len=1146  dmg +5.08/-1.00  stones: picked=3 lost=4 opp=14(-9) forms=0/2  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=0(0) stonev=1017 dmgF=0.00
+[env] match ready after 1 tries
+[ep] slot2 opps=3    loss len= 758  dmg +5.90/-1.00  stones: picked=5 lost=3 opp=18(-9) forms=1/5  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=0(0) stonev=535 dmgF=3.04
+[env] match ready after 1 tries
+[ep] slot2 opps=3    loss len=1527  dmg +4.38/-1.00  stones: picked=7 lost=6 opp=24(-22) forms=0/3  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=0(0) stonev=1497 dmgF=0.00
+
+================ GATE 4 PARITY ================
+model=powerstone_v6_ppo.zip  slot=2  n=20  mode=deterministic  distinct-episodes~20
+win% :   5.0   (1W/19L/0T)
+picks:  4.45 /ep
+forms:  0.35 /ep
+  win%     5.00 vs [63.0-75.0]  BELOW BAND <-- suspect the port
+  picks    4.45 vs [6.8-7.5]  BELOW BAND <-- suspect the port
+  forms    0.35 vs [1.4-1.9]  BELOW BAND <-- suspect the port
+RESULT: PARITY FAIL — check RAM offsets / button map / cadence
+libc++abi: terminating due to uncaught exception of type std::__1::system_error: mutex lock failed: Invalid argument

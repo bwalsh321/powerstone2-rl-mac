@@ -1,0 +1,47 @@
+-- The C compiler identification is AppleClang 17.0.0.17000013
+-- The CXX compiler identification is AppleClang 17.0.0.17000013
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Release mode: DEBUG macro not defined
+-- Build type: Release
+-- pybind11 v3.0.1 
+-- Found Python: /Users/blakewalsh/ps2rl/bin/python (found suitable version "3.11.16", minimum required is "3.8") found components: Interpreter Development.Module Development.Embed
+-- Performing Test HAS_FLTO_THIN
+-- Performing Test HAS_FLTO_THIN - Success
+-- Performing Test HAS_FLTO
+-- Performing Test HAS_FLTO - Success
+-- Found Python3: /Users/blakewalsh/ps2rl/bin/python (found version "3.11.16") found components: Interpreter Development Development.Module Development.Embed
+-- Setting manual Python extension suffix: .so
+-- Python include dirs: /opt/homebrew/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/include/python3.11
+-- Python library: /opt/homebrew/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/lib/libpython3.11.dylib
+-- pybind11 found: TRUE
+-- Found OpenGL: /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework
+-- Platform: Darwin
+-- Building for: Darwin-25.5.0
+-- SDL2 include: /opt/homebrew/include/SDL2
+-- SDL2 library: 
+-- Python version: 3.11.16
+-- Python extension suffix: .so
+-- Configuring done (1.2s)
+-- Generating done (0.0s)
+-- Build files have been written to: /Users/blakewalsh/Documents/macbook_migration/sdlarch-rl/build
+[ 25%] Built target glad
+[ 37%] Linking CXX shared library Release/libpcsx2_headless.dylib
+ld: warning: search path '/usr/local/opt/tcl-tk/lib' not found
+Copying pcsx2_headless from Release to project root
+[ 50%] Built target pcsx2_headless
+[ 62%] Building CXX object CMakeFiles/_retro.dir/src/retroemulator.cpp.o
+[ 75%] Building CXX object CMakeFiles/_retro.dir/src/sdlarch.cpp.o
+[ 87%] Building C object CMakeFiles/_retro.dir/src/glad.c.o
+[100%] Linking CXX shared module Release/_retro.so
+ld: warning: search path '/usr/local/opt/tcl-tk/lib' not found
+Copying _retro from Release to project root
+[100%] Built target _retro

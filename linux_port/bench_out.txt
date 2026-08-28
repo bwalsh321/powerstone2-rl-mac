@@ -1,0 +1,18 @@
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+Set variable override: flycast_hle_bios = enabled
+Set variable override: reicast_hle_bios = enabled
+Set variable override: flycast_device_port1_slot1 = VMU
+Set variable override: flycast_device_port2_slot1 = VMU
+Set variable override: flycast_threaded_rendering = disabled
+Set variable override: reicast_threaded_rendering = disabled
+[env] bridge alive (frame 8, line=v7 obs_dim=122 actions=10)
+
+================ BENCH ================
+A raw core        :   324.8 fps   ( 5.4x real time)
+B core + synth    :   245.9 fps   ( 4.1x real time)   synth cost +32.1%
+C full env.step   :    29.3 steps/s ( 250.9 fps incl. resets,  4.2x real time, 8.6 frames/step)
+projected ep len ~1200 steps -> 0.7 min/ep single instance, model overhead excluded
+libc++abi: terminating due to uncaught exception of type std::__1::system_error: mutex lock failed: Invalid argument

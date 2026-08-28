@@ -1,0 +1,13 @@
+# Game dump — 260MB, lives next to HANDOFF.md but stays out of git.
+# Copy "Power Stone 2 (USA).chd" here manually when recreating the tree.
+*.chd
+
+# Patched libretro harness — its own git repo (macOS patches committed there)
+sdlarch-rl/
+
+# Runtime churn (regenerated every run)
+__pycache__/
+linux_port/bridge_*/
+linux_port/powerstone_logs/
+linux_port/checkpoints_sp/
+.DS_Store

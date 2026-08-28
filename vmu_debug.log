@@ -1,0 +1,15 @@
+[inf] [VMEM] Info: nvmem is enabled
+[inf] [VMEM] BASE 0x1269b0000 RAM(16 MB) 0x1329b0000 VRAM64(8 MB) 0x12a9b0000 ARAM(2 MB) 0x1469b0000
+[inf] [BOOT] retro_load_game: ../Power Stone 2 (USA).chd
+[inf] File extension is: .chd
+[inf] [VMEM] Info: nvmem is enabled
+[inf] [VMEM] BASE 0x1269b0000 RAM(16 MB) 0x1329b0000 VRAM64(8 MB) 0x12a9b0000 ARAM(2 MB) 0x1469b0000
+[inf] [BOOT] Game ID is [T1211N]
+[inf] [BOOT] Did not load BIOS, using reios
+[inf] [BOOT] Game ID is [T1211N]
+[inf] [RENDERER] OpenGL version 4.1
+[inf] [RENDERER] Vendor 'Apple' Renderer 'Apple M2 Pro' Version '4.1 Metal - 90.5'
+[inf] [RENDERER] glBlitFramebuffer test successful
+[inf] [REIOS] -----------------
+[inf] [REIOS] REIOS: Booting up
+[inf] [REIOS] -----------------
