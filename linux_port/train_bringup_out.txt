@@ -1,0 +1,570 @@
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+
+Set variable override: flycast_hle_bios = enabled
+Set variable override: reicast_hle_bios = enabled
+Set variable override: flycast_device_port1_slot1 = VMU
+Set variable override: flycast_device_port2_slot1 = VMU
+Set variable override: flycast_threaded_rendering = disabled
+Set variable override: reicast_threaded_rendering = disabled
+[env] bridge alive (frame 8, line=v7 obs_dim=122 actions=10)
+/Users/blakewalsh/ps2rl/lib/python3.11/site-packages/stable_baselines3/common/vec_env/patch_gym.py:49: UserWarning: You provided an OpenAI Gym environment. We strongly recommend transitioning to Gymnasium environments. Stable-Baselines3 is automatically wrapping your environments in a compatibility layer, which could potentially cause issues.
+  warnings.warn(
+Set variable override: flycast_hle_bios = enabled
+Set variable override: reicast_hle_bios = enabled
+Set variable override: flycast_device_port1_slot1 = VMU
+Set variable override: flycast_device_port2_slot1 = VMU
+Set variable override: flycast_threaded_rendering = disabled
+Set variable override: reicast_threaded_rendering = disabled
+[env] bridge alive (frame 8, line=v7 obs_dim=122 actions=10)
+/Users/blakewalsh/ps2rl/lib/python3.11/site-packages/stable_baselines3/common/vec_env/patch_gym.py:49: UserWarning: You provided an OpenAI Gym environment. We strongly recommend transitioning to Gymnasium environments. Stable-Baselines3 is automatically wrapping your environments in a compatibility layer, which could potentially cause issues.
+  warnings.warn(
+warm-starting from /Users/blakewalsh/Documents/macbook_migration/linux_port/powerstone_v6_ppo.zip (Leg G weights)
+/Users/blakewalsh/ps2rl/lib/python3.11/site-packages/stable_baselines3/common/save_util.py:167: UserWarning: Could not deserialize object clip_range. Consider using `custom_objects` argument to replace this object.
+Exception: code() argument 13 must be str, not int
+  warnings.warn(
+/Users/blakewalsh/ps2rl/lib/python3.11/site-packages/stable_baselines3/common/save_util.py:167: UserWarning: Could not deserialize object lr_schedule. Consider using `custom_objects` argument to replace this object.
+Exception: code() argument 13 must be str, not int
+  warnings.warn(
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+Logging to ./powerstone_logs/PPO_0
+[pool] snapshot -> /Users/blakewalsh/Documents/macbook_migration/linux_port/opponent_pool/selfplay_27915461_steps.zip
+[ep] slot1 opps=1     win len= 392  dmg +2.00/-0.03  stones: picked=4 lost=0 opp=1(-0) forms=1/0  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=9(2) stonev=126 dmgF=1.98
+/Users/blakewalsh/ps2rl/lib/python3.11/site-packages/stable_baselines3/common/save_util.py:167: UserWarning: Could not deserialize object clip_range. Consider using `custom_objects` argument to replace this object.
+Exception: code() argument 13 must be str, not int
+  warnings.warn(
+/Users/blakewalsh/ps2rl/lib/python3.11/site-packages/stable_baselines3/common/save_util.py:167: UserWarning: Could not deserialize object lr_schedule. Consider using `custom_objects` argument to replace this object.
+Exception: code() argument 13 must be str, not int
+  warnings.warn(
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1     win len= 461  dmg +2.00/-0.01  stones: picked=2 lost=0 opp=0(-0) forms=1/0  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=8(1) stonev=8 dmgF=2.00
+/Users/blakewalsh/ps2rl/lib/python3.11/site-packages/stable_baselines3/common/save_util.py:167: UserWarning: Could not deserialize object clip_range. Consider using `custom_objects` argument to replace this object.
+Exception: code() argument 13 must be str, not int
+  warnings.warn(
+/Users/blakewalsh/ps2rl/lib/python3.11/site-packages/stable_baselines3/common/save_util.py:167: UserWarning: Could not deserialize object lr_schedule. Consider using `custom_objects` argument to replace this object.
+Exception: code() argument 13 must be str, not int
+  warnings.warn(
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+---------------------------------
+| rollout/           |          |
+|    ep_len_mean     | 613      |
+|    ep_rew_mean     | 26.9     |
+| time/              |          |
+|    fps             | 40       |
+|    iterations      | 1        |
+|    time_elapsed    | 25       |
+|    total_timesteps | 27916483 |
+---------------------------------
+[ep] slot1 opps=1     win len= 323  dmg +2.00/-0.21  stones: picked=5 lost=0 opp=2(-0) forms=2/1  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=9(0) stonev=155 dmgF=2.00
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1     win len= 450  dmg +2.00/+0.00  stones: picked=5 lost=0 opp=1(-0) forms=2/0  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=9(3) stonev=71 dmgF=1.68
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 607         |
+|    ep_rew_mean          | 27.1        |
+| time/                   |             |
+|    fps                  | 43          |
+|    iterations           | 2           |
+|    time_elapsed         | 46          |
+|    total_timesteps      | 27917507    |
+| train/                  |             |
+|    approx_kl            | 0.029492375 |
+|    clip_fraction        | 0.214       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -0.903      |
+|    explained_variance   | 0.297       |
+|    learning_rate        | 0.0003      |
+|    loss                 | 0.0204      |
+|    n_updates            | 45803       |
+|    policy_gradient_loss | -0.0469     |
+|    value_loss           | 0.405       |
+-----------------------------------------
+[ep] slot1 opps=1     win len= 466  dmg +2.00/-0.08  stones: picked=5 lost=0 opp=2(-0) forms=2/1  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=14(3) stonev=299 dmgF=2.00
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1     win len= 217  dmg +2.00/+0.00  stones: picked=5 lost=0 opp=1(-1) forms=2/0  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=6(1) stonev=130 dmgF=1.80
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+----------------------------------------
+| rollout/                |            |
+|    ep_len_mean          | 603        |
+|    ep_rew_mean          | 27.3       |
+| time/                   |            |
+|    fps                  | 44         |
+|    iterations           | 3          |
+|    time_elapsed         | 69         |
+|    total_timesteps      | 27918531   |
+| train/                  |            |
+|    approx_kl            | 0.02439326 |
+|    clip_fraction        | 0.145      |
+|    clip_range           | 0.2        |
+|    entropy_loss         | -0.859     |
+|    explained_variance   | 0.121      |
+|    learning_rate        | 0.0003     |
+|    loss                 | 0.108      |
+|    n_updates            | 45813      |
+|    policy_gradient_loss | -0.0348    |
+|    value_loss           | 0.759      |
+----------------------------------------
+[ep] slot1 opps=1     win len= 960  dmg +2.00/-0.28  stones: picked=6 lost=1 opp=3(-3) forms=2/0  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=14(3) stonev=149 dmgF=0.92
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+---------------------------------------
+| rollout/                |           |
+|    ep_len_mean          | 607       |
+|    ep_rew_mean          | 27.2      |
+| time/                   |           |
+|    fps                  | 45        |
+|    iterations           | 4         |
+|    time_elapsed         | 90        |
+|    total_timesteps      | 27919555  |
+| train/                  |           |
+|    approx_kl            | 0.0194956 |
+|    clip_fraction        | 0.135     |
+|    clip_range           | 0.2       |
+|    entropy_loss         | -0.875    |
+|    explained_variance   | 0.155     |
+|    learning_rate        | 0.0003    |
+|    loss                 | 0.0357    |
+|    n_updates            | 45823     |
+|    policy_gradient_loss | -0.0333   |
+|    value_loss           | 0.639     |
+---------------------------------------
+[ep] slot1 opps=1     win len= 322  dmg +2.00/-0.02  stones: picked=5 lost=0 opp=0(-1) forms=2/0  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=8(1) stonev=157 dmgF=1.00
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1    loss len= 897  dmg +0.96/-1.00  stones: picked=7 lost=8 opp=8(-3) forms=0/2  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=16(1) stonev=355 dmgF=0.00
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 610         |
+|    ep_rew_mean          | 26.8        |
+| time/                   |             |
+|    fps                  | 45          |
+|    iterations           | 5           |
+|    time_elapsed         | 112         |
+|    total_timesteps      | 27920579    |
+| train/                  |             |
+|    approx_kl            | 0.015481243 |
+|    clip_fraction        | 0.103       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -0.86       |
+|    explained_variance   | 0.963       |
+|    learning_rate        | 0.0003      |
+|    loss                 | 0.171       |
+|    n_updates            | 45833       |
+|    policy_gradient_loss | -0.0356     |
+|    value_loss           | 0.988       |
+-----------------------------------------
+[ep] slot1 opps=1     win len= 713  dmg +2.00/-0.53  stones: picked=6 lost=1 opp=6(-0) forms=2/2  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=16(2) stonev=315 dmgF=2.00
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 611         |
+|    ep_rew_mean          | 27          |
+| time/                   |             |
+|    fps                  | 46          |
+|    iterations           | 6           |
+|    time_elapsed         | 131         |
+|    total_timesteps      | 27921603    |
+| train/                  |             |
+|    approx_kl            | 0.018881984 |
+|    clip_fraction        | 0.129       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -0.86       |
+|    explained_variance   | 0.986       |
+|    learning_rate        | 0.0003      |
+|    loss                 | 0.0857      |
+|    n_updates            | 45843       |
+|    policy_gradient_loss | -0.0325     |
+|    value_loss           | 0.617       |
+-----------------------------------------
+[ep] slot1 opps=1     win len= 984  dmg +2.00/-0.11  stones: picked=6 lost=1 opp=2(-1) forms=2/0  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=15(1) stonev=266 dmgF=1.44
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1     win len= 506  dmg +2.00/-0.42  stones: picked=5 lost=0 opp=5(-2) forms=2/1  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=17(2) stonev=113 dmgF=1.34
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1     win len= 198  dmg +2.00/+0.00  stones: picked=2 lost=0 opp=0(-0) forms=1/0  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=6(1) stonev=155 dmgF=2.00
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 609         |
+|    ep_rew_mean          | 27.3        |
+| time/                   |             |
+|    fps                  | 45          |
+|    iterations           | 7           |
+|    time_elapsed         | 157         |
+|    total_timesteps      | 27922627    |
+| train/                  |             |
+|    approx_kl            | 0.022713674 |
+|    clip_fraction        | 0.136       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -0.829      |
+|    explained_variance   | 0.345       |
+|    learning_rate        | 0.0003      |
+|    loss                 | 0.03        |
+|    n_updates            | 45853       |
+|    policy_gradient_loss | -0.0335     |
+|    value_loss           | 0.471       |
+-----------------------------------------
+Early stopping at step 5 due to reaching max kl: 0.06
+[ep] slot1 opps=1     win len= 492  dmg +2.00/-0.07  stones: picked=2 lost=0 opp=1(-1) forms=1/0  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=6(1) stonev=90 dmgF=1.80
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+----------------------------------------
+| rollout/                |            |
+|    ep_len_mean          | 608        |
+|    ep_rew_mean          | 27.4       |
+| time/                   |            |
+|    fps                  | 46         |
+|    iterations           | 8          |
+|    time_elapsed         | 177        |
+|    total_timesteps      | 27923651   |
+| train/                  |            |
+|    approx_kl            | 0.03169933 |
+|    clip_fraction        | 0.124      |
+|    clip_range           | 0.2        |
+|    entropy_loss         | -0.811     |
+|    explained_variance   | 0.793      |
+|    learning_rate        | 0.0003     |
+|    loss                 | 0.0305     |
+|    n_updates            | 45859      |
+|    policy_gradient_loss | -0.029     |
+|    value_loss           | 0.375      |
+----------------------------------------
+[ep] slot1 opps=1    loss len= 651  dmg +1.88/-1.00  stones: picked=5 lost=3 opp=8(-1) forms=1/2  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=10(1) stonev=400 dmgF=1.41
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1     win len= 235  dmg +2.00/+0.00  stones: picked=5 lost=0 opp=0(-0) forms=2/0  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=9(3) stonev=87 dmgF=2.00
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1     win len= 346  dmg +2.00/-0.06  stones: picked=5 lost=0 opp=0(-1) forms=2/0  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=5(0) stonev=57 dmgF=0.88
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 603         |
+|    ep_rew_mean          | 27.4        |
+| time/                   |             |
+|    fps                  | 45          |
+|    iterations           | 9           |
+|    time_elapsed         | 202         |
+|    total_timesteps      | 27924675    |
+| train/                  |             |
+|    approx_kl            | 0.009424962 |
+|    clip_fraction        | 0.078       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -0.778      |
+|    explained_variance   | 0.799       |
+|    learning_rate        | 0.0003      |
+|    loss                 | 0.532       |
+|    n_updates            | 45869       |
+|    policy_gradient_loss | -0.0247     |
+|    value_loss           | 2.24        |
+-----------------------------------------
+[ep] slot1 opps=1     win len= 570  dmg +2.00/+0.00  stones: picked=2 lost=0 opp=2(-1) forms=1/0  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=13(1) stonev=131 dmgF=1.78
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1     win len= 358  dmg +2.00/-0.13  stones: picked=5 lost=0 opp=2(-0) forms=2/1  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=9(4) stonev=138 dmgF=1.90
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 599         |
+|    ep_rew_mean          | 27.4        |
+| time/                   |             |
+|    fps                  | 45          |
+|    iterations           | 10          |
+|    time_elapsed         | 225         |
+|    total_timesteps      | 27925699    |
+| train/                  |             |
+|    approx_kl            | 0.010391963 |
+|    clip_fraction        | 0.0854      |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -0.858      |
+|    explained_variance   | 0.927       |
+|    learning_rate        | 0.0003      |
+|    loss                 | 0.126       |
+|    n_updates            | 45879       |
+|    policy_gradient_loss | -0.0243     |
+|    value_loss           | 0.79        |
+-----------------------------------------
+[ep] slot1 opps=1     win len= 527  dmg +2.00/-0.34  stones: picked=5 lost=0 opp=5(-3) forms=2/2  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=21(3) stonev=273 dmgF=2.00
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1     win len= 493  dmg +2.00/-0.17  stones: picked=3 lost=1 opp=1(-1) forms=1/0  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=11(3) stonev=81 dmgF=1.77
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+----------------------------------------
+| rollout/                |            |
+|    ep_len_mean          | 598        |
+|    ep_rew_mean          | 27.6       |
+| time/                   |            |
+|    fps                  | 45         |
+|    iterations           | 11         |
+|    time_elapsed         | 247        |
+|    total_timesteps      | 27926723   |
+| train/                  |            |
+|    approx_kl            | 0.02637331 |
+|    clip_fraction        | 0.151      |
+|    clip_range           | 0.2        |
+|    entropy_loss         | -0.867     |
+|    explained_variance   | 0.705      |
+|    learning_rate        | 0.0003     |
+|    loss                 | 0.0412     |
+|    n_updates            | 45889      |
+|    policy_gradient_loss | -0.0381    |
+|    value_loss           | 0.426      |
+----------------------------------------
+[ep] slot1 opps=1     win len= 456  dmg +2.00/-0.41  stones: picked=4 lost=0 opp=5(-1) forms=1/1  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=13(1) stonev=153 dmgF=1.59
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1     win len= 154  dmg +2.00/+0.00  stones: picked=2 lost=0 opp=0(-0) forms=1/0  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=5(2) stonev=15 dmgF=2.00
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1     win len= 162  dmg +2.00/+0.00  stones: picked=2 lost=0 opp=1(-1) forms=1/0  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=4(3) stonev=110 dmgF=1.84
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1     win len= 714  dmg +2.00/-0.89  stones: picked=4 lost=0 opp=7(-0) forms=1/2  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=11(3) stonev=254 dmgF=1.86
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 580         |
+|    ep_rew_mean          | 27.9        |
+| time/                   |             |
+|    fps                  | 44          |
+|    iterations           | 12          |
+|    time_elapsed         | 274         |
+|    total_timesteps      | 27927747    |
+| train/                  |             |
+|    approx_kl            | 0.012230644 |
+|    clip_fraction        | 0.0815      |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -0.883      |
+|    explained_variance   | 0.759       |
+|    learning_rate        | 0.0003      |
+|    loss                 | 0.284       |
+|    n_updates            | 45899       |
+|    policy_gradient_loss | -0.0311     |
+|    value_loss           | 0.985       |
+-----------------------------------------
+[ep] slot1 opps=1     win len= 261  dmg +2.00/+0.00  stones: picked=4 lost=0 opp=1(-1) forms=2/0  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=6(1) stonev=127 dmgF=1.79
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1    loss len= 510  dmg +0.36/-1.00  stones: picked=2 lost=0 opp=3(-1) forms=1/1  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=6(0) stonev=81 dmgF=0.00
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 576         |
+|    ep_rew_mean          | 27.4        |
+| time/                   |             |
+|    fps                  | 44          |
+|    iterations           | 13          |
+|    time_elapsed         | 297         |
+|    total_timesteps      | 27928771    |
+| train/                  |             |
+|    approx_kl            | 0.009147531 |
+|    clip_fraction        | 0.0514      |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -0.89       |
+|    explained_variance   | 0.93        |
+|    learning_rate        | 0.0003      |
+|    loss                 | 1.91        |
+|    n_updates            | 45909       |
+|    policy_gradient_loss | -0.0187     |
+|    value_loss           | 4.75        |
+-----------------------------------------
+[ep] slot1 opps=1     win len= 358  dmg +2.00/-0.36  stones: picked=5 lost=0 opp=3(-0) forms=2/1  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=11(0) stonev=235 dmgF=2.00
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1     win len= 171  dmg +2.00/+0.00  stones: picked=2 lost=0 opp=1(-1) forms=1/0  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=3(2) stonev=31 dmgF=1.81
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1     win len= 542  dmg +2.00/-0.12  stones: picked=7 lost=2 opp=1(-1) forms=2/0  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=15(4) stonev=281 dmgF=1.67
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 566         |
+|    ep_rew_mean          | 27.5        |
+| time/                   |             |
+|    fps                  | 44          |
+|    iterations           | 14          |
+|    time_elapsed         | 322         |
+|    total_timesteps      | 27929795    |
+| train/                  |             |
+|    approx_kl            | 0.012874581 |
+|    clip_fraction        | 0.073       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -0.839      |
+|    explained_variance   | 0.931       |
+|    learning_rate        | 0.0003      |
+|    loss                 | 0.508       |
+|    n_updates            | 45919       |
+|    policy_gradient_loss | -0.0234     |
+|    value_loss           | 3.24        |
+-----------------------------------------
+[ep] slot1 opps=1     win len= 471  dmg +2.00/-0.11  stones: picked=4 lost=2 opp=1(-2) forms=1/0  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=15(2) stonev=146 dmgF=1.59
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 566         |
+|    ep_rew_mean          | 27.4        |
+| time/                   |             |
+|    fps                  | 44          |
+|    iterations           | 15          |
+|    time_elapsed         | 341         |
+|    total_timesteps      | 27930819    |
+| train/                  |             |
+|    approx_kl            | 0.021478144 |
+|    clip_fraction        | 0.158       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -0.826      |
+|    explained_variance   | 0.751       |
+|    learning_rate        | 0.0003      |
+|    loss                 | 0.0892      |
+|    n_updates            | 45929       |
+|    policy_gradient_loss | -0.0449     |
+|    value_loss           | 0.485       |
+-----------------------------------------
+Early stopping at step 9 due to reaching max kl: 0.05
+[ep] slot1 opps=1     win len= 447  dmg +2.11/-0.14  stones: picked=5 lost=0 opp=2(-2) forms=2/0  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=8(3) stonev=162 dmgF=1.62
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1     win len= 820  dmg +2.00/-0.44  stones: picked=8 lost=3 opp=7(-1) forms=2/2  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=20(4) stonev=283 dmgF=1.73
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1     win len= 223  dmg +2.00/+0.00  stones: picked=5 lost=0 opp=0(-0) forms=2/0  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=7(2) stonev=80 dmgF=2.00
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+----------------------------------------
+| rollout/                |            |
+|    ep_len_mean          | 565        |
+|    ep_rew_mean          | 27.6       |
+| time/                   |            |
+|    fps                  | 44         |
+|    iterations           | 16         |
+|    time_elapsed         | 366        |
+|    total_timesteps      | 27931843   |
+| train/                  |            |
+|    approx_kl            | 0.03067056 |
+|    clip_fraction        | 0.132      |
+|    clip_range           | 0.2        |
+|    entropy_loss         | -0.869     |
+|    explained_variance   | 0.481      |
+|    learning_rate        | 0.0003     |
+|    loss                 | 0.0885     |
+|    n_updates            | 45939      |
+|    policy_gradient_loss | -0.0397    |
+|    value_loss           | 0.559      |
+----------------------------------------
+[ep] slot1 opps=1     win len= 464  dmg +2.00/+0.00  stones: picked=2 lost=0 opp=0(-1) forms=1/0  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=7(2) stonev=29 dmgF=1.84
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1     win len= 705  dmg +2.00/-0.80  stones: picked=8 lost=0 opp=7(-1) forms=3/2  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=21(1) stonev=300 dmgF=1.48
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 567         |
+|    ep_rew_mean          | 27.7        |
+| time/                   |             |
+|    fps                  | 44          |
+|    iterations           | 17          |
+|    time_elapsed         | 388         |
+|    total_timesteps      | 27932867    |
+| train/                  |             |
+|    approx_kl            | 0.016996484 |
+|    clip_fraction        | 0.121       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -0.808      |
+|    explained_variance   | 0.569       |
+|    learning_rate        | 0.0003      |
+|    loss                 | 0.134       |
+|    n_updates            | 45949       |
+|    policy_gradient_loss | -0.0312     |
+|    value_loss           | 0.632       |
+-----------------------------------------
+[ep] slot1 opps=1     win len= 260  dmg +2.00/-0.11  stones: picked=2 lost=0 opp=1(-2) forms=1/0  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=5(2) stonev=138 dmgF=1.55
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1     win len= 235  dmg +2.00/+0.00  stones: picked=5 lost=0 opp=0(-1) forms=2/0  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=7(3) stonev=135 dmgF=1.66
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1     win len= 561  dmg +2.00/-0.44  stones: picked=4 lost=2 opp=6(-3) forms=1/1  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=11(2) stonev=154 dmgF=1.46
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 560         |
+|    ep_rew_mean          | 28          |
+| time/                   |             |
+|    fps                  | 44          |
+|    iterations           | 18          |
+|    time_elapsed         | 414         |
+|    total_timesteps      | 27933891    |
+| train/                  |             |
+|    approx_kl            | 0.017967995 |
+|    clip_fraction        | 0.0988      |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -0.828      |
+|    explained_variance   | 0.785       |
+|    learning_rate        | 0.0003      |
+|    loss                 | 0.132       |
+|    n_updates            | 45959       |
+|    policy_gradient_loss | -0.0314     |
+|    value_loss           | 0.838       |
+-----------------------------------------
+[ep] slot1 opps=1     win len= 333  dmg +2.23/+0.00  stones: picked=5 lost=0 opp=2(-1) forms=2/0  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=11(1) stonev=188 dmgF=1.78
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1     win len= 339  dmg +2.00/-0.04  stones: picked=5 lost=0 opp=2(-2) forms=2/0  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=10(4) stonev=186 dmgF=1.62
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1     win len= 359  dmg +2.00/-0.51  stones: picked=3 lost=1 opp=2(-0) forms=1/1  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=10(0) stonev=79 dmgF=1.86
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 550         |
+|    ep_rew_mean          | 28.4        |
+| time/                   |             |
+|    fps                  | 44          |
+|    iterations           | 19          |
+|    time_elapsed         | 438         |
+|    total_timesteps      | 27934915    |
+| train/                  |             |
+|    approx_kl            | 0.013083301 |
+|    clip_fraction        | 0.0954      |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -0.832      |
+|    explained_variance   | 0.777       |
+|    learning_rate        | 0.0003      |
+|    loss                 | 0.169       |
+|    n_updates            | 45969       |
+|    policy_gradient_loss | -0.033      |
+|    value_loss           | 0.999       |
+-----------------------------------------
+[ep] slot1 opps=1     win len= 186  dmg +2.00/-0.03  stones: picked=2 lost=0 opp=0(-1) forms=1/0  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=5(1) stonev=97 dmgF=1.62

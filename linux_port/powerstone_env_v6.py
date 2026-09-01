@@ -85,8 +85,14 @@ class PowerStoneEnvV6(gym.Env):
     # bot (old "lv4 8%" rows were LEVEL 5). Per-slot stats were always
     # correct. Mel's shop gets stage dim 3 (previously unused; dim 0 =
     # retired desert-A remains meaningful to old checkpoints only).
+    # Aug 29 (Mac): slot 3 REDEFINED -- desert TRUE-FFA @ COM lv8 (the
+    # BIL leg: hard battles only). Rig-era slot3 (elevator lv3) never
+    # migrated; its old CSV rows keep their per-slot correctness. Slot
+    # number kept < 4 ON PURPOSE: the obs gate below only writes stage
+    # one-hot + DIFF_DIM for slots 0-3, and lv8 must be VISIBLE
+    # (DIFF_DIM = 8/8 = 1.0).
     SLOT_META = {0: (3, 4), 1: (1, 2), 2: (2, 3),
-                 3: (1, 3), 4: (2, 4), 5: (1, 5), 6: (1, 5),
+                 3: (2, 8), 4: (2, 4), 5: (1, 5), 6: (1, 5),
                  # Leg I (Aug 19): 7/8 = Falcon-ditto SELF-PLAY states
                  # (opponent is a policy, not a COM -- level 4 declared on
                  # DIFF_DIM as a neutral mid value); 9 = 1v1 vs lv7 Pride,
@@ -181,7 +187,13 @@ class PowerStoneEnvV6(gym.Env):
     # you SHOULD beat still hurts full price. WIN_BONUS untouched (a
     # win is the single best thing everywhere). Revisit the lv4 scale
     # upward once lv4 win rate approaches the teacher's ~20%.
-    LOSS_SCALE_BY_LEVEL = {2: 1.0, 3: 0.7, 4: 0.4}
+    # Aug 29 (lv8 leg): 8 -> 0.2 (effective terminal loss -2). The
+    # corner-coward math: gamma .999 discounts a certain end-of-episode
+    # loss ~70% over 1200 steps, so at -10 stalling 'saves' ~7 vs the
+    # -2.4 TIME_PENALTY bleed -- cowering PAYS. Below ~-3.4 it doesn't;
+    # -2 keeps dying worse than any survivable mistake without making
+    # near-certain lv8 deaths poison every good habit (Sec 25.4 logic).
+    LOSS_SCALE_BY_LEVEL = {2: 1.0, 3: 0.7, 4: 0.4, 8: 0.2}
     TIME_PENALTY = 0.002  # anti-stall: corner-camping a 1200-step episode now bleeds -2.4
     APPROACH_W = 1.0
     STONE_APPROACH_W = 1.0   # Aug 15 Leg C: 1.25 -> 1.0, PARITY with
@@ -1394,7 +1406,12 @@ class PowerStoneEnvV6(gym.Env):
         # [-GEM_EP_CAP, +GEM_EP_CAP] — Aug 2's "nothing outbids a win"
         # rule, now structural (slot-0 phantom storms hit +67/ep without it)
         _g0 = self._ep["gem"]
-        gem = max(-self.GEM_EP_CAP_NEG - _g0, min(gem, self.GEM_EP_CAP - _g0))
+        # Aug 29: at lv8 the terminal loss is 2.0 (scale 0.2) -- shrink the
+        # negative gem floor below it so 'nothing outweighs dying' holds.
+        _neg_cap = self.GEM_EP_CAP_NEG
+        if self.SLOT_META.get(getattr(self, "_episode_slot", 0), (0, 2))[1] >= 8:
+            _neg_cap = 1.5
+        gem = max(-_neg_cap - _g0, min(gem, self.GEM_EP_CAP - _g0))
 
         stone_shape = 0.0
         if self._form_timer > 0:

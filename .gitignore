@@ -11,3 +11,18 @@ linux_port/bridge_*/
 linux_port/powerstone_logs/
 linux_port/checkpoints_sp/
 .DS_Store
+
+# --- Aug 31 additions (leg-program era) ---
+# Checkpoint churn from all legs — finals are committed as named zips instead
+linux_port/checkpoints_*/
+# Menu-navigation screenshots (regenerable via menu_drive.py)
+linux_port/menu_shots/
+# Claude command-bridge runtime (cmd/out churn + work-in-progress savestates)
+linux_port/claude_bridge/
+# Opponent pools — curated COPIES of zips tracked elsewhere; recreate via
+# the pool list in HANDOFF (pool_league = opponent_pool + program finals + leg1)
+linux_port/pool_*/
+# Scratch savestates from menu-driving sessions
+linux_port/menu_*.state
+# Wrapper/runtime logs
+linux_port/wrapper_*.log

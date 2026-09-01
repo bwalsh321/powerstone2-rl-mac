@@ -1,0 +1,53 @@
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+[bc] demos/demo_002.npz: 9943 pairs x1
+[bc] demos_lv8/demo_005.npz: 11704 pairs x5
+[bc] demos_v4corpus/demo_003.npz: 247828 pairs x1
+[bc] total 311611 pairs (train 284665 / val 26946)
+[bc] action mix: up=47575  down=46519  left=53838  right=53076  jump=14693  grab=1250  attack=55147  throw=70  pf1=57  pf2=12440
+[bc] FRESH NET, net_arch=[256, 256] -> /Users/blakewalsh/Documents/macbook_migration/linux_port/powerstone_v6_bclv8_256.zip
+/Users/blakewalsh/ps2rl/lib/python3.11/site-packages/stable_baselines3/common/vec_env/patch_gym.py:49: UserWarning: You provided an OpenAI Gym environment. We strongly recommend transitioning to Gymnasium environments. Stable-Baselines3 is automatically wrapping your environments in a compatibility layer, which could potentially cause issues.
+  warnings.warn(
+[bc] epoch  1  val_loss 0.7664  val_acc 77.0%  <- best
+[bc] epoch  2  val_loss 0.7253  val_acc 77.3%  <- best
+[bc] epoch  3  val_loss 0.6958  val_acc 77.8%  <- best
+[bc] epoch  4  val_loss 0.6720  val_acc 78.2%  <- best
+[bc] epoch  5  val_loss 0.6647  val_acc 78.2%  <- best
+[bc] epoch  6  val_loss 0.6392  val_acc 79.1%  <- best
+[bc] epoch  7  val_loss 0.6351  val_acc 79.3%  <- best
+[bc] epoch  8  val_loss 0.6165  val_acc 79.8%  <- best
+[bc] epoch  9  val_loss 0.6019  val_acc 80.2%  <- best
+[bc] epoch 10  val_loss 0.5942  val_acc 80.3%  <- best
+[bc] epoch 11  val_loss 0.5931  val_acc 80.5%  <- best
+[bc] epoch 12  val_loss 0.5832  val_acc 80.5%  <- best
+[bc] epoch 13  val_loss 0.5813  val_acc 80.5%  <- best
+[bc] epoch 14  val_loss 0.5922  val_acc 80.3%
+[bc] epoch 15  val_loss 0.5731  val_acc 80.7%  <- best
+[bc] epoch 16  val_loss 0.5734  val_acc 80.8%
+[bc] epoch 17  val_loss 0.5705  val_acc 80.7%  <- best
+[bc] epoch 18  val_loss 0.5768  val_acc 80.7%
+[bc] epoch 19  val_loss 0.5731  val_acc 80.7%
+[bc] epoch 20  val_loss 0.5739  val_acc 80.6%
+[bc] epoch 21  val_loss 0.5627  val_acc 81.1%  <- best
+[bc] epoch 22  val_loss 0.5723  val_acc 80.7%
+[bc] epoch 23  val_loss 0.5681  val_acc 81.1%
+[bc] epoch 24  val_loss 0.5683  val_acc 81.0%
+[bc] epoch 25  val_loss 0.5719  val_acc 80.8%
+[bc] epoch 26  val_loss 0.5792  val_acc 80.5%
+[bc] epoch 27  val_loss 0.5773  val_acc 80.6%
+[bc] early stop (no val improvement in 6 epochs)
+[bc] per-action val accuracy:
+            up: 80.3%  (n=4337)
+          down: 78.8%  (n=4023)
+          left: 84.5%  (n=6915)
+         right: 75.5%  (n=4036)
+          jump: 49.9%  (n=1069)
+          grab: 27.5%  (n=51)
+        attack: 89.0%  (n=5368)
+         throw: 0.0%  (n=3)
+           pf2: 86.7%  (n=1144)
+
+[bc] saved /Users/blakewalsh/Documents/macbook_migration/linux_port/powerstone_v6_bclv8_256.zip
+[bc] 256 lineage: launch the PPO leg with  start_leg_256

@@ -1,5 +1,302 @@
 # HANDOFF — Power Stone 2 RL, M2 MacBook port session (Aug 22–28, 2026)
 
+## LEG-3 PROGRAM CLOSE-OUT (Aug 31 ~11:00Z) — FINAL FOUR-WAY TABLE
+
+All legs 2M steps from fresh seeds; batteries n=50 deterministic
+(slot3 lv8 FFA / slot2 lv3 FFA), A/B n=12 stochastic.
+
+| leg | seed | diet | train trajectory | slot3 | slot2 | A/B vs seed | vs leg1 | cross-leg |
+|-----|------|------|-----------------|-------|-------|------------|---------|-----------|
+| 3A | bc256 | lv8 only | 0 -> 0.3%% | 0.0 / 1.20 / 0.04 | 14.0 / 5.02 / 0.74 | 10-2 | 0-12 | lost 1-11 to 3B |
+| 3B | bc256 | self-play (shallow pool) | 88 -> 96%% vs pool | 0.0 / 0.88 / 0.00 | **40.0 / 6.26 / 1.28** | **12-0** | **4-8** | beat 3A 11-1, 3D 8-4, 3C 8-4 |
+| 3C | bc256 | mix 4 lv8 + 2 self-play (DEEP pool = 3B lineage) | COM flat 0.1%%; SP 14.7->54.3%% | 0.0 / 1.16 / 0.02 | 14.0 / 3.36 / 0.42 | 11-1 | 2-10 | lost 4-8 to 3B |
+| 3D | bclv8_256 (Blake's 23-1 corpus) | lv8 only | 0 -> 0.34%% | 0.0 / 1.28 / 0.08 | 28.0 / 3.86 / 0.62 | 7-5 | 1-11 | lost 4-8 to 3B |
+| refs | leg1 (31.9M selfplay) | — | — | 15.0 / 4.00 / 0.95 | 98.0 / 9.76 / 3.00 | — | — | — |
+| | leg2 (warm+lv8) | — | flat 10%% | 4.0 / 4.72 / 0.76 | 88.0 / 8.92 / 2.54 | — | 3-9 | — |
+
+**WINNER: 3B (self-play), by every transferable measure** — best slot2
+(40.0, ~3x any other fresh leg), only fresh leg competitive with leg1
+(4-8), crushed its own seed 12-0, and beat every sibling head-to-head.
+
+**WHY (what the data says):**
+1. **Gradient continuity is the engine.** The two legs whose win-signal
+   never dried up (3B always-winnable pool; 3C's self-play stream) are
+   the only two that LEARNED to win anything. The three lv8-only diets
+   (leg2 warm, 3A, 3D) produced flat ~0-10%% trajectories: exposure to
+   losses is not information about winning.
+2. **The lv8 wall stands 4-0.** No fresh leg scored a single slot3 win
+   at n=50. Only leg1's 31.9M-step lineage wins there (15%%).
+3. **BC seeds don't transfer wins (3D).** Blake's validated 23-1 corpus
+   at 80.6%% val acc produced 8 training wins in 4,653 eps and a 7-5
+   A/B vs its own seed (RL had nothing to amplify). Textbook covariate
+   shift: no recovery demonstrations off Blake's manifold. This is the
+   program's cleanest negative and the DAgger mandate.
+4. **3C's split verdict:** its self-play stream vs the DEEP pool (3B's
+   lineage, via the shared pool dir — accidental league training) was
+   the program's best climb (14.7->54.3%%), but with only 2/6 workers
+   on self-play (465 eps vs 3B's 3,126) and 2/3 of its gradient spent
+   on dead lv8 losses, it transferred worst (slot2 14.0) and lost the
+   head-to-head 4-8. Opposition quality was right; the gradient BUDGET
+   was wrong.
+
+**RECOMMENDED NEXT MOVES (in order):**
+1. **Deep-pool full self-play leg** — 3B's diet with 3C's opposition:
+   all 6 workers self-play, pool seeded with ALL program zips + leg1 +
+   old opponent_pool (the real league). Warm start 3B. This is the
+   synthesis the data asks for.
+2. **DAgger/recorder libretro port** — the only route by which Blake's
+   play can enter effectively (relabel the POLICY's states, not
+   Blake's). Prereq for any future demo work; rig recorder is the
+   reference.
+3. Consider extending 3B +2M as the cheap control for (1).
+4. Launcher hardening: retry-on-EOFError wrapper (the Metal boot race
+   killed two chained launches).
+Housekeeping: nothing promoted — powerstone_v6_ppo.zip is still
+selfplay_leg1, the undisputed overall champion. Only the claudebridge
+tmux remains; compute idle.
+
+## THE LEG-3 PROGRAM (Blake's spec, Aug 29 evening) — three legs, one seed, pick the winner
+
+All three legs start from the SAME fresh seed — powerstone_v6_bc256.zip
+([256,256], BC on demos:3 + demos_v4corpus, 83.1%% val on the rig) — so
+the training DIET is the only variable. **2M steps each (~7h — Blake's
+call, Aug 29: leg2 was flat after 1M and the rig's P/Q/R comparison
+legs were 1M; slope is readable at 2M and the winner gets EXTENDED by
+resuming its final zip on the same diet),** same battery after each (slot3 50-ep, slot2 50-ep, A/B vs the
+bc256 seed and vs selfplay_leg1). Compare, figure out which is best AND
+WHY. Blake records new demos of his own play sometime during the
+program (needs the recorder's libretro port first — record_demo.py is
+lua-era).
+
+- **Leg 3A — lv8 only** (launches automatically after the Aug 29
+  checkpoint sweep): `PS2_WARM=./powerstone_v6_bc256.zip PS2_FRESH=1
+  train_com.py`, STATE_SLOTS=[3]. Log train_leg3a_out.txt,
+  checkpoints_lv8_fresh/.
+- **Leg 3B — 1v1 self-play vs its prior self**: `train_selfplay.py`
+  with PS2_WARM=bc256, PS2_FRESH=1, PS2_POOL=./pool_bc256 (seeded with
+  ONLY the bc256 zip; snapshots of itself accumulate). slot1.
+**LEG 3A COMPLETE (Aug 30 04:44Z, 2M steps, powerstone_v6_bc256_lv8leg
+.zip). Training stream: DEMOLISHED — q1-q4 win 0.0/0.0/0.3/0.2%%, picks
+0.58->1.11 (doubled, but tiny), forms ~0.05, len 389->441, zero
+timeouts. The fresh seed vs lv8 is the sparse-signal regime: with ~0%%
+wins there is no win-gradient to climb, only dense shaping moved.
+Echoes rig P/Q/R (fresh lineage weak in absolute terms). **BATTERY (Aug 30 07:00Z, n=50 det + n=12 A/B): slot3 0.0%%
+(0W/50L)/1.20/0.04 — flatlined vs lv8; slot2 14.0%%/5.02/0.74 (leg1:
+98.0); A/B vs its OWN SEED 10W/2L — the RL leg genuinely improved the
+policy (the raw bc256 seed loses 2-10 to its trained child); A/B vs
+leg1 0W/12L. READING: real learning, wrong altitude — lv8-only cannot
+bootstrap wins from a fresh seed (0%% train wins = no win-gradient);
+the improvement all came from dense shaping. 3B (self-play) is the
+regime where the fresh seed can actually WIN half its episodes by
+construction — the interesting comparison.**
+The lv8-BC seed bake ALSO done: powerstone_v6_bclv8_256.zip (val curve
+in bake_lv8_out.txt) — leg 3D's seat is ready.**
+
+- **Leg 3D — fresh lv8-BC seed on the lv8 diet (ADDED Aug 30, PRE-APPROVED
+  by Blake: launch after 3C's battery, no further ask needed).** Blake
+  recorded a NEW human corpus on the rig overnight: demos_lv8/demo_005.npz,
+  11,704 pairs, 24 eps, **23-1 vs THREE lv8 COMs** across three re-stamped
+  rig lv8 states (see README_MIGRATION3.md in ~/Downloads/macbook_migration3
+  for provenance + the rig-side SLOT_META note — do NOT copy the rig env
+  over the Mac's). Old pre-lv8 sittings quarantined rig-side. Seed bake
+  RUNNING (tmux ps2bake, nice'd, log bake_lv8_out.txt):
+  `bc_pretrain_lv8.py demos:1,demos_lv8:5,demos_v4corpus --arch 256x256`
+  -> **powerstone_v6_bclv8_256.zip** (distinct name — NEVER overwrite
+  powerstone_v6_bc256.zip mid-program, legs A/B/C warm-start from it).
+  Ratio rationale (Blake's call): the old 9,943 human pairs CANNOT be
+  validated as lv8 play (recorded vs the lv2-3 ladder) -> demoted to 1x
+  texture; the validated lv8 slayer rides at 5x (~19%% of volume); more
+  Blake sittings stack into demos_lv8/. Leg 3D = launch_leg3a.sh pattern
+  with PS2_WARM=./powerstone_v6_bclv8_256.zip PS2_FRESH=1, log
+  train_leg3d_out.txt, 2M steps (launch_leg3d.sh, WRITTEN). **ORDER
+  SWAP (Blake, Aug 30 morning): 3D runs BEFORE 3C — it's the
+  breakthrough candidate. Sequence: 3B battery -> 3D -> 3D battery ->
+  3C -> final four-way table. THE SIGNAL TO WATCH on 3D's stream:
+  nonzero training wins in q1 where 3A had 0.0%% — that's the
+  prior->gradient link working.** **3D vs 3A isolates exactly what the
+  new human data is worth** — same diet, same arch, only the seed differs.
+**LEG 3B COMPLETE (Aug 30 ~13:40Z, 2M steps, powerstone_v6_bc256_spleg
+.zip). Training curve vs its own pool: q1-q4 win 88.0/92.6/93.9/95.8%%,
+picks 3.81->5.68 (q4 5.26), forms 1.39->2.13, len ~660 (q4 543 — wins
+coming faster). CAVEAT: the pool started as ONLY the bc256 seed, so
+88%% in q1 means it outgrew its infant self almost immediately; the
+pool never supplied real pressure. Forms >2/ep is the standout —
+self-play taught the transform game (3A managed 0.05). Battery running
+(tmux ps2battery3b) -> chains LEG 3D launch (order swap, Blake's
+call). Results appended when in.**
+
+**3B BATTERY (Aug 30 16:15Z): slot3 0.0%%/0.88/0.00 (no lv8 transfer);
+slot2 40.0%%/6.26/1.28 (vs 3A's 14.0 — self-play built REAL fighting
+skill); A/B: 12-0 vs its seed, 11-1 vs 3A, 4-8 vs leg1 — a 2M-step
+fresh line taking 1/3 of games off the 31.9M champion. 3B IS THE
+PROGRAM LEADER.**
+
+**3D FIRST SIGNAL (Aug 30 16:15Z): 0 WINS IN 856 EPISODES** (picks
+0.97, forms 0.04 — 3A's profile). Seed verified correct
+(bclv8_256, bake val_acc 80.6%%; weak spots: jump 49.9%%, grab 27.5%%,
+throw 0%%). **The lv8-BC seed did NOT transfer Blake's wins — the
+prior->gradient hypothesis is DENTED at the entry link.** Leading
+explanation (textbook + matches rig Sec-22 history): BC covariate
+shift — the clone leaves Blake's state manifold within seconds and has
+zero recovery demonstrations; per-frame mimicry (80%%) is not
+closed-loop skill. This STRENGTHENS the rig's standing DAgger
+recommendation (relabel the CURRENT policy's states) and 3B's
+self-play result: gradient continuity beats demonstration priors on
+this problem so far. 3D runs to completion anyway (its battery may
+still show slot2 gains); 3C (mix) after.**
+
+**3D COMPLETE (Aug 30 23:30Z, powerstone_v6_bclv8_256_lv8leg.zip):
+8 wins in 4,653 episodes. q1-q4: 0.00/0.26/0.09/0.34%%, picks ~1.17,
+forms ~0.06. NO late emergence — the lv8-BC seed never bootstrapped;
+the first-signal verdict stands at full-leg scale. **3D BATTERY (Aug 31 00:55Z):
+slot3 0.0%%/1.28/0.08; slot2 28.0%%/3.86/0.62; A/B vs its seed only
+7W/5L (3A went 10-2 over ITS seed — a never-winning policy generates
+no lessons for RL to amplify); vs leg1 1-11; vs 3B 4-8. The chained 3C
+launch died at boot (EOFError, the Metal race — 2nd chain casualty);
+caught by Blake ~01:00Z, relaunched clean on retry: 6/6 bridges, BOTH
+stream types verified (slot3 COM eps + slot1 self-play eps with [opp]
+pool lines). TODO next session: retry-on-EOFError wrapper in the
+launcher scripts. Final four-way close-out lands with 3C's battery
+(~09:00Z Aug 31).**
+
+- **Leg 3C — the mix**: `train_mixed.py` NEW — 4 workers lv8 COM FFA
+  (slot3) + 2 workers self-play 1v1 (slot1), one learner; net
+  distinguishes contexts via stage one-hot + DIFF_DIM.
+
+**HISTORICAL CONTEXT (rig HANDOFF, Aug 23-26 — read before judging
+these legs):** the 256/bc lineage already ran three curriculum legs on
+the rig (P/Q/R, 3.7M lifetime steps): lv4 bake-off 11.2 / 11.2 / 13.8
+vs legM's ~66, picks PINNED at 2.83-2.85 all three tables, one real
+climb (lv2 22->38%% in Q) then plateau (R). Verdict recorded there:
+rewards/capacity/curriculum all eliminated — "the policy plateaus in
+states no demonstration covers"; standing recommendation was a DAgger
+pass (teacher relabels the CURRENT policy's states). SO: expect leg-3
+absolute numbers to start far below the leg1 lineage; judge on SLOPE
+across the leg (the rig's own rule), and know that P/Q/R never saw
+lv8 data, never saw self-play, and never ran the mix — those are
+exactly the three variables this program isolates. If all three
+plateau the same way, the rig's DAgger diagnosis stands confirmed and
+the priority becomes the recorder port + new demos (Blake vs lv8 /
+DAgger relabeling), not more legs.
+
+## LEG 2 — THE LV8 LEG (launched Aug 28 ~23:09, Cowork session + Blake)
+
+**LEG 2 RESULT (Aug 29): the warm-start lv8 repeat DID NOT WORK.**
+4.00M steps (31.918M -> 35.921M), 8,300 episodes, 0 crashes, 0 timeouts
+(no coward signature — the -2 loss scale did its job; ep len stable
+~450-500). Training stream (stochastic) plateaued after ~1M steps:
+q1 8.0% win / 4.34 picks / 0.77 forms -> q2-q4 flat at ~10% / ~4.9 /
+~0.92. Deterministic slot3 evals: leg1 baseline 15.0/4.00/0.95 (n=50);
+leg2 FINAL 4.0/4.72/0.76 (n=50) — BELOW baseline; mid-leg 34.4M
+checkpoint 15.0/5.80/1.15 (n=20) — the best artifact of the leg.
+Entropy stable all leg (0.52-0.57) -> the final-zip drop is PPO churn /
+"peaked then eroded" (rig HANDOFF Sec 22 redux), not entropy collapse.
+Checkpoint sweep (4 zips spanning the leg, n=50 slot3) queued to find
+the true peak; slot2 + A/B battery (Aug 29 19:00Z): **slot2 88.0%%
+(44W/6L) / 8.92 picks / 2.54 forms — vs leg1's 98.0/9.76/3.00: MILD
+EROSION of the lv3 benchmark (still above the Windows band), and A/B
+head-to-head leg2-final vs leg1: 3W/9L — leg1 wins.** The lv8-only
+diet cost a little of everything and bought nothing measurable in the
+final zip. **CHECKPOINT SWEEP (Aug 29 21:00Z, n=50 slot3 deterministic):
+32.4M 8.0/4.90/0.88 | 33.2M 16.0/4.40/0.86 | 34.4M 10.0/5.22/0.94 |
+35.4M 12.0/5.18/1.08 | final 35.9M 4.0/4.72/0.76 | leg1 baseline
+15.0/4.00/0.95. Reading: win%% bounces 4-16 across checkpoints — churn
+noise, no checkpoint CLEARLY beats leg1 (peak 33.2M @ 16.0 is within
+noise of 15.0); picks/forms mildly above leg1 late-leg. The earlier
+mid-leg 15.0 (n=20) was noise, not a peak. NO PROMOTION — leg2 is a
+clean negative result, full stop.**
+**LEG 3A LAUNCH (Aug 29 ~21:08Z, tmux ps2train, log
+train_leg3a_out.txt): took FOUR attempts — the 6s worker-boot stagger
+let the macOS Metal-init race kill a spawning worker 3x in a row
+(silent worker death right after REIOS boot -> SubprocVecEnv EOFError;
+SDLARCH_LOG=1 diagnosed it). FIX: stagger raised 6s -> 20s in ALL
+THREE trainers; 6/6 workers then booted clean. Also NEW
+launch_leg3a.sh — nested-tmux quoting ate the first auto-launch; leg
+launches are launcher SCRIPTS from now on. Health at +4 min: episodes
+streaming, contested (2.6-3.3 bars dealt), all losses so far (expected
+— fresh bc256 seed vs lv8), 0 tracebacks. 2M steps, ETA ~04:30Z.** NOTHING PROMOTED: powerstone_v6_ppo.zip is still selfplay_leg1.
+
+**VERDICT (Blake, Aug 29): BIL's actual prescription was a FRESH run on
+lv8, not warm-starting the 31.9M model — those weights are well trained
+on beating weak COMs, and 4M steps of 90%-loss lv8 data couldn't pull
+them off that prior. Next experiment: FRESH net (+BC pretrain) -> RL on
+lv8.** Which needs kit #4:
+
+**KIT #4 INVENTORY (Aug 29 repo audit — most of it is ALREADY in the
+GitHub repo):** bc_pretrain.py, bc_rehearsal.py, record_demo.py,
+record_gamenight.py, cheater_bot.py (the scripted-aimbot demonstrator —
+"the cheater teaches aim, the family teaches everything else"),
+aimbot_gauntlet.py, BC seed zips (powerstone_v6_bc.zip / bc256), and the
+FULL rig docs/HANDOFF.md (Secs 20/22/25.4/29/35). **MISSING = the demo
+corpora, rig-only (allowlist .gitignore publishes only one sample npz
+each): demos/ (Blake's play, 9,943 pairs), demos_cheater/ (the aimbot
+farm — the bulk of the 252k-pair rehearsal set), demos_humans/ if game
+night ever recorded. MOVE THOSE from the 12700K to the Mac.**
+**KIT #4 ARRIVED (Aug 29 evening, ~/Downloads/kit4 -> linux_port/) with
+two corrections (KIT4_NOTES.md): the rehearsal set is demos/ (9,943,
+Blake) + demos_v4corpus/ (247,828, cheater_bot v4 discrete ladder) —
+demos_cheater/ is OLDER analog-era recordings, inspect action
+histograms before ever feeding to BC; and demos_humans/ does not exist
+(game night ran without --record), so Blake-vs-strong-opponents data
+still needs a future recording session. bc_pretrain.py, bc_rehearsal.py,
+powerstone_v6_bc256.zip + bc.zip pulled from the repo into linux_port/.
+VERIFIED on the Mac venv: both corpora load (obs dim 122), bc256 loads
+CPU + predicts, arch [256,256]. train_com.py now takes PS2_WARM=<zip>
+and PS2_FRESH=1 for the fresh-lineage leg 3: warm start bc256, fresh
+timeline, checkpoints_lv8_fresh/.** Note the
+recorders are lua-era (free-running emulator) — they need the standard
+libretro port before NEW demos (e.g. Blake vs lv8) can be recorded on
+the Mac. Rig HANDOFF already reached the same conclusion as BIL:
+"lv5 needs a PRIOR. Priority: game night / human demos > aimbot demo
+farm > more reward work" (Sec 30/35 era).
+
+BIL consult (Blake's brother-in-law, ML engineer at Epic): the rig-era
+curriculum stalled at COM lv5 because the stream was dominated by easy
+wins — skip the ladder, train straight into max difficulty. This leg is
+that experiment, pure (self-play returns NEXT leg; alternate at the leg
+level — Blake's call, per-episode mixing not built).
+
+- **slot3.state NEW (Blake-stamped via make_savestates):** ORIGINAL mode
+  true-FFA, desert, COM DIFFICULTY 8 (options menu), P1 Pride / P2
+  FALCON human / P3 Ryoma / P4 Accel, colors distinct (same color =
+  team battle — avoid). Verified: 4x1000 healths after intro, P2
+  face_norm 0.992. NOTE: menu navigation is fully scriptable headless
+  — menu_drive.py walked options/player-select this session (COM toggle
+  = A on HUMAN row; colors cycle R->Y->B->G; A on PLAYER SELECT row
+  picks the SHOWN character — cycling mechanism still unknown, human
+  was faster).
+- **Env changes (powerstone_env_v6.py):** SLOT_META[3] REDEFINED ->
+  (2, 8) (desert dim, lv8; DIFF_DIM now reads 1.0 — first time the net
+  sees it); LOSS_SCALE_BY_LEVEL[8] = 0.2 (effective terminal loss -2;
+  gamma-.999 coward math: delaying -10 to ep end 'saves' ~7 vs -2.4
+  stall bleed — cowering paid; at -2 it strictly loses); gem neg floor
+  1.5 at lv>=8 (keeps dying the worst outcome).
+- **train_com.py NEW:** plain PowerStoneEnvLibretro vs-COM trainer,
+  train_selfplay skeleton minus pool, STATE_SLOTS=[3], warm start
+  MANDATORY (= powerstone_v6_ppo.zip = selfplay_leg1), checkpoints_lv8/,
+  4M steps.
+- **BASELINE (baseline_lv8_out.txt): leg1 vs slot3, 20 eps
+  deterministic: win 15.0% (3W/17L), picks 4.00, forms 0.95** — vs
+  98%/9.76/3.00 on slot2 lv3. Hard but winnable = real gradient.
+- **Launch health (first ~3 min):** 6 workers, all episodes contested
+  (dmg 1.7-6.4 bars out, stones picked, first wins + 3-form episode in
+  the stream), ~73 fps aggregate climbing, timesteps continue from
+  31.918M, zero tracebacks. tmux `ps2train`, caffeinate, log
+  train_leg_lv8_out.txt. Reattach: `tmux attach -t ps2train`.
+- **Morning protocol:** check tail of train_leg_lv8_out.txt for [ep]
+  win trend + tracebacks; eval latest checkpoints_lv8 zip on slot3
+  (eval_parity --slot 3, compare to the 15% baseline) AND on slot2 +
+  A/B vs leg1 (did lv8-only data erode the old skills? informative
+  either way — leg1 zip preserved).
+- **Claude command bridge NEW (this session):** claude_bridge_watcher.sh
+  in linux_port, tmux `claudebridge` — Cowork's device shell can't run
+  the emulator (isolated VM), so commands go through
+  claude_bridge/cmd.sh -> out.txt on the mounted folder. Kill when
+  done: `tmux kill-session -t claudebridge`.
+- Deferred: BC/DAgger kit (demos + scripts) still rig-side — "kit #4"
+  — needed before the fresh-net + BC-pretrain lv8 variant. The aimbot
+  DAgger naming/history lives in rig HANDOFF Sec 22.
+
 ## NEXT SESSION BRIEF (Claude Code, cwd = macbook_migration/) — Aug 28
 
 Immediate mission while the 7950X ships: first real training leg on
@@ -144,6 +441,47 @@ fidelity). The project pivots from porting to scaling. Blake's list:
    exercised on the rig); GPU-contention test before PS2_NENVS>2;
    optional matchup re-stamp (Pete/Falcon/Pride/Julia) for the clean
    apples-to-apples eval number.
+
+## PROJECT LAWS (permanent section — earned by 6 legs + the rig era; do not trim)
+
+Distilled from leg 2 + the leg-3 program (Aug 29-31) on top of the rig
+record. These are the load-bearing conclusions; every future leg design
+should be checked against them.
+
+1. **Gradient continuity is the engine.** A diet only teaches winning
+   if wins stay reachable throughout. Self-play guarantees this by
+   construction; fixed too-strong opponents guarantee the opposite.
+   (Evidence: 3B/3C-SP climbed; leg2, 3A, 3D flatlined at ~0%%.)
+2. **Losses carry no information about winning.** Three separate
+   lv8-only diets (warm, fresh, lv8-BC-seeded) produced zero learning-
+   to-win. "Train against harder opponents" is not a curriculum unless
+   the model can sometimes beat them.
+3. **BC priors do not transfer wins — demos must enter via DAgger.**
+   A validated 23-1 human corpus, baked at 80.6%% val acc, yielded 8
+   wins in 4,653 training episodes (3D). Covariate shift eats frame-
+   level mimicry. Human data pays only when it relabels the POLICY's
+   states (DAgger / failure-state drills), never as a seed alone.
+4. **Data/priors/interface changes go ~5-for-5; reward tuning is
+   0-for-5 lifetime.** (BC ceiling break, hold-until-next fix, chest
+   obs restoration, self-play leg1, deep-pool discovery vs the five
+   null reward legs.) Touch the data pipeline before the reward table.
+5. **Opposition quality AND gradient budget must both be right.**
+   3C had the best opponents (3B's lineage via the shared pool —
+   accidental league training, the program's discovery) but only 2/6
+   workers on them, and transferred worst. Don't split the budget with
+   a dead stream.
+6. **Promote the best checkpoint, never the last.** PPO churn:
+   leg2's final zip evaled 4.0%% while its mid-leg checkpoints held
+   8-16%%. Sweep before promoting; entropy stability does not protect
+   the final snapshot.
+7. **The lv8 wall stands.** No 2M-step fresh lineage has scored one
+   deterministic lv8 win (0-for-200 eval episodes across 4 legs). Only
+   the 31.9M lineage wins there (15%%). Respect what lifetime buys.
+8. **Ops:** worker boot stagger 20s (Metal init race killed 3 launches
+   at 6s, plus 2 chained launches — add retry-on-EOFError to
+   launchers); leg launches via launcher SCRIPTS, never nested-quoted
+   tmux; menu navigation is fully headless via menu_drive.py; one
+   savestate slot number = one meaning per machine, document re-stamps.
 
 ## Findings worth remembering (the short version of Aug 24-28)
 

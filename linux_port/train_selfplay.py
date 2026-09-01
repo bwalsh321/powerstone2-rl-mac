@@ -33,11 +33,17 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 CORE = os.environ.get("PS2_CORE", os.path.join(ROOT, "../cores/flycast_libretro.so"))
 GAME = os.environ.get("PS2_GAME", os.path.join(ROOT, "../Power Stone 2 (USA).chd"))
 STATES = os.path.join(ROOT, "states")          # slot<N>.state, VS-mode 2P
-POOL_DIR = os.path.join(ROOT, "opponent_pool")  # seed by copying a few
-                                                # checkpoints_v6 zips here
-MODEL_PATH = os.path.join(ROOT, "powerstone_v6_ppo")   # warm start = Leg G
+# Aug 29 (leg-3 program): PS2_POOL overrides the opponent pool dir (e.g.
+# a dir seeded with ONLY the bc256 zip = "vs its prior self"); PS2_WARM
+# overrides the warm-start zip; PS2_FRESH=1 starts the timestep clock at
+# zero and names outputs by lineage.
+POOL_DIR = os.environ.get("PS2_POOL", os.path.join(ROOT, "opponent_pool"))
+MODEL_PATH = os.environ.get("PS2_WARM",
+                            os.path.join(ROOT, "powerstone_v6_ppo") + ".zip"
+                            ).removesuffix(".zip")
+FRESH = os.environ.get("PS2_FRESH", "0") == "1"
 N_ENVS = int(os.environ.get("PS2_NENVS", "6"))  # benchmark first; see README
-TOTAL_STEPS = 4_000_000
+TOTAL_STEPS = int(os.environ.get("PS2_TOTAL_STEPS", "2000000"))
 SNAPSHOT_EVERY = 500_000
 STATE_SLOTS = [1]        # start with ONE stage until parity is proven,
                           # then widen to the full lineup
@@ -50,7 +56,7 @@ def make_env(i):
         # renderPipelineState != nil" and kill the worker. A few seconds
         # of spacing at startup costs nothing over a multi-hour leg.
         import time as _t
-        _t.sleep(i * 6.0)
+        _t.sleep(i * float(os.environ.get("PS2_STAGGER", "20")))  # Aug 29: 6s let the Metal race through; Aug 31: env knob, leg4 uses 45
         return SelfPlayEnv(
             core_path=CORE, game_path=GAME, states_dir=STATES,
             instance_id=i, state_slots=STATE_SLOTS,
@@ -110,9 +116,11 @@ def main():
                            name_prefix="ps_sp"),
         SnapshotToPool(SNAPSHOT_EVERY, POOL_DIR),
     ]
+    out = os.environ.get("PS2_OUT") or (MODEL_PATH + ("_spleg" if FRESH else "_selfplay_leg1"))
     model.learn(total_timesteps=TOTAL_STEPS, callback=callbacks,
-                reset_num_timesteps=False)
-    model.save(MODEL_PATH + "_selfplay_leg1")
+                reset_num_timesteps=FRESH)
+    model.save(out)
+    print("leg complete ->", out + ".zip")
 
 
 if __name__ == "__main__":

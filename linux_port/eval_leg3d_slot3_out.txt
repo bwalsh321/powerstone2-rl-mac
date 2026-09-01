@@ -1,0 +1,119 @@
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+Set variable override: flycast_hle_bios = enabled
+Set variable override: reicast_hle_bios = enabled
+Set variable override: flycast_device_port1_slot1 = VMU
+Set variable override: flycast_device_port2_slot1 = VMU
+Set variable override: flycast_threaded_rendering = disabled
+Set variable override: reicast_threaded_rendering = disabled
+2026-08-30 19:31:42.170 Python[86126:5260798] ApplePersistenceIgnoreState: Existing state will not be touched. New state will be written to /var/folders/gz/b_ggdqsj0s9_8mxs_fyvdkym0000gn/T/org.python.python.savedState
+[env] bridge alive (frame 8, line=v7 obs_dim=122 actions=10)
+[ep] slot3 opps=3    loss len= 820  dmg +3.74/-0.93  stones: picked=2 lost=3 opp=16(-12) forms=0/1  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=26(3) stonev=372 dmgF=0.00
+[env] match ready after 1 tries
+[ep] slot3 opps=3    loss len= 489  dmg +2.73/-0.93  stones: picked=2 lost=3 opp=11(-4) forms=0/2  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=20(0) stonev=210 dmgF=0.00
+[env] match ready after 1 tries
+[ep] slot3 opps=3    loss len= 516  dmg +2.37/-1.08  stones: picked=1 lost=2 opp=13(-7) forms=0/3  gem_rew=+3.00 shape=+0.00 appr=+0.00  chests=19(1) stonev=203 dmgF=0.00
+[env] match ready after 1 tries
+[ep] slot3 opps=3    loss len= 636  dmg +3.14/-1.00  stones: picked=2 lost=3 opp=16(-5) forms=0/3  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=26(0) stonev=419 dmgF=0.00
+[env] match ready after 1 tries
+[ep] slot3 opps=3    loss len=1008  dmg +5.91/-1.00  stones: picked=4 lost=2 opp=27(-16) forms=1/5  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=32(2) stonev=619 dmgF=0.35
+[env] match ready after 1 tries
+[ep] slot3 opps=3    loss len= 486  dmg +2.05/-1.00  stones: picked=2 lost=3 opp=14(-11) forms=0/1  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=14(1) stonev=243 dmgF=0.00
+[env] match ready after 1 tries
+[ep] slot3 opps=3    loss len= 601  dmg +3.98/-1.00  stones: picked=4 lost=5 opp=22(-15) forms=0/2  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=13(0) stonev=343 dmgF=0.00
+[env] match ready after 1 tries
+[ep] slot3 opps=3    loss len= 393  dmg +2.58/-1.00  stones: picked=0 lost=1 opp=11(-6) forms=0/2  gem_rew=+0.00 shape=+0.00 appr=+0.00  chests=8(0) stonev=179 dmgF=0.00
+[env] match ready after 1 tries
+[ep] slot3 opps=3    loss len= 307  dmg +2.12/-0.74  stones: picked=0 lost=0 opp=7(-4) forms=0/1  gem_rew=+0.00 shape=+0.00 appr=+0.00  chests=13(0) stonev=134 dmgF=0.00
+[env] match ready after 1 tries
+[ep] slot3 opps=3    loss len= 477  dmg +1.90/-0.80  stones: picked=1 lost=1 opp=8(-7) forms=0/2  gem_rew=+3.00 shape=+0.00 appr=+0.00  chests=23(2) stonev=178 dmgF=0.00
+[env] match ready after 1 tries
+[ep] slot3 opps=3    loss len= 742  dmg +4.26/-1.00  stones: picked=3 lost=4 opp=22(-10) forms=0/6  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=33(2) stonev=480 dmgF=0.00
+[env] match ready after 1 tries
+[ep] slot3 opps=3    loss len= 395  dmg +2.98/-0.93  stones: picked=1 lost=2 opp=11(-4) forms=0/2  gem_rew=+3.00 shape=+0.00 appr=+0.00  chests=13(0) stonev=223 dmgF=0.00
+[env] match ready after 1 tries
+[ep] slot3 opps=3    loss len= 739  dmg +4.12/-1.07  stones: picked=2 lost=3 opp=17(-10) forms=0/3  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=23(2) stonev=283 dmgF=0.00
+[env] match ready after 1 tries
+[ep] slot3 opps=3    loss len= 474  dmg +2.07/-1.00  stones: picked=0 lost=1 opp=6(-2) forms=0/2  gem_rew=+0.00 shape=+0.00 appr=+0.00  chests=18(1) stonev=199 dmgF=0.00
+[env] match ready after 1 tries
+[ep] slot3 opps=3    loss len= 812  dmg +4.80/-0.74  stones: picked=4 lost=1 opp=23(-20) forms=1/2  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=28(1) stonev=619 dmgF=1.60
+[env] match ready after 1 tries
+[ep] slot3 opps=3    loss len= 399  dmg +2.28/-0.93  stones: picked=0 lost=1 opp=8(-1) forms=0/3  gem_rew=+0.00 shape=+0.00 appr=+0.00  chests=12(0) stonev=174 dmgF=0.00
+[env] match ready after 1 tries
+[ep] slot3 opps=3    loss len= 342  dmg +1.51/-0.74  stones: picked=1 lost=1 opp=7(-3) forms=0/2  gem_rew=+3.00 shape=+0.00 appr=+0.00  chests=12(0) stonev=189 dmgF=0.00
+[env] match ready after 1 tries
+[ep] slot3 opps=3    loss len= 298  dmg +1.29/-0.93  stones: picked=1 lost=2 opp=11(-7) forms=0/2  gem_rew=+3.00 shape=+0.00 appr=+0.00  chests=9(0) stonev=187 dmgF=0.00
+[env] match ready after 1 tries
+[ep] slot3 opps=3    loss len= 285  dmg +1.78/-0.93  stones: picked=0 lost=1 opp=9(-3) forms=0/3  gem_rew=+0.00 shape=+0.00 appr=+0.00  chests=7(0) stonev=137 dmgF=0.00
+[env] match ready after 1 tries
+[ep] slot3 opps=3    loss len= 767  dmg +5.07/-0.83  stones: picked=3 lost=3 opp=21(-17) forms=0/3  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=32(1) stonev=487 dmgF=0.00
+[env] match ready after 1 tries
+[ep] slot3 opps=3    loss len= 193  dmg +1.32/-0.93  stones: picked=0 lost=0 opp=7(-5) forms=0/1  gem_rew=+0.00 shape=+0.00 appr=+0.00  chests=7(0) stonev=87 dmgF=0.00
+[env] match ready after 1 tries
+[ep] slot3 opps=3    loss len= 273  dmg +1.17/-0.93  stones: picked=0 lost=1 opp=11(-9) forms=0/1  gem_rew=+0.00 shape=+0.00 appr=+0.00  chests=12(0) stonev=179 dmgF=0.00
+[env] match ready after 1 tries
+[ep] slot3 opps=3    loss len= 258  dmg +2.39/-0.74  stones: picked=0 lost=0 opp=7(-3) forms=0/1  gem_rew=+0.00 shape=+0.00 appr=+0.00  chests=15(0) stonev=148 dmgF=0.00
+[env] match ready after 1 tries
+[ep] slot3 opps=3    loss len= 734  dmg +3.67/-0.93  stones: picked=4 lost=5 opp=19(-11) forms=0/3  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=28(0) stonev=496 dmgF=0.00
+[env] match ready after 1 tries
+[ep] slot3 opps=3    loss len= 420  dmg +2.62/-0.74  stones: picked=0 lost=0 opp=13(-11) forms=0/2  gem_rew=+0.00 shape=+0.00 appr=+0.00  chests=18(0) stonev=163 dmgF=0.00
+[env] match ready after 1 tries
+[ep] slot3 opps=3    loss len= 745  dmg +3.66/-1.00  stones: picked=0 lost=1 opp=20(-10) forms=0/4  gem_rew=+0.00 shape=+0.00 appr=+0.00  chests=22(1) stonev=370 dmgF=0.00
+[env] match ready after 1 tries
+[ep] slot3 opps=3    loss len= 508  dmg +3.58/-0.93  stones: picked=0 lost=1 opp=14(-9) forms=0/2  gem_rew=+0.00 shape=+0.00 appr=+0.00  chests=17(2) stonev=303 dmgF=0.00
+[env] match ready after 1 tries
+[ep] slot3 opps=3    loss len= 251  dmg +1.51/-0.74  stones: picked=0 lost=0 opp=4(-1) forms=0/2  gem_rew=+0.00 shape=+0.00 appr=+0.00  chests=7(0) stonev=24 dmgF=0.00
+[env] match ready after 1 tries
+[ep] slot3 opps=3    loss len= 329  dmg +2.18/-0.93  stones: picked=0 lost=1 opp=8(-7) forms=0/1  gem_rew=+0.00 shape=+0.00 appr=+0.00  chests=10(0) stonev=133 dmgF=0.00
+[env] match ready after 1 tries
+[ep] slot3 opps=3    loss len= 742  dmg +4.26/-1.00  stones: picked=3 lost=4 opp=22(-10) forms=0/6  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=33(2) stonev=480 dmgF=0.00
+[env] match ready after 1 tries
+[ep] slot3 opps=3    loss len= 476  dmg +2.76/-1.00  stones: picked=1 lost=2 opp=12(-10) forms=0/2  gem_rew=+3.00 shape=+0.00 appr=+0.00  chests=17(0) stonev=228 dmgF=0.00
+[env] match ready after 1 tries
+[ep] slot3 opps=3    loss len= 695  dmg +3.91/-1.00  stones: picked=2 lost=3 opp=22(-8) forms=0/5  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=25(0) stonev=388 dmgF=0.00
+[env] match ready after 1 tries
+[ep] slot3 opps=3    loss len= 605  dmg +5.05/-1.00  stones: picked=4 lost=2 opp=15(-10) forms=1/3  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=16(0) stonev=285 dmgF=1.03
+[env] match ready after 1 tries
+[ep] slot3 opps=3    loss len= 439  dmg +2.67/-1.00  stones: picked=0 lost=1 opp=17(-14) forms=0/1  gem_rew=+0.00 shape=+0.00 appr=+0.00  chests=9(1) stonev=300 dmgF=0.00
+[env] match ready after 1 tries
+[ep] slot3 opps=3    loss len= 717  dmg +3.92/-1.00  stones: picked=1 lost=2 opp=21(-13) forms=0/3  gem_rew=+3.00 shape=+0.00 appr=+0.00  chests=22(0) stonev=383 dmgF=0.00
+[env] match ready after 1 tries
+[ep] slot3 opps=3    loss len= 815  dmg +4.80/-0.83  stones: picked=4 lost=2 opp=23(-20) forms=1/2  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=28(1) stonev=622 dmgF=1.60
+[env] match ready after 1 tries
+[ep] slot3 opps=3    loss len= 339  dmg +1.54/-0.93  stones: picked=1 lost=2 opp=6(-4) forms=0/1  gem_rew=+3.00 shape=+0.00 appr=+0.00  chests=11(1) stonev=210 dmgF=0.00
+[env] match ready after 1 tries
+[ep] slot3 opps=3    loss len= 288  dmg +0.74/-0.74  stones: picked=1 lost=1 opp=4(-5) forms=0/0  gem_rew=+3.00 shape=+0.00 appr=+0.00  chests=12(1) stonev=130 dmgF=0.00
+[env] match ready after 1 tries
+[ep] slot3 opps=3    loss len= 450  dmg +2.93/-1.00  stones: picked=0 lost=1 opp=15(-10) forms=0/2  gem_rew=+0.00 shape=+0.00 appr=+0.00  chests=14(1) stonev=250 dmgF=0.00
+[env] match ready after 1 tries
+[ep] slot3 opps=3    loss len= 235  dmg +1.92/-0.74  stones: picked=0 lost=0 opp=5(-5) forms=0/1  gem_rew=+0.00 shape=+0.00 appr=+0.00  chests=9(0) stonev=74 dmgF=0.00
+[env] match ready after 1 tries
+[ep] slot3 opps=3    loss len= 653  dmg +4.33/-1.00  stones: picked=1 lost=2 opp=22(-12) forms=0/5  gem_rew=+3.00 shape=+0.00 appr=+0.00  chests=22(1) stonev=349 dmgF=0.00
+[env] match ready after 1 tries
+[ep] slot3 opps=3    loss len= 479  dmg +3.17/-1.00  stones: picked=2 lost=3 opp=13(-5) forms=0/3  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=16(0) stonev=246 dmgF=0.00
+[env] match ready after 1 tries
+[ep] slot3 opps=3    loss len= 367  dmg +1.46/-0.93  stones: picked=0 lost=1 opp=10(-6) forms=0/2  gem_rew=+0.00 shape=+0.00 appr=+0.00  chests=11(0) stonev=171 dmgF=0.00
+[env] match ready after 1 tries
+[ep] slot3 opps=3    loss len= 425  dmg +2.24/-1.00  stones: picked=0 lost=1 opp=9(-3) forms=0/2  gem_rew=+0.00 shape=+0.00 appr=+0.00  chests=15(0) stonev=223 dmgF=0.00
+[env] match ready after 1 tries
+[ep] slot3 opps=3    loss len= 472  dmg +3.19/-1.00  stones: picked=2 lost=3 opp=10(-7) forms=0/3  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=13(1) stonev=263 dmgF=0.00
+[env] match ready after 1 tries
+[ep] slot3 opps=3    loss len= 526  dmg +3.14/-1.00  stones: picked=2 lost=3 opp=16(-11) forms=0/2  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=17(0) stonev=307 dmgF=0.00
+[env] match ready after 1 tries
+[ep] slot3 opps=3    loss len= 313  dmg +1.59/-0.93  stones: picked=1 lost=2 opp=7(-6) forms=0/1  gem_rew=+3.00 shape=+0.00 appr=+0.00  chests=5(0) stonev=169 dmgF=0.00
+[env] match ready after 1 tries
+[ep] slot3 opps=3    loss len= 579  dmg +2.64/-0.93  stones: picked=0 lost=1 opp=16(-7) forms=0/4  gem_rew=+0.00 shape=+0.00 appr=+0.00  chests=21(0) stonev=307 dmgF=0.00
+[env] match ready after 1 tries
+[ep] slot3 opps=3    loss len= 323  dmg +1.83/-0.93  stones: picked=0 lost=1 opp=5(-6) forms=0/1  gem_rew=+0.00 shape=+0.00 appr=+0.00  chests=7(0) stonev=242 dmgF=0.00
+[env] match ready after 1 tries
+[ep] slot3 opps=3    loss len= 376  dmg +2.30/-1.00  stones: picked=2 lost=3 opp=9(-5) forms=0/2  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=12(0) stonev=163 dmgF=0.00
+
+================ GATE 4 PARITY ================
+model=powerstone_v6_bclv8_256_lv8leg.zip  slot=3  n=50  mode=deterministic  distinct-episodes~48
+win% :   0.0   (0W/50L/0T)
+picks:  1.28 /ep
+forms:  0.08 /ep
+(no Windows band recorded for slot 3 — numbers only)
+libc++abi: terminating due to uncaught exception of type std::__1::system_error: mutex lock failed: Invalid argument
