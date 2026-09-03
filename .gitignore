@@ -26,3 +26,17 @@ linux_port/pool_*/
 linux_port/menu_*.state
 # Wrapper/runtime logs
 linux_port/wrapper_*.log
+
+# --- Sep 1 additions (public-repo prep, fork-plan item 2) ---
+# Game-derived binaries stay out of the public repo. Savestates embed the
+# game's RAM/VRAM; system/ holds Dreamcast nvmem + VMU saves. Readers stamp
+# their own with make_savestates.py (see README "Stamp savestates").
+linux_port/states/
+linux_port/system/
+# Rendered gameplay video (hundreds of MB — goes to YouTube/reddit, not git)
+*.mp4
+# League runner resume pointer (runtime churn)
+linux_port/league_state.txt
+# Analog-era recordings KIT4_NOTES says to distrust — 44MB of bloat for a
+# public repo; keep locally, publish via a GitHub Release if ever needed
+linux_port/demos_cheater/

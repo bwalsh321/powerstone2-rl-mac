@@ -1,5 +1,167 @@
 # HANDOFF — Power Stone 2 RL, M2 MacBook port session (Aug 22–28, 2026)
 
+## LEG 4 — THE SYNTHESIS LEG (Aug 31->Sep 1): NEW FRESH-LINEAGE CHAMPION
+
+All-6-worker self-play vs pool_league (24 zips: rig checkpoints
+0.2-31.9M incl. leg1's 28-31.9M snapshots + all program finals + seed),
+warm start 3B, 2M steps (lineage lifetime now 4M), post-reboot, one
+boot-flake retry absorbed by the new watchdog launcher (launch_leg4.sh
+— the v2 wrapper kills teardown-hung crashes instead of waiting).
+
+Training vs the league: q1-q4 29.8/29.5/20.0/22.8%%, ep len 490->943 —
+win%% held ~25%% against MIXED opposition whose strong half is the
+31.9M lineage, fights lengthening as its own snapshots entered.
+(Blake's calibration note, Sep 1: leg1's 31.9M "peaked around 15-20M"
+— the middle was the reward-era plateau; effective-step gap vs the
+fresh line is ~4-5x, not 16x, and the last 4M selfplay burst did the
+rest.)
+
+BATTERY (n=50 det / n=12 A/B):
+- slot3 (lv8): 0.0 / 1.20 / 0.06 — the wall is now 5-0 vs fresh legs.
+- slot2 (lv3): **42.0 / 6.74 / 1.56 — new fresh-lineage record**
+  (3B: 40.0/6.26/1.28), earned against honest opposition.
+- **A/B vs 3B (its warm start): 8W-1L-3T — decisively outgrew its
+  parent in one leg.**
+- A/B vs leg1: 1W-11L (3B read 4-8; n=12 noise + intransitivity —
+  the league diet tuned it vs fresh-lineage styles; slot2 is the
+  truer transfer measure and it leads there).
+
+VERDICT: the synthesis works — deep pool + full self-play budget beat
+both its parent and every program leg on transfer, in 2M steps. THIS
+is the leg shape to redline on the 7950X (Blake: "found the most
+scalable leg to run — red line it and let it cook"). Lineage seat:
+powerstone_v6_leg4_league.zip is the fresh-line champion;
+powerstone_v6_ppo.zip (leg1) remains overall champion, NOT overwritten.
+Next: keep compounding this lineage (leg 5 = same recipe warm-started
+from leg4, pool grows), Linux-box bring-up (repo push pending Blake),
+recorder/DAgger port, reddit video of leg1 still unrecorded.
+
+## PRE-REGISTERED INTERVENTION PLAN (Blake + session, Sep 3 — binding until amended by Blake)
+
+The league diet stays PURE self-play. Blake's pushback, ratified: the
+curve is climbing, and this project's history says interventions
+without a measured failure are how legs get burned (reward era 0-for-5;
+leg 3C's dead COM stream; Law 5). Pure self-play keeps paying for
+things it never trained on (leg1's FFA jump; the current slot3
+behavior climb). NO diet change on a forecast — soft-pool worry
+included.
+
+**TRIGGER (must actually fire before any diet change):** slot2 flat or
+down for TWO consecutive leg batteries, OR slot3 behavior metrics
+(picks+forms) stalling across two legs. Current references at
+registration: slot2 84.0 (leg 9); slot3 picks 3.42 / forms 0.48 and
+climbing.
+
+**RESPONSE WHEN FIRED (in order, nothing skipped):**
+1. MEASUREMENT FIRST: stamp lv6-FFA and lv8-1v1 states (headless via
+   menu_drive; ORIGINAL mode; difficulty via options; spare emu
+   instance so the relay is untouched) and run them as EVAL-ONLY
+   discriminators — zero training budget spent.
+2. Only then, give ONE worker to the highest rung the model already
+   wins >=20%% of at eval (Law 1: winnable rungs only; Law 5: never a
+   dead stream). Everything else stays league self-play.
+3. Graduation: rung moves up when its training stream sustains ~60%%.
+Anyone (human or session) proposing a diet change before the trigger
+fires must be pointed at this section.
+
+## LEAGUE LEGS (running record — one line per leg; relay automated Sep 1)
+
+Recipe per leg: league_leg.sh / league_battery.sh, 2M steps, full
+self-play vs pool_league (self-growing), warm start = previous leg,
+battery + auto-launch chained. Lineage: bc256 -> 3B -> leg4 -> leg5...
+
+| leg | lifetime | train q1-q4 vs league | slot3 | slot2 | A/B vs prev | vs leg1 |
+|-----|----------|----------------------|-------|-------|-------------|---------|
+| 4 | 4M | 29.8/29.5/20.0/22.8 | 0.0 | 42.0/6.74/1.56 | 8-1-3 (3B) | 1-11 |
+| 5 | 6M | 38.3/28.0/47.2/52.1 | 0.0 | **50.0/7.02/1.52** | **11-1** | **6-6** |
+| 6 | 8M | 55.8 -> 67.0 (halves) | 0.0 (picks 1.46, forms 0.18 — first life) | **64.0/7.86/1.92** | **11-1** | 7-5 (n=12; see 50-ep below) |
+| 7 | 10M | 62.5/75.6/73.7/78.6 | 0.0 (1.34/0.08) | **78.0/9.04/2.70** | 9-3 | — |
+
+| 8 | 12M (CLEAN league) | 84.8 -> 90.2 | 0.0 (**picks 2.40, forms 0.22 — doubling leg-over-leg**) | **82.0/9.56/2.74** | 11-1 | 7-5 (n=12) |
+
+**LEG 8 (Sep 3, first clean-league leg): THE CURVE HOLDS.** slot2
+40->42->50->64->78->**82** under the honest opponent mix — the skew was
+not the engine. Picks 9.56 vs leg1's 9.76: component parity. slot3
+still 0 wins but its behavior metrics are now climbing leg-over-leg
+(1.34/0.08 -> 2.40/0.22). NEW LEAGUE DYNAMIC to watch: with mtime
+sorting, "recent 10" = mostly its OWN latest snapshots once it's the
+strongest line in the pool — training win%% jumped to ~87%% (soft again,
+the 3B problem at a higher level). The lineage has outgrown its league;
+options for a future boundary: raise recent_k, weight prog_*/leg1
+zips, or PFSP-by-winrate sampling. Not changed mid-relay.**
+
+| 9 | 14M | 78.5 -> ~84 flat | 0.0 (**picks 3.42, forms 0.48 — third straight climb**) | **84.0/10.02/3.06 — picks+forms EXCEED leg1** | 11-1 | 8-4 (n=12) |
+
+**LEG 9 (Sep 3): component parity PASSED.** slot2 picks 10.02 and
+forms 3.06 now exceed leg1's 9.76/3.00; win%% 84 vs 98 — the remaining
+gap is pure win-conversion. slot2 slope moderating (78->82->84):
+either the lv3 asymptote or the soft pool capping growth (training
+win%% ~84 sustained, below the 92 flag line). The live frontier is
+slot3's behavior climb: 1.34/0.08 -> 2.40/0.22 -> **3.42/0.48** over
+three legs with zero wins — the wall's base is eroding measurably;
+first lv8 wins plausibly within a couple legs at this rate.**
+
+| 10 | 16M | ~85 vs league | **2.0 — FIRST LV8 WIN EVER (1W/49L)**, picks 3.88, forms 0.54 | **86.0/10.76/3.18** | 9-3 | 8-4 (n=12) |
+
+**LEG 10 (Sep 3): THE WALL CRACKED.** First lv8 eval win in project
+history — after nine legs and 0-for-450, exactly as the three-leg
+behavior climb (picks 1.34->2.40->3.42->3.88, forms 0.08->0.22->
+0.48->0.54) predicted. One win in fifty is a crack, not a breach —
+but it arrived on schedule, from pure self-play generalization, with
+zero lv8 training data, on a laptop. slot2 86.0 still climbing (no
+stall; pre-registration trigger NOT armed). The 7950X arrives to a
+lineage that has now scored on everything the game has.**
+
+**CROWN PROBE AT n=50 (Sep 2, leg6 vs leg1): 29-21 (58%%).** 95%% CI
+~44-71 — "at least even, probably ahead," NOT proof of dominance; the
+training-state caveat still applies. The held-out slot2 curve is the
+stronger witness: 40 -> 42 -> 50 -> 64 -> 78 vs leg1's 98, with picks
+9.04 (leg1: 9.76) and forms 2.70 (3.00) nearly closed at 10M vs 31.9M
+lifetime. slot3 wall: 7-0. **LEG 8 = FIRST CLEAN-LEAGUE LEG** (mtime
+sort + tagged snapshots + leg4 backfilled active) — its numbers are
+the first honest read of the recipe; treat any curve kink as
+information about the old skew, not regression.**
+
+**SEP 2 EXTERNAL REVIEW (fresh-model audit, verified against code+logs
+— four findings CONFIRMED, all patched at the leg 7/8 boundary):**
+1. OpponentPool sorted by filename step-number -> "recent 10" was
+   permanently leg1's 27.9-31.9M snapshots (~56-66%% of episodes);
+   prog_* finals/seeds parsed as 0 and were buried. FIXED: mtime sort.
+2. PS2_FRESH reset the snapshot clock -> cross-leg name collisions;
+   each leg overwrote its predecessor's pool snapshots. FIXED: leg-
+   tagged names. 3. prog_leg4 never entered the pool (battery predated
+   the cp line). FIXED: backfill in league_battery. 4. AB retry guards
+   missing in league_battery. FIXED.
+**INTERPRETATION CORRECTION for legs 5-6:** the lineage trained mostly
+AGAINST leg1's late snapshots ON the same slot1 state the A/B probes
+use — so "6-6"/"7-5 vs leg1" reads closer to "learned to beat leg1
+where it practiced against leg1" than "caught the champion," and n=12
+carries wide error bars (95%% CI on 6/12 is roughly 25-75%%). THE CLEAN
+CLAIM is the held-out slot2 FFA curve at n=50: 40 -> 42 -> 50 -> 64 vs
+leg1's 98 — real, accelerating transfer, different state, different
+opponents. A 50-ep A/B vs leg1 is queued to settle the crown properly.
+CANDIDATE LAW 9: an A/B on the training state is not a held-out test.
+Also queued: a 1v1-lv8 discriminator state (the wall may be partly an
+FFA wall — the lineage has only ever fought 1v1; slot3 is 3-opponent
+FFA — two jumps at once, and a lv8 1v1 state is stampable headlessly
+via menu_drive ORIGINAL mode with two seats NO ENTRY).
+
+**LEG 6 (Sep 2 ~06:30Z): the crown probe (READ WITH THE CORRECTION ABOVE).** First
+head-to-head WIN over the 31.9M champion (7-5, n=12 stochastic) at 8M
+lifetime; slot2 40->42->50->64; beat leg 5 11-1; slot3 still 0 wins
+but behavior stirring (picks 1.46, forms 0.18 vs leg5's 1.20/0.04).
+Boot took 3 wrapper attempts (flake tax), ran clean after. PROMOTION
+NOT DONE — powerstone_v6_ppo.zip untouched per standing rule; Blake's
+call. (Note for that call: n=12 is thin for a coronation — a 50-ep
+A/B or a slot2 gap-close would make it solid; leg 7 running.)
+
+**LEG 5 (Sep 1): the lineage CAUGHT the champion.** slot2 compounding
+40 -> 42 -> 50; beat its parent 11-1; **DEAD EVEN 6-6 vs leg1's 31.9M**
+at 6M lifetime steps — the effective-step thesis validated in two days
+of M2 time. Training curve dipped q2 (its own leg-4 snapshots entered
+the pool) then punched to 52%%. slot3 still 0.0 (wall 6-0 vs fresh
+legs). Leg 6 auto-launched, running.
+
 ## LEG-3 PROGRAM CLOSE-OUT (Aug 31 ~11:00Z) — FINAL FOUR-WAY TABLE
 
 All legs 2M steps from fresh seeds; batteries n=50 deterministic

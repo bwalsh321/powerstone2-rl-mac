@@ -74,8 +74,13 @@ class SnapshotToPool(BaseCallback):
     def _on_step(self):
         if self.num_timesteps - self._last >= self.every:
             self._last = self.num_timesteps
+            # Sep 2 review fix: tag snapshots by lineage/leg — PS2_FRESH
+            # resets the step clock, so untagged names collided across legs
+            # (leg N+1's 500k overwrote leg N's; Law 6 unappliable backward).
+            _tag = os.path.basename(os.environ.get("PS2_OUT", "selfplay")
+                                    ).replace("powerstone_v6_", "") or "selfplay"
             p = os.path.join(self.pool_dir,
-                             f"selfplay_{self.num_timesteps}_steps.zip")
+                             f"{_tag}_{self.num_timesteps}_steps.zip")
             self.model.save(p)
             for env_i in range(self.training_env.num_envs):
                 # workers refresh their pool listing lazily on next reset

@@ -49,7 +49,13 @@ class OpponentPool:
     def refresh(self):
         import glob
         zips = glob.glob(os.path.join(self.pool_dir, "*.zip"))
-        self.paths = sorted(zips, key=lambda p: self._steps(p))
+        # Sep 2 review fix: sort by MTIME, not filename step-number — the
+        # old key parsed "<n>_steps" (0 for finals/seeds), which made the
+        # "recent" half of sampling permanently = leg1's 28-31.9M snapshots
+        # and buried every prog_* final at the bottom. mtime makes "recent"
+        # mean what it says across fresh-clock legs and untagged finals.
+        import os as _os
+        self.paths = sorted(zips, key=lambda p: _os.path.getmtime(p))
 
     @staticmethod
     def _steps(p):
