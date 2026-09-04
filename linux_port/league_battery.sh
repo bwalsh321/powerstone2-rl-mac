@@ -1,10 +1,16 @@
 #!/bin/bash
 # Battery for the just-finished league leg, then advance state + launch next.
-cd ~/Documents/macbook_migration/linux_port
+cd "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 read N PREV < league_state.txt
 source ~/ps2rl/bin/activate
 export SDL_AUDIODRIVER=dummy PYTHONPATH=../sdlarch-rl:. PYTHONUNBUFFERED=1
-CORE="$HOME/Library/Application Support/RetroArch/cores/flycast_libretro.dylib"
+if [ "$(uname)" = "Darwin" ]; then
+  CORE="${PS2_CORE:-$HOME/Library/Application Support/RetroArch/cores/flycast_libretro.dylib}"
+  KEEPAWAKE="caffeinate -is"
+else
+  CORE="${PS2_CORE:-$HOME/cores/flycast_libretro.so}"
+  KEEPAWAKE=""
+fi
 GAME="../Power Stone 2 (USA).chd"
 M=./powerstone_v6_leg${N}_league.zip
 python eval_parity.py --core "$CORE" --game "$GAME" --slot 3 --episodes 50 --model $M > eval_leg${N}_slot3_out.txt 2>&1
@@ -22,4 +28,4 @@ cp $M pool_league/prog_leg${N}.zip
 NEXT=$((N+1))
 echo "$NEXT $M" > league_state.txt
 echo DONE > claude_bridge/battery_leg${N}_done.txt
-tmux new -s ps2train -d "caffeinate -is bash ~/Documents/macbook_migration/linux_port/league_leg.sh"
+tmux new -s ps2train -d "$KEEPAWAKE bash $(pwd)/league_leg.sh"

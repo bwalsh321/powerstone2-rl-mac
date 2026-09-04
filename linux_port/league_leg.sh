@@ -2,11 +2,17 @@
 # Self-compounding league leg. Reads league_state.txt: "<N> <warm-start zip>".
 # Watchdog wrapper: retries boot-phase EOFError crashes (teardown-hang aware),
 # never blind-retries a mid-leg crash.
-cd ~/Documents/macbook_migration/linux_port
+cd "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 read N PREV < league_state.txt
 source ~/ps2rl/bin/activate
 export SDL_AUDIODRIVER=dummy PYTHONPATH=../sdlarch-rl:. PYTHONUNBUFFERED=1
-export PS2_CORE="$HOME/Library/Application Support/RetroArch/cores/flycast_libretro.dylib"
+if [ -z "$PS2_CORE" ]; then
+  if [ "$(uname)" = "Darwin" ]; then
+    export PS2_CORE="$HOME/Library/Application Support/RetroArch/cores/flycast_libretro.dylib"
+  else
+    export PS2_CORE="$HOME/cores/flycast_libretro.so"
+  fi
+fi
 export PS2_WARM=$PREV PS2_FRESH=1 PS2_POOL=./pool_league
 export PS2_OUT=./powerstone_v6_leg${N}_league PS2_NENVS=6 PS2_STAGGER=20
 LOG=train_leg${N}_out.txt

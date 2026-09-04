@@ -112,6 +112,54 @@ zero lv8 training data, on a laptop. slot2 86.0 still climbing (no
 stall; pre-registration trigger NOT armed). The 7950X arrives to a
 lineage that has now scored on everything the game has.**
 
+| 11 | 18M | — | 0.0 (picks 3.22, forms 0.54 — climb PAUSED) | **90.0/10.42/3.12** | 8-4 | **9-3** (n=12) |
+
+**LEG 11 (Sep 4): crack NOT consolidated** — 0/50 at lv8; leg 10's 1/50
+stands alone for now (noise vs leading-edge unresolved; behavior
+metrics paused their three-leg climb). Meanwhile slot2 hit **90.0**,
+eight points from leg1's 98, and the quick probe read 9-3 — the best
+yet. Trigger unarmed (86 -> 90).**
+
+| 12 | 20M | — | **4.0 (2W/48L) — CRACK CONSOLIDATED**, picks 3.78, forms 0.62 | 88.0/10.60/3.20 | **10-2** | **11-1** (n=12, record) |
+
+**LEG 12 (Sep 4): TWO lv8 wins — the crack is real.** After leg 11's
+0/50 scare, leg 12 scored 2W/48L at lv8 with behavior metrics resuming
+their climb (picks 3.78, forms 0.62 — both lineage records). Wins at
+lv8 across three legs: 1, 0, 2 — a noisy leading edge, exactly what a
+wall eroding from underneath looks like. Both AB probes set records:
+10-2 vs its parent, **11-1 vs the leg1 champion** (n=12; the n=50
+crown probe remains 29-21). slot2 read 88.0 (down 2 from 90 — inside
+n=50 noise, but by the pre-registration letter this is one flat/down
+leg: trigger is now ARMED; a second consecutive flat/down leg fires
+it and the response is eval discriminators FIRST, no diet change).
+OPS NOTE: leg 12's trainer hung in teardown AFTER printing "leg
+complete" (mutex hang on clean exit — new variant of the known
+failure mode); the hung main + 6 workers squatted CPU for ~50 min
+until manually killed, and the stale ps2train tmux session would have
+blocked leg 13's auto-launch. Relay procedure updated: after each leg,
+verify trainer exit + session cleanup before battery. Consider adding
+os._exit(0) after the final save in train_selfplay.py as a permanent
+guard.**
+
+## MIGRATION TO THE 7950X LINUX BOX (Sep 4, 2026)
+
+Blake called the M2 era done: relay STOPPED mid-leg-13 (1,277 eps in,
+progress discarded by design; league_state.txt intact at "13
+./powerstone_v6_leg12_league.zip", so leg 13 = first Linux leg). Final
+M2-era standings: leg 12, 20M lifetime, slot2 88.0, lv8 2W/48L, 11-1
+(n=12) vs leg1. PRE-REGISTRATION TRIGGER REMAINS ARMED (90 -> 88).
+
+Bring-up vehicle: this repo + linux_port/LINUX_BRINGUP.md +
+linux_port/setup_linux.sh. Non-repo payload rsyncs from the Mac (CHD,
+pool_league, states, demos*, model zips, league_state.txt). Gates
+G1-G5 in LINUX_BRINGUP.md; G4 (50-ep slot2 parity vs the leg 12 Mac
+numbers) is mandatory before any training — cross-platform obs parity
+is where this project has been burned before (chest-obs law).
+league_leg.sh / league_battery.sh made platform-aware (core path,
+caffeinate, cd-to-script-dir). Open questions for the Linux era:
+worker count (try 12 at G5; M2 ran 6), stagger (Metal race is
+macOS-only), and whether the teardown hang follows us off macOS.
+
 **CROWN PROBE AT n=50 (Sep 2, leg6 vs leg1): 29-21 (58%%).** 95%% CI
 ~44-71 — "at least even, probably ahead," NOT proof of dominance; the
 training-state caveat still applies. The held-out slot2 curve is the
