@@ -18,7 +18,7 @@ and the fighting-game-AI survey (Phillip / slippi-ai / Blade & Soul):
     failure mode rehearsal genuinely guards against.
 
 Win/loss vs a frozen self is ~50% BY CONSTRUCTION at the start — track
-ELO-against-the-pool instead of raw win% (log_pool_winrate below), plus the
+ELO-against-the-pool instead of raw win% (NOT YET IMPLEMENTED), plus the
 untouched ep_stats CSVs for behavior metrics (picks/forms/dmg).
 """
 import os
@@ -83,7 +83,12 @@ class SnapshotToPool(BaseCallback):
                              f"{_tag}_{self.num_timesteps}_steps.zip")
             self.model.save(p)
             for env_i in range(self.training_env.num_envs):
-                # workers refresh their pool listing lazily on next reset
+                # Sep 9 audit: workers do NOT see this snapshot — the pool
+                # file list is loaded once at env construction and reset()
+                # samples that frozen list. Snapshots land on disk now and
+                # become opponents at the NEXT leg's launch. (Frozen-per-leg
+                # is methodologically clean; do not add live refresh without
+                # changing the pre-registered recipe.)
                 pass
             print(f"[pool] snapshot -> {p}")
         return True

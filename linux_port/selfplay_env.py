@@ -35,8 +35,10 @@ class OpponentPool:
     """Frozen SB3 policies sampled per episode.
 
     Sampling: 50% uniform over the newest `recent_k`, 50% uniform over the
-    full history (PFSP-lite — keeps the learner honest against old styles
-    without letting the pool go stale)."""
+    full history — 50/50 recency-history sampling (NOT true PFSP: no
+    performance-based priorities). The path list is loaded ONCE at
+    construction; the pool is frozen for the whole leg and grows only
+    between legs."""
 
     def __init__(self, pool_dir, recent_k=10):
         from stable_baselines3 import PPO

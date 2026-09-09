@@ -61,6 +61,13 @@ PS2_TOTAL_STEPS=20000 PS2_POOL=./pool_league PS2_WARM=./powerstone_v6_leg12_leag
 #   worker count for leg 13. Delete powerstone_v6_linuxprobe* after.
 ```
 
+### After G4 passes: freeze the artifacts
+The buildbot core is a mutable "latest" — the moment G4 passes, record
+what actually passed: `shasum -a 256 ~/cores/flycast_libretro.so` and the
+sdlarch-rl git SHA (`git -C ../sdlarch-rl rev-parse HEAD`), into a
+`linux_parity_manifest.txt` beside this file. Any future core/harness
+change reruns G4 before training.
+
 ## 4. Resume the league (leg 13)
 
 ```bash

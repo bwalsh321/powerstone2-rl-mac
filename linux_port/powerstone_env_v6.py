@@ -401,7 +401,8 @@ class PowerStoneEnvV6(gym.Env):
     # B=action/grab, X=attack (+push/use item), Y=drop/throw held item.
     # There is NO block/guard in this game. ORDER AND MASKS UNCHANGED —
     # indices are the policy head; only the cosmetic names changed.
-    # NOTE (the big one): transformed specials — Power Fusion 1/2 — are the
+    # NOTE (v5-ERA, SUPERSEDED by the v6 10-action table below — pf1_L/pf2_R
+    # ARE in the action space now): transformed specials — Power Fusion 1/2 — are the
     # L/R TRIGGERS, which are ANALOG AXES on Dreamcast, not mask bits. They
     # are NOT in this action space -> the bot is physically unable to use
     # its transformed specials. Flycast lua CAN inject them

@@ -12,8 +12,12 @@ sudo apt-get install -y -qq build-essential python3-venv python3-dev git tmux \
 echo "=== [1/4] venv ~/ps2rl (torch CPU build — no CUDA needed) ==="
 [ -d ~/ps2rl ] || python3 -m venv ~/ps2rl
 ~/ps2rl/bin/pip install -q --upgrade pip
-~/ps2rl/bin/pip install -q torch --index-url https://download.pytorch.org/whl/cpu
-~/ps2rl/bin/pip install -q stable-baselines3==2.9.0 gymnasium==1.3.0 "numpy==2.4.6" opencv-python-headless
+# Sep 9 audit fix: requirements.txt is the single source of truth — the env
+# imports OLD gym (0.26.2) + shimmy, which the previous version of this
+# script omitted (G1 would pass, training would die on `import gym`).
+~/ps2rl/bin/pip install -q "torch==2.13.0" --index-url https://download.pytorch.org/whl/cpu
+HERE0="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+~/ps2rl/bin/pip install -q -r "$HERE0/../requirements.txt"
 
 echo "=== [2/4] flycast libretro core -> ~/cores/flycast_libretro.so ==="
 mkdir -p ~/cores
@@ -24,9 +28,10 @@ fi
 
 echo "=== [3/4] gate G1: python imports ==="
 ~/ps2rl/bin/python - << 'PY'
-import torch, stable_baselines3, gymnasium, numpy
+import torch, stable_baselines3, gymnasium, numpy, gym, shimmy
 print("torch", torch.__version__, "| sb3", stable_baselines3.__version__,
-      "| gym", gymnasium.__version__, "| numpy", numpy.__version__)
+      "| gymnasium", gymnasium.__version__, "| gym(old)", gym.__version__,
+      "| numpy", numpy.__version__)
 print("G1 PASS")
 PY
 

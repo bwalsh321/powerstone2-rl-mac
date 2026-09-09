@@ -141,6 +141,67 @@ verify trainer exit + session cleanup before battery. Consider adding
 os._exit(0) after the final save in train_selfplay.py as a permanent
 guard.**
 
+| 13 | 22M (M2 resumed Sep 8) | — | **6.0 (3W/47L) — lv8 wins now 1,0,2,3, a climbing edge** | **90.0**/9.12/2.72 | 10-2 | **11-1** (n=12, ties record) |
+
+**LEG 13 (Sep 8, first leg after the 4-day hardware pause): TRIGGER
+DISARMED (88 -> 90), and the lv8 edge is now a TREND.** Three wins in
+fifty at max difficulty — the per-leg win counts read 1, 0, 2, 3, with
+behavior metrics holding at their highs (3.62/0.62). slot2 back at 90
+(picks/forms softened to 9.12/2.72 — watch, not worry, win%% rose).
+AB probes: 10-2 vs leg12, 11-1 vs leg1 again. OPS: the teardown hang
+recurred on clean completion (2nd straight — now the expected end-of-
+leg behavior; every relay wake kills the hung tree before the battery;
+os._exit(0) patch proposed to Blake, pending). The dead eBay 7950X
+detour (Sep 6, board fine) cost 4 calendar days and zero project
+state.**
+
+## SEP 9 EXTERNAL AUDIT #2 (11-page pass, different model — findings verified against code before acceptance)
+
+CONFIRMED, fixed same day (docs/bootstrap only — zero training-behavior
+changes mid-campaign):
+1. **The pool is FROZEN within each leg.** OpponentPool.refresh() runs
+   only at env construction; reset() samples the launch-time list, and
+   SnapshotToPool's "workers refresh lazily on reset" comment sat above
+   a literal `pass`. Snapshots created during leg N become opponents at
+   leg N+1. This is methodologically CLEAN (stationary opponents per
+   leg) but it invalidates one earlier interpretation: leg 5's mid-leg
+   38->28 dip was NOT "its parent's snapshots joining the pool mid-leg"
+   — nothing joins mid-leg. Cause unknown; treat as ordinary variance.
+   Leg 3C's accidental-league story survives (leg B's snapshots were on
+   disk BEFORE 3C launched). Comments corrected; DO NOT add live
+   refresh without changing the pre-registered recipe.
+2. **Reproducibility trap in setup_linux.sh (HIGH).** The env imports
+   OLD gym (0.26.2) + shimmy per requirements.txt, but the bootstrap
+   omitted both (and pygame/tensorboard, and left torch unpinned) — G1
+   would pass while real training died on `import gym`. Fixed: bootstrap
+   now installs from requirements.txt (single source of truth), pins
+   torch==2.13.0 (cpu), and G1 imports gym+shimmy too.
+3. **"PFSP-lite" renamed** in docs to 50/50 recency-history sampling
+   (no performance-based priorities — not actually PFSP).
+4. **Stale comments** fixed: v6 action-table NOTE (pf1/pf2 ARE in the
+   space), phantom log_pool_winrate reference.
+5. **"Zero lv8 training data" needs the word DIRECT**: pool_league
+   contains prog_3A/3C/3D, which were themselves trained vs lv8 COMs —
+   an indirect teacher path exists. Public claim wording: "zero DIRECT
+   lv8 COM interactions in the league lineage."
+
+CONFIRMED, deliberately deferred to post-campaign (changing them now
+would contaminate the pre-registered lineage):
+6. **Law 6 vs the relay**: the battery promotes each leg's FINAL with no
+   checkpoint sweep, while Law 6 says "promote the best, never the
+   last." Real tension. Post-campaign: conditional rule (sweep retained
+   checkpoints only when the held-out battery regresses) or a fixed
+   selection battery.
+7. **AB probes are one-seat** (learner always P2) — diagnostic, not a
+   crown test. Post-campaign: bidirectional AB at larger n.
+8. **No per-leg seed/manifest**; mtime defines "recent" (rsync -a
+   preserves it, future copies may not). Post-campaign: per-leg manifest
+   (SHAs, model/pool/state hashes, seeds, pip freeze, core hash).
+Also flagged: no LICENSE in the repo (Blake's call); pin/record the
+flycast core hash once G4 passes on Linux; audit's stats framing
+matches ours (curve is the flag-plant; 29-21 p~.32 two-sided, not
+proof of dethroning; 1/0/2/3 lv8 wins = trajectory, not a stable rate).
+
 ## MIGRATION TO THE 7950X LINUX BOX (Sep 4, 2026)
 
 Blake called the M2 era done: relay STOPPED mid-leg-13 (1,277 eps in,
