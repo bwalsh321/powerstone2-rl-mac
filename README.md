@@ -14,7 +14,7 @@ interface, the training environment, and the evaluation harness were all
 built from scratch; the trained agent is the by-product. The longer story,
 including a year stuck on RAM discovery and every recipe that did not
 work, is in the write-up:
-[Reddit post]([https://www.reddit.com/r/reinforcementlearning/](https://www.reddit.com/r/reinforcementlearning/comments/1wc6zr8/i_trained_a_power_stone_2_dreamcast_bot_from/)).
+[Reddit post](https://www.reddit.com/r/reinforcementlearning/comments/1wc6zr8/i_trained_a_power_stone_2_dreamcast_bot_from/).
 
 ## How it works
 
