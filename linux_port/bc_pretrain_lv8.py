@@ -25,6 +25,16 @@ the v4 corpus carries scale. Expect val_acc ~77% (the capacity test's
 number) — meaningfully above the 64x64 net's ~75.5% on the same data.
 
 NOTE: never write powerstone_v6_ppo.zip while a trainer is running.
+
+CORPUS CAVEAT (Sep 10 2026 external audit, verified): in every recorded
+corpus (demos, demos_lv8, demos_v4corpus) the self-velocity features
+obs[4:6] are exactly 0 in >98% of rows, because the recorders compared
+near-adjacent states instead of the ACTION_FRAMES window the live env uses.
+Online, those features are nonzero whenever anyone moves. So a clone
+trained here has never seen the velocity signal it gets at deployment, and
+"BC failed because of covariate shift" is only part of the story. Fix the
+recorder window (and align the last-action timing, see powerstone_env_v6
+.step) BEFORE recording more demonstrations or judging DAgger.
 """
 
 import glob

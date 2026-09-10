@@ -1,8 +1,10 @@
-# 7950X Linux box bring-up (written Sep 4, 2026)
+# Linux box bring-up (written Sep 4, 2026; refreshed Sep 10)
 
-The league relay was stopped mid-leg-13 on the M2 for this migration.
-`league_state.txt` reads `13 ./powerstone_v6_leg12_league.zip` — leg 13
-becomes the first leg trained on this box. Full project context: HANDOFF.md
+Written for the 7950X box; applies to any Linux machine (the 12700K fallback
+included). The relay keeps running on the M2 until G4 passes here, so read
+`league_state.txt` on the Mac at migration time for the current leg number
+and warm-start zip; the leg numbers below are examples from Sep 10 (leg 15
+final, leg 16 in progress). Full project context: HANDOFF.md
 at the repo root (read PROJECT LAWS + the LEAGUE LEGS table first).
 
 ## 1. On the Linux box (fresh install)
@@ -44,16 +46,23 @@ CORE=~/cores/flycast_libretro.so
 GAME="../Power Stone 2 (USA).chd"
 
 # G3 — boots, loads state + model, runs (minutes)
-python eval_parity.py --core "$CORE" --game "$GAME" --slot 2 --episodes 3 --model ./powerstone_v6_leg12_league.zip
+python eval_parity.py --core "$CORE" --game "$GAME" --slot 2 --episodes 3 --model ./powerstone_v6_leg15_league.zip
 
-# G4 — full parity vs the leg 12 Mac battery (~40 min)
-python eval_parity.py --core "$CORE" --game "$GAME" --slot 2 --episodes 50 --model ./powerstone_v6_leg12_league.zip
-#   Mac reference (Sep 4): win% 88.0, picks 10.60, forms 3.20 — expect within
-#   a few points at n=50 and a PARITY PASS line. A big miss = obs divergence:
-#   check RAM offsets/endianness before anything else, per the chest-obs law.
+# G4 — full parity vs the SAME checkpoint's Mac battery (~40 min). MANDATORY.
+#   --ref is the matched reference: leg 15's Mac receipt was 46/50 wins,
+#   10.54 picks/ep, 3.22 forms/ep (linux_port/receipts/eval_leg15_slot2_out.txt).
+#   If you migrate a later leg, use THAT leg's receipt instead.
+python eval_parity.py --core "$CORE" --game "$GAME" --slot 2 --episodes 50 \
+  --model ./powerstone_v6_leg15_league.zip --ref 46/50,10.54,3.22
+#   Pass rule: win% not significantly different at n=50 (two-proportion test,
+#   p>=0.05), picks/forms within 15%. Exit code 1 on PARITY FAIL. A marginal
+#   fail: rerun once (random reset delay). A big miss = obs divergence: check
+#   RAM offsets/endianness before anything else, per the chest-obs law.
+#   Also record here, in a comment or HANDOFF note: the flycast core sha256,
+#   the sdlarch-rl commit, and `pip freeze` at the time G4 passed.
 
 # G5 — throughput probe, 6 workers, ~20k steps (M2 reference: ~80 steps/s total)
-PS2_TOTAL_STEPS=20000 PS2_POOL=./pool_league PS2_WARM=./powerstone_v6_leg12_league.zip \
+PS2_TOTAL_STEPS=20000 PS2_POOL=./pool_league PS2_WARM=./powerstone_v6_leg15_league.zip \
   PS2_FRESH=1 PS2_OUT=./powerstone_v6_linuxprobe PS2_NENVS=6 PS2_STAGGER=5 \
   python -u train_selfplay.py 2>&1 | tee g5_probe.log
 #   Compute steps/s from log timestamps. If CPU headroom is huge (expected on
@@ -68,7 +77,7 @@ sdlarch-rl git SHA (`git -C ../sdlarch-rl rev-parse HEAD`), into a
 `linux_parity_manifest.txt` beside this file. Any future core/harness
 change reruns G4 before training.
 
-## 4. Resume the league (leg 13)
+## 4. Resume the league
 
 ```bash
 tmux new -s ps2train -d "bash $(pwd)/league_leg.sh"     # no caffeinate on Linux

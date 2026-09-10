@@ -1,3 +1,5 @@
+> Moved to `docs/` on Sep 10 2026. These are the porting notes from the Windows-to-Mac move (Aug 2026), kept for the record; the current entry points are the root README.md and linux_port/LINUX_BRINGUP.md.
+
 # Power Stone 2 RL — M2 MacBook port test (the "can I skip Linux?" answer)
 
 Companion to `README_PORT.md` (same folder). That doc's steps are the

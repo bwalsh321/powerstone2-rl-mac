@@ -1,4 +1,9 @@
-# HANDOFF — Power Stone 2 RL, M2 MacBook port session (Aug 22–28, 2026)
+# HANDOFF — Power Stone 2 RL lab notebook (Aug 22, 2026 onward)
+
+> Sep 10 2026 repo cleanup: every eval/train receipt referenced below now
+> lives in `linux_port/receipts/` (same filenames), pre-relay launchers and
+> two rig-era zips in `linux_port/archive/`, porting notes and the Reddit
+> kit in `docs/`. Model zips and the relay scripts did not move.
 
 ## LEG 4 — THE SYNTHESIS LEG (Aug 31->Sep 1): NEW FRESH-LINEAGE CHAMPION
 
@@ -67,7 +72,8 @@ fires must be pointed at this section.
 ## LEAGUE LEGS (running record — one line per leg; relay automated Sep 1)
 
 Recipe per leg: league_leg.sh / league_battery.sh, 2M steps, full
-self-play vs pool_league (self-growing), warm start = previous leg,
+self-play vs pool_league (frozen at worker start, grows between legs —
+audit #2), warm start = previous leg,
 battery + auto-launch chained. Lineage: bc256 -> 3B -> leg4 -> leg5...
 
 | leg | lifetime | train q1-q4 vs league | slot3 | slot2 | A/B vs prev | vs leg1 |
@@ -155,6 +161,38 @@ os._exit(0) patch proposed to Blake, pending). The dead eBay 7950X
 detour (Sep 6, board fine) cost 4 calendar days and zero project
 state.**
 
+| 14 | 24M | — | 4.0 (2W/48L, 3.44/0.54) | **92.0**/10.36/3.24 — NEW RECORD | 10-2 | 8-4 (n=12) |
+
+**LEG 14 (Sep 9): slot2 92.0, six points from the champion's 98**, with
+picks/forms recovering to highs (10.36/3.24 — leg 13's dip was noise).
+lv8: 2W/50 — per-leg wins now 1,0,2,3,2: a persistent noisy edge, no
+longer a one-off. AB 10-2 vs parent; the leg1 probe read 8-4 (n=12
+wobble after back-to-back 11-1s — the n=50 crown probe remains the
+honest number). Trigger stays DISARMED (90 -> 92). OPS: leg 14's
+battery ran ~12h late — the Sep 9 audit commit's git push hung on a
+keychain prompt and blocked the single-threaded bridge watcher until
+Blake entered the password; training itself was unaffected. LESSON:
+never queue an interactive-capable command (git push) on the relay's
+bridge — batch pushes separately with a timeout, or refresh creds
+first. ALSO: leg 15 hit the chronic Metal boot race (5 EOFError boots
+across wrapper attempts; 9-day uptime) — recovered on a manual
+relaunch with PS2_STAGGER=45; if the chronic mode returns, the known
+cure is a Mac reboot.**
+
+| 15 | 26M | ~90 vs league (5,300 eps) | 4.0 (2W/48L, 4.30/0.56) | **92.0**/10.54/3.22 — ties record | **11-1** | **11-1** (n=12) |
+
+**LEG 15 (Sep 9): 92 again, and both AB probes 11-1.** slot2 holds the
+record (92.0, picks 10.54 / forms 3.22 — the highest picks of the
+lineage). lv8: 2W/50 again, per-leg wins 1,0,2,3,2,2 — six straight
+legs with at least one win after nine with none. AB 11-1 vs leg14 and
+11-1 vs leg1 (the leg-14 8-4 was n=12 wobble as expected). Trigger:
+92 -> 92 is flat. The pre-registered rule says "flat/down"; read
+strictly that ARMS it at one (a second flat/down leg at 16 would fire
+the discriminator sequence); read as "no regression" it stays disarmed.
+BLAKE TO RULE before leg 16's battery — the plan is his. Leg 16 launched
+Sep 9 20:39 EDT after one boot-phase EOFError retry (Metal race).
+Receipts: linux_port/receipts/eval_leg15_*.**
+
 ## SEP 9 EXTERNAL AUDIT #2 (11-page pass, different model — findings verified against code before acceptance)
 
 CONFIRMED, fixed same day (docs/bootstrap only — zero training-behavior
@@ -201,6 +239,85 @@ Also flagged: no LICENSE in the repo (Blake's call); pin/record the
 flycast core hash once G4 passes on Linux; audit's stats framing
 matches ours (curve is the flag-plant; 29-21 p~.32 two-sided, not
 proof of dethroning; 1/0/2/3 lv8 wins = trajectory, not a stable rate).
+
+## SEP 10 EXTERNAL AUDIT #3 (Codex deep review, 300 files + isolated repro) — verified in code by Fable before acceptance
+
+Every item below was reproduced against the working tree on Sep 10, not
+taken from the review. NO training-behavior change was made mid-campaign.
+
+CONFIRMED, fixed Sep 10 (ops/docs only):
+1. **league_battery.sh advanced on failed evaluations.** Stub test: with
+   every eval failing it still copied the final into the pool, advanced
+   league_state.txt, wrote DONE and launched the next leg. Rewritten:
+   each of the four receipts must pass `check_receipt.py` (summary
+   header for the right model, W+L+T == episodes, per-episode lines) —
+   exit status is NOT used because every eval aborts in libc++ teardown
+   after printing. Failure -> `claude_bridge/battery_legN_FAILED.txt`,
+   nothing persisted, exit 1. tmux launch failure -> exit 2 with a
+   `legN_LAUNCH_FAILED.txt` marker (state already advanced, which is
+   correct). PS2_CORE now exported to the AB probes (Linux path bug).
+   Receipts now land in `linux_port/receipts/`. Stub-tested all six
+   paths; validator checked against the real leg 14/15 receipts.
+2. **eval_parity.py's Gate 4 was a Windows-era band (63-75%%, "above =
+   ok") that would pass a 64%% regression of a 92%% model, and PARITY
+   FAIL exited 0.** Replaced with `--ref wins/n,picks,forms` (the SAME
+   checkpoint's Mac receipt): two-proportion test p>=0.05 on wins,
+   picks/forms within 15%%, exit 1 on fail. Without --ref it is the
+   plain battery evaluator (exit 0). LINUX_BRINGUP.md G4 now uses leg
+   15's receipt (46/50, 10.54, 3.22) and asks for core sha / harness
+   commit / pip freeze to be recorded when G4 passes.
+3. **The warm-start `lr_schedule` override is a placeholder, not the
+   LR.** SB3 load() runs _setup_model() afterwards and rebuilds the
+   schedule from the saved `learning_rate` field. Every league leg has
+   trained at the zip's stored LR (3e-4), not the 2.5e-4 in the
+   constructor/comments. Comment corrected; trainer now prints a
+   `[config] ...` line with the resolved LR / n_steps / batch / arch at
+   startup. Behavior unchanged.
+4. **BC corpora: self-velocity obs[4:6] is exactly 0 in 98.7%% of demos
+   rows, 98.7%% of demos_lv8, 99.4%% of demos_v4corpus** (recorder
+   compared near-adjacent states, not the ACTION_FRAMES window). The
+   clone never saw the velocity signal the live env feeds it. Law 3's
+   "covariate shift" explanation is therefore incomplete: part of the
+   BC failure is a broken input feature. Caveat added to bc_pretrain*.py.
+   ACTION before any DAgger / failure-drill recording: fix the recorder
+   window and the last-action timing (item 6) so demos match the online
+   observation contract, then recompute corpus feature distributions.
+5. Stale-comment / naming pass; repo reorg (receipts/, archive/, docs/);
+   MIT LICENSE added; README TODOs filled from Blake's draft.
+
+CONFIRMED, deliberately DEFERRED to post-campaign (each changes the
+observation contract; fixing mid-lineage would contaminate the
+pre-registered comparison and the AB series):
+6. **`_obs_from_view` leaks the learner's `_form_timer` (and `_my_g_int`)
+   into the P1 view.** Reproduced: untransformed P1 + full P2 timer ->
+   P1's obs[9] reads 1.0. Affects the frozen opponent in training and
+   the reference seat in every AB probe; does NOT touch slot-2/slot-3
+   COM evals. Effect on win rate unmeasured — do not quote a number.
+   Post-campaign: fix as a versioned obs change, then same-policy seat
+   checks and a bidirectional AB at n>=50, old-interface and
+   new-interface results kept separate.
+7. **Last-action one-hot timing differs by seat.** The learner's step()
+   builds the obs before updating last_action (sees a_{t-1} when
+   choosing a_{t+1}); the opponent view and the recorders are one step
+   fresher. All checkpoints were trained under the learner convention.
+   Fix together with item 6 as one obs-version bump.
+8. league_leg.sh's watchdog halts only on EOFError-after-100-eps; other
+   mid-leg deaths could re-enter the retry loop. Not edited on Sep 10
+   because the script was executing leg 16 (bash reads scripts lazily;
+   edit only between legs, by rename).
+
+STATISTICAL CORRECTIONS adopted (from audits #2 and #3), for any public
+prose: crown probe = leg 6 at 8M, 29-21 in 50 (Wilson 44-71%%); champion
+lv8 baseline = 3/20, not 3/50; "22M vs 32M" (now 26M vs 32M) counts PPO
+steps only, not demos or the historical opponents' training; "8 wins in
+4,653" = BC-initialized PPO TRAINING episodes (3D), not a frozen clone's
+eval; "0-for-450" does not map onto one clean cohort (fresh line 3B +
+legs 4-9 = 7 batteries = 350; all four program legs + legs 4-9 = 500) —
+quote a cohort you can name, e.g. "six straight league legs at 0/50
+before the first win at leg 10" (legs 4-9, 300 episodes); "first
+lv8 win" = first in the fresh lineage (the champion already had 3/20);
+slot 2 is a held-out EVALUATION state, not a training worker; "zero lv8
+training" = zero DIRECT COM-8 rollouts in this lineage.
 
 ## MIGRATION TO THE 7950X LINUX BOX (Sep 4, 2026)
 
@@ -727,11 +844,20 @@ should be checked against them.
    lv8-only diets (warm, fresh, lv8-BC-seeded) produced zero learning-
    to-win. "Train against harder opponents" is not a curriculum unless
    the model can sometimes beat them.
+   *Sep 10 scope note (audits #2/#3): as a learning-theory statement
+   this is too broad — PPO can extract signal from graded losses. The
+   empirical law is: near-certain-loss streams against a fixed too-hard
+   opponent were unproductive in THIS environment, three for three.*
 3. **BC priors do not transfer wins — demos must enter via DAgger.**
    A validated 23-1 human corpus, baked at 80.6%% val acc, yielded 8
    wins in 4,653 training episodes (3D). Covariate shift eats frame-
    level mimicry. Human data pays only when it relabels the POLICY's
    states (DAgger / failure-state drills), never as a seed alone.
+   *Sep 10 scope note (audit #3): the corpora also carry a recorder bug
+   (velocity features ~always 0, see audit #3 item 4) and a last-action
+   timing mismatch, so covariate shift was not isolated. "Must enter via
+   DAgger" is the next experiment, not an established law; fix the
+   recorder first.*
 4. **Data/priors/interface changes go ~5-for-5; reward tuning is
    0-for-5 lifetime.** (BC ceiling break, hold-until-next fix, chest
    obs restoration, self-play leg1, deep-pool discovery vs the five
@@ -748,6 +874,11 @@ should be checked against them.
 7. **The lv8 wall stands.** No 2M-step fresh lineage has scored one
    deterministic lv8 win (0-for-200 eval episodes across 4 legs). Only
    the 31.9M lineage wins there (15%%). Respect what lifetime buys.
+   *Sep 10 status: superseded in part. The fresh lineage has scored
+   1,0,2,3,2,2 wins per 50 over legs 10-15 (2-6%%) with zero direct lv8
+   training; the champion's baseline is 3/20. The wall is cracked, not
+   down; the "respect lifetime" lesson stands (it took 16M+ lineage
+   steps to get there).*
 8. **Ops:** worker boot stagger 20s (Metal init race killed 3 launches
    at 6s, plus 2 chained launches — add retry-on-EOFError to
    launchers); leg launches via launcher SCRIPTS, never nested-quoted

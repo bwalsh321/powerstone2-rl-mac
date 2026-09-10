@@ -1,3 +1,5 @@
+> Moved to `docs/` on Sep 10 2026. These are the porting notes from the Windows-to-Mac move (Aug 2026), kept for the record; the current entry points are the root README.md and linux_port/LINUX_BRINGUP.md.
+
 # MacBook migration kit (Aug 23)
 
 Copy this whole folder to the M2, then follow `linux_port/MAC_TEST.md`.

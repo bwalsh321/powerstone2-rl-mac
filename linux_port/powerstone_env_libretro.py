@@ -14,7 +14,7 @@ checkpoints load and behave identically once parity is verified.
 
 Requires: powerstone_env_v6.py, ps2_addr.py, ps2_ram.py, flycast_bridge.py
 on PYTHONPATH, and per-slot savestates recreated under the libretro core
-(states_dir/slot<N>.state — see README_PORT.md; standalone .state files do
+(states_dir/slot<N>.state — see docs/README_PORT.md; standalone .state files do
 NOT load in the libretro core).
 """
 import io

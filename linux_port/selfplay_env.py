@@ -20,7 +20,7 @@ rig never exercised.
 
 Savestate requirement: slots must be VS-mode 2P matches (both DC ports
 human) — the existing 1-human savestates put a COM on port A. See
-README_PORT.md step 5.
+docs/README_PORT.md step 5.
 """
 import os
 import random
@@ -153,7 +153,22 @@ class SelfPlayEnv(PowerStoneEnvLibretro):
         player blocks are port-ordered — but stones/chests/projectiles
         sorted around its enemy). Signature: learner 62W/4L in bring-up.
         _parse_line is the pure path: no pin, no pump, no
-        _last_parsed_frame touch — learner cadence is unaffected."""
+        _last_parsed_frame touch — learner cadence is unaffected.
+
+        KNOWN ISSUE (Sep 10 external audit, confirmed, NOT fixed here):
+        this swap covers AGENT_PLAYER, _active_opp and last_action only.
+        _observe() also reads self._form_timer (obs[9] fallback when the
+        view's own form flag is off) and self._my_g_int (gem fallback),
+        which are the LEARNER's counters. An untransformed P1 can thus
+        read a full own-form feature while P2's timer is running. This
+        touches the frozen opponent's view in training and the reference
+        seat in ab_selfplay_probe.py; it does not touch the slot-2/slot-3
+        COM evaluations (no PPO opponent there). Fixing it changes the
+        observation contract mid-lineage, so it is deferred to the end of
+        the pre-registered campaign and will ship as a versioned
+        observation change with old/new AB results kept separate. Also
+        note the learner's last-action one-hot is one step older than the
+        opponent view's (see powerstone_env_v6.step)."""
         line = synth.line
         if not line:
             return np.zeros(self.OBS_DIM, dtype=np.float32)

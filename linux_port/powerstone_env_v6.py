@@ -944,6 +944,13 @@ class PowerStoneEnvV6(gym.Env):
 
         health = self._frac(s["h"])
         reward, done, info = self._reward(health, s)
+        # NOTE (Sep 10 audit): the obs is built BEFORE last_action is
+        # updated, so the one-hot the policy sees when choosing a_{t+1} is
+        # a_{t-1}, not a_t. Every checkpoint in the lineage was trained and
+        # evaluated under this convention; the self-play opponent view
+        # (selfplay_env._obs_from_view) and the demo recorders use a
+        # one-step-fresher one. Changing it is an observation-version
+        # change, deferred to the end of the current campaign.
         obs = self._observe(s, self.prev)
         self.prev = s
         self.prev_health = health

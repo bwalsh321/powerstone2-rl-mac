@@ -47,6 +47,10 @@ def main():
                       bridge_dir=os.path.join(ROOT, "bridge_ab"),
                       pool_dir=pool_ab)
     model = PPO.load(args.model.removesuffix(".zip"), device="cpu")
+    print(f"[ab] model={os.path.basename(args.model)} "
+          f"opp={os.path.basename(args.opp)} episodes={args.episodes} "
+          f"seats=learner:P2 opponent:P1 (one-seat probe; see HANDOFF "
+          f"'AB probes are one-seat')")
 
     wins = losses = 0
     for ep in range(args.episodes):

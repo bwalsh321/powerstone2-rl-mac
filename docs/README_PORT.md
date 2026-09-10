@@ -1,3 +1,5 @@
+> Moved to `docs/` on Sep 10 2026. These are the porting notes from the Windows-to-Mac move (Aug 2026), kept for the record; the current entry points are the root README.md and linux_port/LINUX_BRINGUP.md.
+
 # Power Stone 2 RL — Linux/libretro port + self-play
 
 Drop this `linux_port/` folder next to `powerstone_env_v6.py` in the repo,

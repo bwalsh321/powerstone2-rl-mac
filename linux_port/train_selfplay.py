@@ -107,9 +107,15 @@ def main():
         print(f"warm-starting from {MODEL_PATH}.zip (Leg G weights)")
         # Aug 24: the rig's zips carry clip_range/lr_schedule lambdas
         # pickled under the rig's python — they fail to deserialize under
-        # 3.11 (sb3 warns and stores the exception object). predict()
-        # never touches them, but .learn() calls both — replace with the
-        # same values the fresh path below uses.
+        # 3.11 (sb3 warns and stores the exception object), so both are
+        # replaced here so that load() does not choke.
+        # Sep 10 (audit R6): the lr_schedule value below is a PLACEHOLDER,
+        # not the training LR. SB3's load() calls _setup_model() afterwards,
+        # which rebuilds lr_schedule from the saved `learning_rate` field.
+        # Every warm-started league leg has therefore trained at the LR
+        # stored in the zip (3e-4 for this lineage), not 2.5e-4. To change
+        # the LR of a warm start, pass learning_rate in custom_objects. The
+        # resolved values are printed below; trust that print, not comments.
         model = PPO.load(MODEL_PATH, env=venv, device="cpu",
                          custom_objects={"clip_range": 0.2,
                                          "lr_schedule": lambda _: 2.5e-4})
@@ -119,6 +125,24 @@ def main():
                     n_steps=512, batch_size=512, learning_rate=2.5e-4,
                     tensorboard_log=os.path.join(ROOT, "powerstone_logs"),
                     policy_kwargs=dict(net_arch=[256, 256]))
+
+    # resolved configuration of the model that will actually train (audit
+    # R6: comments and constructors drift; the loaded object is the truth)
+    try:
+        _cr = model.clip_range(1.0) if callable(model.clip_range) else model.clip_range
+        print("[config] "
+              f"learning_rate={getattr(model, 'learning_rate', '?')} "
+              f"n_steps={getattr(model, 'n_steps', '?')} "
+              f"batch_size={getattr(model, 'batch_size', '?')} "
+              f"n_epochs={getattr(model, 'n_epochs', '?')} "
+              f"gamma={getattr(model, 'gamma', '?')} "
+              f"gae_lambda={getattr(model, 'gae_lambda', '?')} "
+              f"ent_coef={getattr(model, 'ent_coef', '?')} clip_range={_cr} "
+              f"net_arch={(getattr(model, 'policy_kwargs', None) or {}).get('net_arch')} "
+              f"warm={MODEL_PATH if os.path.exists(MODEL_PATH + '.zip') else None} "
+              f"pool={POOL_DIR} n_envs={N_ENVS} total_steps={TOTAL_STEPS}")
+    except Exception as e:      # a log line must never kill a leg
+        print(f"[config] could not print resolved config: {e!r}")
 
     callbacks = [
         CheckpointCallback(save_freq=max(100_000 // N_ENVS, 1),
