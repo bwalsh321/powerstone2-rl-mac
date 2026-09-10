@@ -7,53 +7,14 @@ project. The current agent trains only by playing frozen copies of itself
 in 1v1, and is measured on a held-out four-player free-for-all against the
 game's built-in COMs.
 
-<!-- Blake: everything in this intro and the story below is built from your
-     Reddit draft, facts corrected against HANDOFF.md. Edit freely. -->
-
-A few years back I saw a video about
-[somebody training an AI to play Pokemon Red](https://www.youtube.com/watch?v=DcYLT37ImBY).
-I was fascinated with it, and even bought an old 16-core Xeon to train it
-myself. That was fun, but I had a different dream. One of my favorite games
-of all time is Power Stone 2, and I always wished my two brothers and I had
-a fourth player at our skill level. We spent years of my childhood playing
-four-person free-for-alls with a stock bot that was essentially useless.
-That is how this project was born.
-
-## The story
-
-I started this in 2025. Once I realized I needed to hunt down RAM values to
-make the bot any good, the project hit a wall for over a year. There were no
-decomps for Power Stone 2 and no memory map listed anywhere, so everything
-here had to be built from scratch. It came back to life in August 2026: I had
-just had a baby and needed something to do late at night with the baby
-asleep on me, and doomscrolling was not it. As a father of three,
-reinforcement learning turned out to be a language I already understood
-pretty well.
-
-The first version ran on my Windows machine: one emulator window, then ten,
-capped at 60 fps because Flycast would not run uncapped there. Ten windows
-was the ceiling of that machine. Then I found a libretro harness
-([sdlarch-rl](https://github.com/paulo101977/sdlarch-rl)) that runs Flycast
-headless and in-process, ported it to my M2 MacBook, and got six instances
-running at 150+ fps. What the Windows box did in a day, the Mac does in a
-few hours. The Linux server upgrade is on hold after an eBay 7950X arrived
-internally shorted, so the whole league below was trained on a laptop.
-
-I hit a wall around COM difficulty 5 for a long time. Reward tuning,
-behavior cloning from my own play, mixing in 1v1s, mixing in harder COMs,
-mixing in old checkpoints as opponents: nothing moved it. What finally
-broke it was the simplest recipe in the repo: six workers of pure 1v1
-self-play against a growing pool of frozen past checkpoints, in 2M-step
-legs that each warm-start from the last, with the low-difficulty FFA kept
-out of training entirely and used only to measure each leg. Not one reward
-change since. The curve in the results section is that recipe running
-unattended for two weeks.
-
-The agent is not "done" and this is not a claim that it beats the game. It
-is a claim that a hobby-scale, RAM-based RL environment for a game with no
-tooling can be built, and that the learning signal on it is real. The full
-lab notebook, including every failed leg and every bug that was found and
-fixed, is [`HANDOFF.md`](HANDOFF.md).
+**Why:** I grew up playing four-player Power Stone 2 free-for-alls with my
+two brothers and a stock CPU player that was useless. I wanted a fourth
+player at our level. There was no decomp and no memory map, so the RAM
+interface, the training environment, and the evaluation harness were all
+built from scratch; the trained agent is the by-product. The longer story,
+including a year stuck on RAM discovery and every recipe that did not
+work, is in the write-up: <!-- Blake: paste the Reddit post URL here -->
+[Reddit post](https://www.reddit.com/r/reinforcementlearning/).
 
 ## How it works
 
