@@ -61,7 +61,6 @@ FFA_SLOT = int(os.environ.get("PS2_FFA_SLOT", "0"))
 #                       damage applies on top of it). OpenAI Five randomized unit
 #                       properties "to force exploration in strategy space".
 ZERO_SUM = os.environ.get("PS2_ZERO_SUM", "0") == "1"
-ZS_TIME = os.environ.get("PS2_ZS_TIME", "1") == "1"   # Sep 23: learner time cost after zero-sum
 _SH = os.environ.get("PS2_START_HEALTH", "").strip()
 START_HEALTH = tuple(float(x) for x in _SH.split(",")) if _SH else None
 
@@ -307,11 +306,6 @@ class FFASelfPlayEnv(PowerStoneEnvLibretro):
         others = [rs[k] for k in present if k != i]
         opp_mean = sum(others) / len(others) if others else 0.0
         adj = rs[i] - opp_mean
-        # Sep 23 2026 (Astra review #9): the per-seat TIME_PENALTY cancels exactly under the
-        # mean subtraction (same cost on every seat), so legs 55-71 trained with NO per-step
-        # time cost. Re-apply it after the relative step; PS2_ZS_TIME=0 reverts.
-        if ZS_TIME:
-            adj -= self.TIME_PENALTY
         z = self._zs
         if z is not None:
             z["raw"] += rs[i]; z["opp_mean"] += opp_mean; z["adj"] += adj

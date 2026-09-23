@@ -5,6 +5,103 @@
 > two rig-era zips in `linux_port/archive/`, porting notes and the Reddit
 > kit in `docs/`. Model zips and the relay scripts did not move.
 
+## STATE AT CONTEXT COMPACTION (Sep 23 2026 ~1:30 pm EDT) — READ THIS FIRST
+
+**Sep 23 ~1:30 pm UPDATE (Astra review, Blake: "go on all of it before leg 71 battery"):** see
+ASTRA REVIEW FIXES below. Leg 72 boots with two versioned changes: obs ctx fix (stage one-hot +
+DIFF_DIM now written on the randomized slots 10-22; they were ZERO in ~93%% of training episodes
+since leg 58 while the evals had them) and the learner time cost restored after the zero-sum step
+(it had cancelled exactly since leg 55). Both are flags in `league_env.txt` (`PS2_OBS_CTX_FIX=1
+PS2_ZS_TIME=1`, `=0` reverts either). Read legs 72-73 against 70-71 as ONE intervention (two changes
+at once, Blake's call). Also: leg 70's "interval clear of the old record" line below is WRONG —
+the Wilson intervals overlap (leg 59 20.3-27.7 vs leg 70 25.0-32.9, p~0.07); leg 70 is the new
+observed best, +5 points, awaiting leg 71 as confirmation. And `forms=A/B` in the stats lines is
+bot transforms / opponent transforms, NOT closed/attempted; the leg 68-70 review "closing rate"
+lines are misreads (rubric now carries a data dictionary). The battery now enforces the hold
+thresholds itself (`hold_gate.py`, marker `claude_bridge/hold_leg<N>.txt`), verifies the pool copy
+before advancing state, and takes a per-leg lock dir `claude_bridge/battery_leg<N>.lock`.
+
+**Live:** leg 71 training (launched 12:35 pm EDT, done ~5:00 pm; wake `ps2-leg71-end-wake` 5:50 pm),
+state `71 ./powerstone_v6_leg70_league.zip`, `league_trainer.txt` = mixed, battery chains leg 72.
+Leg 70's scouting run (tmux scout70) was still encoding at compaction: when `claude_bridge/
+scout_leg70_done.txt` appears, spawn the Sonnet reviewer on `videos/review_leg70/` (rubric
+`scout_rubric.md`), send `videos/leg70_win.mp4`, relay three lines. Relay watcher and the
+scouting waiter are session monitors; a new session recreates the watcher (SESSION_HANDOFF sec 5).
+
+**STANDING RECIPE (every piece passed its pre-registered read):** mixed arena (learner P2 Falcon,
+pool policies P1+P3 Falcon, COM P4 lv3 with a RANDOM CHARACTER per episode, `states_mixed/`
+slots 0,10-22), obs v2, 4-port harness, 10 actors, 4M steps/leg; optimizer `league_optim.txt` =
+`PS2_LR=1e-4 PS2_TARGET_KL=0.03 PS2_BATCH_SIZE=256`; arena `league_env.txt` = `PS2_ZERO_SUM=1
+PS2_START_HEALTH=0.5,1.0 PS2_STATE_SLOTS=0,10,...,22 PS2_OBS_STACK=7` (strided 7-lag frame
+stack, lags 16,8,4,3,2,1,0 = 1.6 s; every zip from leg 70 on has an 854-wide input, evaluators
+detect it). Env fixes live: reload on every reset, pre-roll stagger 0-239. Eval contract = the
+"fair start" one from leg 41 (champion 5.8 / 92.0).
+
+**SCOREBOARD (lv8 n=500 / lv3 n=250 / champion AB n=100):** leg 70 = **28.8 (25-33) / 97.6 / 74-26
+= ALL-TIME RECORD by 5 points, interval clear of the old record (23.8, leg 59)**; K=4 stack legs
+68-69 = 18.2 / 23.0; single-frame recipe legs 55-67 lv8 mean ~20 (band 16-24). Champion 5.8 -> 28.8
+= 5x under the same contract. Training stream: stones ~5/ep, timeouts 0, win share 0.36-0.41,
+per-character 0.33-0.43. Win share by bot transforms per round (legs 67-70, ~7.5k eps each):
+0 -> 1%%, 1 -> 25-31%%, 2 -> 70-73%%, 3 -> 83-86%%; ~30%% of rounds have none. Transforms ARE wins.
+
+**What landed since the Sep 16 compaction (each has its own section below):** optimizer sweep
+(SWEEP 40 RESULTS; target_kl 0.1 lineage drifted and was abandoned, restart from the kl01 zip
+with explicit lr/kl — ZIPS PERSIST target_kl); PRE-ROLL FIX + re-baseline; ARENA LEVERS (zero-sum
+reward, start-health RAM write; HEALTH_OBJ is the real health cell); CHARACTER RANDOMIZATION
+(13 stamped states, menu path recorded); PER-LEG VIDEO + FIGHT SCOUTING (battery records
+`videos/leg<N>_lv8.mp4`, `scout_leg.sh` makes exact-cut sheets + 4 fps final strips + KO tail,
+Sonnet review from `scout_rubric.md` into `videos/review_leg<N>.md`; reviews 61-69 exist);
+FRAME STACKING (obs_stack.py, surgery_stack.py, equivalence/agreement tests; K=4 then strided
+K=7 — the pure strided six was rejected because the lag-3->4 remap changed 10%% of decisions).
+COM-level RAM write probe NEGATIVE (difficulty is consumed at match start); level randomization
+needs level-5/8 state sets stamped via the options menu (queued).
+
+**Repo:** local git repo initialised Sep 23 on top of origin/main (bwalsh321/powerstone2-rl-mac,
+head 90573dc Sep 9): commit bcf5b36 (M4 era through leg 70, 335 files, 149 MB) + 5857901 (harness
+source `sdlarch-rl/src` etc. tracked; builds, binaries, `sdlarch_rl/roms/` 480 MB excluded).
+NOT PUSHED — no GitHub credential on this Mac; Blake pushes (`git push origin main`). `.gitignore`
+extended (videos, logs, pools, states_mixed states, probe dirs, cores). New legs add zips +
+receipts + review .md files; commit as Blake asks; never push unless he says so in the moment.
+
+**Blake's preferences (binding):** one report per leg when the battery lands (table, three lines,
+win clip via SendUserFile, three review lines); no hourly entropy pings; 12-hour am/pm times;
+never change diet/core variables/ent_coef/optim/env flags unasked (propose; he decides); hold
+rule slot2 < 70 / AB < 35 / lv8 < 4.0; two consecutive drops = watch, three = signal.
+
+**Queued (Blake's order of interest):** (1) RE automation for an observation audit: per-fighter
+move/animation id, hitbox-active, hit-stun — scan RAM around scripted events like the health
+scan; (2) COM level randomization via stamped level-5/8 states; (3) league exploiters (a seat
+whose job is to beat the main agent); (4) two action heads (direction x button); (5) LSTM /
+recurrent policy (needs the recurrent PPO path; "a week"); (6) the 7950X Linux box as a second
+lab (build harness, headless GL, dolphin dirs, parity with the leg 70 zip first); (7) human play
+test of the current zip (`play_vs.py`). Old open items still parked: finishing-bonus diet idea,
+level-5 COM seat, discriminator states.
+
+## ASTRA REVIEW FIXES (Sep 23 2026, applied ~1:10-1:30 pm EDT, before the leg 71 battery)
+
+Blake had Astra (Codex) review the repo at head 5857901; report at
+`~/Documents/Codex/2026-09-23/cp/outputs/powerstone-review.md`. Every high-priority claim was
+re-verified against the code here before acting; all held. Blake: "go on all of it". Backups of
+every touched file in `linux_port/archive/*_sep23.*`.
+
+| # | Finding (confirmed) | Fix | Effective |
+|---|---|---|---|
+| 1 | `_observe` wrote the stage one-hot + DIFF_DIM only for slot < 4; slots 10-22 (~93%% of training eps since leg 58) fed zeros while the slot-2/3 evals fed real values | gate on SLOT_META membership (`OBS_CTX_FIX`, env `PS2_OBS_CTX_FIX`, default 1); `test_obs_context.py` runs the real builder on a synthetic state for 16 slots x 4 seats: 0 failures fixed, 52 with the fix off | leg 72 (actors import at boot; leg 71 runs old code) |
+| 9 | zero-sum reward: the per-seat TIME_PENALTY cancelled exactly under the mean subtraction, so legs 55-71 had NO per-step time cost (timeout loss still applied) | learner time cost re-applied AFTER the relative step (`ZS_TIME`, env `PS2_ZS_TIME`, default 1); unit test: unchanged state now -0.002, was 0.000 | leg 72 |
+| 13 | scout reviews read `forms=A/B` as closed/attempted; it is bot transforms / opponent transforms; `chests=X(Y)` is arena chests opened / vanished near the bot | data dictionary added to `scout_rubric.md`; reviews 68-70 "closing rate" lines are misreads (the transforms-to-wins table used the field correctly) | next review |
+| 2 | battery `cp` to the pool was unchecked; state advanced and DONE written even if it failed | copy to `.tmp`, `zipfile.testzip`, rename, size check, THEN advance state (state advance itself is now checked); failures write the FAILED marker and exit 1; per-leg lock dir `claude_bridge/battery_leg<N>.lock` (rmdir by hand after a FAILED) | leg 71 battery |
+| 3 | hold thresholds lived only in the relay wakes; the script would launch on a 0%% receipt | `hold_gate.py <N>` (lv3 < 70, AB < 35, lv8 < 4.0, or unreadable receipt) runs in the battery; writes `hold` + `claude_bridge/hold_leg<N>.txt`; tested on leg 70 (no hold), leg 45 (AB 26 -> hold), synthetic lv8 3.0 (hold) | leg 71 battery |
+| 4 | `validate_async_leg.py` printed FAIL but exited 0; missing [ep] stream or missing receipts were silently skipped | nonzero exit on FAIL; missing async stream / requested receipts are FAIL (not under `--stream-report-only` for the stream). NOTE: the FFA-lineage legs always FAIL the stats rules vs the lockstep leg 24 reference (different optimizer), so rc=1 on legs 46+ is expected; read the per-rule lines | now |
+| 6 | `flycast_bridge.loadstate` ignored the core's unserialize result; `savestate` did not check the blob | raise RuntimeError on a rejected load or an empty serialize | now (evals, scouts, next leg) |
+| 8 | frame-stack surgery resets Adam (new PPO, policy tensors copied, no optimizer state) | recorded, not changed: the K=4 and K=7 jumps are memory + optimizer reset together | note |
+| 7 | leg 70 vs leg 59 "interval clear" claim wrong (p~0.07) | wording corrected in the top block; leg 71 is the confirmation | note |
+| 5 | champion AB uses the old P1 view (form timer leak), candidate always P2 | known, unchanged; treat the AB series as a trend, not a seat-neutral ranking | note |
+
+Not yet acted on (Astra's lower tier): analog button path reading a dead array in sdlarch.cpp
+(digital path is what the game uses), per-actor stall deadlines, run manifests per checkpoint,
+merge_receipts stochastic labelling, `pkill -f spawn_main` breadth, fresh-checkout build recipe,
+README staleness, frozen final test set. Blake decides.
+
 ## STATE AT CONTEXT COMPACTION (Sep 16 2026 ~12:15 EDT; refreshed 16:55 EDT) — read this first on resume
 
 **16:55 EDT UPDATE (Blake: "sweep, and fix the timeout reload before it").**

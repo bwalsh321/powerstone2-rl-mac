@@ -268,7 +268,6 @@ def main():
           f"pool={POOL_DIR} n_envs={N_ENVS} n_actors={N_ACTORS} total_steps={total_steps} "
           f"instance_base={INSTANCE_BASE} pull_every={PULL_EVERY} env={ENV_KIND} "
           f"state_slots={STATE_SLOTS} obs_v2={os.environ.get('PS2_OBS_V2', '0')} "
-          f"obs_ctx_fix={os.environ.get('PS2_OBS_CTX_FIX', '1')} zs_time={os.environ.get('PS2_ZS_TIME', '1')} "
           f"pool_sampling={os.environ.get('PS2_POOL_SAMPLING', 'uniform')} "
           f"states={STATES} seats={os.environ.get('PS2_FFA_SEATS', '0,2,3')} mode=async", flush=True)
 

@@ -77,6 +77,11 @@ It is written so a smaller model can run the relay without re-deriving anything.
 - Pools: `pool_league` = kl01 arm pool (league pool + kl01 snapshots); `pool_league_pre41_leg40/` =
   the pre-sweep league pool (keep); `pool_sweep40_<arm>/` = the other arms (keep until Blake says).
 - Hold rule (Blake): slot2 < 70, champion AB < 35/100, or lv8 < 4.0 -> `echo hold > league_trainer.txt`.
+  Since Sep 23 the battery enforces this itself via `hold_gate.py` (marker `claude_bridge/hold_leg<N>.txt`);
+  the collector still reads the receipts and confirms. The battery also takes `claude_bridge/battery_leg<N>.lock`
+  (a dir; after a FAILED marker, `rmdir` it before any rerun) and verifies the pool copy before advancing state.
+  Leg 72+ recipe adds `PS2_OBS_CTX_FIX=1 PS2_ZS_TIME=1` in `league_env.txt` (HANDOFF "ASTRA REVIEW FIXES");
+  `test_obs_context.py` (no emulator) must print 0 failures after any observation-builder edit.
 - Sweep 40 (HANDOFF "SWEEP 40 RESULTS"): ctrl 6.2 / bs256 9.0 / lr1e4 13.6 / kl01 16.6 on lv8.
   Open follow-up: stack lr 1e-4 + batch 256 (one arm). ent_coef 0.03 proposal withdrawn.
 

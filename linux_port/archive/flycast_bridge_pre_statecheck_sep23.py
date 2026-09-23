@@ -122,9 +122,7 @@ class FlycastBridge:
     def loadstate(self, slot):
         path = os.path.join(self.states_dir, f"slot{slot}.state")
         with gzip.open(path, "rb") as fh:
-            ok = self.emu.set_state(fh.read())
-        if ok is False:                          # Sep 23 2026 (Astra review #6): the core
-            raise RuntimeError(f"retro_unserialize rejected {path}")   # said no; never carry on
+            self.emu.set_state(fh.read())
         self.clear_inputs()                      # lua parity: menus never see
         for s in self._synths:                   # a stuck button
             s.on_loadstate()
@@ -146,10 +144,7 @@ class FlycastBridge:
         path = os.path.join(self.states_dir, f"slot{slot}.state")
         os.makedirs(self.states_dir, exist_ok=True)
         with gzip.open(path, "wb") as fh:
-            blob = self.emu.get_state()
-            if not blob:
-                raise RuntimeError(f"retro_serialize returned nothing for slot {slot}")
-            fh.write(blob)
+            fh.write(self.emu.get_state())
 
     # ------------------------------------------------------------ commands
     def execute(self, cmd):

@@ -63,11 +63,6 @@ class PowerStoneEnvV6(gym.Env):
     # recorders used a_t). Default stays v1 so running v1 lineages are
     # untouched; the FFA self-play lineage sets it. See HANDOFF "obs v2".
     OBS_V2 = os.environ.get("PS2_OBS_V2", "0") == "1"
-    # obs ctx fix (Sep 23 2026, Astra review #1): the stage one-hot + DIFF_DIM used to be
-    # written only for slot < 4, so the character-randomization slots 10-22 (93% of
-    # training episodes since leg 58) fed zeros where the slot-2/3 evals feed real values.
-    # Now every slot with a SLOT_META entry writes its context. PS2_OBS_CTX_FIX=0 reverts.
-    OBS_CTX_FIX = os.environ.get("PS2_OBS_CTX_FIX", "1") == "1"
     LOAD_STATE_KEY = "f7"
     TURBO_KEY = "f9"
 
@@ -1354,12 +1349,9 @@ class PowerStoneEnvV6(gym.Env):
                 obs[b + 3] = (cy - mp[1]) / HEIGHT_SCALE
         # ---- stage one-hot + last action ([111..121] stay zero)
         slot = getattr(self, "_episode_slot", 0)
-        if self.OBS_CTX_FIX:
-            meta = self.SLOT_META.get(slot)          # any stamped slot carries its context
-        else:                                        # pre-Sep-23 behaviour (slots >= 4 got zeros)
-            meta = self.SLOT_META.get(slot, (min(slot, 3), 2)) if 0 <= slot < 4 else None
-        if meta is not None:
-            stage_dim, level = meta
+        if 0 <= slot < 4:
+            stage_dim, level = self.SLOT_META.get(
+                slot, (min(slot, 3), 2))
             obs[self._STG0 + stage_dim] = 1.0
             obs[self.DIFF_DIM] = level / 8.0   # COM difficulty (curriculum)
         obs[self._ACT0 + self.last_action] = 1.0

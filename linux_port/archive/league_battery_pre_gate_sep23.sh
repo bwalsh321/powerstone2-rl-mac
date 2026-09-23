@@ -15,13 +15,6 @@
 set -u
 cd "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 read N PREV < league_state.txt
-# Sep 23 2026 (Astra review #2): one battery per leg. The lock dir stays after a failure;
-# remove it by hand (rmdir) only after reading the FAILED marker.
-LOCK="claude_bridge/battery_leg${N}.lock"
-if ! mkdir "$LOCK" 2>/dev/null; then
-  echo "battery leg $N: $LOCK exists (another battery ran or is running); refusing" >&2
-  exit 3
-fi
 source ~/ps2rl/bin/activate
 export SDL_AUDIODRIVER=dummy PYTHONPATH=../sdlarch-rl:. PYTHONUNBUFFERED=1
 if [ "$(uname)" = "Darwin" ]; then
@@ -123,27 +116,8 @@ if [ ${#FAILED[@]} -gt 0 ]; then
   exit 1
 fi
 
-# ---- all four receipts complete: hold gate, persist (verified), then launch ----
-# Sep 23 2026 (Astra review #3): Blake's hold thresholds (lv3 < 70, champion AB < 35,
-# lv8 < 4.0, or an unreadable receipt) are enforced HERE, not only by the relay wakes.
-# The leg still advances (its receipts are complete); the NEXT launch is what holds.
-HOLD_REASON="$(python hold_gate.py "$N" 2>&1)"
-if [ -n "$HOLD_REASON" ]; then
-  echo hold > league_trainer.txt
-  echo "battery leg $N: HOLD written to league_trainer.txt: $HOLD_REASON" | tee "claude_bridge/hold_leg${N}.txt" >&2
-fi
-# Sep 23 2026 (Astra review #2): the pool copy used to be unchecked; now copy to a temp
-# name, verify the zip, rename, and only then advance state. A failure is a FAILED marker.
-PZ="pool_league/prog_leg${N}.zip"
-if cp "$M" "$PZ.tmp" \
-   && python -c 'import sys,zipfile; sys.exit(1 if zipfile.ZipFile(sys.argv[1]).testzip() else 0)' "$PZ.tmp" \
-   && mv "$PZ.tmp" "$PZ" && [ -s "$PZ" ]; then
-  echo "battery leg $N: persisted $PZ"
-else
-  echo "battery leg $N FAILED $(date -u +%FT%TZ): could not persist $PZ (state NOT advanced, next leg NOT launched)" \
-    | tee "claude_bridge/battery_leg${N}_FAILED.txt" >&2
-  exit 1
-fi
+# ---- all four receipts complete: persist, then launch ----
+cp "$M" "pool_league/prog_leg${N}.zip"
 # Sep 21 2026 (Blake: watching the bot catches what numbers miss): record two lv8 rounds of the
 # finished leg's bot at phone size, videos/leg<N>_lv8.mp4 (~3 min on instance 11, before the
 # next leg launches; failures never block the relay). PS2_LEG_VIDEO=0 disables.
@@ -158,12 +132,7 @@ if [ "${PS2_LEG_VIDEO:-1}" = "1" ]; then
     && rm -f "videos/leg${N}_lv8_raw.mp4" && echo "battery leg $N: video videos/leg${N}_lv8.mp4" ) || echo "battery leg $N: video step failed (ignored)" >&2
 fi
 NEXT=$((N+1))
-if ! { echo "$NEXT $M" > league_state.txt.tmp && mv league_state.txt.tmp league_state.txt \
-       && [ "$(cut -d' ' -f1 league_state.txt)" = "$NEXT" ]; }; then
-  echo "battery leg $N FAILED $(date -u +%FT%TZ): league_state.txt not advanced (next leg NOT launched)" \
-    | tee "claude_bridge/battery_leg${N}_FAILED.txt" >&2
-  exit 1
-fi
+echo "$NEXT $M" > league_state.txt.tmp && mv league_state.txt.tmp league_state.txt
 echo DONE > "claude_bridge/battery_leg${N}_done.txt"
 # Sep 12 2026 (Blake): the next leg's trainer is chosen by league_trainer.txt —
 # "async" -> league_leg_async.sh (actor-learner, 2.3x), anything else ->

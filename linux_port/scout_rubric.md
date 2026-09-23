@@ -7,6 +7,12 @@ Move identification (Blake, Sep 22): when the bot (2P) is transformed, the missi
 that fills the screen is FALCON'S OWN fusion special, fired at close range — credit KOs inside it to the
 bot. Other characters have their own transformed specials (beams, fire, ice); do not label every swarm
 as an opponent transform.
+DATA DICTIONARY (Sep 23, after Astra's review): in the stats lines, forms=A/B means A = number of times the
+BOT transformed, B = number of times any OPPONENT transformed. It is NOT closed/attempted; there is no
+attempt count. chests=X(Y): X = chests opened anywhere in the arena, Y = chests that vanished near the bot
+(proximity heuristic), not chests the bot opened. picked/lost = bot stone pickups / stones knocked off the
+bot; opp=P(-L) = opponent pickups / stones opponents lost. dmg +out/-in are health fractions across all
+opponents (not the reward). Never report these as rates or success percentages.
 Sections: 1. LOSS what happened (opening position, engage vs avoid, stones, transform, how it dies).
 2. WIN what happened (same, plus how each KO came about, bot's own or not). 3. PATTERNS the numbers
 miss (idle, edge/corner hugging, double-teamed, ignoring nearby stones, wasted transform, same death
