@@ -2,8 +2,17 @@
 # Copy "Power Stone 2 (USA).chd" here manually when recreating the tree.
 *.chd
 
-# Patched libretro harness — its own git repo (macOS patches committed there)
-sdlarch-rl/
+# Patched libretro harness — SOURCE tracked here since Sep 23 2026 (the 4-port patches live only
+# on the M4); builds and binaries stay out. Build per M4_SETUP.md / HANDOFF (SDLARCH_MAX_PLAYERS=4,
+# SDLARCH_COPY_TO_ROOT=OFF into build_p4; the 2-port build into build).
+sdlarch-rl/build*/
+sdlarch-rl/p4/
+sdlarch-rl/*.so
+sdlarch-rl/*.dylib
+sdlarch-rl/**/*.so
+sdlarch-rl/**/*.dylib
+sdlarch-rl/third-party/
+sdlarch-rl/notebooks/
 
 # Runtime churn (regenerated every run)
 __pycache__/
@@ -81,3 +90,5 @@ cores/
 # Local settings
 .claude/
 linux_port/videos/*.wav
+# Upstream example savestates/rewards for other games (480 MB) — not part of this project
+sdlarch-rl/sdlarch_rl/roms/
