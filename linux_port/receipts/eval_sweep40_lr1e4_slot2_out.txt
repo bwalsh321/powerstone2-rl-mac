@@ -1,0 +1,7 @@
+
+================ EVAL SUMMARY ================
+model=powerstone_v6_sweep40_lr1e4_league.zip  slot=2  n=250  mode=deterministic  distinct-outcome-tuples~203  shards=10x25
+win% :  92.8   (232W/18L/0T)   95% Wilson [89-95]
+picks: 10.24 /ep
+forms:  3.31 /ep
+shard files: eval_sweep40_lr1e4_slot2_s0_out.txt eval_sweep40_lr1e4_slot2_s1_out.txt eval_sweep40_lr1e4_slot2_s2_out.txt eval_sweep40_lr1e4_slot2_s3_out.txt eval_sweep40_lr1e4_slot2_s4_out.txt eval_sweep40_lr1e4_slot2_s5_out.txt eval_sweep40_lr1e4_slot2_s6_out.txt eval_sweep40_lr1e4_slot2_s7_out.txt eval_sweep40_lr1e4_slot2_s8_out.txt eval_sweep40_lr1e4_slot2_s9_out.txt

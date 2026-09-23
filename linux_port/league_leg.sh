@@ -14,7 +14,11 @@ if [ -z "$PS2_CORE" ]; then
   fi
 fi
 export PS2_WARM=$PREV PS2_FRESH=1 PS2_POOL=./pool_league
-export PS2_OUT=./powerstone_v6_leg${N}_league PS2_NENVS=6 PS2_STAGGER=20
+# Sep 11 2026 (M4 Pro, Blake's call after the throughput probes): 10 workers
+# (aggregate plateaus at ~120 steps/s from 10 up; the sync vec env is the
+# cap, not the CPUs) and 4M-step legs. Override per launch by exporting.
+export PS2_OUT=./powerstone_v6_leg${N}_league PS2_NENVS=${PS2_NENVS:-10} PS2_STAGGER=${PS2_STAGGER:-20}
+export PS2_TOTAL_STEPS=${PS2_TOTAL_STEPS:-4000000}
 LOG=train_leg${N}_out.txt
 for attempt in 1 2 3 4; do
   echo "[wrapper] leg $N attempt $attempt $(date)" >> wrapper_league.log

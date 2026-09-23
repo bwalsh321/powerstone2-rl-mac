@@ -1,0 +1,19 @@
+sweep40 start Wed Sep 16 19:52:13 EDT 2026  parent=./powerstone_v6_leg40_league  arms=[ctrl bs256 lr1e4 kl01]  reload-on-reset fix ACTIVE, mixed recipe, ent_coef 0.01, 4M steps
+sweep40 start Wed Sep 16 19:54:49 EDT 2026  parent=./powerstone_v6_leg40_league  arms=[ctrl bs256 lr1e4 kl01]  reload-on-reset fix ACTIVE, mixed recipe, ent_coef 0.01, 4M steps
+== arm ctrl  (Thu Sep 17 00:35:23 EDT 2026)
+   lv8   win% :   6.2   (31W/469L/0T)   95% Wilson [4-9]
+   lv3   win% :  91.2   (228W/22L/0T)   95% Wilson [87-94]
+   AB RESULT vs powerstone_v6_ppo.zip: 69W/30L/1T   95% Wilson [59-77]
+== arm bs256  (Thu Sep 17 05:16:24 EDT 2026)
+   lv8   win% :   9.0   (45W/455L/0T)   95% Wilson [7-12]
+   lv3   win% :  92.8   (232W/18L/0T)   95% Wilson [89-95]
+   AB RESULT vs powerstone_v6_ppo.zip: 65W/35L/0T   95% Wilson [55-74]
+== arm lr1e4  (Thu Sep 17 09:55:03 EDT 2026)
+   lv8   win% :  13.6   (68W/432L/0T)   95% Wilson [11-17]
+   lv3   win% :  92.8   (232W/18L/0T)   95% Wilson [89-95]
+   AB RESULT vs powerstone_v6_ppo.zip: 76W/24L/0T   95% Wilson [67-83]
+== arm kl01  (Thu Sep 17 14:25:43 EDT 2026)
+   lv8   win% :  16.6   (83W/417L/0T)   95% Wilson [14-20]
+   lv3   win% :  92.8   (232W/18L/0T)   95% Wilson [89-95]
+   AB RESULT vs powerstone_v6_ppo.zip: 71W/29L/0T   95% Wilson [61-79]
+sweep40 end Thu Sep 17 14:25:43 EDT 2026

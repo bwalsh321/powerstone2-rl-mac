@@ -43,6 +43,10 @@ MODEL_PATH = os.environ.get("PS2_WARM",
                             ).removesuffix(".zip")
 FRESH = os.environ.get("PS2_FRESH", "0") == "1"
 N_ENVS = int(os.environ.get("PS2_NENVS", "6"))  # benchmark first; see README
+# Sep 12 (M4 validation probes): run a probe beside a live leg without sharing
+# bridge_i*/system/dolphin-* dirs or overwriting the leg's checkpoints.
+INSTANCE_BASE = int(os.environ.get("PS2_INSTANCE_BASE", "0"))
+CKPT_DIR = os.environ.get("PS2_CKPT_DIR", os.path.join(ROOT, "checkpoints_sp"))
 TOTAL_STEPS = int(os.environ.get("PS2_TOTAL_STEPS", "2000000"))
 SNAPSHOT_EVERY = 500_000
 STATE_SLOTS = [1]        # start with ONE stage until parity is proven,
@@ -59,8 +63,8 @@ def make_env(i):
         _t.sleep(i * float(os.environ.get("PS2_STAGGER", "20")))  # Aug 29: 6s let the Metal race through; Aug 31: env knob, leg4 uses 45
         return SelfPlayEnv(
             core_path=CORE, game_path=GAME, states_dir=STATES,
-            instance_id=i, state_slots=STATE_SLOTS,
-            bridge_dir=os.path.join(ROOT, f"bridge_i{i}"),
+            instance_id=INSTANCE_BASE + i, state_slots=STATE_SLOTS,
+            bridge_dir=os.path.join(ROOT, f"bridge_i{INSTANCE_BASE + i}"),
             pool_dir=POOL_DIR)
     return _f
 
@@ -144,9 +148,13 @@ def main():
     except Exception as e:      # a log line must never kill a leg
         print(f"[config] could not print resolved config: {e!r}")
 
+    # Sep 12: print SB3's per-iteration table (approx_kl, clip_fraction, entropy,
+    # explained_variance, losses) so lockstep and async legs can be compared on
+    # learning statistics, not just batteries. Logging only.
+    model.verbose = 1
     callbacks = [
         CheckpointCallback(save_freq=max(100_000 // N_ENVS, 1),
-                           save_path=os.path.join(ROOT, "checkpoints_sp"),
+                           save_path=CKPT_DIR,
                            name_prefix="ps_sp"),
         SnapshotToPool(SNAPSHOT_EVERY, POOL_DIR),
     ]

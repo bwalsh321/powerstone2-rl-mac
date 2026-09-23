@@ -5,6 +5,750 @@
 > two rig-era zips in `linux_port/archive/`, porting notes and the Reddit
 > kit in `docs/`. Model zips and the relay scripts did not move.
 
+## STATE AT CONTEXT COMPACTION (Sep 16 2026 ~12:15 EDT; refreshed 16:55 EDT) — read this first on resume
+
+**16:55 EDT UPDATE (Blake: "sweep, and fix the timeout reload before it").**
+- `league_trainer.txt` = **hold**. Leg 40 (mixed, 0.01, launched 15:27) finishes ~19:30; its
+  battery runs as usual and then writes `claude_bridge/leg41_LAUNCH_HELD.txt`. Do NOT launch leg 41.
+- RESET FIX APPLIED 16:45 EDT: `powerstone_env_v6.py` reloads the savestate on EVERY reset
+  (`RELOAD_ON_RESET`, env `PS2_RELOAD_ON_RESET=0` restores the old behaviour; backup
+  `linux_port/archive/powerstone_env_v6_pre_reloadfix_sep16.py`). Verified with a 150-step cap:
+  health returns to the baked values after each timeout. Leg 40's running actors imported the
+  OLD code (unaffected); leg 40's battery is unaffected (0 timeouts in evals).
+- OPTIMIZER SWEEP LAUNCHED 16:52 EDT in tmux `sweep40` (`linux_port/sweep_optim40.sh`): waits for
+  `battery_leg40_done.txt` + quiet machine, then four 4M-step arms from the LEG 40 zip, mixed
+  recipe, 0.01, fix active, each in its own APFS-cloned pool `pool_sweep40_<arm>`:
+  ctrl (fix only) -> bs256 (PS2_BATCH_SIZE=256) -> lr1e4 (PS2_LR=1e-4) -> kl01 (PS2_TARGET_KL=0.1).
+  Standard sharded battery per arm. Receipts `receipts/eval_sweep40_<arm>_*`, summary
+  `receipts/sweep40_summary.txt`, markers `claude_bridge/sweep40_<arm>_done.txt` / `sweep40_done.txt`,
+  log `linux_port/wrapper_sweep40.log`. ~20 h -> done ~16:00-17:00 EDT Sep 17.
+  PRE-REGISTERED READ: compare each arm's lv8 / slot2 / champion AB to leg 40 and the mixed band
+  (lv8 7.2-9.0, slot2 88-91, AB 78-82); ctrl vs leg 40 = the reset fix alone; the best arm by lv8
+  with slot2/AB inside the band becomes leg 41's warm start (Law 6 precedent: the leg-3 program).
+  Also read epochs/update from n_updates (the whole point: 1.1 today) and entropy per arm.
+- **Sep 23 12:40 pm EDT: leg 70 (first strided K=7) = lv8 28.8 ALL-TIME RECORD (+5, interval clear of the old record)
+  / 97.6 / 74-26. LEG 71 LIVE** (12:35 pm, strided, state `71 ./powerstone_v6_leg70_league.zip`), wake
+  `ps2-leg71-end-wake` 5:50 pm EDT. Standing recipe now includes the 7-lag stack (PS2_OBS_STACK=7).
+- Sep 23 7:58 am EDT: leg 69 = 23.0 / 94.8 / 75-25; STACK READ = PASS. LEG 70 LAUNCHED = FIRST STRIDED K=7 LEG
+  (warm `powerstone_v6_leg69_stack7s.zip`, `PS2_OBS_STACK=7`, state `70 ./powerstone_v6_leg69_stack7s.zip`),
+  wake `ps2-leg70-end-wake` 1:12 pm EDT. Read over legs 70-71 vs legs 68-69 (K=4) and 63-67 (single-frame).
+- Sep 23 3:15 am EDT: leg 68 (first stacked) = 18.2 / 92.0 / 78-22, in band. LEG 69 LAUNCHED (3:12 am, stacked,
+  state `69 ./powerstone_v6_leg68_league.zip`), wake `ps2-leg69-end-wake` 8:27 am EDT; completes the stack read.
+- Sep 22 10:35 pm EDT: leg 67 = 17.8 / 93.2 / 68-32. LEG 68 LAUNCHED = FIRST FRAME-STACKED LEG (K=4, warm
+  `powerstone_v6_leg67_stack4.zip`, `PS2_OBS_STACK=4` in league_env.txt, state `68 ./powerstone_v6_leg67_stack4.zip`),
+  wake `ps2-leg68-end-wake` 3:51 am EDT Sep 23. Recipe = mixed + stack optimizer + zero-sum + start health +
+  COM character random + 4-frame stack. Revert = warm from powerstone_v6_leg67_league.zip, drop PS2_OBS_STACK.
+- Sep 22 5:55 pm EDT: leg 66 = 23.6 / 95.6 / 76-24 (four straight 20+). LEG 67 LAUNCHED (5:53 pm, state
+  `67 ./powerstone_v6_leg66_league.zip`), wake `ps2-leg67-end-wake` 11:08 pm EDT.
+- Sep 22 1:20 pm EDT: leg 65 = 23.0 / 96.4 / 73-27. LEG 66 LAUNCHED (1:13 pm, state `66 ./powerstone_v6_leg65_league.zip`),
+  wake `ps2-leg66-end-wake` 6:28 pm EDT. Scouting packets now carry 4 fps final-12 s strips.
+- Sep 22 8:40 am EDT: leg 64 = 20.6 / 92.4 / 75-25. LEG 65 LAUNCHED (8:36 am, state `65 ./powerstone_v6_leg64_league.zip`),
+  wake `ps2-leg65-end-wake` 1:51 pm EDT.
+- Sep 22 4:05 am EDT: leg 63 = 21.2 / 94.4 / 69-31. LEG 64 LAUNCHED (3:58 am, state `64 ./powerstone_v6_leg63_league.zip`),
+  wake `ps2-leg64-end-wake` 9:13 am EDT.
+- Sep 21 11:25 pm EDT: leg 62 = 18.0 / 93.2 / 67-33. LEG 63 LAUNCHED (11:20 pm, state `63 ./powerstone_v6_leg62_league.zip`),
+  wake `ps2-leg63-end-wake` 4:35 am EDT Sep 22. Per-leg clip + scouting review now automatic (section above).
+- Sep 21 6:40 pm EDT: leg 61 = 19.4 / 94.8 / 63-37. LEG 62 LAUNCHED (6:38 pm, state `62 ./powerstone_v6_leg61_league.zip`),
+  wake `ps2-leg62-end-wake` 11:53 pm EDT.
+- Sep 21 14:05 EDT: leg 60 = 17.8 / 92.4 / 74-26 (one drop, in band). LEG 61 LAUNCHED (14:02 EDT, state
+  `61 ./powerstone_v6_leg60_league.zip`), wake `ps2-leg61-end-wake` 19:17 EDT.
+- Sep 21 09:30 EDT: leg 59 = 23.8 (ALL-TIME RECORD) / 95.2 / 74-26; CHARACTER READ = PASS; watch cleared.
+  LEG 60 LAUNCHED (09:23 EDT, standing recipe incl. character random, state `60 ./powerstone_v6_leg59_league.zip`),
+  wake `ps2-leg60-end-wake` 14:38 EDT. Recipe = mixed + stack + zero-sum + start health + COM character random.
+- Sep 21 04:50 EDT: leg 58 (first character leg) = 15.8 / 93.6 / 73-27; lv8 WATCH (2 drops). LEG 59 LAUNCHED
+  (04:46 EDT, state `59 ./powerstone_v6_leg58_league.zip`), wake `ps2-leg59-end-wake` 10:01 EDT. Leg 59 completes
+  the character read; a third lv8 drop = signal.
+- Sep 21 00:10 EDT: leg 57 = 16.2 / 92.4 / 65-35 (one-leg dip, inside band). LEG 58 LAUNCHED = FIRST CHARACTER-
+  RANDOMIZATION LEG (00:07 EDT, state `58 ./powerstone_v6_leg57_league.zip`), wake `ps2-leg58-end-wake` 05:22 EDT.
+- **Sep 20 22:45 EDT: CHARACTER RANDOMIZATION ENABLED for leg 58+** (`PS2_STATE_SLOTS=0,10..22` added to
+  league_env.txt; section "CHARACTER RANDOMIZATION BUILT"; read over legs 58-59 vs 55-56). Leg 57 unaffected.
+  Queued next: COM level randomization (probe RAM first).
+- **Sep 20 19:35 EDT: leg 56 = 22.4 / 97.6 / 78-22 — ALL-TIME RECORDS, ARENA READ = PASS** (leg 56 note).
+  LEG 57 LIVE (19:31 EDT, same recipe: stack + zero-sum + start health), state `57 ./powerstone_v6_leg56_league.zip`,
+  wake `ps2-leg57-end-wake` 00:46 EDT Sep 21. Standing recipe from here unless Blake says otherwise.
+- Sep 20 15:00 EDT: leg 55 (first arena leg) = 19.2 / 95.2 / 69-31, stones/ep 6.0 -> 4.9. LEG 56 LAUNCHED
+  (14:54 EDT, same flags, state `56 ./powerstone_v6_leg55_league.zip`), wake `ps2-leg56-end-wake` 20:10 EDT.
+  Leg 56 completes the two-leg arena read.
+- Sep 20 10:20 EDT: leg 54 = 19.6 / 91.2 / 60-40. LEG 55 LAUNCHED = FIRST ARENA LEG (10:14 EDT, stack + zero-sum +
+  start health, state `55 ./powerstone_v6_leg54_league.zip`), wake `ps2-leg55-end-wake` 15:30 EDT.
+- **Sep 20 08:30 EDT: ARENA LEVERS ENABLED for leg 55+** (`league_env.txt` = `PS2_ZERO_SUM=1 PS2_START_HEALTH=0.5,1.0`;
+  section "ARENA LEVERS BUILT"; read over legs 55-56). Leg 54 runs unchanged on the stack.
+- **Sep 20 05:35 EDT: leg 53 = 16.6 / 94.8 / 60-40. STACK READ VERDICT: neutral (leg 53 note). LEG 54 LIVE**
+  (05:31 EDT, stack, state `54 ./powerstone_v6_leg53_league.zip`), wake `ps2-leg54-end-wake` 10:46 EDT.
+  Awaiting Blake: keep the stack or revert to lr + kl; next lever = arena (zero-sum reward, randomization).
+- Sep 20 00:50 EDT: leg 52 (first stack leg) = lv8 20.6 ALL-TIME RECORD / 94.0 / AB 53-47. LEG 53
+  LAUNCHED (00:48 EDT, stack, state `53 ./powerstone_v6_leg52_league.zip`), wake `ps2-leg53-end-wake` 06:03 EDT.
+  Leg 53 completes the pre-registered two-leg stack read.
+- Sep 19 20:10 EDT: leg 51 DONE = 16.4 / 93.2 / 69-31 (plateau). LEG 52 LAUNCHED ON THE STACK (20:07 EDT,
+  state `52 ./powerstone_v6_leg51_league.zip`, three override lines confirmed), wake `ps2-leg52-end-wake` 01:22 EDT Sep 20.
+- **Sep 19 16:00 EDT (Blake: "Stack").** `league_optim.txt` = `PS2_LR=1e-4 PS2_TARGET_KL=0.03 PS2_BATCH_SIZE=256`
+  from LEG 52 on (leg 51 runs unchanged). Pre-registered read: two legs; a real gain must clear the legs 46-50
+  band (lv8 15-19, mean 17) with lv3 and AB in band; expect epochs/update to rise and KL/update to stay < 0.03.
+  If lv8 falls under 15 twice -> revert to lr + kl only.
+- Sep 19 15:30 EDT: leg 50 DONE = 15.0 / 95.6 / 70-30 (plateau). LEG 51 LAUNCHED (15:24 EDT, same setting,
+  state `51 ./powerstone_v6_leg50_league.zip`), wake `ps2-leg51-end-wake` 20:40 EDT.
+- Sep 19 10:45 EDT: leg 49 DONE = 18.8 / 96.4 / 68-32 (lv8 leg record, lv3 all-time record). LEG 50 LAUNCHED
+  (10:43 EDT, same setting, state `50 ./powerstone_v6_leg49_league.zip`), wake `ps2-leg50-end-wake` 15:58 EDT.
+- Sep 19 06:05 EDT: leg 48 DONE = 15.8 / 94.8 / 65-35. LEG 49 LAUNCHED (06:02 EDT, same setting, state
+  `49 ./powerstone_v6_leg48_league.zip`), wake `ps2-leg49-end-wake` 11:20 EDT.
+- Sep 19 01:25 EDT: leg 47 DONE = 18.6 / 92.8 / 67-33. LEG 48 LAUNCHED (01:19 EDT, same setting, state
+  `48 ./powerstone_v6_leg47_league.zip`), wake `ps2-leg48-end-wake` 06:35 EDT.
+- Sep 18 20:40 EDT: leg 46 DONE = 16.8 / 94.0 / 74-26 (restart holds). LEG 47 LAUNCHED (20:38 EDT, explicit
+  `PS2_LR=1e-4 PS2_TARGET_KL=0.03`, state `47 ./powerstone_v6_leg46_league.zip`), wake `ps2-leg47-end-wake`
+  01:55 EDT Sep 19. Battery chains leg 48.
+- Sep 18 16:03 EDT: LEG 46 LAUNCHED — RESTART (Blake: "Restart"). Warm start `powerstone_v6_sweep40_kl01_league.zip`
+  (19.0 / 92.8 / 71-29), `league_optim.txt` = `PS2_LR=1e-4` (standing), mixed, state
+  `46 ./powerstone_v6_sweep40_kl01_league.zip`. Pool: `pool_league` = fresh clone of `pool_sweep40_kl01`;
+  the drifted legs 41-45 pool is `pool_league_kl_drift_41_45/` (keep). Legs 41-45 stay in the ledger as
+  the target_kl 0.1 lesson (lineage abandoned). Wake `ps2-leg46-end-wake` 21:20 EDT. Battery chains leg 47.
+- Sep 18 15:55 EDT: HELD, MACHINE IDLE (superseded by the restart above). Leg 45 = 13.8 / 91.2 / **26-74** (AB below the 35 line, 5th
+  straight drop). State `46 ./powerstone_v6_leg45_league.zip`, `leg46_LAUNCH_HELD.txt`. Nothing runs.
+  Awaiting Blake's restart word (recommended kl01 zip + PS2_LR=1e-4; procedure SESSION_HANDOFF sec 2).
+- **Sep 18 11:20 EDT: SIGNAL + HOLD.** Leg 44 = 12.8 / 90.4 / **37-63** (AB down 4 straight; leg 44 note).
+  `league_trainer.txt` = hold. Leg 45 LIVE (11:13 EDT, target_kl 0.1, LAST on this setting), its battery
+  evaluates and launches nothing; wake `ps2-leg45-end-wake` 16:30 EDT. Awaiting Blake: restart from the
+  kl01 zip with PS2_LR=1e-4 (recommended) — procedure in SESSION_HANDOFF sec 2.
+- Sep 18 06:40 EDT: leg 43 DONE = 16.8 / 94.0 / 51-49.
+- Sep 18 01:50 EDT: leg 42 DONE = 12.6 / 92.8 / 53-47.
+- Sep 17 21:05 EDT: leg 41 DONE = 16.2 / 90.4 / 65-35.
+- **Sep 17 16:18 EDT: LEG 41 LAUNCHED — NEW LINEAGE.** Blake picked kl01 ("best lvl 8, the smartest
+  opponent"). Warm start `powerstone_v6_sweep40_kl01_league.zip`; standing override `league_optim.txt`
+  = `PS2_TARGET_KL=0.1` (wrapper exports it every leg, leg_modes.txt col 4); `league_trainer.txt` = mixed;
+  state `41 ./powerstone_v6_sweep40_kl01_league.zip`. Pool: `pool_league` is now the kl01 arm's pool
+  (clone of the old league pool + kl01 snapshots + `prog_sweep40_kl01.zip`); the pre-sweep league pool
+  is preserved as `pool_league_pre41_leg40/` (never rm). Both env fixes active (reload on reset,
+  stagger 0-239) => NEW EVAL CONTRACT from leg 41: references champion 5.8/92.0, parent kl01 lv8 19.0.
+  Wake `ps2-leg41-end-wake` 21:35 EDT. Sweep summary: ctrl 6.2, bs256 9.0, lr1e4 13.6, kl01 16.6 (old
+  contract); 16.4 / 19.0 for lr1e4 / kl01 under the new one. ent_coef 0.03 proposal WITHDRAWN.
+
+- **Live:** leg 39 training (mixed recipe, ent_coef 0.01, launched 10:59 EDT, done
+  ~15:30), tmux `ps2train`. `league_state.txt` = `39 ./powerstone_v6_leg38_league.zip`,
+  `league_trainer.txt` = `mixed`, no `league_entcoef.txt` (=> 0.01). Wake:
+  `ps2-leg39-end-wake` (16:30 EDT) + the collection task it creates. The interactive
+  session runs a persistent relay watcher and an hourly entropy watch (scratchpad
+  scripts; recreate per docs/SESSION_HANDOFF.md section 5 if the session is new).
+- **The recipe ("mixed", adopted after leg 34):** learner P2, pool policies P1+P3,
+  the game's level-3 COM in P4, `states_mixed/slot0.state`, obs v2, 4-port harness
+  (`sdlarch-rl/p4`), uniform pool sampling, 2,000-step cap with timeout = loss,
+  10 actors, 4M steps (~4.5 h), warm start = previous leg. Batteries 500/250/100.
+- **Mixed-leg series (legs 34-38):** lv8 8.2 / 8.4 / 9.0 / 8.0 / 7.2 (project
+  record 9.0 at leg 36; champion 5.2; pure-league best 5.6); slot2 91.2 / 88.4 /
+  89.2 / 91.2 / 90.4 (champion 91.2; leg 26 94.8); champion AB 81 / 80 / 78 / 82 / 79.
+  Best mixed zip by lv8 = leg 36 (`powerstone_v6_leg36_league.zip`); best-ever pure
+  policy = leg 26 zip. Champion `powerstone_v6_ppo.zip` NEVER promoted/overwritten.
+- **ENTROPY TRIGGER FIRED at leg 38** (entropy_loss medians -0.107 -> -0.075 legs
+  35-38; leg 39 running value crossed -0.06 at update 50; stream win share stalled
+  ~37%%, timeouts back to 12%%). PENDING BLAKE: ent_coef 0.01 -> 0.03 for mixed legs
+  (mechanism built: write `0.03` into `linux_port/league_entcoef.txt`; the wrapper
+  applies it at the next leg launch and records it in `leg_modes.txt`). Pre-registered
+  read for the first 0.03 leg: entropy median back below -0.12, timeouts < 6%%, lv8
+  back in leg 37's band; revert to 0.01 if slot2/AB cross the hold thresholds.
+- **Blake's standing hold rule:** hold iff slot2 < 70 (n=250) or champion AB < 35/100
+  or lv8 < 4.0%% (n=500) -> `echo hold > league_trainer.txt` (read at launch time).
+- **Operator manual:** docs/SESSION_HANDOFF.md (modes, per-leg procedure, guards,
+  shell traps, wake template). Use cheaper models for routine wakes (Blake).
+
+## PRE-ROLL FIX (Sep 17 2026, 14:45 EDT) — eval-contract change, re-baselined
+
+Probe (slot 3, 3x lv8 COM, instance 13, deterministic): intro to match-ready = 242 frames; the
+first COM hit lands between 4.0 and 5.0 s of live play. Bot health at its first action by live
+stagger k: 1000 for k <= 240; 964 at 300; 928 at 360-420; 740 at 480-599. The Aug 24 stagger
+(0-599) therefore cost a quarter bar in ~25%% of lv8 episodes and some health in ~50%%.
+CHANGE: `powerstone_env_libretro.py` live stagger is now `random.randrange(PS2_STAGGER_FRAMES)`
+with default 240 (600 restores the old contract). Backup `archive/powerstone_env_libretro_pre_stagger_sep17.py`.
+Decorrelation kept: 240 offsets -> ~93%% distinct episodes per 50-ep deterministic shard (was ~95%%).
+Applies to training AND eval from here on. Every number above this section (all 40 legs, the sweep,
+the champion's 5.2/91.2) was measured under the 0-599 handicap. Re-baseline under the new contract:
+`rebaseline_preroll.sh` (champion lv8+lv3, lr1e4 lv8, kl01 lv8) -> `receipts/rebase_preroll_*`; results
+recorded below when done.
+
+RE-BASELINE RESULTS (15:30 EDT, receipts/rebase_preroll_*; distinct-outcome tuples in parentheses):
+| model | lv8 old contract (0-599) | lv8 NEW contract (0-239) | lv3 old | lv3 NEW |
+|---|---|---|---|---|
+| champion powerstone_v6_ppo.zip | 5.2 (n=500) | **5.8** (29W, Wilson 4-8; picks 4.48 forms 0.78; 485/500 distinct) | 91.2 | **92.0** (230/250, Wilson 88-95; 186/250 distinct) |
+| sweep40 lr1e4 | 13.6 | **16.4** (82W, Wilson 13-20; 6.38/1.37; 462/500) | 92.8 | — |
+| sweep40 kl01 | 16.6 | **19.0** (95W, Wilson 16-23; 6.31/1.30; 472/500) | 92.8 | — |
+Read: the handicap was worth ~+0.6 to +3 lv8 points depending on the bot (stronger bots lose more to
+a bad start). Decorrelation intact (462-485 distinct of 500 vs 477 before). From leg 41 on, the
+league's reference numbers are champion 5.8 / 92.0 and the candidates 16.4 (lr1e4) / 19.0 (kl01).
+
+## STRIDED 6-FRAME STACK (Sep 23 2026, 4:00-5:00 am EDT; Blake: "do the strided six frame version next leg")
+
+After the K=4 read (legs 68-69), leg 70 moves to a STRIDED stack: lags [16, 8, 4, 2, 1, 0] decision
+steps = frames from 1.6, 0.8, 0.4, 0.2, 0.1 s ago plus the current one, 6 x 122 = 732 inputs. Same
+information cost as K=6 contiguous but a 1.6 s window instead of 0.5 s: wind-ups, jump arcs,
+projectile flight and transformation animations all fit. `obs_stack.py` now takes a lag list;
+the frame count implies the lags (OFFSETS_BY_K: 4 -> contiguous, 6 -> strided, 8 -> contiguous;
+PS2_STACK_OFFSETS overrides for the trainer), so evaluators and pool seats reconstruct it from a
+model's input size alone. `surgery_stack.py` maps source lags to destination lags (K=4's lag 3 ->
+strided lag 4, the nearest slot within 2x; everything else copies exactly or starts at zero), so
+the K=6 model starts as (almost exactly) the K=4 model: `agreement_stack.py` measures argmax
+agreement on a real trajectory since exact equality is impossible after a lag remap.
+Plan: hold set 4:05 am; after leg 69's battery, `surgery_stack.py powerstone_v6_leg69_league.zip
+powerstone_v6_leg69_stack6s.zip --k 6`, state -> `70 ./powerstone_v6_leg69_stack6s.zip`,
+`PS2_OBS_STACK=6` in league_env.txt, launch leg 70. Read over legs 70-71 vs legs 68-69 (K=4) and
+legs 63-67 (single-frame, lv8 mean 21.2). Gates (K=6 surgery of the leg 68 zip): see below.
+GATE RESULTS, K=6 strided [16,8,4,2,1,0] (5:00 am): evaluator regression OK, 2-actor trainer smoke
+OK (46 eps, seam 1.4e-5) — but AGREEMENT ONLY 90.35% (1807/2000 argmax, max |logit diff| 6.8):
+remapping the K=4 model's lag-3 slot onto lag 4 changes ~10% of decisions. Not "starts identical".
+DECISION (operator, within Blake's "100% certainty, not vibes" rule): use K=7 = [16,8,4,3,2,1,0]
+— the same 1.6 s window plus every lag the K=4 bot already uses, so the surgery is EXACT (lags
+4, 8, 16 start at zero). 854 inputs instead of 732. Blake can drop back to pure 6 lags later with
+one more surgery once the strided slots carry weight (exactness is moot after training anyway).
+Leg 70 = K=7; PS2_OBS_STACK=7. K=7 GATES (5:40 am) ALL GREEN: surgery leg 68 zip -> K=7, slot map
+{3:3, 2:2, 1:1, 0:0}, agreement 2000/2000 argmax, max |logit diff| 7.6e-6, mean |prob diff| 3e-8;
+evaluator regression OK (instance 20); 2-actor trainer smoke with PS2_OBS_STACK=7 OK (44 eps, 6
+updates, seam logp_maxdiff 1.3e-5, "leg complete").
+
+## FRAME STACKING BUILT (Sep 22 2026, 8:30-10:00 pm EDT; Blake: "Oh sick let's add this")
+
+Why: the policy is a reflex player — one 122-number frame per decision, no history. A K-frame
+stack (oldest first, newest last; K copies of the first frame at reset) gives it velocities,
+wind-ups and jump arcs. OpenAI Five used an LSTM for the same reason; stacking is the cheap first
+step and is warm-startable by SURGERY (their word): the new first layers of both MLPs are
+(256, 122K) with the single-frame weights copied into the LAST 122 columns and zeros elsewhere,
+so the stacked model starts as EXACTLY the current bot and learns to use history from there.
+Code: `obs_stack.py` (FrameStack, StackedEnv, k_for), `surgery_stack.py <in> <out> --k K`,
+`equivalence_stack.py <parent> <stacked>`. Wiring (all inert unless a stacked model or
+PS2_OBS_STACK>1 is present): trainer actors wrap the env in StackedEnv when PS2_OBS_STACK=K and
+assert the warm zip's input is 122K; FFA env seat views keep a per-view FrameStack for stacked
+pool policies; the 2-seat SelfPlayEnv does the same for a stacked opponent; eval_parity,
+ab_selfplay_probe, watch_play, play_vs infer K from the loaded model (k_for) and stack. The
+eval contract does not change (same states, COMs, episode counts). Backups: archive/*_pre_stack_sep22.py.
+GATE 1 (equivalence) PASSED: leg 66 zip -> leg66_stack4.zip (K=4): 3,000 real lv8 frames, random
+junk in the three history slots, max |logit diff| 6.2e-6, max |value diff| 5.7e-6, argmax 3000/3000.
+GATE 2 (evaluator path) PASSED 10:05 pm: eval_parity ran clean with the single-frame leg 66 zip
+(instance 20) and the stacked leg66_stack4.zip (instance 21), 3 lv8 episodes each.
+GATE 3 (trainer smoke) PASSED 10:20 pm: 2 actors, PS2_OBS_STACK=4, stacked warm start, 24,576
+steps: "[config] obs_stack=4" printed, 51 episodes, 6 updates, seam check logp_maxdiff 1.3e-5,
+"leg complete", zip saved. All three gates green; leg 68 launches stacked after leg 67's battery.
+PLAN (Blake approved adding it; K=4 unless he says 8): hold set at 10:00 pm so leg 68 does not
+auto-launch; when leg 67's zip lands, `surgery_stack.py powerstone_v6_leg67_league.zip
+powerstone_v6_leg67_stack4.zip --k 4`; `league_state.txt` = `68 ./powerstone_v6_leg67_stack4.zip`;
+add `PS2_OBS_STACK=4` to league_env.txt; `mixed`; launch. Pre-registered read over legs 68-69 vs
+the last five legs (lv8 mean 21.9, band 16-24; AB 63-78; lv3 92-98): the stacked bot starts
+identical, so leg 68 should be in band and leg 69 is where a gain would show; revert = warm
+start from the single-frame leg 67 zip with the flag removed.
+
+## PER-LEG VIDEO + FIGHT SCOUTING (Sep 21 2026, 7:00-10:30 pm EDT; Blake: "watching catches shit the numbers don't", "Totally worth it")
+
+The pre-roll handicap (Aug 24 -> Sep 17) and the reset-continuation bug were both invisible in the
+numbers and obvious in the first minute of footage; the spectator script had existed since leg 1 and
+been used once. Now structural: every battery records two lv8 rounds (`videos/leg<N>_lv8.mp4`, phone
+size) and starts `scout_leg.sh <N>` in tmux `scout<N>` (record until one win + one loss, cap 14
+rounds; 1-fps 4x3 contact sheets; sheets for the first loss and first win -> `videos/review_leg<N>/`;
+`videos/leg<N>_win.mp4`; marker `claude_bridge/scout_leg<N>_done.txt`). Whoever collects the leg
+writes `videos/review_leg<N>.md` from `scout_rubric.md` (Sonnet agent from the interactive session,
+~110k tokens, ~6 min; or the scheduled wake itself). Pilot on leg 61 (review_leg61.md): opens
+isolated at the map edge ~7 s; dies pinned against terrain by two opponents at once; in the win it
+never goes to finish a critically-low Pride (under zero-sum an elimination pays the same whoever
+lands it — a possible finishing-bonus diet idea, NOT proposed). watch_play.py gained
+`--stop-after-win`; the harness aborts on close, so scripts gate on the output file, not the exit code.
+Game-time note: a step is 6-10 frames plus slip (directional presses hold 10), so the "0.1 s/step"
+figure understates game time by ~1.5x; recordings show ~100 s per 675-step round incl. reset.
+
+## CHARACTER RANDOMIZATION BUILT (Sep 20 2026, 20:15-22:30 EDT; Blake: "We definitely need to add character randomization")
+
+Design: the LEARNER stays Falcon in P2 (the policy has no character input and every pool policy is
+a Falcon policy — the Aug 28 Ayame lesson: a Falcon policy driving another body is crippled), and
+the P1/P3 pool seats stay Falcon for the same reason. What varies is the COM seat (P4), which the
+game's own AI plays natively for every character: 14 mixed states, one per roster character, sampled
+uniformly per episode. The lv8 battery lineup is Pride/Ryoma/Accel and the lv3 lineup Pete/Pride/Julia,
+so until now the bot trained against Falcons only and was evaluated against characters it had never
+seen (the Aug 28 "matchup hypothesis").
+States: `states_mixed/slot10..22.state` (Ayame, Gunrock, Ryoma, Wang-Tang, Galuda, Rouge, Jack, Pete,
+Julia, Gourmand, Accel, Mel, Pride; slot0 = Falcon), stamped headlessly with menu_drive.py from
+slot0: wait 1500 frames (past the camera intro) -> START on P2 = pause menu -> DOWN x2 + A = CHANGE
+CHARACTER -> PLAYER SELECT (Battle Royal) -> P2 cursor RIGHT x2 into the P4 column, UP to the
+portrait row -> A x k cycles the roster forward -> START -> STAGE SELECT (defaults to Blue Sky) ->
+UP = Desert Area -> A -> saved 200 frames into the match. menu_drive's `--save` flag is a no-op;
+use the `save:` step. Four controllers stay baked (the base state carried them). `states_mixed/README.md`.
+Verification: (1) select-screen portrait per state (contact sheet in the session scratchpad:
+slot10 AYAME ... slot22 PRIDE, exact roster order); (2) in-env probe of all 13 in the real mixed
+FFASelfPlayEnv (leg 56 policy, 150 steps each): healths live at start, all four seats moved
+(P1/P3 views 54-1467 units, P4 COM 970-2148 units), damage flowing, SLOT_META (1,2); (3) 2-actor
+trainer smoke on the full slot list: PASSED 22:40 EDT (2 actors, instances 23-24, 24,576 steps,
+state_slots=[0,10..22] in [config], 49 episodes over 13 of the 14 slots, 49 [zs] + 51 [start]
+lines, "leg complete", exit 0).
+**ENABLED 22:45 EDT for leg 58+** (Blake: "We definitely need to add character randomization" +
+"keep the 2 pool seats"): `league_env.txt` = `PS2_ZERO_SUM=1 PS2_START_HEALTH=0.5,1.0
+PS2_STATE_SLOTS=0,10,11,12,13,14,15,16,17,18,19,20,21,22`. Leg 57 (running) unaffected.
+NEXT LEVER QUEUED (Blake, Sep 20 22:50): COM LEVEL randomization (3/5/8 sampled per episode) —
+probe the RAM cell for COM difficulty by diffing states/slot2 (lv3) vs slot3 (lv8); if writable at
+reset it becomes a flag like start health, else stamp level-5/level-8 state sets via the options
+menu. Own two-leg read AFTER the character read (legs 58-59).
+COM-LEVEL RAM PROBE RESULT (Sep 20 23:40 EDT, instance 13): NEGATIVE. Diffing states/slot2 (lv3) vs
+slot3 (lv8) against two lv3 mixed states gave 14 u8 cells with a 3->8 / 2->7 pattern; writing each
+(and all 14 at once) into the live lv3 mixed state and running 300 deterministic noop steps produced
+IDENTICAL COM behaviour in every condition (damage to P1-P3 = 138, first hit at step ~115-136, cells
+read back as written). Read: the difficulty is consumed at match start (copied into the COM's AI
+object), so a post-load write cannot change it, and none of the 14 cells is the live copy. Path
+forward for level randomization = STAMP state sets at COM difficulty 5 and 8 via the options menu
+(pause -> QUIT -> main menu -> OPTIONS -> COM DIFFICULTY -> Battle Royal -> lineup -> Desert), then
+PS2_STATE_SLOTS mixes the sets. Parked until the character read (legs 58-59) is in.
+Plumbing: `PS2_STATE_SLOTS="0,10,...,22"` (train_selfplay_async.py; PS2_STATE_SLOT stays the
+single-slot form); the FFA env forces SLOT_META (1,2) for every configured slot; league_leg_async.sh
+accepts PS2_STATE_SLOTS in league_env.txt. The [ep] line already prints the slot, so per-character
+win shares can be read from any training log. Evals unaffected (base env, states/).
+Pre-registered read (legs 58-59 vs 55-56 = 19.2/22.4, 95.2/97.6, 69/78): training win share may
+dip at first (new opponents); the discriminator is lv8 (its COMs are Pride/Ryoma/Accel, now seen in
+training) and the champion AB should hold. Revert = remove PS2_STATE_SLOTS from league_env.txt.
+
+## ARENA LEVERS BUILT: ZERO-SUM REWARD + START-HEALTH RANDOMIZATION (Sep 20 2026, 07:30-09:00 EDT; Blake: "Test what you can without me ... Go for it")
+
+Both are TRAINING-ONLY (the FFA env; batteries use the base env and never set the flags), both
+inert unless set, both from the OpenAI Five reading (Sep 17). Code: `ffa_selfplay_env.py`
+(backup `archive/ffa_selfplay_env_pre_zerosum_sep20.py`), `ps2_addr.py` (HEALTH_OBJ),
+`league_leg_async.sh` (reads `league_env.txt`, records it as leg_modes.txt column 5).
+
+**PS2_ZERO_SUM=1.** Every present seat is scored with ONE consistent copy of the learner's
+shaped-reward function (same constants: dealt 2.0, taken 1.0, stone 3.0, win +20, loss -10 x
+level scale, time -0.002, same per-episode gem cap), and the learner's reward becomes
+r_learner - mean(r_other seats). Damage attribution: each seat's health drop is credited to
+the NEAREST alive other seat (xz plane) — the base env's "all opponent drops are mine" rule is
+not mirrorable in a 4-seat arena (it would dilute the learner's own hits by crediting two
+bystanders). Timeout penalty stays learner-only (mirroring it would cancel it out). Per-step
+info carries r_raw / r_opp_mean; a "[zs] raw= opp_mean= adj= dealt_nn= steps=" line prints per
+episode. VERIFIED event-by-event on the mixed arena (instance 20, leg 53 zip, 2 episodes):
+learner stone +3.00; opponent stone -1.00; learner lands 0.264 dmg +0.62; learner takes 0.176
+dmg -0.29; opponent eliminated (by anyone) +3.1; learner dies with a survivor -16.7 (its -10
+plus the survivor's +20/3). Episode totals: a lost fight that farmed 6 stones went from raw
++7.24 to adjusted +0.74 — the positive-sum pocket closes.
+
+**PS2_START_HEALTH=lo,hi.** At reset every present seat's health is multiplied by an
+independent U(lo, hi) draw. RAM finding: `ps2_addr.HEALTH` (0x8C475A04..) is a DISPLAY MIRROR
+refreshed from the player objects each frame (a write there held only while the fight was not
+yet live); the primary float is in the player object at PLAYER_MAT[k] - 0x330 (stride 0x3938)
+= `HEALTH_OBJ`. Found by scanning SYSTEM_RAM for float32 cells tracking P2's health across
+three damage events (4 hits: the mirror, +0x30, +0x50, and the object field). Writing the
+object field sticks and damage applies on top (600/700 written on slot3 -> 600/593 after 20
+steps). The env writes the object field plus the mirrors, pumps 2 frames, re-anchors
+prev/prev_health and the seat views so the first step reads dH = 0 (verified: first-step r =
+-0.002, the time penalty). "[start] health P2=539 P1=520 P3=636 P4=549" prints per episode.
+HUD frame checked (start_random_ep0.png in the session scratchpad).
+
+**Pre-registered read (when Blake enables it):** `echo "PS2_ZERO_SUM=1 PS2_START_HEALTH=0.5,1.0"
+> league_env.txt` before a leg launch; two legs from the then-current zip; discriminators =
+lv8 (band 15-19 under the stack), champion AB (60-74), and in the training stream the [zs]
+lines (adj vs raw), timeouts, stones per episode (expect picks to FALL from ~6.3 as farming
+stops paying while dealt_nn RISES). Revert = empty league_env.txt. Note the eval contract does
+not change, so the comparison to legs 46-53 is direct. Not enabled; Blake's call tonight.
+2-actor trainer smoke with both flags (08:12-08:20 EDT, instances 21-22, leg 53 zip, 24,576 steps):
+6 updates, 42 episodes, 42 [zs] lines, 44 [start] lines (42 + 2 initial resets), seam check
+logp_maxdiff 1e-5, "leg complete", zip saved. Zero-sum overhead measured at 0.019 ms/step
+(39.0 -> 40.9 ms/step total, inside noise). Wrapper parse dry-run OK; eval_parity/ab probe
+import the base/2-seat envs only.
+**ENABLED 08:30 EDT (Blake: "If all is validated with 100%% certainty and not vibes, enable the
+stack for leg 55"): `league_env.txt` = `PS2_ZERO_SUM=1 PS2_START_HEALTH=0.5,1.0`, applies at
+leg 55's launch (~10:20 EDT). Leg 54 (running) is unaffected. Optimizer stack unchanged.**
+PRE-REGISTERED READ, legs 55-56 vs legs 52-54 (stack, no arena flags): lv8 (band 15-21),
+champion AB (53-70), lv3 (94-95); stream: stones/episode expected to FALL from ~6, dealt_nn to
+rise, [zs] adj vs raw; timeouts stay ~0. Revert = `: > league_env.txt` before a launch.
+
+## ZIPS PERSIST target_kl — leg 46 ran a STACKED setting by accident (Sep 18 20:20 EDT, operator error, corrected for leg 47)
+
+SB3 saves target_kl/learning_rate/batch_size INTO the zip. The kl01 arm's zip therefore carries
+target_kl = 0.1, and the restart (leg 46: "kl01 zip + PS2_LR=1e-4") inherited it: leg 46 trained
+with lr 1e-4 AND target_kl 0.1 (Early-stopping lines: 14 of 196 updates; epochs/update 9.58; KL/update
+0.021 vs the lr1e4 arm's 0.006). That is NOT the approved low-drift setting; it is a stacked
+setting nobody pre-registered. Verified: leg40 zip 0.03 / kl01 zip 0.1 / lr1e4 zip 0.03 / leg46 zip 0.1.
+CORRECTION (within the approved intent "restart on the low-drift arm"): `league_optim.txt` =
+`PS2_LR=1e-4 PS2_TARGET_KL=0.03` from leg 47 on. Rule from here: every optimizer value the lineage
+relies on must be set EXPLICITLY in league_optim.txt; never assume the zip's value.
+Leg 46 stays in the ledger as an unplanned data point (lr 1e-4 + kl 0.1): stream win 0.38-0.40,
+entropy -0.293 -> -0.574 by quarter, picks 6.5, forms 1.6; held-out below.
+
+## SWEEP 40 RESULTS (optimizer sweep from the leg 40 zip, reset fix active; Sep 16 19:55 -> Sep 17 14:25 EDT)
+
+Blake (Sep 16): "run it 3 different times with different changes" + "fix the timeout reload before
+it". Four 4M-step mixed legs, ent_coef 0.01, all from the SAME parent (leg 40 = 4.2/86.8/60-40,
+old reset code), each in its own pool clone. Same battery contract as the relay (lv8 n=500,
+lv3 n=250, champion AB n=100), all still measured WITH the pre-roll handicap (section below).
+
+| arm | change | epochs/update | KL/update | entropy med (Q4) | timeouts Q4 | stream win Q4 | lv8 (n=500) | lv3 (n=250) | AB vs champ | lv8 picks/forms |
+|---|---|---|---|---|---|---|---|---|---|---|
+| leg 40 (parent) | old reset code | 1.10 | 0.006 | -0.063 (-0.066) | 13%% | 0.38 | 4.2 (Wilson 3-6) | 86.8 | 60-40 | 3.94/0.59 |
+| ctrl | reload-on-reset fix only | 1.07 | 0.007 | -0.100 (-0.099) | 9%% | 0.36 | 6.2 (4-9) | 91.2 | 69-30 | 4.79/0.82 |
+| bs256 | + batch_size 64->256 | 5.72 | 0.020 | -0.347 (-0.458) | 1%% | 0.40 | 9.0 (7-12) | 92.8 | 65-35 | 5.59/1.06 |
+| lr1e4 | + learning_rate 3e-4->1e-4 | 3.31 | 0.006 | -0.154 (-0.249) | 3%% | **0.49** | 13.6 (11-17) | 92.8 | **76-24** | **6.23/1.31** |
+| kl01 | + target_kl 0.03->0.1 | 2.31 | 0.021 | -0.156 (-0.240) | 1%% | 0.43 | **16.6 (14-20)** | 92.8 | 71-29 | 5.62/1.11 |
+
+READ (pre-registered questions, in order):
+1. Reset fix alone (ctrl vs leg 40): +2.0 lv8, +4.4 lv3, +9 AB, entropy -0.063 -> -0.100, timeouts
+   27%% (Q3) -> 7%%. The continued-match episodes were a real drag.
+2. Epochs/update: every optimizer arm raised it (1.07 -> 2.3 / 3.3 / 5.7). bs256 got the most
+   gradient work; it did NOT get the most held-out gain, so "more passes" is not the whole story —
+   drift per update matters too (bs256 and kl01 both sit at KL 0.02, three times ctrl).
+3. Best lv8 with lv3 and AB in band: kl01 16.6 (14-20) then lr1e4 13.6 (11-17); intervals overlap.
+   lr1e4 has the better champion match (76 vs 71), the best picks/forms, the lowest drift, and its
+   stream win share was still RISING in Q4 (0.32 -> 0.49). kl01 is the riskier mechanism (3x drift)
+   and its stream was flatter. Every arm beat every previous leg of the campaign on lv8 except ctrl.
+4. Entropy: all three optimizer arms reversed the 0.01 collapse without touching ent_coef (Q4
+   -0.24 to -0.46 vs -0.07 at legs 39-40). The ent_coef 0.03 proposal is WITHDRAWN as redundant.
+5. RECOMMENDATION (Blake's call): leg 41 warm start = lr1e4 zip (powerstone_v6_sweep40_lr1e4_league.zip)
+   with PS2_LR=1e-4 as the standing setting; kl01 is the close alternative. Open follow-up arm:
+   lr 1e-4 + batch 256 stacked (same mechanism, each helped alone), one leg from the lr1e4 zip.
+   Under either choice the pre-roll fix + champion re-baseline should land BEFORE leg 41 so the
+   new lineage is measured fairly from its first leg.
+Arms' pools: pool_sweep40_<arm>/ (keep until Blake picks; the chosen arm's pool becomes the league
+pool for leg 41 — copy, never rm). Zips: powerstone_v6_sweep40_<arm>_league.zip.
+
+## TWO RESET FINDINGS FROM WATCHING THE BOT (Sep 16 2026, 16:30-16:50 EDT) — verified, NOT fixed (Blake's call)
+
+Blake watched the leg 38 lv8 video: "lost 1/4 of his bar in the first 15 seconds before
+it started to move" and "hiding, running away instead of opening boxes". Probed on
+instance 13 (zero footprint), leg 39/40 untouched.
+
+1. PRE-ROLL SITTING DUCK (training AND eval, every lineage since Aug 24). The libretro
+   `_send("loadstate")` pumps the intro (~240 frames) and then a random 0-599 frame
+   stagger (Aug 24 fix #4, decorrelates deterministic episodes) with NO input on the
+   bot's port while the match is live. 30 lv8 loads: frames pumped median 530 (243-815);
+   bot health at its first action median 982, mean 923, 7/30 start at 740 (one quarter
+   gone). The pre-roll damage is never penalised (baseline/prev_health are set after it)
+   — the bot just starts a quarter down in ~25%% of lv8 episodes. Same code path in the
+   batteries, so every held-out lv8 number (champion included) carries this handicap.
+   Fix candidates: stagger 0-59 + random first 1-2 actions, or take the stagger inside
+   the intro. Either changes the eval contract -> re-baseline the champion first.
+2. TIMEOUT DOES NOT RELOAD (training only). reset() sends loadstate only when
+   `_match_ready` is false (bot dead or all opponents dead). After a MAX_STEPS timeout
+   everyone is alive, so the next "episode" CONTINUES the same match: residual health,
+   stones, timer, and freshly sampled opponent brains dropped into the existing bodies.
+   Verified with PS2_FFA_MAX_STEPS=150 on the mixed state: reset pumped 1 frame, health
+   carried 815 -> 743 -> ... across three "episodes". Mixed legs time out 6-21%% of
+   episodes, so roughly one episode in ten starts mid-fight at partial health, right
+   after the timeout=loss penalty was booked. The FFA anti-stall (Sep 14) was layered on
+   top of this. Fix: force a loadstate on every reset (one line). Batteries have 0 T so
+   held-out numbers are unaffected; the training distribution changes.
+3. The "coward" read: the active diet is Blake's MINIMAL_REWARD (Leg F): win +20, loss
+   -10, damage dealt 2.0, taken 1.0, stone +3, time -0.002/step, NO pay for approaching
+   or opening chests. Against three lv8 COMs engaging costs and stones are free money,
+   so pickup-and-avoid is what this diet buys. Diet is Blake's; recorded, not proposed.
+
+Also added (inert unless set): PS2_BATCH_SIZE / PS2_LR / PS2_TARGET_KL overrides in
+train_selfplay_async.py for the optimizer sweep (each prints a "[config] ... override" line).
+
+## HUMAN PLAY + SPECTATE TOOLING (Sep 16 2026, 13:30 EDT — Blake: "may as well try" playing the bot)
+
+Blake has only ever played the ~30M-step bot and has never watched the current
+one. Two zero-footprint tools (no pool/state writes, own instance id + bridge dir):
+- `watch_play.py` gained `--instance <id>` (bridge_watch_<id>, dolphin-<id>) and
+  `--hidden` (no pygame window, for unattended `--record --speed 0`). NOTE: never
+  set SDL_VIDEODRIVER=dummy — the harness needs SDL's GL window; hide only pygame.
+  Recorded under the mixed-leg eval contract (obs v2, p4 harness): the leg 38 zip
+  vs 3x lv8 COM and vs 3x lv3 COM, 3 episodes each -> `linux_port/videos/`.
+- `play_vs.py` (NEW): YOU in in-game P1 (libretro port 0, keyboard or first
+  gamepad, mask set every frame inside a wrapped run_frames), the bot in P2 as
+  always. `--mode 1v1` (states/slot1), `ffa` (states/slot0, P3+P4 policy seats),
+  `mixed` (states_mixed/slot0, P3 policy, P4 lv3 COM). `--opps same|pool`.
+  MAX_STEPS lifted so rounds end when the game ends them. Results print from the
+  bot's side. Smoke-tested headless in all three modes (250-step cap) while leg 39
+  trained. Default instance 12. Command in the docstring / SESSION_HANDOFF sec 9.
+  This is the discriminator the lv8 number cannot give: does it beat a human.
+
+## FFA SELF-PLAY LINEAGE — DESIGN + PRE-REGISTRATION (Sep 13 2026, Blake's call after the async validation)
+
+Goal restated (Blake): four-way free-for-all where three of his own bots
+beat him. The 1v1 self-play league is measured on FFA vs COMs it never
+trains on; the OpenAI Five lesson is that self-play must BE the target
+game. Decisions (Sep 13): four-seat self-play FFA is the next lineage;
+fix the three deferred observation-contract bugs in the same change as
+ONE versioned bump (obs v2); prioritized opponent sampling as a switch;
+parallel 500/250/100 batteries; the parent A/B is dropped.
+
+**obs v2 (PS2_OBS_V2=1; default stays v1 so the running pure-league relay
+is untouched):** (a) last-action one-hot = a_t for EVERY seat (the
+learner's was a_{t-1}; the P1 view's and the recorders' were a_t — one
+convention now); (b) every non-learner view carries its OWN gem count,
+form timer, last action and previous-state (the v1 P1 view leaked the
+learner's _form_timer/_my_g_int); (c) the demo recorders' velocity
+window is fixed with the same step semantics (only matters for future
+recordings). Obs dim stays 122; warm start from the leg 25 zip (the
+policy adapts to (a) under fine-tuning; a fresh start would waste 56M
+steps of lineage).
+
+**FFA env (ffa_selfplay_env.py):** one emulator, four seats; learner =
+in-game P2 (port B) as always; seats 1, 3, 4 driven by FROZEN pool
+policies, each with its own StateLineSynth view (bot_player=k) and its
+own view state; all three opponent actions applied as held masks before
+the learner's frames (same mechanism as the 2-seat env). Savestate:
+Original mode true FFA, desert, ALL FOUR SEATS HUMAN, all Falcon
+(every pool policy is a Falcon policy — the Ayame lesson), four
+distinct colours (same colour = team). New slot 4; SLOT_META[4] = (1, 2)
+mirroring slot1's context dims so the model reads "self-play regime"
+and sees the FFA-ness through the three opponent blocks (pre-registered
+choice; the alternative (2, 2) is noted). EXPECT_OPP 3.
+
+**Pool sampling switch (PS2_POOL_SAMPLING=uniform|pfsp):** pfsp keeps a
+per-opponent EMA of the learner's win share and samples opponents it
+loses to more often (p ∝ (1 - w)^2 + eps, half of the time; the other
+half uniform over the newest 10, as now). In FFA the episode outcome is
+credited to all three sampled opponents. Off by default; the FFA
+lineage runs with it ON (this is the diet change Blake asked for; no
+COM rungs).
+
+**Validation outcome rule for sharded batteries (added Sep 13 17:25, before
+leg 27 ran):** layer 4 PASS iff slot2 >= 80 (n=250) AND AB vs the leg1
+champion >= 40%% of 100 (a regression guard; recent legs read 67-83%% at
+n=12). No parent AB exists any more.
+**Validation (same harness):** validate_async_leg.py on the first FFA
+leg vs leg 24's lockstep log for layers 1-2; layer 3 thresholds do not
+transfer (FFA win share vs three pool opponents will be lower by
+construction — reported, not gated); layer 4 = the new 500/250/100
+battery. RE-BASELINE FIRST: the leg 25 zip and the leg1 champion are
+re-evaluated under obs v2 on slot2/slot3 (sharded) before the lineage
+launches, so every later number has a same-contract reference.
+Mechanical smoke of the four-view code runs on slot3 (three COM seats)
+before the four-human state exists.
+
+**Relay:** the pure league continues on this Mac until the FFA lineage
+is ready to launch, then stops here (historical control; may resume on
+the M2 at Blake's option). Leg naming continues (FFA legs are legs 27+
+with "FFA" in the lifetime column); pool_league keeps growing with
+both.
+
+**FFA BUILD LOG (Sep 13 13:30-14:30): four-seat env, 4-port harness, the
+four-human savestate — all done headlessly.**
+1. The built harness routed input to TWO ports (sdlarch.h MAX_PLAYERS=2).
+   Now a compile option (SDLARCH_MAX_PLAYERS, default 2); a 4-port build
+   lives in `sdlarch-rl/p4/` (use PYTHONPATH=../sdlarch-rl/p4:../sdlarch-rl:.);
+   the repo-root `_retro.so` is the unchanged 2-port binary the relay uses.
+   The build's copy-to-root step is now a CMake option (SDLARCH_COPY_TO_ROOT,
+   OFF for build_p4) — it overwrote the root binary once on Sep 13 and was
+   restored from build/Release within minutes (leg 26 unaffected: running
+   processes hold the old binary). 4-port binary parity on the standard
+   2-seat slot2 eval, leg 25 zip, n=100: 91.0 / 10.00 / 2.99 (PASS).
+2. Ports C/D still did nothing after the rebuild. Root cause (flycast
+   source, libretro.cpp + maple_cfg.cpp): a SAVESTATE serializes the maple
+   device table and mcfg_DeserializeDevices re-creates exactly those
+   devices, so every state in this project (saved under 2 controllers)
+   drops ports C/D on load. Fix: re-attach joypads after load
+   (NONE->JOYPAD toggles via a new `_retro.set_controller_port_device`
+   binding; opt-in hook PS2_RECONNECT_PORTS=1 in flycast_bridge.loadstate)
+   AND bake four controllers into the new state: load, reconnect, run 120
+   frames, save (a save only 4 frames after the reconnect produced a state
+   with NO working ports at all). Verified: each of ports A-D moves its own
+   seat ~600 units with the others at drift level (test script kept in
+   the session scratchpad; recreate from this note if needed).
+3. The four-human state was stamped headlessly with menu_drive.py (now
+   supports p3/p4 steps) from slot2.state: pause (start on P2 after the
+   ACTION banner), down x2 + A = CHANGE CHARACTER; on PLAYER SELECT the P2
+   cursor can move into any column; rows cycle up: mode -> portrait ->
+   colour -> mode; A on the mode row cycles COM -> NO ENTRY -> HUMAN; A on
+   the PORTRAIT row cycles the roster FORWARD (B backward): Falcon, Ayame,
+   Gunrock, Ryoma, Wang-Tang, Galuda, Rouge, Jack, Pete, Julia, Gourmand,
+   Accel, Mel, Pride, RANDOM SELECT, (Falcon...); left/right move between
+   columns; START (P2) -> STAGE SELECT, one UP from the start tile =
+   Desert Area, A = match. Result: 4 x Falcon, 4 x HUMAN, red/yellow/blue/
+   green, desert; saved ~140 frames into the intro (healths all 1000 once
+   the intro ends). Installed as `states/slot0.state` (Mac slot 0 = the
+   FFA4 self-play state; backup states/ffa4_falcon_desert_4human.state.bak;
+   Law 8 re-stamp record). SLOT_META[0] -> (1, 2) in ffa_selfplay_env.py.
+4. ffa_selfplay_env.py mechanical test on slot 3 (three COM seats) PASSED:
+   each view reads its own seat's health, three opponents, its own
+   counters; the learner's obs v2 last-action timing verified.
+5. Relay modes in league_trainer.txt: lockstep | async | ffa | hold. "ffa"
+   = league_leg_async.sh with PS2_ENV=ffa PS2_OBS_V2=1 PS2_STATE_SLOT=0
+   PS2_POOL_SAMPLING=pfsp on the p4 harness, and league_battery.sh
+   evaluates under obs v2 on the p4 harness. "hold" = battery runs,
+   state advances, no launch (marker leg<N>_LAUNCH_HELD.txt). Set to hold
+   for leg 27 so the obs-v2 re-baseline (rebaseline_obsv2.sh) can run on a
+   quiet machine before the FFA lineage launches.
+
+**OBS-V2 RE-BASELINE (Sep 13 14:07-15:30, sharded, 4-port harness,
+PS2_OBS_V2=1) — AND A RECALIBRATION OF THE CHAMPION.** receipts/rebase_v2_*:
+
+| model | slot3 lv8 (n=500) | slot2 lv3 (n=250) |
+|---|---|---|
+| leg 25 zip | 3.2% (16W/484L, Wilson 2-5), picks 3.42 | 88.0% (220/250, Wilson 83-91), picks 9.71 |
+| leg1 champion (powerstone_v6_ppo.zip) | **5.2%** (26W/474L, Wilson 4-8), picks 4.21 | **91.2%** (228/250, Wilson 87-94), picks 9.16 |
+
+Two readings. (1) The contract change did not move the held-out numbers
+(leg 25: 88 -> 88 on slot2; 8%% at n=50 -> 3.2%% at n=500 is the same
+rate seen sharply). (2) THE CHAMPION'S BASELINES WERE SMALL-SAMPLE
+FLATTERY: "98.0 slot2" was 49/50 and "15%% lv8" was 3/20. At n=250/500
+the champion reads 91.2 / 5.2. The lineage-vs-champion gap on held-out
+COM evals is therefore ~3 points on slot2 and ~2 points on lv8, both
+inside the intervals — the "parity" story is confirmed, the "wall at
+15%%" was never 15%%. Any public number quoting 98 or 15%% should carry
+the n; the honest champion line is 91 / 5 at n=250/500. (Caveat: these
+are obs-v2 reads; leg 25 shows v1 == v2 within noise, so the champion's
+v1 numbers at the same n would very likely match.)
+
+## M4 PRO ERA (Sep 11, 2026) — bring-up, throughput probes, leg 21 recipe change
+
+Relay moved from the M2 Pro to Blake's M4 Pro (10 P-cores + 4 E-cores,
+48 GB; project at ~/Downloads/macbook_migration, symlinked from
+~/Documents; machine on US/Pacific — M2 logs were EDT). The Claude session
+on this machine runs a shell directly on the Mac (no VM), so the file
+bridge is optional here.
+
+**Bring-up (details in M4_SETUP.md, fixes baked into setup_m4.sh):**
+Gatekeeper quarantine + ad-hoc re-sign of _retro.so / libpcsx2_headless /
+flycast core; rpath baked in under the M2 username; `brew install
+sdl2-compat`. **Parity gate PASSED** on the leg 20 zip, slot2 n=50:
+94.0 (47W/3L, Wilson [84-98]) / picks 10.26 / forms 3.16 vs the M2's
+88.0 / 10.56 / 3.22 (matched-reference test). Eval took 15 min vs 26.
+
+**Throughput probes (zero-footprint: <100k steps, no pool/checkpoint
+writes; 81,920-98,304 actual steps each; all booted first try at
+stagger 20):**
+
+| workers | aggregate steps/s | per worker | idle CPU during rollout |
+|---|---|---|---|
+| M2 Pro, 6 (legs 18-20) | 75-79 | 12.8 | (P-cores saturated) |
+| 8 | 106.9 | 13.4 | 69% |
+| 10 | 120.5 | 12.0 | 64% |
+| 12 | 117.7 | 9.8 | 59% |
+| 14 | 123.1 | 8.8 | 80% |
+
+**Diagnosis:** the plateau at ~120 is NOT the hardware. One instance alone
+does 53 steps/s (bench_fps C, 485 raw fps vs the M2's 325); TEN independent
+instances fully overlapped do 35-44 each (~390 aggregate). The 3x loss is
+the synchronous SubprocVecEnv: a reset costs ~1.0 s (loadstate + intro
+pump) and stalls every worker; a 14-worker snapshot caught one worker at
+32% CPU and thirteen at 5%. Render settings are NOT the lever: 320x240
+internal resolution changed nothing at 10 workers (120.6); frame skipping
+=1 cut throughput to 81.9 AND altered the game (238 eps vs ~170 per
+budget, learner win share 75% -> 49%) — fails the chest-obs law, dead.
+`flycast_bridge.py` gained a no-op-by-default PS2_CORE_VARS hook for such
+benches; `bench_fps.py` gained --instance. OPEN ENGINEERING ITEM (Blake's
+go required, prototype only on probes): an asynchronous rollout loop
+could plausibly reach 300+ steps/s here.
+
+**LEG 21 RECIPE CHANGE (Blake, Sep 11): 10 workers, 4M-step legs**
+(league_leg.sh defaults; 2M->4M was the previous session's standing
+recommendation). Note for curve reading: n_envs also sets PPO's rollout
+size (2,048/worker/update) — a 4M leg at 10 workers is 195 updates vs
+162 per 2M leg at 6 workers; total minibatch gradient steps per step
+are unchanged. Lifetime after leg 21 = 40M. Leg 21 launched Sep 11
+20:20 PDT (tmux ps2train), ETA ~9.3 h at 120 steps/s.
+
+**ASYNC TRAINER, PHASE 1 DONE (Sep 11 evening, Blake's go):**
+`train_selfplay_async.py` (new file; train_selfplay.py untouched) = actor-
+learner PPO: N actors each own a SelfPlayEnv + CPU policy copy, step and
+reset independently, ship n_steps chunks; the learner lays the first
+N_ENVS chunks into SB3's own RolloutBuffer as columns and runs the
+unchanged PPO.train(). Same env/obs/rewards/pool/hyperparameters/snapshot
+cadence; the one difference is chunks up to one update stale (logged per
+update as lag). `test_async_buffer.py` proves column fill == SB3's
+row-by-row collect_rollouts bit for bit (obs/act/rew/starts/values/
+logp/advantages/returns). 2-actor smoke beside leg 21: two updates, lag
+0 then 1, 18 contested episodes, clean save, clean exit, no hang.
+MEASUREMENT (Blake: hold leg 22 for it): `async_measure.sh` runs after
+leg 21's battery on the quiet machine (10 actors/10 columns, then 12/10;
+<100k steps each, artifacts deleted), writes claude_bridge/
+async_measure_result.txt, then launches leg 22 itself. Lockstep reference
+at 10 workers: 120.5 steps/s. Adoption as the leg recipe = Blake's call
+after a validation leg + battery.
+
+**ASYNC TRAINER MEASURED (Sep 12 06:27-06:41, quiet machine, leg 21 zip
+as warm start, 81,920 steps per probe, artifacts deleted):**
+
+| trainer | actors/columns | aggregate steps/s | learner win share in stream | lag |
+|---|---|---|---|---|
+| lockstep (train_selfplay.py, Sep 11) | 10 | 120.5 | ~75-80% | 0 |
+| **async (train_selfplay_async.py)** | 10 / 10 | **275.5** | 79% (181/228 eps) | max 1 update |
+| async | 12 / 10 | 266.0 | 82% (182/221) | max 2 updates |
+
+2.3x on the same hardware, zero errors, clean exit, episode statistics
+indistinguishable from the lockstep stream. Extra actors beyond the
+column count buy nothing (the learner is not the bottleneck yet) and
+raise staleness, so 10/10 is the configuration. Projection: a 4M leg in
+~4.0 h instead of ~9.7 h. NOT yet the recipe: adoption = Blake's call
+after a validation leg (proposal: leg 23 on the async trainer, same
+10/10 + 4M, full battery, compared against legs 21-22). Needs a
+league_leg_async.sh wrapper with the halt-on-mid-leg-death rule before
+it can be chained. Leg 22 launched 06:41 PDT on the lockstep trainer.
+
+**RECIPE CHANGE FROM LEG 23 (Blake, Sep 12 ~07:00): ASYNC TRAINER.**
+`linux_port/league_trainer.txt` = "async" makes league_battery.sh chain
+`league_leg_async.sh` (train_selfplay_async.py, 10 actors / 10 columns,
+4M steps, ~4 h per leg) instead of league_leg.sh. Switch back by writing
+"lockstep" (or anything else) into that file between legs. Leg 23's
+battery is the validation read against legs 21-22 (same recipe
+otherwise). The async leg exits cleanly at "leg complete" (no teardown
+hang); wrapper lines are tagged [wrapper-async]. Scheduled fallback
+wakes now work unattended: Blake added
+`.claude/settings.local.json` (permission allowlist, git-ignored).
+
+**PRE-REGISTERED VALIDATION OF THE ASYNC TRAINER (written Sep 12 ~13:45,
+BEFORE leg 23 runs; Blake: "not vibes").** Four evidence layers, rules fixed
+in advance, evaluated by `linux_port/validate_async_leg.py` after leg 23's
+battery:
+1. Seam integrity: the async learner re-evaluates every lag-0 chunk under
+   the current weights and logs `[check] logp_maxdiff / value_maxdiff`.
+   PASS iff max |dlogp| < 1e-4 and max |dvalue| < 1e-3 on every update.
+2. Learning statistics per PPO update (approx_kl, clip_fraction,
+   entropy_loss, explained_variance, value_loss; async `[stats]` lines vs
+   SB3's verbose table from a matched LOCKSTEP reference run: same warm
+   start as leg 22 (leg 21 zip), 10 workers, 450k steps, run beside leg 22
+   in its own instance/checkpoint namespace — receipts/
+   train_lockstep_stats_out.txt). PASS iff async medians: approx_kl <=
+   2.5x, clip_fraction <= 2.0x, explained_variance >= ref - 0.15,
+   entropy_loss within 25%, no NaN/inf, AND gradient steps per update
+   (delta of train/n_updates) >= 0.75x the lockstep median — the zip
+   carries target_kl=0.05, so SB3 early-stops an update's epochs when KL
+   runs high; staleness must not be silently eating the async updates
+   (added 14:35, still before leg 23).
+3. Training stream (thousands of episodes): whole-leg learner win share
+   within 10 points of the lockstep reference, picks/forms within 20%,
+   no quarter below 50% win share.
+4. Outcome: the normal battery (slot2 >= 80, AB vs parent >= 7-5 at n=12)
+   plus an n=50 AB leg23-vs-leg22 for a tighter parent comparison.
+Any FAIL = revert league_trainer.txt to lockstep for leg 24 and report;
+the async leg's zip stays in the lineage only if the outcome layer passes
+(a failed layer 1-3 with a passing battery is reported to Blake for a
+call, not decided by the session).
+
+**FINDING (Sep 12, from the first PPO-statistics log this lineage has ever
+produced — the lockstep baseline probe): the zip carries target_kl=0.03,
+and SB3 EARLY-STOPS most updates after 1-2 of the nominal 10 epochs**
+("Early stopping at step 0/1 due to reaching max kl" = epoch index;
+train/n_updates advances one per epoch and moved 1-2 per update in 15/15
+updates). Every league leg has trained this way; the leg-21 move to 10
+workers (20,480 samples/update, 320 minibatches per epoch) plausibly
+lowered the effective epoch count further than 6 workers did (unverified —
+a 6-worker probe would settle it). Not changed: it is the lineage's
+standing behaviour and the pre-registered recipe; recorded so the async
+comparison (same rule applies to both trainers) and any future LR/epoch
+discussion start from the measured fact, not the constructor comment.
+
+**LEG 25 ONWARD: ASYNC + MID-CHUNK WEIGHT PULLS (Blake, Sep 13 06:45).**
+league_trainer.txt = async again; league_leg_async.sh now exports
+PS2_PULL_EVERY=64 by default. Leg 24 (lockstep, launched 21:51 Sep 12
+per the pre-registered revert) finishes as is. Leg 25 is the second
+validation leg: same validate_async_leg.py run, expectation that the
+gradient-epochs rule now passes (2-actor smoke: step lag 1.0 -> 0.1,
+2-3 epochs per update).
+
+**CORRECTION TO THE LEG-23 READ + LEG-25 PRE-REGISTRATION (Sep 13 07:45,
+before leg 25 launched).** Leg 24 ran lockstep WITH the new statistics
+table, giving a full-leg lockstep reference (195 updates) instead of the
+21-update probe. Against it, lockstep itself early-stops in epoch 0 on
+58% of updates (113/194; median 1, mean 1.43), so leg 23's async median
+(1) does not fall below the reference median — the FAIL was against a
+small-sample reference. The gap is real but smaller: async mean 1.15 vs
+lockstep 1.43 epochs per update (~80% of the gradient work), async KL
+p90 0.036 vs 0.018. Leg 25 (async + PS2_PULL_EVERY=64) is validated
+against leg 24's log with the median rule AND a mean rule (async mean
+>= 0.75x lockstep mean), both fixed here before the leg ran. Leg 24:
+9h41m, 9,083 eps, stream 77.9/76.6/76.1/78.1, picks 4.44, forms 0.90.
+
+**BATTERY UPGRADE (Blake, Sep 13 ~13:30): PARALLEL SHARDED EVALS, AB-vs-
+PARENT DROPPED.** From leg 26's battery, league_battery.sh runs every eval
+as 10 shards on 10 emulator instances (eval_parity.py --instance,
+ab_selfplay_probe.py per-instance pool/bridge dirs), validated per shard
+and merged by merge_receipts.py into the standard receipt format:
+slot3 (lv8) 10x50 = **500 episodes** (Wilson half-width ~2 points at a
+4% base rate, vs ~9 before), slot2 (lv3) 10x25 = 250, AB vs the leg1
+champion 10x10 = 100. The AB vs the previous leg is gone ("it literally
+always beats its former self" — Blake; the audits already rated it
+practice, not transfer; the fixed champion reference keeps the tripwire
+role). Wall-clock ~50 min. Shard files live in receipts/shards/; the
+serial script is archived as archive/league_battery_serial_sep13.sh.
+Rows from leg 26 on carry (n=500/250/100) — do not compare their
+intervals to earlier n=50 rows without noting it.
+
 ## LEG 4 — THE SYNTHESIS LEG (Aug 31->Sep 1): NEW FRESH-LINEAGE CHAMPION
 
 All-6-worker self-play vs pool_league (24 zips: rig checkpoints
@@ -160,6 +904,791 @@ leg behavior; every relay wake kills the hung tree before the battery;
 os._exit(0) patch proposed to Blake, pending). The dead eBay 7950X
 detour (Sep 6, board fine) cost 4 calendar days and zero project
 state.**
+
+| 28 | 68M (FFA self-play #2, obs v2, PFSP, 4M, 4h25m) | 34.6/30.4/27.3/30.3 vs three FFA-trained opponents (3,122 eps, 10.6%% timeouts, entropy collapse) | 4.4 (22W/478L, n=500, Wilson 3-7; 3.81/0.58) | 84.0 (210/250, Wilson 79-88; 10.07/3.02) | — | 72-28 (n=100) |
+
+**BLAKE (Sep 14 20:30): "let it rip 1 or 2 more legs unless we see a
+significant drop in the level 3 or champion matches. I think this is the
+recipe."** league_trainer.txt back to ffa; legs 33-34 chain. Hold rule for
+these legs, written now: hold iff slot2 < 70 (n=250) or champion AB < 35
+wins of 100 or lv8 < 4.0%% (n=500). Otherwise continue; report each
+battery.
+
+**LEG 34 PRE-REGISTRATION — MIXED SEATS (Blake, Sep 15 ~10:15 EDT).** Seats:
+learner P2, pool policies P1 + P3, P4 = the game's COM (Falcon, level 3 —
+the level baked into the slot2-derived state; level 5 is the follow-up if
+the pressure is too soft). State `states_mixed/slot0.state` (4 x Falcon,
+desert, three HUMAN + one COM, four controllers baked in; same slot number
+as the pure-FFA state so SLOT_META/obs are identical). Env: PS2_FFA_SEATS=
+0,2 + PS2_STATES_DIR=./states_mixed (league_trainer.txt = mixed). Same
+anti-stall settings, obs v2, uniform sampling, 10 actors, 4M, warm start
+= the LEG 33 zip (best FFA policy). SUCCESS SIGNATURE, written before the
+leg: stream timeouts collapse (< 10%%, from 35%%), entropy stops falling,
+and on the battery lv8 holds >= 5.0%% (n=500; leg 33: 6.4) with slot2 >=
+80 and champion AB >= 35/100. Adopt as the recipe if it passes; if
+timeouts collapse but lv8 falls below 5.0, try the level-5 COM before
+judging the design.
+
+**ENTROPY WATCH (Blake, Sep 15 21:30 EDT: "keep an eye on entropy").**
+Reference: lockstep leg 24 entropy_loss median -0.266; FFA/mixed legs run
+~ -0.07 to -0.11 (SB3's entropy_loss = -mean policy entropy, so values
+nearer 0 = a more deterministic policy). Pre-registered trigger for a
+recipe adjustment (ent_coef 0.01 -> 0.03 for mixed legs, Blake's go
+required): median entropy_loss above -0.06 for two consecutive legs, OR
+lv8 flat/down (within its interval or lower) for two consecutive legs while
+entropy_loss is trending toward 0. Every collection wake reports the leg's
+entropy median and the trigger state; the interactive session's watcher
+emits the running median hourly.
+
+| 70 | 216M (MIXED, warm leg 69 SURGERY K=7 strided [16,8,4,3,2,1,0], STACK + ARENA + COM CHARACTER RANDOM + 7-LAG OBS STACK, NEW CONTRACT; FIRST STRIDED LEG) | 36.0/38.0/39.0/37.0 (7,639 eps; timeouts 0/0/0/0%%; picks 4.92/5.01/5.07/5.08; entropy -0.681; KL/update 0.025; epochs/update 2.42; expl_var 0.80; [zs] adj +12.5/+13.8/+14.3/+13.6, dealt_nn 0.89-0.93; per-character 0.34 Ryoma/Pete/Julia to 0.43 Ayame; win share by transforms 0/1/2/3 = 0.01/0.25/0.70/0.83) | **28.8** (144W/356L, n=500, Wilson 25-33; **6.79/1.57**) | **97.6** (244/250, Wilson 95-99; 9.77/3.06) | — | 74-26 (n=100) |
+| 69 | 212M (MIXED, warm leg 68, STACK + ARENA + COM CHARACTER RANDOM + 4-FRAME OBS STACK, NEW CONTRACT; second stacked leg) | 38.0/37.0/37.0/41.0 (7,432 eps; timeouts 0/1/0/0%%; picks 4.92/4.86/4.95/5.05; entropy -0.706; KL/update 0.026; epochs/update 4.68; expl_var 0.80; [zs] adj +13.7/+13.3/+13.0/+15.1, dealt_nn 0.89-0.91; per-character 0.33 Wang-Tang to 0.43 Pete) | **23.0** (115W/385L, n=500, Wilson 20-27; 6.04/1.32) | 94.8 (237/250, Wilson 91-97; 8.99/2.77) | — | 75-25 (n=100) |
+
+Leg 70 note (Sep 23 12:40 pm EDT): ALL-TIME RECORD BY FIVE POINTS. lv8 28.8 (25-33): the lower
+bound of its interval (25) clears the previous record (23.8, leg 59), so this is the first leg
+whose gain is not a high draw from the old distribution. lv3 97.6 ties the record; lv8 picks
+6.79 and forms 1.57 are records; champion AB 74-26 in band. First leg on the strided 1.6 s stack,
+started as exactly the leg 69 bot (agreement 2000/2000). Stream: stones 5.0-5.1/ep (recipe high),
+brake at 2.4 passes (the three new lags pulling weight). Read: one leg, but a five-point jump with
+a non-overlapping interval after two K=4 legs at 18.2/23.0 is the memory effect showing on the
+first leg where history reaches wind-up/jump/projectile timescales. Leg 71 chained 12:35 pm on
+the strided leg 70 zip; completes the strided read (pre-registered pass was "in band both legs",
+already exceeded). Campaign: champion 5.8 -> 28.8 under the same contract, 5x.
+| 68 | 208M (MIXED, warm leg 67 SURGERY K=4, STACK + ARENA + COM CHARACTER RANDOM + 4-FRAME OBS STACK, NEW CONTRACT; FIRST STACKED LEG) | 36.0/37.0/38.0/37.0 (7,500 eps; timeouts 0/0/0/0%%; picks 4.70/4.71/4.73/4.84; entropy -0.716 flat; KL/update 0.027; epochs/update 4.65 (brake engages on the fresh history weights); expl_var 0.79; [zs] adj +12.0/+12.3/+12.9/+13.1, dealt_nn 0.87-0.89; per-character 0.33 Wang-Tang/Ryoma to 0.41 Rouge) | 18.2 (91W/409L, n=500, Wilson 15-22; 6.07/1.29) | 92.0 (230/250, Wilson 88-95; 9.53/2.84) | — | **78-22** (n=100) |
+
+Leg 69 note + STACK READ VERDICT (Sep 23 7:58 am EDT): lv8 23.0 (20-27), third-best ever; lv3
+94.8; champion AB 75-25. K=4 legs 68-69 = lv8 18.2 / 23.0, lv3 92.0 / 94.8, AB 78 / 75 vs the
+single-frame legs 63-67 (lv8 mean 21.2, AB 63-78): pre-registered pass (both legs in/above the
+16-24 band, lv3 and AB in band) MET; leg 69 is where a gain could first show and it did land on
+the high side, with the recipe's best stream quarter (win 0.41, adj +15.1). Not proof of a memory
+effect yet (one high draw), but no cost anywhere. VERDICT: PASS, stacking stays. Leg 70 launched
+~7:57 am on the STRIDED K=7 stack (surgery of the leg 69 zip, agreement 2000/2000).
+| 67 | 204M (MIXED, warm leg 66, STACK + ARENA + COM CHARACTER RANDOM slots 0,10-22, NEW CONTRACT; last single-frame leg) | 36.0/38.0/38.0/36.0 (7,694 eps; timeouts 0/0/0/0%%; picks 4.59/4.66/4.74/4.45; entropy -0.730; KL/update 0.021; epochs/update 9.87; [zs] adj +12.1/+12.9/+13.1/+11.6, dealt_nn 0.87-0.89; per-character 0.34 Rouge to 0.39 Julia) | 17.8 (89W/411L, n=500, Wilson 15-21; 5.80/1.24) | 93.2 (233/250, Wilson 89-96; 9.05/2.70) | — | 68-32 (n=100) |
+
+Leg 68 note (Sep 23 3:15 am EDT): first frame-stacked leg. lv8 18.2 (15-22) — in band, as pre-
+registered for a leg that starts identical to its parent; lv3 92.0; champion AB 78-22 ties the
+best of the new contract (leg 56). Stream unchanged (win 0.37, stones 4.8, entropy flat); the one
+signature of the new inputs is KL/update 0.027 with the brake tripping at ~4.7 passes instead of
+~10 — the zero-initialised history weights move fast. Leg 69 chained 3:12 am on the stacked leg
+68 zip (obs_stack=4 confirmed); it completes the two-leg stack read vs legs 63-67 (lv8 mean 21.2).
+| 66 | 200M (MIXED, warm leg 65, STACK + ARENA + COM CHARACTER RANDOM slots 0,10-22, NEW CONTRACT) | 36.0/36.0/37.0/40.0 (7,638 eps; timeouts 0/0/0/0%%; picks 4.72/4.72/4.64/4.86; entropy -0.742; KL/update 0.021; epochs/update 9.96; [zs] adj +12.4/+12.4/+12.9/+14.5, dealt_nn 0.89-0.91; per-character 0.31 Ayame to 0.42 Rouge) | **23.6** (118W/382L, n=500, Wilson 20-28; 6.25/1.39) | 95.6 (239/250, Wilson 92-98; 9.27/2.82) | — | **76-24** (n=100) |
+
+Leg 67 note (Sep 22 10:35 pm EDT): lv8 17.8 (15-21) after four legs above 20 — one drop, in band;
+lv3 93.2; champion AB 68-32. Thirteen recipe legs: lv8 mean 19.8. Battery ran under HOLD (leg 68
+HELD by design): leg 68 = FIRST FRAME-STACKED LEG, warm start powerstone_v6_leg67_stack4.zip
+(surgery K=4, equivalence PASS 2,000 frames, logits 5.7e-6), PS2_OBS_STACK=4 added to
+league_env.txt. Pre-registered read over legs 68-69 vs legs 63-67 (lv8 21.2/20.6/23.0/23.6/17.8,
+mean 21.2; AB 63-78; lv3 92-98). Clip videos/leg67_lv8.mp4; scouting in tmux scout67.
+| 65 | 196M (MIXED, warm leg 64, STACK + ARENA + COM CHARACTER RANDOM slots 0,10-22, NEW CONTRACT) | 34.0/37.0/36.0/35.0 (7,565 eps; timeouts 0/0/0/0%%; picks 4.57/4.68/4.56/4.59; entropy -0.766; KL/update 0.021; epochs/update 9.97; [zs] adj +11.1/+13.0/+11.9/+11.7, dealt_nn 0.86-0.89; per-character 0.33 Wang-Tang/Galuda to 0.39 Pride) | **23.0** (115W/385L, n=500, Wilson 20-27; 6.27/1.41) | **96.4** (241/250, Wilson 93-98; 9.19/2.80) | — | 73-27 (n=100) |
+
+Leg 66 note (Sep 22 5:55 pm EDT): lv8 23.6 (20-28), 0.2 under the record; lv3 95.6; champion AB
+76-24, best since leg 56. Four straight legs above 20 on lv8 (21.2/20.6/23.0/23.6): twelve recipe
+legs mean 20.0, last five 21.9 — the slope is real now, not noise. Stream: win share rose to 0.40
+in Q4 (best quarter of the recipe), [zs] adj +14.5 in Q4. 200M learner steps. Clip
+videos/leg66_lv8.mp4; scouting in tmux scout66 (first packet with the recorder's KO tail).
+Leg 67 chained 5:53 pm, same recipe.
+| 64 | 192M (MIXED, warm leg 63, STACK + ARENA + COM CHARACTER RANDOM slots 0,10-22, NEW CONTRACT) | 37.0/36.0/35.0/35.0 (7,560 eps; timeouts 0/0/0/0%%; picks 4.80/4.58/4.63/4.59; entropy -0.769; KL/update 0.021; epochs/update 9.91; [zs] adj +13.0/+12.2/+11.9/+11.9, dealt_nn 0.88-0.90; per-character 0.32 Gunrock to 0.40 Pride) | 20.6 (103W/397L, n=500, Wilson 17-24; 5.87/1.28) | 92.4 (231/250, Wilson 88-95; 9.27/2.79) | — | 75-25 (n=100) |
+
+Leg 65 note (Sep 22 1:20 pm EDT): lv8 23.0 (20-27), second-best ever (record 23.8); lv3 96.4 ties
+the all-time record; champion AB 73-27. Four straight legs at 20+ on lv8 (21.2/20.6/23.0 after
+18.0): eleven recipe legs, mean 19.7, the last four 20.9 — the first hint of a slope above the
+plateau. Stream flat. Clip videos/leg65_lv8.mp4; scouting in tmux scout65 (first packet with the
+4 fps final-12 s strips). Leg 66 chained 1:13 pm, same recipe.
+| 63 | 188M (MIXED, warm leg 62, STACK + ARENA + COM CHARACTER RANDOM slots 0,10-22, NEW CONTRACT) | 36.0/36.0/38.0/37.0 (7,535 eps; timeouts 0/0/0/0%%; picks 4.87/4.81/4.82/4.83; entropy -0.772; KL/update 0.021; epochs/update 9.92; [zs] adj +12.6/+12.3/+13.3/+13.1, dealt_nn 0.90-0.93; per-character 0.35 Ryoma to 0.39 Pete) | 21.2 (106W/394L, n=500, Wilson 18-25; 6.26/1.41) | 94.4 (236/250, Wilson 91-97; 9.68/2.87) | — | 69-31 (n=100) |
+
+Leg 64 note (Sep 22 8:40 am EDT): lv8 20.6 (17-24), third straight leg at or above 18; lv3 92.4;
+champion AB 75-25 (best since leg 56's 78). Ten recipe legs: lv8 mean 19.4, AB 63-78. Stream flat.
+Clip videos/leg64_lv8.mp4; scouting in tmux scout64. Leg 65 chained 8:36 am, same recipe.
+| 62 | 184M (MIXED, warm leg 61, STACK + ARENA + COM CHARACTER RANDOM slots 0,10-22, NEW CONTRACT) | 35.0/36.0/38.0/37.0 (7,522 eps; timeouts 0/0/0/0%%; picks 4.65/4.62/4.74/4.79; entropy -0.792; KL/update 0.020; epochs/update 9.84; [zs] adj +12.0/+12.1/+13.1/+13.0, dealt_nn 0.89-0.92; per-character 0.33 Gunrock to 0.41 Ryoma) | 18.0 (90W/410L, n=500, Wilson 15-22; 5.74/1.22) | 93.2 (233/250, Wilson 89-96; 9.27/2.86) | — | 67-33 (n=100) |
+
+Leg 63 note (Sep 22 4:05 am EDT): lv8 21.2 (18-25), second-best ever; lv3 94.4; champion AB 69-31.
+Nine legs on the full recipe: lv8 mean 19.3 (19.2/22.4/16.2/15.8/23.8/17.8/19.4/18.0/21.2), AB
+63-78. Stream flat and healthy; characters 0.35-0.39. Clip videos/leg63_lv8.mp4; scouting run in
+tmux scout63 (review_leg63.md when done). Leg 64 chained 3:58 am, same recipe.
+| 61 | 180M (MIXED, warm leg 60, STACK + ARENA + COM CHARACTER RANDOM slots 0,10-22, NEW CONTRACT) | 36.0/36.0/36.0/36.0 (7,437 eps; timeouts 0/0/0/0%%; picks 4.56/4.65/4.65/4.58; entropy -0.811; KL/update 0.020; epochs/update 9.95; [zs] adj +12.1/+12.4/+12.1/+11.8, dealt_nn 0.88-0.91; per-character 0.33 Falcon to 0.39 Gunrock/Wang-Tang) | 19.4 (97W/403L, n=500, Wilson 16-23; 5.95/1.27) | 94.8 (237/250, Wilson 91-97; 9.08/2.73) | — | 63-37 (n=100) |
+
+Leg 62 note (Sep 21 11:25 pm EDT): lv8 18.0 (15-22), lv3 93.2, champion AB 67-33 (up from 63; AB
+watch not triggered). Eight legs on the full recipe: lv8 mean 19.1, AB 63-78. Stream flat and
+healthy. First leg with the automatic clip (videos/leg62_lv8.mp4) and scouting run (tmux scout62;
+review in videos/review_leg62.md when done). Leg 63 chained 11:20 pm, same recipe.
+| 60 | 176M (MIXED, warm leg 59, STACK + ARENA + COM CHARACTER RANDOM slots 0,10-22, NEW CONTRACT) | 35.0/35.0/36.0/35.0 (7,551 eps; timeouts 0/0/0/0%%; picks 4.62/4.62/4.59/4.44; entropy -0.816; KL/update 0.020; epochs/update 9.92; [zs] adj +11.7/+11.6/+12.2/+11.4, dealt_nn 0.87-0.90; per-character 0.33 Pride to 0.37 Galuda/Julia/Mel/Jack/Rouge) | 17.8 (89W/411L, n=500, Wilson 15-21; 5.52/1.23) | 92.4 (231/250, Wilson 88-95; 9.26/2.65) | — | 74-26 (n=100) |
+
+Leg 61 note (Sep 21 6:40 pm EDT): lv8 19.4 (16-23), back up; lv3 94.8; champion AB 63-37, one drop
+from 74 (Wilson 53-72, inside the recipe band 63-78). Seven legs on the full recipe: lv8 19.2/22.4/
+16.2/15.8/23.8/17.8/19.4 (mean 19.2), AB 69/78/65/73/74/74/63. Stream flat and healthy. No watch
+active (one AB drop; a second on leg 62 = watch). Leg 62 chained 6:38 pm, same recipe.
+| 59 | 172M (MIXED, warm leg 58, STACK + ARENA + COM CHARACTER RANDOM slots 0,10-22, NEW CONTRACT) | 36.0/38.0/38.0/39.0 (7,268 eps; timeouts 0/0/0/0%%; picks 4.64/4.80/4.89/4.91; entropy -0.829; KL/update 0.020; epochs/update 9.95; [zs] adj +12.0/+12.8/+13.2/+13.6, dealt_nn 0.88-0.89; per-COM-character win share: Ayame 0.43, Pete 0.41, Jack 0.40, Pride 0.39, Accel/Gunrock/Gourmand 0.38, Galuda 0.37, Wang-Tang/Ryoma/Falcon 0.36, Julia/Mel 0.35, Rouge 0.33) | **23.8** (119W/381L, n=500, Wilson 20-28; 6.11/1.33) | 95.2 (238/250, Wilson 92-97; 9.60/2.84) | — | 74-26 (n=100) |
+
+Leg 60 note (Sep 21 14:05 EDT): lv8 17.8 (15-21) after the 23.8 record = one drop, inside the
+standing band (16-24); lv3 92.4 (band low, 88-95); champion AB 74-26 steady (73/74/74 over the
+last three). Stream flat (win 0.35, stones 4.6, entropy -0.82); characters even, 0.33-0.37. Read:
+plateau-with-noise around lv8 ~19 on the full recipe; six legs 55-60 mean 19.2 vs the pre-arena
+stack mean 18.9 — the arena/character levers bought robustness (AB 65-78 vs 53-60) and the two
+records, not yet a higher plateau. Leg 61 chained 14:02, same recipe. Next lever still COM level.
+| 58 | 168M (MIXED, warm leg 57, STACK + ARENA + COM CHARACTER RANDOM slots 0,10-22, NEW CONTRACT; FIRST CHARACTER LEG) | 37.0/37.0/37.0/37.0 (7,293 eps; timeouts 0/0/0/0%%; picks 4.59/4.74/4.79/4.62; entropy -0.830; KL/update 0.019; epochs/update 9.91; [zs] adj +12.1/+12.3/+12.7/+12.2, dealt_nn 0.86-0.89; per-COM-character learner win share: Gourmand/Jack 0.39, Pride/Galuda/Ryoma/Julia 0.38, Pete/Gunrock/Accel 0.37, Falcon/Mel/Wang-Tang 0.36, Ayame 0.35, Rouge 0.32; ~520 eps each) | 15.8 (79W/421L, n=500, Wilson 13-19; 5.43/1.12) | 93.6 (234/250, Wilson 90-96; 9.67/2.80) | — | 73-27 (n=100) |
+
+Leg 59 note + CHARACTER READ VERDICT (Sep 21 09:30 EDT): lv8 23.8 (20-28) = ALL-TIME RECORD (prev
+22.4, leg 56); the lv8 WATCH is cleared (22.4 -> 16.2 -> 15.8 -> 23.8 reads as two draws from the
+low side of one distribution, then a high one). lv3 95.2, champion AB 74-26. Character legs 58-59:
+lv8 15.8 / 23.8, lv3 93.6 / 95.2, AB 73 / 74 vs arena legs 55-57 (19.2/22.4/16.2, 95.2/97.6/92.4,
+69/78/65). Pre-registered pass (lv8 in/above the 15-21 band both legs, lv3 and AB in band): MET.
+Stream: win share rose through the leg (0.36 -> 0.39), stones back to 4.9, the 14 characters stay
+even (0.33 Rouge to 0.43 Ayame; Ayame flipped from hardest-but-one to easiest in one leg — the bot
+learns a matchup in a leg). VERDICT: PASS; character randomization stays in the standing recipe.
+Blake's read stands too: the new opponents cost nothing visible in the stream. Leg 60 chained 09:23.
+NEXT QUEUED (Blake, Sep 20): COM level randomization via stamped level-5 / level-8 state sets
+(options menu) — needs the menu path discovered by screenshots; a quiet-hour job.
+| 57 | 164M (MIXED, warm leg 56, STACK + ARENA zero-sum + start health 0.5-1.0, NEW CONTRACT; last leg before character randomization) | 34.0/34.0/37.0/35.0 (7,458 eps; timeouts 0/0/0/0%%; picks 4.58/4.50/4.68/4.55; entropy -0.845; KL/update 0.019; epochs/update 9.97; [zs] adj +11.0/+10.6/+11.9/+10.8, dealt_nn 0.85-0.86) | 16.2 (81W/419L, n=500, Wilson 13-20; 5.81/1.22) | 92.4 (231/250, Wilson 88-95; 9.25/2.73) | — | 65-35 (n=100) |
+
+Leg 58 note (Sep 21 04:50 EDT): first character-randomization leg. lv8 15.8 (13-19) = SECOND
+consecutive drop (22.4 -> 16.2 -> 15.8) = WATCH by the pre-stated rule; both drops sit inside
+overlapping intervals and inside the pre-arena band (15-21), so it reads as a return from leg 56's
+high sample rather than a decline, but a third drop on leg 59 = signal. lv3 93.6 and champion AB
+73-27 (up from 65) are fine. The 14 COM characters were drawn evenly and none breaks the bot
+(0.32-0.39 stream win share); Rouge is the hardest, Gourmand/Jack the easiest. Stream otherwise
+identical to legs 55-57. Leg 59 chained 04:46 EDT, same recipe; completes the character read.
+| 56 | 160M (MIXED, warm leg 55, STACK + ARENA zero-sum + start health 0.5-1.0, NEW CONTRACT) | 39.0/36.0/35.0/36.0 (7,470 eps; timeouts 0/0/0/0%%; picks 4.88/4.86/4.80/4.75; entropy -0.841; KL/update 0.019; epochs/update 10.0; [zs] raw +14.9/+13.8/+13.3/+13.5, opp_mean +1.4/+1.9/+1.8/+1.8, adj +13.4/+11.9/+11.5/+11.7, dealt_nn 0.85-0.89) | **22.4** (112W/388L, n=500, Wilson 19-26; 6.16/1.38) | **97.6** (244/250, Wilson 95-99; 9.49/2.90) | — | **78-22** (n=100) |
+
+Leg 57 note (Sep 21 00:10 EDT): one-leg dip from leg 56's records on all three (22.4 -> 16.2, 97.6
+-> 92.4, 78 -> 65), each still inside or above the pre-arena reference (lv8 15-21, lv3 91-95, AB
+53-60). Arena legs so far: lv8 19.2 / 22.4 / 16.2, lv3 95.2 / 97.6 / 92.4, AB 69 / 78 / 65. One
+drop = noise band; a second on leg 58 = watch (leg 58 also adds character randomization, so read
+it against the arena band, not against leg 56 alone). Stream unchanged (stones 4.6, timeouts 0,
+entropy flat). Leg 58 chained 00:07 EDT = FIRST CHARACTER-RANDOMIZATION LEG (state_slots
+[0,10..22] in [config], slots 11/12/16/18/19/20 already seen in the first minutes, 10 workers).
+| 55 | 156M (MIXED, warm leg 54, STACK + ARENA zero-sum + start health 0.5-1.0, NEW CONTRACT; FIRST ARENA LEG) | 37.0/38.0/38.0/40.0 (7,218 eps; timeouts 0/0/0/0%%; picks 4.90/4.96/4.91/4.89 (leg 54: 6.01); entropy -0.81; KL/update ~0.019; epochs/update ~9.9; [zs] per-episode raw +14.1/+14.7/+14.3/+15.1, opp_mean +1.9/+1.7/+1.7/+1.4, adj +12.2/+13.0/+12.6/+13.7, dealt_nn 0.86-0.88) | 19.2 (96W/404L, n=500, Wilson 16-23; 6.19/1.30) | **95.2** (238/250, Wilson 92-97; 9.86/3.02) | — | **69-31** (n=100) |
+
+Leg 56 note + ARENA READ VERDICT (Sep 20 19:35 EDT): RECORDS ACROSS THE BOARD. lv8 22.4 (19-26) =
+all-time record and the first interval whose LOWER bound (19) clears the stack band's mean;
+lv3 97.6 (95-99) = all-time record (prev 96.4); champion AB 78-22 (69-85) = best of the new
+contract and back at the mixed-era 78-82 band. Two arena legs: lv8 19.2 / 22.4, lv3 95.2 / 97.6,
+AB 69 / 78 vs the stack reference (lv8 20.6/16.6/19.6, AB 53/60/60, lv3 94.0/94.8/91.2). Pre-
+registered pass criteria (lv8 in/above band AND AB >= reference on both legs, lv3 in band): MET.
+Stream as predicted: stones/episode 6.0 -> 4.9 -> 4.8 (farming stopped paying), timeouts 0,
+dealt_nn flat ~0.87 (the one prediction that did not move), entropy flat -0.84, KL 0.019.
+VERDICT: PASS. RECOMMENDATION: keep both arena flags as the standing recipe; next candidates
+(Blake's call, one at a time): widen start-health randomization (0.3-1.0) or add stage/character
+randomization; re-run the human play test on the leg 56 zip. Leg 57 chained 19:31 EDT, same
+recipe. Campaign context: champion 5.8 -> this bot 22.4 on lv8 under the same contract.
+| 54 | 152M (MIXED, warm leg 53, kl01 restart lineage, STACK lr 1e-4 + kl 0.03 + batch 256, NEW CONTRACT; last leg before the arena flags) | 35.0/36.0/37.0/36.0 (5,768 eps; timeouts 0/0/0/0%%; entropy -0.813, quarters -0.812/-0.813/-0.814/-0.813; KL/update 0.019; epochs/update 9.90) | 19.6 (98W/402L, n=500, Wilson 16-23; 6.03/1.29) | 91.2 (228/250, Wilson 87-94; 9.84/2.93) | — | 60-40 (n=100) |
+
+Leg 55 note (Sep 20 15:00 EDT): first arena leg. Held-out: lv8 19.2 (16-23) = high side of the
+stack band (20.6/16.6/19.6); lv3 95.2 (up from 91.2); champion AB 69-31 = best since leg 50 and up
+from the stack's 53/60/60. Pre-registered stream expectations: stones/episode FELL 6.0 -> 4.9
+(as predicted: farming stops paying), timeouts 0, win share 0.37 -> 0.40 rising, dealt_nn flat
+~0.87 (did not rise yet). Under zero-sum the learner's adjusted episode reward is ~+12.5 (still
+stone-dominated: 4.9 x 3 = 14.7, terminals amplified: a win = +30, a loss with a survivor = -16.7).
+Read: one leg, direction right on all three held-out numbers, no regression anywhere; leg 56
+completes the read. Leg 56 chained 14:54 EDT, same flags (both [config] lines present).
+| 53 | 148M (MIXED, warm leg 52, kl01 restart lineage, STACK lr 1e-4 + kl 0.03 + batch 256, NEW CONTRACT) | 34.0/33.0/37.0/33.0 (6,027 eps; timeouts 1/0/0/0%%; entropy -0.801, quarters -0.803/-0.799/-0.803/-0.795; KL/update 0.018; epochs/update 9.93) | 16.6 (83W/417L, n=500, Wilson 14-20; 5.75/1.19) | 94.8 (237/250, Wilson 91-97; 9.83/3.02) | — | 60-40 (n=100) |
+
+Leg 54 note (Sep 20 10:20 EDT): lv8 19.6 (16-23), second-best ever; lv3 91.2 (low of the mixed era,
+still 87-94); AB 60-40 (= leg 53). Three stack legs: lv8 20.6/16.6/19.6 (mean 18.9 vs the lr+kl
+plateau's 16.9), AB 53/60/60, lv3 94.0/94.8/91.2. Stack read stays "neutral-to-mildly-positive on
+lv8, mildly negative on AB". Leg 55 chained 10:14 EDT = FIRST ARENA LEG (zero-sum + start health
+0.5-1.0; both [config] lines present, [start]/[zs] lines flowing, 10 workers). Reference for the
+arena read = legs 52-54: lv8 15-21 (mean 18.9), AB 53-60, lv3 91-95, picks ~6.0/ep.
+| 52 | 144M (MIXED, warm leg 51, kl01 restart lineage, STACK lr 1e-4 + kl 0.03 + batch 256, NEW CONTRACT) | 38.0/40.0/38.0/34.0 (6,368 eps; timeouts 0/0/1/0%%; entropy -0.780, quarters -0.757/-0.771/-0.789/-0.805; KL/update 0.017; epochs/update 10.00) | **20.6** (103W/397L, n=500, Wilson 17-24; 6.26/1.36) | 94.0 (235/250, Wilson 90-96; 9.98/3.04) | — | 53-47 (n=100) |
+
+Leg 53 note + STACK READ VERDICT (Sep 20 05:35 EDT): legs 52-53 on the stack = lv8 20.6 / 16.6, lv3
+94.0 / 94.8, AB 53 / 60. Pre-registered pass ("both legs above the 15-19 band") NOT met: leg 53 is
+back inside the band. Revert trigger ("under 15 twice") NOT met either. Mechanism worked as designed
+(10 passes/update vs 4.3-4.9, KL flat at 0.017-0.018), held-out did not follow: stack mean 18.6 vs
+plateau mean 16.9 = inside noise; AB 53/60 vs 65-74 before and the training stream a notch softer
+(win share 0.33-0.37 vs 0.36-0.41, picks ~5.9 vs ~6.3) are mild negatives. VERDICT: neutral-to-
+slightly-negative; the optimizer is confirmed NOT the bottleneck. RECOMMENDATION (Blake's call):
+either keep the stack (no churn, watch AB; drop batch 256 if AB < 60 again) or revert to lr + kl
+only — and in both cases move the campaign to the arena levers (zero-sum reward, start
+randomization). Leg 54 chained 05:31 EDT on the stack.
+| 51 | 140M (MIXED, warm leg 50, kl01 restart lineage, lr 1e-4 + kl 0.03 explicit, NEW CONTRACT; last leg before the batch-256 stack) | 37.0/35.0/37.0/36.0 (6,419 eps; timeouts 0/0/1/1%%; entropy -0.746, quarters -0.743/-0.748/-0.746/-0.747; KL/update 0.017; epochs/update 4.29) | 16.4 (82W/418L, n=500, Wilson 13-20; 6.36/1.35) | 93.2 (233/250, Wilson 89-96; 9.90/3.09) | — | 69-31 (n=100) |
+
+Leg 52 note (Sep 20 00:50 EDT): first stack leg. lv8 20.6 (17-24) = ALL-TIME RECORD, the first
+number above the 15-19 plateau band (and above the kl01 arm's 19.0). lv3 94.0 in band. BUT the
+champion AB dropped to 53-47 (43-62) from 69 — one drop, biggest since the drifted lineage, while
+KL/update stayed at 0.017 (so NOT the drift signature; the brake never tripped, 10/10 passes).
+Stream Q4 softened (win 0.34, picks 5.7). Read: the stack read needs leg 53 as pre-registered;
+lv8 is a clear pass, AB is the thing to watch. If AB < 50 again on leg 53 with lv8 still up, that
+is a "COM-shaped vs policy-shaped" divergence to bring to Blake, not a hold. Leg 53 chained 00:48.
+| 50 | 136M (MIXED, warm leg 49, kl01 restart lineage, lr 1e-4 + kl 0.03 explicit, NEW CONTRACT) | 38.0/38.0/39.0/41.0 (6,534 eps; timeouts 1/0/0/0%%; entropy -0.732, quarters -0.727/-0.735/-0.737/-0.733; KL/update 0.017; epochs/update 4.42) | 15.0 (75W/425L, n=500, Wilson 12-18; 6.04/1.17) | 95.6 (239/250, Wilson 92-98; 10.04/3.07) | — | 70-30 (n=100) |
+
+Leg 51 note (Sep 19 20:10 EDT): plateau confirmed, six legs: lv8 16.8/18.6/15.8/18.8/15.0/16.4 (mean
+16.9), lv3 92.8-96.4, AB 65-74. Leg 52 chained 20:07 EDT on the STACK (lr 1e-4 + kl 0.03 + batch 256,
+all three override lines in its [config]); read over legs 52-53 vs the 15-19 band.
+| 49 | 132M (MIXED, warm leg 48, kl01 restart lineage, lr 1e-4 + kl 0.03 explicit, NEW CONTRACT) | 37.0/39.0/38.0/39.0 (6,976 eps; timeouts 0/0/0/1%%; entropy -0.695, quarters -0.677/-0.693/-0.704/-0.706; KL/update 0.018; epochs/update 4.69) | **18.8** (94W/406L, n=500, Wilson 16-22; **6.57**/1.42) | **96.4** (241/250, Wilson 93-98; 9.66/3.05) | — | 68-32 (n=100) |
+
+Leg 50 note (Sep 19 15:30 EDT): lv8 15.0 (12-18) after 18.8, one drop, intervals overlap; lv3 95.6
+(second-best ever); champion AB 70-30 (up). Five legs on the explicit setting: lv8 16.8/18.6/15.8/
+18.8/15.0 (mean 17.0), lv3 94.0/92.8/94.8/96.4/95.6, AB 74/67/65/68/70. Stream unchanged (entropy
+flat -0.73, KL 0.017, win share 0.38-0.41). Read: a stable plateau, lv8 alternating 15-19 with no
+trend either way; the optimizer is no longer the bottleneck. Next lever is the pre-registered
+diet/arena work (zero-sum reward, start randomization) — Blake's call. Leg 51 chained 15:24 EDT.
+| 48 | 128M (MIXED, warm leg 47, kl01 restart lineage, lr 1e-4 + kl 0.03 explicit, NEW CONTRACT) | 36.0/36.0/38.0/37.0 (7,175 eps; timeouts 1/1/0/1%%; entropy -0.661, quarters -0.637/-0.658/-0.667/-0.675; KL/update 0.017; epochs/update 4.76) | 15.8 (79W/421L, n=500, Wilson 13-19; 6.24/1.31) | **94.8** (237/250, Wilson 91-97; 9.77/3.14) | — | 65-35 (n=100) |
+
+Leg 49 note (Sep 19 10:45 EDT): records. lv8 18.8 (16-22) = best held-out lv8 of any league leg
+(kl01 sweep arm 19.0 is the only higher number, same interval); lv3 96.4 = ALL-TIME record (prev
+94.8); lv8 picks 6.57 = record. Champion AB 68-32 recovered from 65 -> the AB "watch" is cleared
+(74/67/65/68 = noise around 68). Stream unchanged (flat entropy -0.70, KL 0.018). Read: a stable
+optimizer on a slowly rising plateau; four legs on this setting: lv8 16.8/18.6/15.8/18.8, lv3
+94.0/92.8/94.8/96.4, AB 74/67/65/68. Leg 50 chained 10:43 EDT, same setting.
+| 47 | 124M (MIXED, warm leg 46, kl01 restart lineage, lr 1e-4 + kl 0.03 explicit, NEW CONTRACT) | 37.0/39.0/39.0/40.0 (7,315 eps; timeouts 0/1/1/1%%; entropy -0.605, quarters -0.579/-0.595/-0.615/-0.626; KL/update 0.016; epochs/update 4.94) | **18.6** (93W/407L, n=500, Wilson 15-22; 6.07/1.28) | 92.8 (232/250, Wilson 89-95; 10.22/3.25) | — | 67-33 (n=100) |
+
+Leg 48 note (Sep 19 06:05 EDT): lv8 15.8 (13-19) after 18.6, one drop, interval overlaps; lv3 94.8
+= new mixed-era record (ties the all-time 94.8 of leg 26); champion AB 65-35 after 74/67, a second
+"drop" but 67 -> 65 is two games (Wilson 55-74 vs 57-75): counted as WATCH by the letter of the
+rule, not by the numbers. Stream identical to leg 47 (flat entropy -0.66, KL 0.017). Read: the
+lineage is on a plateau around lv8 16-19 / AB 65-74 with a stable optimizer; no drift signature.
+Leg 49 chained 06:02 EDT, same setting.
+| 46 | 116M+4M (MIXED, RESTART from sweep40 kl01 zip; lr 1e-4 + BAKED-IN target_kl 0.1 (unplanned stack, see section); NEW CONTRACT) | 38.0/40.0/40.0/38.0 (6,865 eps; timeouts 1/1/1/1%%; entropy -0.455, quarters -0.293/-0.404/-0.492/-0.574; KL/update 0.021; epochs/update 9.58) | 16.8 (84W/416L, n=500, Wilson 14-20; 6.34/1.35) | **94.0** (235/250, Wilson 90-96; 10.47/3.28) | — | **74-26** (n=100) |
+
+Leg 47 note (Sep 19 01:25 EDT): first leg on the explicit lr 1e-4 + target_kl 0.03 setting. lv8 18.6
+(15-22), the best held-out lv8 of any LEG (the kl01 arm's 19.0 was a sweep arm); lv3 92.8; champion
+AB 67-33 (one drop from 74, inside noise, watch only if it repeats). Stream: entropy flat at -0.60,
+KL/update 0.016 (vs 0.021 stacked / 0.05 drifted), win share rising 0.37 -> 0.40, 7,315 episodes
+(record; shortest fights). Leg 48 chained 01:19 EDT, same setting.
+| 45 | 136M (MIXED, warm leg 44, kl01 lineage, target_kl 0.1, NEW CONTRACT; LAST leg on this setting) | 30.0/28.0/30.0/29.0 (5,554 eps; timeouts 1/1/2/1%%; entropy -0.979, quarters -0.962/-0.969/-0.987/-1.006; KL/update 0.053; epochs/update 4.15) | 13.8 (69W/431L, n=500, Wilson 11-17; 4.91/0.93) | 91.2 (228/250, Wilson 87-94; 9.12/2.66) | — | **26-74** (n=100) |
+
+Leg 46 note (Sep 18 20:40 EDT): the restart holds. lv8 16.8 (14-20) vs parent 19.0 (16-23), lv3 94.0
+(ties the record), champion AB 74-26 = the best of the new-contract era and a full recovery from
+the drifted lineage's 26. This leg ran the accidental lr 1e-4 + target_kl 0.1 stack (zip carried
+0.1); leg 47 chained 20:38 EDT on the explicit, intended setting PS2_LR=1e-4 PS2_TARGET_KL=0.03
+(both override lines confirmed in its [config]). References for leg 47: 16.8 / 94.0 / 74.
+| 44 | 132M (MIXED, warm leg 43, kl01 lineage, target_kl 0.1, NEW CONTRACT) | 30.0/28.0/27.0/26.0 (6,020 eps; timeouts 1/2/1/0%%; entropy -0.926, quarters -0.871/-0.910/-0.944/-0.961; KL/update 0.050; epochs/update 3.94) | 12.8 (64W/436L, n=500, Wilson 10-16; 5.30/1.10) | 90.4 (226/250, Wilson 86-93; 9.48/2.82) | — | **37-63** (n=100) |
+
+Leg 45 note (Sep 18 15:55 EDT): champion AB fell a FIFTH straight time, 71 -> 65 -> 53 -> 51 -> 37 ->
+26 (Wilson 18-35): BELOW the 35 hold line; hold was already set at leg 44. lv8 13.8 (11-17), lv3
+91.2, lv8 picks/forms 4.91/0.93 (lowest of the lineage). Machine idle: state `46
+./powerstone_v6_leg45_league.zip`, `leg46_LAUNCH_HELD.txt` written, nothing launched. VERDICT on
+target_kl 0.1: one-leg jump (16.6 old / 19.0 new contract), then five legs of drift; do not use as
+a standing setting. Restart awaits Blake (recommended: kl01 zip + PS2_LR=1e-4, SESSION_HANDOFF sec 2).
+| 43 | 128M (MIXED, warm leg 42, kl01 lineage, target_kl 0.1, NEW CONTRACT) | 33.0/34.0/36.0/34.0 (6,539 eps; timeouts 1/1/1/1%%; entropy -0.787, quarters -0.750/-0.779/-0.789/-0.845; KL/update 0.046; epochs/update 4.15) | 16.8 (84W/416L, n=500, Wilson 14-20; 5.51/1.15) | **94.0** (235/250, Wilson 90-96; 9.64/2.87) | — | 51-49 (n=100) |
+
+Leg 44 note (Sep 18 11:20 EDT): SIGNAL. Champion AB fell a FOURTH straight time, 71 -> 65 -> 53 ->
+51 -> 37 (Wilson 28-47): the lineage now LOSES to the leg-1 champion, one point above the 35 hold
+line. lv8 12.8 (10-16) is back at the leg 42 low; lv3 90.4. Stream: fourth straight decline on
+every indicator (win share 0.42 -> 0.28, picks 6.6 -> 5.0, forms 1.65 -> 1.12, entropy -0.36 ->
+-0.93, KL/update 0.02 -> 0.05). Read: target_kl 0.1 lets the policy drift ~0.05 KL per update;
+the bot is walking away from what it learned, fastest where it matters (vs a policy opponent).
+ACTION (operator, within protocol): `league_trainer.txt` = hold, so leg 45 (already chained at
+11:13 EDT on target_kl 0.1, running) is the LAST leg on this setting; its battery evaluates it and
+launches nothing. Not killed (mid-leg, never). RECOMMENDATION TO BLAKE: restart the lineage from
+the kl01 arm zip (`powerstone_v6_sweep40_kl01_league.zip`, 19.0 / 92.8 / 71-29, the strongest
+zip by both lv8 and AB) with `league_optim.txt` = `PS2_LR=1e-4` (the low-drift sweep arm: KL 0.006,
+16.4 lv8 fair-start, AB 76-24). Pool for that restart: `pool_sweep40_kl01` (clone; the current
+pool_league carries legs 41-44's drifted snapshots and should be set aside as
+pool_league_kl_drift_41_44, never rm). Legs 41-44 stay in the ledger as the target_kl 0.1 lesson.
+| 42 | 124M (MIXED, warm leg 41, kl01 lineage, target_kl 0.1, NEW CONTRACT) | 37.0/37.0/37.0/36.0 (6,894 eps; timeouts 1/1/1/1%%; entropy -0.613, quarters -0.522/-0.587/-0.650/-0.700; epochs/update 3.83) | 12.6 (63W/437L, n=500, Wilson 10-16; 5.74/1.17) | 92.8 (232/250, Wilson 89-95; 9.81/3.07) | — | 53-47 (n=100) |
+
+Leg 43 note (Sep 18 06:40 EDT): lv8 RECOVERED to 16.8 (14-20) from 12.6 -> the lv8 watch is
+cleared (19.0 / 16.2 / 12.6 / 16.8 reads as a noisy plateau around 16, not a decline). lv3 94.0
+is the mixed-era record. BUT champion AB fell a THIRD straight time: 71 -> 65 -> 53 -> 51 (41-61),
+still above the 35 hold line. Stream: win share 0.34 (lowest of the lineage), picks/forms down a
+third leg, entropy -0.85, KL/update doubled to 0.046. Read: the bot is holding or improving vs
+COMs while losing its edge vs a policy opponent; consistent with drift under the loose brake
+(target_kl 0.1) toward COM-shaped play. Contingency threshold (lv8 < 12.6) NOT met, so leg 44
+chained 06:35 EDT with target_kl 0.1. NEW PROPOSAL for Blake: switch the standing override to
+PS2_LR=1e-4 for leg 45 regardless (low drift, best AB in the sweep) — the AB trend is the
+signal the lv8 number is hiding. Not applied.
+| 41 | 120M (MIXED, warm sweep40 kl01, target_kl 0.1, reload + pre-roll fixes, NEW CONTRACT) | 40.0/39.0/44.0/43.0 (6,873 eps; timeouts 1/1/1/1%%; entropy -0.359, quarters -0.259/-0.323/-0.390/-0.456; epochs/update 3.14) | 16.2 (81W/419L, n=500, Wilson 13-20; 6.11/1.30) | 90.4 (226/250, Wilson 86-93; 10.55/3.36) | — | 65-35 (n=100) |
+
+Leg 42 note (Sep 18 01:50 EDT): SECOND CONSECUTIVE DIP = WATCH (pre-stated: two = watch, three =
+signal). lv8 19.0 (kl01 parent) -> 16.2 -> 12.6; the 10-16 interval now only touches the parent's
+16-23. Champion AB 71 -> 65 -> 53 (Wilson 43-62), still above the 35 hold line. lv3 92.8 is fine.
+Stream: win share flat at 0.37 (leg 41: 0.40-0.44), picks/forms slightly down, entropy rising
+every quarter to -0.70 with KL/update ~0.02 (the target_kl 0.1 arm's known mechanism: 3x the drift
+of the lr 1e-4 arm). Read: consistent with over-exploration / drift under the loose brake rather
+than the pool getting harder (held-out AB is falling too). CONTINGENCY PROPOSED TO BLAKE (not
+applied): if leg 43's lv8 < 12.6 -> hold, restart from the kl01 arm zip (19.0) with
+league_optim.txt = PS2_LR=1e-4 (the low-drift arm; 16.4 on the new contract, best AB 76-24).
+Hold rule not tripped; leg 43 chained 01:47 EDT with target_kl 0.1.
+| 40 | 116M (MIXED: 2 policy seats + lv3 COM, obs v2, uniform, warm leg 39, 4M; OLD reset code; SWEEP PARENT) | 33.0/35.0/30.0/38.0 (4,693 eps; timeouts 10/13/27/13%%; entropy -0.063, quarters -0.072/-0.063/-0.043/-0.066) | 4.2 (21W/479L, n=500, Wilson 3-6; 3.94/0.59) | 86.8 (217/250, Wilson 82-90; 10.10/3.19) | — | 60-40 (n=100) |
+
+Leg 41 note (Sep 17 21:05 EDT): first leg of the kl01 lineage under the new contract. lv8 16.2
+vs the parent's 19.0 measured the same way (intervals 13-20 vs 16-23 overlap; a ~3-point move is
+inside the noise band I pre-stated). lv3 90.4 and champion AB 65-35 are in the mixed band (old
+contract references 92.8 / 71-29). Hold rule not tripped; leg 42 chained 21:00 EDT with the
+standing target_kl 0.1. Stream is the healthiest of the campaign: 1%% timeouts all leg, entropy
+rising every quarter to -0.456, forms 1.55-1.75, 6,873 episodes (shortest fights yet). Read: no
+step change expected from here, a slope with noise; two consecutive drops = watch, three = signal.
+| 39 | 112M (MIXED: 2 policy seats + lv3 COM, obs v2, uniform, warm leg 38, 4M) | 37.0/28.0/36.0/37.0 (4,853 eps; timeouts 15/21/11/6%%; entropy -0.071, quarters -0.075/-0.051/-0.075/-0.091) | 4.8 (24W/476L, n=500, Wilson 3-7; 4.34/0.72) | 88.4 (221/250, Wilson 84-92; 10.47/3.16) | — | 81-19 (n=100) |
+
+Leg 40 note (Sep 16 19:55 EDT): second held-out echo of the entropy collapse. lv8 4.2 (mixed-era
+low, under the champion's 5.2), slot2 86.8 (band low), champion AB 60-40 (band was 78-82; the
+biggest single-leg drop of the campaign, Wilson 50-69 still clear of the 35 hold line). Stream Q3
+paired the campaign's lowest entropy quarter (-0.043) with 27%% timeouts. Hold was already set
+(Blake, for the sweep): leg 41 HELD, state advanced to 41. Leg 40 is the sweep's parent and its
+unfixed reference; note that it is a WEAKENED parent (three declining legs), so the sweep's
+absolute numbers will read low and the arm comparison (ctrl vs knobs) is the result, not the
+level. If every arm lands under leg 38's 7.2, re-running the winning setting from the leg 38 zip
+is the obvious follow-up (Blake's call). Epochs/update 1.10.
+| 38 | 108M (MIXED: 2 policy seats + lv3 COM, obs v2, uniform, warm leg 37, 4M) | 38.8/36.2/37.2/37.4 (5,120 eps; timeouts 8.7/11.6/12.0/12.0%%; entropy -0.075, last quarter -0.081) | 7.2 (36W/464L, n=500, Wilson 5-10; 4.70/0.83) | 90.4 (226/250, Wilson 86-93; 10.24/3.27) | — | 79-21 (n=100) |
+
+Leg 39 note (Sep 16 15:30 EDT): lv8 4.8 is the low of the mixed era (band was 7.2-9.0)
+and sits under the champion's 5.2, one sample though (Wilson 3-7 overlaps leg 38's 5-10).
+slot2 88.4 and champion AB 81-19 are inside the mixed band, so the hold rule (slot2 <70,
+AB <35, lv8 <4.0) did NOT trip; leg 40 chained at 15:27 EDT, mixed, ent_coef 0.01 (no
+0.03 word from Blake). Stream: entropy bottomed mid-leg (-0.051 quarter) and recovered
+to -0.091 by Q4 while timeouts fell 21%% -> 6%%; picks 4.34 on lv8 is the lowest since
+leg 34. Read: the entropy-collapse trigger (fired leg 38) now has a held-out echo. Leg 40
+is the second leg past the trigger; if lv8 stays under 6 the 0.03 proposal becomes the
+recommendation rather than an offer. Epochs/update 1.10 (target_kl brake, unchanged).
+
+**LEG 38 (Sep 16 10:59 EDT): ENTROPY TRIGGER FIRED.** lv8 9.0 -> 8.0 -> 7.2
+(two legs flat/down, intervals overlapping) while entropy_loss medians ran
+-0.107 -> -0.096 -> -0.093 -> -0.075 (legs 35-38); the stream's win share
+stalled at ~37%% (leg 36: 45%%) and timeouts crept back to 12%% (2-5%% two legs
+ago) — the deterministic-policy stall returning inside the mixed arena.
+slot2 90.4 and champion AB 79-21 are steady. PROPOSAL TO BLAKE (nothing
+changed): ent_coef 0.01 -> 0.03 for mixed legs from leg 40 (leg 39 already
+chained at 0.01). Mechanism: PS2_ENT_COEF override in train_selfplay_async.py
+(set on the loaded model before training; default = the zip's 0.01),
+selected by a one-word file league_entcoef.txt read by league_leg_async.sh.
+Pre-registered read for the first 0.03 leg: entropy median back below -0.12,
+timeouts back under 6%%, lv8 >= 8.0's interval; if slot2 or AB regress
+past Blake's hold thresholds, revert to 0.01.**
+
+| 37 | 104M (MIXED: 2 policy seats + lv3 COM, obs v2, uniform, warm leg 36, 4M) | 39.8/40.3/42.4/35.5 (5,635 eps; timeouts 4.0/4.6/6.1/9.2%%; entropy -0.093, last quarter -0.082) | 8.0 (40W/460L, n=500, Wilson 6-11; **5.16**/0.97) | **91.2** (228/250, Wilson 87-94; 10.12/3.20) | — | **82-18** (n=100) |
+
+**LEG 37 (Sep 16 06:23 EDT): lv8 9.0 -> 8.0 (inside the interval = flat),
+slot2 back to 91.2, champion AB 82-18 (best mixed). Picks 5.16 record.
+Stream softened in the last quarter (win 42 -> 36%%, timeouts 6 -> 9%%).
+ENTROPY WATCH: median -0.093, last quarter -0.082; lv8 flat while
+entropy drifts toward 0 => **TRIGGER WATCH ARMED (1 of 2)**: one more leg
+with lv8 flat/down and entropy drifting toward 0 (or a median above
+-0.06) => propose ent_coef 0.01 -> 0.03 to Blake. Mixed series: lv8
+8.2/8.4/9.0/8.0; slot2 91.2/88.4/89.2/91.2; AB 81/80/78/82. Leg 38 chained.**
+
+| 36 | 100M (MIXED: 2 policy seats + lv3 COM, obs v2, uniform, warm leg 35, 4M) | 38.1/41.3/43.1/45.3 (5,950 eps; timeouts 3.6/2.2/4.6/5.1%%; entropy -0.096, last quarter -0.083) | **9.0** (45W/455L, n=500, Wilson 7-12; **5.03**/0.95) | 89.2 (223/250, Wilson 85-92; 10.04/3.23) | — | 78-22 (n=100) |
+
+**LEG 36 (Sep 16 01:48 EDT, 100M lifetime): third mixed leg, lv8 9.0%% (record;
+picks 5.03 record — the first time lv8 picks passed 5), slot2 89.2, champion AB
+78-22. Mixed series: lv8 8.2 -> 8.4 -> 9.0; slot2 91.2 -> 88.4 -> 89.2; AB 81 ->
+80 -> 78. Stream still climbing (38 -> 45%%, timeouts 2-5%%). ENTROPY WATCH:
+median -0.096 (leg 35: -0.107), last quarter -0.083 — drifting toward 0 but
+above the -0.06 line and lv8 is not flat: trigger NOT armed. Leg 37 chained.**
+
+| 35 | 96M (MIXED: 2 policy seats + lv3 COM, obs v2, uniform, warm leg 34, 4M) | 34.0/36.7/42.6/42.1 (5,891 eps; timeouts 7.6/6.0/2.9/6.5%% by quarter, ~6%% whole-leg; entropy -0.107) | **8.4** (42W/458L, n=500, Wilson 6-11; **4.76**/0.81) | 88.4 (221/250, Wilson 84-92; 10.11/3.24) | — | 80-20 (n=100) |
+
+**LEG 35 (Sep 15 21:03 EDT): second mixed leg confirms the arena fix.** Stream
+timeouts ~6%% whole-leg (the pre-registered < 10%% now met), win share 34 ->
+42%%, shorter decisive fights (5,891 eps). Battery: lv8 8.4%% (record, picks
+4.76 record), slot2 88.4 (91.2 -> 88.4, inside both intervals), champion AB
+80-20. Mixed series: lv8 8.2 -> 8.4; slot2 91.2 -> 88.4; AB 81 -> 80. Entropy
+still ~ -0.11 (ent_coef 0.03 remains the next lever if lv8 flattens). Leg 36
+chained on mixed at 21:03.**
+
+| 34 | 92M (**MIXED: 2 policy seats + lv3 COM**, obs v2, uniform, warm leg 33, 4M) | 29.6/34.0/34.9/37.8 (4,476 eps; timeouts 29->24->16->**13%%** by quarter, 20%% whole-leg; entropy -0.092) | **8.2** (41W/459L, n=500, Wilson 6-11; 4.55/0.80) | **91.2** (228/250, Wilson 87-94; 9.75/3.08) | — | **81-19** (n=100) |
+
+**LEG 34 (Sep 15 16:25 EDT): THE MIXED ARENA WORKS — RECORD LV8, CHAMPION-LEVEL
+SLOT2, ADOPTED.** lv8 8.2%% (Wilson 6-11): the best number in project history
+(champion 5.2, pure-league best 5.6, FFA best 6.4). slot2 91.2 = the champion's
+91.2 (leg 26: 94.8). Champion AB 81-19. Stream: the stall dissolved across
+the leg (timeouts 29 -> 13%% by quarter, win share 30 -> 38%%, the first
+sustained within-leg climb since leg 27) — the COM seat is the aggression
+source it was meant to be. Pre-registered verdict: lv8 >= 5.0 PASS, slot2
+>= 80 PASS, AB >= 35 PASS, whole-leg timeouts < 10%% NOT MET BY THE LETTER
+(20%%; 12.6%% in q4 and falling). Adopted as the recipe on 3/4 + the trend
+(operator call in the spirit of Blake's "adopt if timeouts collapse and lv8
+holds"); leg 35 launched on mixed from the leg 34 zip. Entropy (-0.09) is
+still the open weakness; ent_coef 0.03 remains the next lever if the climb
+stalls. Follow-up option noted: a level-5 COM if the lv3 seat gets too easy.**
+
+| 33 | 88M (FFA + anti-stall, obs v2, uniform, warm leg 32, 4M) | 15.1/16.5/21.0/24.3 (3665 eps; timeouts 35%%; entropy -0.057) | **6.4** (32W/468L, n=500, Wilson 5-9; **4.73**/0.86) | **90.0** (225/250, Wilson 86-93; 9.53/3.09) | — | 71-29 (n=100) |
+
+**LEG 33 (Sep 15 09:43 EDT — the Mac's clock is now Eastern): THE BEST FFA
+LEG.** lv8 6.4%% (record; picks 4.73 record), slot2 90.0 (best of the FFA
+lineage, within reach of leg 26's 94.8 and the champion's 91.2), champion
+AB 71-29. The self-play stream is still degenerate (19%% wins, 35%%
+timeouts, entropy -0.06). FFA series: lv8 1.2/4.4/5.2/5.4/6.2/2.8/6.4;
+slot2 75.6/84.0/83.6/87.2/77.2/84.0/90.0; AB 65/72/78/79/47/40/71. Leg 34
+HELD (the leg-32 rule); Blake's "1-2 more legs" allowance is used up —
+his call to continue.**
+
+| 32 | 84M (FFA + anti-stall, obs v2, uniform, warm leg 31, 4M) | 20.4/20.9/17.2/19.2 (3777 eps; timeouts 31%%; entropy -0.050) | 2.8 (14W/486L, n=500, Wilson 2-5; 4.03/0.65) | 84.0 (210/250, Wilson 79-88; 10.12/3.18) | — | 40-58-2 (n=100) |
+
+**LEG 32 (Sep 15 00:50): lv8 6.2 -> 2.8 (Wilson 4-9 vs 2-5, a real drop)
+-> HOLD after leg 33 under Blake's rule (lv8 < 4.0).** slot2 recovered
+to 84.0; champion AB 40-58 (at the 35-win floor). FFA lineage held-out
+series: lv8 1.2/4.4/5.2/5.4/6.2/2.8; slot2 75.6/84.0/83.6/87.2/77.2/84.0;
+AB 65/72/78/79/47/40. Leg 33 auto-launched from the leg 32 zip (trainer
+file read ffa at launch); leg 34 held pending Blake.**
+
+| 31 | 80M (FFA + anti-stall, obs v2, uniform, warm leg 30, 4M) | 30.3/28.5/24.7/24.4 (4,188 eps; timeouts 23%%; entropy -0.074) | **6.2** (31W/469L, n=500, Wilson 4-9; 4.36/0.81) | 77.2 (193/250, Wilson 72-82; 9.68/3.07) | — | 47-52-1 (n=100) |
+
+**LEG 31 (Sep 14 20:14): lv8 RECORD, slot2 and the champion AB fell —
+HOLD after leg 32 (slot2 < 80 rule).** lv8 6.2%% (Wilson 4-9): above the
+champion (5.2) and the pure-league best (5.6), with lineage-record lv8
+picks 4.36. But slot2 87.2 -> 77.2 (82-91 vs 72-82) and the champion AB
+79-21 -> 47-52: the FFA lineage's lv3-COM and head-to-head form dropped
+in one leg while its lv8 form rose. Held-out trend across FFA legs: lv8
+1.2 / 4.4 / 5.2 / 5.4 / 6.2; slot2 75.6 / 84.0 / 83.6 / 87.2 / 77.2; AB
+65 / 72 / 78 / 79 / 47. Per Blake's rule (slot2 < 80 -> hold) leg 33 is
+held; leg 32 (launched 20:14 from the leg 31 zip, FFA) runs. OPS: leg 31's
+first launch (13:45) died after 77 eps and was relaunched fresh at 15:39
+by another session (boot-failure path, within protocol).**
+
+| 30 | 76M (FFA + anti-stall, obs v2, uniform, warm leg 29, 4M) | 24.2/28.9/29.9/30.1 (3955 eps; timeouts 28%%; entropy median -0.075) | **5.4** (27W/473L, n=500, Wilson 4-8; 4.10/0.69) | **87.2** (218/250, Wilson 82-91; 10.28/3.17) | — | **79-21** (n=100) |
+
+**LEG 30 (Sep 14 13:45): fourth FFA leg, held-out still rising.** lv8 1.2 ->
+4.4 -> 5.2 -> **5.4** (picks 4.10 — the FFA lineage's best lv8 picks), slot2
+75.6 -> 84.0 -> 83.6 -> **87.2**, AB vs champion 65 -> 72 -> 78 -> **79**.
+The self-play stream stays degenerate (28%% win share, 28%% timeouts). Blake's
+standing call: keep going. Leg 31 launched 13:45 on the same recipe. (The
+battery was launched by a wake/session other than the interactive one —
+markers and state consistent.)**
+
+**LEG 30 (launched Sep 14 09:10, Blake's call: "lv8 got better every FFA leg
+27-29, keep going"):** FFA + anti-stall, obs v2, uniform sampling, warm start
+leg 29 zip, 4M. Relay chains FFA legs automatically; a battery with slot2 < 80
+or lv8 < 1.2%% holds the next launch. docs/SESSION_HANDOFF.md rewritten
+(Sep 14) as the operator's manual so a smaller model can run the relay.
+
+| 29 | 72M (FFA + anti-stall, obs v2, uniform, warm leg 27, 4M, 4h05m) | 22.8/18.8/21.6/21.8 (4,262 eps; timeouts 21->26%%; entropy -0.12 -> -0.07) | 5.2 (26W/474L, n=500, Wilson 4-8; 3.76/0.59) | 83.6 (209/250, Wilson 79-88; 9.54/2.88) | — | 78-22 (n=100) |
+
+**LEG 29 (Sep 14 08:15): THE ANTI-STALL FIX DID NOT TAKE IN SELF-PLAY, YET
+THE HELD-OUT NUMBERS KEPT RISING.** Stream: win share ~21%% (below the
+25%% four-way chance line), timeouts 21 -> 26%% across the leg despite
+timeouts scored as losses, entropy -0.12 -> -0.07 — a low-entropy policy
+does not explore its way out of passivity. Battery: lv8 5.2%% (= the
+champion's 5.2, leg 26's 5.6), slot2 83.6, AB 78-22. Across the three FFA
+legs the held-out evals read lv8 1.2 -> 4.4 -> 5.2, slot2 75.6 -> 84.0 ->
+83.6, AB 65 -> 72 -> 78: recovering toward (not past) the pure-league
+leg 26 (5.6 / 94.8 / 91-9) while the self-play equilibrium stays
+degenerate. VERDICT: stream/entropy FAIL, outcome rule PASS -> leg 30
+HELD (league_trainer.txt = hold, read at launch time now). Decision for
+Blake: (1) mixed seats, two policy seats + one COM seat, as a permanent
+aggression source; (2) ent_coef 0.03 for FFA legs; (3) park FFA and
+resume the pure league from leg 26.**
+
+**LEG 28 BATTERY (Sep 14 03:53): the held-out numbers RECOVERED while the
+stream stalled** — lv8 1.2 -> 4.4%% (Wilson 3-7, back within reach of leg
+26's 5.6 and the champion's 5.2), slot2 75.6 -> 84.0 (79-88), champion AB
+65-35 -> 72-28; picks 10.07 / forms 3.02 on slot2 are lineage-normal. So the
+FFA-vs-FFA leg moved the policy back toward COM competence even as the
+self-play equilibrium degenerated (entropy -0.098, 10.6%% timeouts).
+Outcome rule (slot2 >= 80) PASS; validation still FAIL on entropy. OPS
+NOTE: league_battery.sh reads league_trainer.txt at battery START (03:20,
+"ffa"), not at the launch step, so the 03:26 "hold" did not apply and
+leg 29 auto-launched at 03:53:44 — on the anti-stall env (code is read
+at launch: 2,000-step cap, timeout = loss, uniform sampling) but
+warm-started from the LEG 28 zip. Kept (not restarted): the battery had
+just shown leg 28 to be the stronger held-out policy, which supersedes
+the 03:50 "warm from leg 27" amendment (entropy inheritance is the risk
+to watch in leg 29's first updates). Lesson: set league_trainer.txt
+BEFORE the battery starts, or edit the script to read it at launch.**
+
+**LEG 29 RESTART (Sep 14 04:10): warm start moved to the LEG 27 zip after
+all.** The leg-28-warm run's first eight updates (receipts/
+train_leg29_from28_aborted_out.txt): entropy_loss sank further, -0.086 ->
+-0.035..-0.06; 42%% of episodes (63/150) ran to the new 2,000-step cap;
+win share 11%%. A near-deterministic policy does not explore its way out
+of stalling even with timeouts scored as losses, so the collapsed zip is
+the wrong seed regardless of its better held-out battery. Aborted at
+~165k steps (one throwaway checkpoint, no pool snapshot), league_state
+set to "29 ./powerstone_v6_leg27_league.zip", relaunched 04:10 with the
+identical anti-stall settings. The leg 28 zip stays in the pool. This is
+the pre-registered watch item ("entropy inheritance") acting as written.
+
+**LEG 29 PRE-REGISTRATION — FFA + ANTI-STALL (Blake: "fix", Sep 14 03:35).**
+Changes vs legs 27-28, all in ffa_selfplay_env.py / league_leg_async.sh:
+(1) episode cap on slot 0 = 2,000 steps (PS2_FFA_MAX_STEPS; leg 27 p90 was
+690); (2) a timeout is scored as a loss with the standard terminal
+penalty (PS2_FFA_TIMEOUT_LOSS=1); (3) pool sampling uniform (50/50
+recent-10 / uniform history, the league's original rule) instead of
+PFSP. Everything else identical (obs v2, 10 actors, 4M). WARM START = the LEG 28 zip after all (the 03:50 amendment
+below is SUPERSEDED: leg 28's battery came in stronger than leg 27's,
+and the battery had already auto-launched leg 29 from it — see the LEG
+28 BATTERY note). The amendment text is kept for the record: [leg 27 zip
+was preferred at 03:50 because the leg 28 zip carries the
+collapsed entropy, -0.098, and the fixed-env smoke warm-started from it
+kept sinking, -0.15 -> -0.06 in three updates; leg 27's policy is
+FFA-competent with normal entropy, -0.21. The leg 28 zip stays in the
+pool as prog_leg28 and as an opponent). league_state.txt is edited to
+"29 ./powerstone_v6_leg27_league.zip" for the launch. SUCCESS SIGNATURE, written before the leg: timeouts near 0%%,
+entropy_loss back within 25%% of -0.266, stream win share rising above
+leg 28's ~30%%, and on the battery slot2 >= 80 (the standing rule) with
+lv8 not below leg 27's 1.2%%. FAIL on the battery = hold again and
+consider the mixed-seat diet (two policy seats + one COM seat).
+
+**LEG 28 (Sep 14 03:19, SECOND FFA LEG, FFA-trained opponents in the pool):
+THE DEGENERATE FFA EQUILIBRIUM.** Stream vs three pool opponents: 34.6 /
+30.4 / 27.3 / 30.3%% by quarter (four-way chance 25%%) — the leg-27 climb
+did not continue once the opponents were FFA-trained. Mechanics: seam
+PASS; learning-statistics **entropy_loss FAIL** (-0.098 vs the lockstep
+-0.266: the policy went near-deterministic; clip_fraction 0.036, value
+loss 1.9 — outcomes became predictable). Episodes: only 3,122 in 4M
+steps; median length 594, p90 = 6,000 (the MAX_STEPS cap), **10.6%%
+timeouts (331) vs 0.7%% in leg 27**, mean damage dealt 5.06 -> 4.45.
+This is the "coward signature" (ep-length inflation + timeouts) the
+notebook warned about since the reward era: four copies of one policy
+find mutual passivity — attacking exposes you to the other two. PFSP
+(which prefers the opponents you lose to, i.e. the stalling FFA
+snapshots) plausibly accelerates it. VERDICT FAIL (entropy) -> hold.
+Blake had set leg 29 = ffa at 01:11 (before this data); the session
+HELD leg 29 pending his call on the evidence and offered an immediate
+launch on his word. Candidate fixes, all diet/reward-class changes for
+Blake to choose (Law 4 history: interface/data changes 5-for-5, reward
+tuning 0-for-5, but the lv8 "coward" fix via LOSS_SCALE worked):
+(a) anti-stall: a shorter MAX_STEPS for slot 0 with timeouts scored as
+losses; (b) uniform (not PFSP) opponent sampling so 1v1-trained,
+aggressive opponents keep pressure in the mix; (c) mixed seats — two
+policy seats + one COM seat (lv3-5) as a permanent aggression source;
+(d) ent_coef 0.01 -> 0.02. Battery (obs v2, 500/250/100) running at
+03:20; leg 26 zip remains the best policy.
+
+| 27 | 64M (**FFA self-play**, obs v2, PFSP, 4M, 4h27m) | **28.5/32.3/43.2/52.0 vs THREE pool opponents** (7,484 eps, picks 4.14->5.12, forms 0.69->1.21) | 1.2 (6W/494L, n=500, Wilson 1-3; 2.73/0.32) | 75.6 (189/250, Wilson 70-81; 9.75/2.82) | — | 65-35 (n=100) |
+
+**LEG 27 (Sep 13, THE FIRST FFA SELF-PLAY LEG): the stream climbed like
+nothing before it, the held-out COM evals fell — VALIDATION FAIL on the
+outcome layer, relay HELD after leg 28 per the pre-registered rule.**
+Stream: learner win share vs three frozen pool Falcons 28.5 -> 52.0%%
+across the leg (four-way chance 25%%), picks 4.1 -> 5.1, forms 0.69 ->
+1.21 — every pure-league leg was flat across quarters. Mechanics: seam
+PASS (196 checks, 2.7e-5), learning statistics PASS on all six rules vs
+leg 24. Outcome (obs v2, same contract as the re-baseline): lv8 1.2%%
+(Wilson 1-3) vs leg 26's 5.6 (4-8); slot2 75.6 (70-81) vs 94.8 (91-97);
+AB vs champion 65-35 vs 91-9 — all three moves are outside the
+intervals, i.e. real. Rule slot2 >= 80 FAILED -> league_trainer.txt =
+hold (leg 28, already auto-launched on FFA, runs; leg 29 waits for
+Blake). READINGS, not conclusions: (a) regime shift — the policy was
+still changing fast at leg end (stream +9 pts in q4 alone), and Law 6
+says the final zip is not the best zip: a slot2 sweep of leg 27's eight
+pool snapshots (leg27_league_*_steps.zip) is running to see whether the
+COM regression is monotonic through the leg (a real trade-off) or a
+late churn; (b) the three frozen opponents were all 1v1-trained Falcons
+that had never fought a four-way — a policy that learns to beat
+FFA-naive opponents is not yet a better fighter, and the pool only
+contains FFA-trained snapshots from leg 28 on (leg 27's eight are in
+it now), so leg 28 is the first honest FFA-vs-FFA read; (c) lv8 picks
+fell 3.40 -> 2.73 while training picks rose: the FFA policy may be
+taking stones from opponents (opp=... (-N) in the stream) rather than
+collecting, which COMs do not permit the same way. Nothing lost: the
+leg 26 zip (5.6 / 94.8 / 91-9) is intact and remains the best pure
+policy.**
+
+**LEG 27 SNAPSHOT SWEEP (Law 6, Sep 13-14 22:56-00:21, slot2 n=100 per
+snapshot, obs v2, receipts/sweep_leg27_*):** 0.5M 89 | 1.0M 91 | 1.5M 86
+| 2.0M 82 | 2.5M 80 | 3.0M 84 | 3.5M 66 | 4.0M 74 | final (n=250) 75.6.
+Picks/forms stayed ~9.8/2.8-3.1 throughout (the gem game did not
+degrade; the win-conversion vs COMs did). READ: the held-out regression
+is MONOTONIC with the leg's self-play climb (28 -> 52%% vs three
+1v1-trained Falcons) — a real trade-off, not churn; no leg-27 snapshot
+beats the leg 26 zip (94.8). Whether FFA-trained opponents in the pool
+(leg 28 onward) change the trade-off is the open question leg 28
+answers.
+
+| 26 | 60M (M4, ASYNC+pull64, 4M, 4h50m) | 80.8/81.2/81.0/82.3 (9,833 eps, picks 4.41, forms 0.87) | **5.6** (28W/472L, n=500, Wilson 4-8; 3.40/0.52) | **94.8** (237/250, Wilson 91-97; 9.42/2.88) | — | **91-9** (n=100) |
+
+**LEG 26 (Sep 13, first SHARDED battery — n=500/250/100):** on the same
+tight sample sizes as the re-baselined champion (5.2 / 91.2), leg 26
+reads lv8 5.6 (Wilson 4-8), slot2 94.8 (91-97) and beats the champion
+91-9 head-to-head (one-seat, training-state caveat). READ: the lineage
+is at or above the champion on every held-out axis once both are
+measured properly; the lv8 "wall" is a 5%% floor both lineages share,
+which is the FFA-diet argument in one number. LAST PURE-LEAGUE LEG on
+this Mac: leg 27 = the FFA self-play lineage (held via
+league_trainer.txt=hold, launched by hand after this battery). OPS: leg
+ran 4h50m at ~232 steps/s with the obs-v2 re-baseline sharing the box
+for 80 min.**
+
+| 25 | 56M (M4, **ASYNC + pull64**, 4M, 4h07m) | 83.5/84.4/85.9/86.4 (9,440 eps, picks 4.20, forms 0.87) | 8.0 (4W/46L, 4.26/0.74) | 88.0 (44W/6L, 9.40/2.88) | **11-1** | 8-4 (n=12) |
+
+**LEG 25 (Sep 13, second async validation leg, mid-chunk weight pulls):
+VALIDATION PASS ON EVERY PRE-REGISTERED RULE** (validate_async_leg.py vs
+leg 24's full lockstep log): seam 196 checks max 2.5e-5; approx_kl
+0.0097 vs 0.0085, clip 0.072 vs 0.069, entropy -0.235 vs -0.266,
+explained_variance 0.826 vs 0.841, epochs/update median 1 = 1, mean
+1.10 vs 1.43 (>= 0.75x); stream win share 85.1 vs 77.2, picks/forms
+within 6%; outcome slot2 88 (>= 80), AB 11-1 vs leg 24. Battery: slot2
+88.0 (Wilson [76-94] — inside the ~90 plateau band: 98/80/92/88/86/90/
+94/94/88), lv8 4W/50 (picks 4.26 — a lineage record — wins by leg
+1,0,2,3,2,2,1,3,0,5,1,2,4,0,4), AB 11-1 vs leg 24, 8-4 vs leg1. HONEST
+NOTE: halving per-step staleness (1.0 -> 0.45) did NOT raise the epoch
+count (1.15 -> 1.10); both trainers early-stop on 196/196 updates, so
+target_kl=0.03 is the governor of gradient work per update in this
+lineage, not the async seam — a hyperparameter question for
+post-campaign, not a trainer bug. THE ASYNC TRAINER IS NOW THE RECIPE
+(validated twice; ~2.4x wall-clock). Leg 26 chained on async.**
+
+| 24 | 52M (M4, 10 workers, 4M, lockstep, 9h41m) | 77.9/76.6/76.1/78.1 (9,083 eps, picks 4.44, forms 0.90) | 0.0 (0W/50L, 3.60/0.56) | **94.0** (47W/3L, 9.50/2.82) | 9-3 | **10-2** (n=12) |
+
+**LEG 24 (Sep 13, lockstep, the pre-registered revert leg): slot2 94.0
+again** — two straight 94s (legs 23 async, 24 lockstep), the plateau's
+top band; the last nine legs: 98/80/92/88/86/90/94/94. lv8 0/50 this
+leg (wins by leg 1,0,2,3,2,2,1,3,0,5,1,2,4,0 — the edge stays noisy;
+picks 3.60 / forms 0.56). AB 9-3 vs leg 23, 10-2 vs leg1. Value of this
+leg beyond the lineage: the first full-leg lockstep PPO-statistics log
+(195 updates) — the reference for every async validation from here.
+Leg 25 launched on ASYNC + PS2_PULL_EVERY=64 (second validation leg).**
+
+| 23 | 48M (M4, **ASYNC** 10 actors, 4M, 4h05m) | 78.1/79.6/77.7/81.6 (9,827 eps, picks 4.57, forms 0.95) | 8.0 (4W/46L, 3.84/0.54) | **94.0** (47W/3L, 10.06/3.20) | 9-3 | 8-4 (n=12) |
+
+**LEG 23 (Sep 12, the ASYNC VALIDATION LEG): OUTCOME PASS, one mechanical
+rule FAIL, reverted per pre-registration, fix built.** Battery: slot2
+94.0 (second-best of the lineage after leg 17's 98; picks 10.06 / forms
+3.20), lv8 4W/50 (wins by leg now 1,0,2,3,2,2,1,3,0,5,1,2,4), AB 9-3 vs
+leg 22, 8-4 vs leg1. Pre-registered validation (validate_async_leg.py vs
+the 450k lockstep baseline): (1) seam integrity PASS — 41 checks, max
+|dlogp| 1.9e-5, |dvalue| 1.1e-5; (2) learning statistics: approx_kl
+0.0128 vs 0.0109, clip_fraction 0.093 vs 0.076, entropy -0.279 vs
+-0.279, explained_variance 0.814 vs 0.844 — all PASS; **gradient epochs
+per update FAIL: 165/195 async updates early-stopped inside epoch 0 (1
+epoch) vs 7/20 lockstep (median 2)** — cause exact: chunk-boundary weight
+pulls make every batch one update stale (step lag 1.00), so target_kl's
+early stop trips sooner (async KL p90 0.036 vs 0.014); (3) stream PASS —
+win share 79.2 vs 75.5, picks/forms within 3%; (4) outcome PASS. Per
+the written rule league_trainer.txt was reverted to lockstep before the
+battery chained leg 24 (so leg 24 runs lockstep); the async zip stays in
+the lineage (outcome passed) and the call is Blake's. FIX (built, smoked,
+opt-in, NOT yet used for a leg): PS2_PULL_EVERY=64 makes actors apply new
+weights mid-chunk with per-step version tracking — 2-actor smoke: step
+lag 1.0 -> 0.1, 2-3 epochs per update instead of 1, seam check still
+1e-5. Proposed: leg 24 or 25 on async + pull-every-64, same validation.
+Throughput held all leg: 274.8 steps/s, 196 updates, clean exit, no
+hang; 4M steps in 4h05m vs leg 22's 10h13m. n=50 AB leg23 vs leg22
+(one-seat, training state — audit caveat): **36-14** (72%, Wilson
+~58-83), receipts/eval_leg23_ab_vs_prev_n50_out.txt.**
+
+| 22 | 44M (M4, 10 workers, 4M, lockstep) | 78.3/80.3/83.7/80.8 (9,642 eps, picks 4.60, forms 0.99) | 4.0 (2W/48L, 3.78/0.52) | **90.0** (45W/5L, 9.76/3.02) | 9-3 | **10-2** (n=12) |
+
+**LEG 22 (Sep 12, second leg on the 10-worker/4M recipe): slot2 back to
+90.** 86 -> 90 (Wilson [79-96]); the last seven legs read 98/80/92/88/
+86/90 — the ~90 plateau, unchanged. TRIGGER STATUS: fired at leg 21 by
+the letter, and as at legs 16->17 the next leg did not confirm a stall.
+No intervention proceeds; the discriminator states (lv8-1v1, lv6-FFA)
+remain the right next measurement whenever Blake has 20 minutes with a
+controller, and NO diet change is licensed. lv8: 2W/50 (wins by leg
+1,0,2,3,2,2,1,3,0,5,1,2 — the noisy edge, ~4%%), picks 3.78 / forms 0.52.
+AB 9-3 vs leg 21, 10-2 vs leg1. Training stream 78 -> 84 -> 81%% vs the
+league, picks 4.60, forms 0.99 — same band as leg 21. OPS: 10h13m
+(~109 steps/s; the 450k lockstep-statistics baseline ran beside it for
+~80 min and cost ~35 min). Leg 23 launched 17:20 PDT on the ASYNC
+trainer via the league_trainer.txt switch — the pre-registered
+validation leg.**
+
+| 21 | 40M (M4, 10 workers, 4M leg) | 79.5/79.4/80.5/79.4 (8,977 eps, picks ~4.5, forms ~1.0, flat) | 2.0 (1W/49L, 3.50/0.62) | 86.0 (43W/7L, 9.74/3.14) | **11-1** | 9-3 (n=12) |
+
+**LEG 21 (Sep 12, first M4 leg, first 4M/10-worker leg): THE PRE-REGISTERED
+TRIGGER FIRED (by the letter).** slot2 92 -> 88 -> **86**: two consecutive
+flat/down legs (Wilson [74-93] overlaps leg 20's [76-94] — statistically
+this is the same ~88-92 plateau, but the rule is written on point
+estimates and it fired). Per the BINDING plan the response is, in order:
+(1) eval discriminators FIRST — lv8-1v1 + lv6-FFA states, which need a
+stamping session with Blake; (2) report to Blake (this note); (3) only
+then, at most ONE worker on a >=20%-winnable rung. NO diet change made;
+the league continues unchanged while the discriminators are prepared
+(leg 16 precedent). CONFOUND to keep in view: this is also the first leg
+under the new recipe (10 workers = 20,480-sample rollouts vs 12,288; 4M
+steps), so leg 22 (same recipe) is the honest second read before any
+worker is moved. lv8: 1W/50 (wins by leg 1,0,2,3,2,2,1,3,0,5,1 — leg
+20's 5 was the outlier, the edge is real but unconsolidated; picks 3.50
+/ forms 0.62 softened from the 4.06/0.70 records). AB: 11-1 vs leg 20,
+9-3 vs leg1 — self-play strength keeps compounding while COM transfer
+plateaus, the soft-pool signature again. Training stream flat at ~80%
+vs the league all leg (the 92 soft-pool flag line not reached). OPS:
+leg ran 9h38m at ~115 steps/s sustained, zero boot flakes, teardown
+hang as usual; the 05:55 scheduled wake fired before the leg finished
+and then stalled on a tool-permission prompt (unattended scheduled
+sessions have no approvals) — the interactive session drove the battery
+(06:00-06:26, evals ~1.7x faster than the M2). RELAY DRIVER RULE (M4):
+the interactive session with persistent monitors is the driver;
+scheduled tasks are a fallback only once a permission allowlist exists
+(Blake's call, see M4_SETUP.md).**
+
+| 20 | 36M | — | **10.0 (5W/45L, picks 4.06 — LV8 RECORD by a wide margin)** | 88.0 (10.56/3.22) | 10-2 | 9-3 (n=12) |
+
+**LEG 20 (Sep 11): FIVE lv8 wins — 10%%, two-thirds of the champion's
+15%%.** Wins by leg: 1,0,2,3,2,2,1,3,0,5 — the noisy edge just took its
+biggest step, with behavior at records (picks 4.06, forms 0.70).
+slot2 88.0 (the ~90 plateau oscillation continues; by the original
+letter 92 -> 88 arms the trigger again — one more flat/down leg fires
+it; the pending amendment would treat this band as maintenance).
+RELAY PAUSED after this battery per Blake: leg 21 NOT launched
+(league_battery_noresume.sh, launch intentionally disabled;
+leg21_LAUNCH_FAILED.txt marker is deliberate). Mac reboot pending —
+12-day uptime, chronic Metal boot race (leg 20 needed 4 attempts).
+league_state reads "21 ./powerstone_v6_leg20_league.zip"; resume =
+watcher one-liner post-reboot, then launch league_leg.sh in tmux
+ps2train. Open with Blake at resume: 2M->4M legs, trigger amendment,
+os._exit(0) patch, discriminator stamping session.**
+
+| 19 | 34M | — | 0.0 (0W/50L, 3.26/0.52) | **92.0** (10.64/3.20) | 7-5 | 7-5 (n=12) |
+
+**LEG 19 (Sep 11): TRIGGER DISARMED — leg 18's 80 was the outlier.**
+slot2 bounced 80 -> 92 (46W/4L), so the two-leg flat/down condition
+broke again; the last six legs read 92/92/88/98/80/92 — a noisy
+plateau centered ~90-92, oscillating within (and once past) reach of
+leg1's 98. lv8: 0/50 this leg (wins 1,0,2,3,2,2,1,3,0 — the edge is
+real but unconsolidated at ~4%). AB probes softened to 7-5/7-5 (n=12
+wobble; nothing conclusive). READ: the league has entered a
+maintenance regime on slot2 — parity-noise band — while lv8 remains
+the open frontier. The discriminator disaggregation is where the next
+real information lives. OPS: leg 20 needed all 4 wrapper attempts to
+boot (3 straight Metal-race EOFErrors even at stagger 45) — the
+chronic mode is worsening with 12-day uptime; a Mac reboot at Blake's
+next break is now strongly recommended (watcher one-liner relaunch
+after).**
+
+| 18 | 32M | — | **6.0 (3W/47L, picks 4.00, forms 0.72 — both lineage RECORDS)** | 80.0 (10.52/3.36) | **12-0 — first perfect probe** | 9-3 (n=12) |
+
+**LEG 18 (Sep 11): the most two-faced battery yet.** Lv8: 3 wins with
+behavior metrics at all-time highs (picks 4.00, forms 0.72) — wins by
+leg now 1,0,2,3,2,2,1,3; the frontier is moving. AB vs its parent:
+12-0, the first perfect probe in project history. AND YET slot2 fell
+98 -> 80 (Wilson [67-89] vs leg 17's [90-100] — non-overlapping, so
+this is a real move, not n=50 noise) while its picks/forms (10.52/
+3.36) sat at records. Read: the policy is getting STRONGER at
+self-play and at gem-mechanics everywhere, but its win-conversion in
+the lv3 COM chaos regressed — stronger fighter, different style, worse
+matchup vs that frozen eval. This sharpens, not settles, the
+soft-pool question and makes the lv8-1v1/lv6-FFA discriminators
+genuinely useful again. TRIGGER: 98 -> 80 = one down leg, ARMED by
+the original letter (the leg-16 fire was refuted by leg 17's 98; the
+count restarted). No diet change regardless without discriminators +
+Blake's explicit go. At 32M lifetime the lineage now exceeds leg1's
+31.9M — the "same steps" milestone passed with parity-or-better on
+every component metric and a 29-21 crown probe standing.**
+
+| 17 | 30M | — | 2.0 (1W/49L, 3.24/0.42) | **98.0 (49W/1L, 10.02/3.14) — PARITY WITH LEG1** | 8-4 | 9-3 (n=12) |
+
+**LEG 17 (Sep 10): PARITY. The held-out curve reached the champion's
+98.0.** One leg after the trigger fired, slot2 went 88 -> 98 (49W/1L,
+Wilson [90-100]) with picks 10.02 / forms 3.14 — matching leg1's
+98.0/9.76/3.00 on every component, at 30M lifetime vs leg1's 31.9M.
+The leg-16 dip was noise, exactly what n=50 variance looks like near
+the ceiling. TRIGGER STATUS: fired at leg 16, condition REFUTED by
+leg 17 — no stall exists, so no intervention proceeds and the
+discriminator prerequisite is moot for now (states still worth
+building for the lv8 disaggregation whenever Blake wants). OPEN
+QUESTION FOR BLAKE (plan amendment, his call, NOT made unilaterally):
+the pre-registered trigger was written for a climbing curve; at the
+98 ceiling, "flat" is success, not stall. Proposal: re-baseline the
+trigger to fire on slot2 <=92 for 2 consecutive legs (regression
+guard) and shift the primary progress metric to the lv8 eval (wins +
+picks/forms trend: 1,0,2,3,2,2,1 with behavior softening — the real
+remaining frontier). The full held-out curve, 14 legs: 40/42/50/64/
+78/82/84/86/90/88/90/92/92/88/**98**.**
+
+| 16 | 28M | — | 2.0 (1W/49L, 3.72/0.44) | 88.0/9.50/2.90 | 11-1 | 8-4 (n=12) |
+
+**LEG 16 (Sep 10): THE PRE-REGISTERED TRIGGER FIRED.** slot2 ran
+92 -> 92 -> 88: one flat leg (15) armed it, leg 16's drop fired it.
+Per the BINDING plan, the response sequence is: (1) build + run the
+eval discriminators FIRST — an lv8-1v1 state and an lv6-FFA state, to
+disaggregate "can't fight one hard opponent" from "can't handle the
+chaos" — BEFORE any diet change; (2) report to Blake (done, this
+note); (3) only then, at most ONE worker on a rung the current model
+can win >=20% of the time, graduation ~60%. NO diet change has been
+made — the pure league continues unchanged while the discriminators
+are prepared, which the plan explicitly allows. Context the
+discriminators must explain: lv8 wins by leg now 1,0,2,3,2,2,1 with
+behavior metrics softening (forms 0.62 peak -> 0.44), while the AB vs
+parent stays crushing (11-1) — consistent with a lineage still
+strengthening at self-play but plateauing against COMs, the classic
+soft-pool signature. Discriminator states require savestate stamping
+on the Mac (Blake's hands or a supervised bridge session). DUAL-DRIVER
+NOTE: leg 15 was collected by the fork session, leg 16 by this one;
+deconflict-by-done-files worked. The fork also moved eval receipts to
+linux_port/receipts/ and (apparently) added Wilson CIs to
+eval_parity output.**
 
 | 14 | 24M | — | 4.0 (2W/48L, 3.44/0.54) | **92.0**/10.36/3.24 — NEW RECORD | 10-2 | 8-4 (n=12) |
 

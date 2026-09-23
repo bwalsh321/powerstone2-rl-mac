@@ -45,6 +45,15 @@ def main():
     ap.add_argument("--speed", type=float, default=1.0,
                     help="pacing multiplier; 0 = uncapped")
     ap.add_argument("--no-sound", action="store_true")
+    ap.add_argument("--instance", type=int, default=0,
+                    help="emulator instance id (system/dolphin-<id>, bridge_watch_<id>); "
+                         "use an id no trainer/battery is using (Sep 16)")
+    ap.add_argument("--tail-frames", type=int, default=60,
+                    help="frames to keep emulating after an episode ends so the KO/X renders (recording only; Sep 22)")
+    ap.add_argument("--stop-after-win", action="store_true",
+                    help="stop once at least one win AND one loss are recorded (Sep 21, scouting clips)")
+    ap.add_argument("--hidden", action="store_true",
+                    help="do not show the pygame window (unattended --record runs)")
     ap.add_argument("--record", metavar="OUT.mp4", default=None,
                     help="also encode straight to a video file (frame-exact "
                          "60fps + game audio; works in fast mode too)")
@@ -52,14 +61,18 @@ def main():
 
     env = PowerStoneEnvLibretro(
         core_path=args.core, game_path=args.game, states_dir=args.states,
-        state_slots=[args.slot])
+        state_slots=[args.slot], instance_id=args.instance,
+        bridge_dir=os.path.abspath(f"./bridge_watch_{args.instance}"))
     model = PPO.load(args.model.removesuffix(".zip"), device="cpu")
+    from obs_stack import k_for, FrameStack            # Sep 22: stacked policies
+    _k = k_for(model); _fs = FrameStack(_k, 122) if _k > 1 else None
 
     br = env._lr_bridge
     emu = br.emu
     h, w = emu.get_shape()
     pygame.init()
-    screen = pygame.display.set_mode((w * args.scale, h * args.scale))
+    screen = pygame.display.set_mode((w * args.scale, h * args.scale),
+                                     pygame.HIDDEN if args.hidden else 0)
     pygame.display.set_caption("Power Stone 2 — legG spectator")
     clock = pygame.time.Clock()
     buf = np.zeros((h, w, 3), np.uint8)
@@ -163,8 +176,11 @@ def main():
     # paths (actions, intro pumps, stale-read pumps) draw and pace.
     orig_run_frames = br.run_frames
 
+    frames_written = [0]
+
     def run_frames_rendered(n):
         for _ in range(n):
+            frames_written[0] += 1
             pump_events()
             if state["quit"]:
                 raise KeyboardInterrupt
@@ -189,19 +205,25 @@ def main():
     wins = losses = ep = 0
     try:
         while args.episodes == 0 or ep < args.episodes:
-            obs = env.reset()
+            obs = (_fs.reset(env.reset()) if _fs else env.reset())
             done, info = False, {}
             while not done:
                 action, _ = model.predict(
                     obs, deterministic=not args.stochastic)
                 obs, r, done, info = env.step(action)
+                obs = _fs.push(obs) if _fs else obs
+            if args.record and args.tail_frames > 0:
+                br.run_frames(args.tail_frames)       # let the KO animation / X render into the clip
             ep += 1
             res = info.get("result", "timeout")
+            print(f"[cut] ep {ep} {res} end_frame={frames_written[0]} len={env.steps}", flush=True)
             wins += res == "win"
             losses += res == "loss"
             pygame.display.set_caption(
                 f"Power Stone 2 — legG spectator  |  ep {ep}: {res}  "
                 f"({wins}W/{losses}L)")
+            if args.stop_after_win and wins >= 1 and losses >= 1:
+                break
     except KeyboardInterrupt:
         pass
     finally:

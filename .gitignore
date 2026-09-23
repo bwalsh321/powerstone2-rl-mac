@@ -40,3 +40,44 @@ linux_port/league_state.txt
 # Analog-era recordings KIT4_NOTES says to distrust — 44MB of bloat for a
 # public repo; keep locally, publish via a GitHub Release if ever needed
 linux_port/demos_cheater/
+
+# Claude Code per-machine permissions (never commit)
+.claude/settings.local.json
+
+# --- Sep 23 2026 additions (M4 era: async trainer, arena, stacking, scouting) ---
+# Live training logs (moved to receipts/ by the battery; 3-8 MB each, 75 legs) and shard receipts
+linux_port/train_leg*_out.txt
+linux_port/train_sweep40_*_out.txt
+linux_port/receipts/train_*_out.txt
+linux_port/receipts/shards/
+# Pool clones and side-lineage pools (recreate from the finals + the ledger)
+linux_port/pool_league_*/
+linux_port/pool_sweep40_*/
+linux_port/pool_smoke_*/
+# Sweep/side checkpoints
+linux_port/checkpoints_sweep40_*/
+# Character-randomization savestates (embed game RAM like states/; stamp with menu_drive.py,
+# recipe in states_mixed/README.md and HANDOFF "CHARACTER RANDOMIZATION BUILT") — README kept
+linux_port/states_mixed/*.state
+linux_port/states_mixed_new/
+# Per-instance bridge dirs from probes/evals/watch/play
+linux_port/bridge_probe_*/
+linux_port/bridge_watch_*/
+linux_port/bridge_play_*/
+linux_port/bridge_eval*/
+# Videos, contact sheets and scouting packets (hundreds of MB); the review .md files are kept
+linux_port/videos/*.mp4
+linux_port/videos/*.log
+linux_port/videos/scout_leg*/
+linux_port/videos/review_leg*/
+linux_port/videos/review_leg*_pilot/
+linux_port/leg1_showcase.mp4
+# Runtime churn
+linux_port/wrapper_sweep40.log
+linux_port/rebaseline_preroll.log
+linux_port/league_state.txt.tmp
+# libretro core binaries (download separately; see M4_SETUP.md)
+cores/
+# Local settings
+.claude/
+linux_port/videos/*.wav

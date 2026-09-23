@@ -31,11 +31,14 @@ def main():
     ap.add_argument("--game", required=True)
     ap.add_argument("--states", default="./states")
     ap.add_argument("--slot", type=int, default=2)
+    ap.add_argument("--instance", type=int, default=0,
+                    help="instance id -> system/dolphin-<id> + bridge_i<id> "
+                         "(use distinct ids when running benches concurrently)")
     args = ap.parse_args()
 
     env = PowerStoneEnvLibretro(
         core_path=args.core, game_path=args.game, states_dir=args.states,
-        state_slots=[args.slot])
+        state_slots=[args.slot], instance_id=args.instance)
     br = env._lr_bridge
     br.execute(f"loadstate {args.slot}")   # bench mid-match, not boot screens
 

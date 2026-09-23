@@ -1,0 +1,265 @@
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+Set variable override: flycast_hle_bios = enabled
+Set variable override: reicast_hle_bios = enabled
+Set variable override: flycast_device_port1_slot1 = VMU
+Set variable override: flycast_device_port2_slot1 = VMU
+Set variable override: flycast_threaded_rendering = disabled
+Set variable override: reicast_threaded_rendering = disabled
+2026-09-12 21:53:00.664 Python[61329:1025928] ApplePersistenceIgnoreState: Existing state will not be touched. New state will be written to /var/folders/39/dg_z5std11vctgrpnntr4k8r0000gn/T/org.python.python.savedState
+[env] bridge alive (frame 8, line=v7 obs_dim=122 actions=10)
+[ab] model=powerstone_v6_leg23_league.zip opp=powerstone_v6_leg22_league.zip episodes=50 seats=learner:P2 opponent:P1 (one-seat probe; see HANDOFF 'AB probes are one-seat')
+[opp] powerstone_v6_leg22_league.zip
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1    loss len= 356  dmg +0.85/-1.00  stones: picked=4 lost=5 opp=7(-2) forms=0/2  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=11(1) stonev=123 dmgF=0.00
+[ab] ep 1/50: loss  running 0W/1L
+[opp] powerstone_v6_leg22_league.zip
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1    loss len= 362  dmg +0.90/-1.00  stones: picked=4 lost=5 opp=7(-2) forms=0/2  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=8(0) stonev=175 dmgF=0.00
+[ab] ep 2/50: loss  running 0W/2L
+[opp] powerstone_v6_leg22_league.zip
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1     win len= 252  dmg +2.00/-0.48  stones: picked=5 lost=3 opp=2(-3) forms=1/0  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=6(1) stonev=98 dmgF=1.11
+[ab] ep 3/50: win  running 1W/2L
+[opp] powerstone_v6_leg22_league.zip
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1     win len= 347  dmg +2.00/-0.28  stones: picked=6 lost=1 opp=3(-3) forms=2/0  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=11(3) stonev=148 dmgF=1.21
+[ab] ep 4/50: win  running 2W/2L
+[opp] powerstone_v6_leg22_league.zip
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1     win len= 476  dmg +2.00/-0.66  stones: picked=5 lost=6 opp=2(-2) forms=0/0  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=4(1) stonev=180 dmgF=0.00
+[ab] ep 5/50: win  running 3W/2L
+[opp] powerstone_v6_leg22_league.zip
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1     win len= 395  dmg +2.00/-0.27  stones: picked=3 lost=2 opp=1(-2) forms=0/0  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=5(0) stonev=49 dmgF=0.00
+[ab] ep 6/50: win  running 4W/2L
+[opp] powerstone_v6_leg22_league.zip
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1    loss len= 413  dmg +1.63/-1.00  stones: picked=5 lost=3 opp=4(-2) forms=1/1  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=11(4) stonev=114 dmgF=0.70
+[ab] ep 7/50: loss  running 4W/3L
+[opp] powerstone_v6_leg22_league.zip
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1     win len= 347  dmg +2.00/-0.51  stones: picked=6 lost=4 opp=4(-5) forms=1/0  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=6(1) stonev=131 dmgF=0.41
+[ab] ep 8/50: win  running 5W/3L
+[opp] powerstone_v6_leg22_league.zip
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1     win len= 594  dmg +2.00/-0.58  stones: picked=10 lost=5 opp=7(-5) forms=2/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=19(2) stonev=239 dmgF=0.53
+[ab] ep 9/50: win  running 6W/3L
+[opp] powerstone_v6_leg22_league.zip
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1     win len= 541  dmg +2.00/-0.92  stones: picked=10 lost=5 opp=8(-5) forms=2/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=15(2) stonev=224 dmgF=0.70
+[ab] ep 10/50: win  running 7W/3L
+[opp] powerstone_v6_leg22_league.zip
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1     win len= 317  dmg +2.00/-0.30  stones: picked=4 lost=2 opp=3(-4) forms=1/0  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=4(1) stonev=104 dmgF=0.55
+[ab] ep 11/50: win  running 8W/3L
+[opp] powerstone_v6_leg22_league.zip
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1     win len= 415  dmg +2.00/-0.49  stones: picked=5 lost=3 opp=4(-5) forms=1/0  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=9(1) stonev=144 dmgF=0.91
+[ab] ep 12/50: win  running 9W/3L
+[opp] powerstone_v6_leg22_league.zip
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1     win len= 440  dmg +2.00/-0.43  stones: picked=4 lost=2 opp=3(-4) forms=1/0  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=8(1) stonev=99 dmgF=0.67
+[ab] ep 13/50: win  running 10W/3L
+[opp] powerstone_v6_leg22_league.zip
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1     win len= 345  dmg +2.00/-0.22  stones: picked=3 lost=1 opp=2(-3) forms=1/0  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=7(1) stonev=60 dmgF=0.63
+[ab] ep 14/50: win  running 11W/3L
+[opp] powerstone_v6_leg22_league.zip
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1     win len= 505  dmg +2.00/-0.87  stones: picked=6 lost=4 opp=7(-4) forms=1/1  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=16(1) stonev=188 dmgF=0.56
+[ab] ep 15/50: win  running 12W/3L
+[opp] powerstone_v6_leg22_league.zip
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1     win len= 246  dmg +2.00/-0.10  stones: picked=6 lost=1 opp=2(-3) forms=2/0  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=8(0) stonev=121 dmgF=1.18
+[ab] ep 16/50: win  running 13W/3L
+[opp] powerstone_v6_leg22_league.zip
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1     win len= 376  dmg +2.00/-0.43  stones: picked=5 lost=3 opp=4(-3) forms=1/0  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=10(2) stonev=117 dmgF=0.37
+[ab] ep 17/50: win  running 14W/3L
+[opp] powerstone_v6_leg22_league.zip
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1    loss len= 513  dmg +1.58/-1.00  stones: picked=5 lost=6 opp=6(-4) forms=0/1  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=10(0) stonev=183 dmgF=0.00
+[ab] ep 18/50: loss  running 14W/4L
+[opp] powerstone_v6_leg22_league.zip
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1     win len= 193  dmg +2.00/-0.16  stones: picked=4 lost=1 opp=1(-1) forms=1/0  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=5(2) stonev=59 dmgF=1.59
+[ab] ep 19/50: win  running 15W/4L
+[opp] powerstone_v6_leg22_league.zip
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1     win len= 494  dmg +2.00/-0.80  stones: picked=8 lost=3 opp=5(-3) forms=2/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=15(3) stonev=208 dmgF=1.37
+[ab] ep 20/50: win  running 16W/4L
+[opp] powerstone_v6_leg22_league.zip
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1     win len= 382  dmg +2.00/-0.50  stones: picked=6 lost=4 opp=2(-3) forms=1/0  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=6(3) stonev=103 dmgF=0.03
+[ab] ep 21/50: win  running 17W/4L
+[opp] powerstone_v6_leg22_league.zip
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1    loss len= 365  dmg +0.57/-1.00  stones: picked=3 lost=4 opp=5(-0) forms=0/2  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=13(2) stonev=118 dmgF=0.00
+[ab] ep 22/50: loss  running 17W/5L
+[opp] powerstone_v6_leg22_league.zip
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1     win len= 363  dmg +2.00/-0.41  stones: picked=6 lost=3 opp=3(-3) forms=1/0  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=9(2) stonev=101 dmgF=0.53
+[ab] ep 23/50: win  running 18W/5L
+[opp] powerstone_v6_leg22_league.zip
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1    loss len= 431  dmg +0.96/-1.00  stones: picked=4 lost=5 opp=7(-4) forms=0/1  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=9(1) stonev=179 dmgF=0.00
+[ab] ep 24/50: loss  running 18W/6L
+[opp] powerstone_v6_leg22_league.zip
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1    loss len= 142  dmg +0.26/-1.00  stones: picked=3 lost=4 opp=2(-0) forms=0/1  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=6(0) stonev=81 dmgF=0.00
+[ab] ep 25/50: loss  running 18W/7L
+[opp] powerstone_v6_leg22_league.zip
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1    loss len= 486  dmg +1.94/-1.00  stones: picked=6 lost=4 opp=8(-3) forms=1/2  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=16(3) stonev=191 dmgF=1.23
+[ab] ep 26/50: loss  running 18W/8L
+[opp] powerstone_v6_leg22_league.zip
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1     win len= 489  dmg +2.00/-0.27  stones: picked=3 lost=2 opp=2(-3) forms=0/0  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=4(2) stonev=72 dmgF=0.00
+[ab] ep 27/50: win  running 19W/8L
+[opp] powerstone_v6_leg22_league.zip
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1     win len= 302  dmg +2.00/-0.22  stones: picked=4 lost=2 opp=4(-3) forms=1/0  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=9(3) stonev=155 dmgF=1.23
+[ab] ep 28/50: win  running 20W/8L
+[opp] powerstone_v6_leg22_league.zip
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1     win len= 511  dmg +2.00/-0.22  stones: picked=5 lost=2 opp=3(-3) forms=1/0  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=11(2) stonev=151 dmgF=0.71
+[ab] ep 29/50: win  running 21W/8L
+[opp] powerstone_v6_leg22_league.zip
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1     win len= 358  dmg +2.00/-0.09  stones: picked=6 lost=1 opp=3(-3) forms=2/0  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=7(1) stonev=85 dmgF=0.80
+[ab] ep 30/50: win  running 22W/8L
+[opp] powerstone_v6_leg22_league.zip
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1     win len= 332  dmg +2.00/-0.44  stones: picked=6 lost=4 opp=4(-5) forms=1/0  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=9(1) stonev=189 dmgF=0.72
+[ab] ep 31/50: win  running 23W/8L
+[opp] powerstone_v6_leg22_league.zip
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1     win len= 233  dmg +2.00/-0.09  stones: picked=3 lost=1 opp=3(-2) forms=1/0  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=7(4) stonev=77 dmgF=1.16
+[ab] ep 32/50: win  running 24W/8L
+[opp] powerstone_v6_leg22_league.zip
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1    loss len= 332  dmg +1.30/-1.00  stones: picked=6 lost=4 opp=7(-2) forms=1/2  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=15(2) stonev=175 dmgF=0.88
+[ab] ep 33/50: loss  running 24W/9L
+[opp] powerstone_v6_leg22_league.zip
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1     win len= 313  dmg +2.00/-0.40  stones: picked=5 lost=0 opp=3(-1) forms=2/1  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=9(2) stonev=106 dmgF=1.76
+[ab] ep 34/50: win  running 25W/9L
+[opp] powerstone_v6_leg22_league.zip
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1    loss len= 588  dmg +1.77/-1.00  stones: picked=8 lost=9 opp=6(-7) forms=0/0  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=9(5) stonev=271 dmgF=0.00
+[ab] ep 35/50: loss  running 25W/10L
+[opp] powerstone_v6_leg22_league.zip
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1     win len= 426  dmg +2.00/-0.23  stones: picked=6 lost=1 opp=3(-4) forms=2/0  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=11(4) stonev=137 dmgF=0.86
+[ab] ep 36/50: win  running 26W/10L
+[opp] powerstone_v6_leg22_league.zip
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1    loss len= 409  dmg +0.88/-1.00  stones: picked=5 lost=6 opp=3(-1) forms=0/1  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=9(2) stonev=91 dmgF=0.00
+[ab] ep 37/50: loss  running 26W/11L
+[opp] powerstone_v6_leg22_league.zip
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1     win len= 460  dmg +2.00/-0.39  stones: picked=6 lost=4 opp=4(-5) forms=1/0  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=9(3) stonev=147 dmgF=0.63
+[ab] ep 38/50: win  running 27W/11L
+[opp] powerstone_v6_leg22_league.zip
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1     win len= 533  dmg +2.00/-0.69  stones: picked=6 lost=4 opp=6(-6) forms=1/0  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=13(1) stonev=172 dmgF=0.15
+[ab] ep 39/50: win  running 28W/11L
+[opp] powerstone_v6_leg22_league.zip
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1     win len= 230  dmg +2.00/-0.26  stones: picked=3 lost=1 opp=2(-2) forms=1/0  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=3(0) stonev=80 dmgF=1.41
+[ab] ep 40/50: win  running 29W/11L
+[opp] powerstone_v6_leg22_league.zip
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1     win len= 356  dmg +2.00/-0.51  stones: picked=4 lost=2 opp=5(-3) forms=1/1  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=10(1) stonev=134 dmgF=1.01
+[ab] ep 41/50: win  running 30W/11L
+[opp] powerstone_v6_leg22_league.zip
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1     win len= 359  dmg +2.00/-0.20  stones: picked=7 lost=2 opp=3(-3) forms=2/0  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=6(3) stonev=115 dmgF=1.29
+[ab] ep 42/50: win  running 31W/11L
+[opp] powerstone_v6_leg22_league.zip
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1    loss len= 400  dmg +1.21/-1.09  stones: picked=6 lost=7 opp=7(-5) forms=0/1  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=9(1) stonev=224 dmgF=0.00
+[ab] ep 43/50: loss  running 31W/12L
+[opp] powerstone_v6_leg22_league.zip
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1     win len= 265  dmg +2.00/-0.56  stones: picked=4 lost=2 opp=5(-2) forms=1/1  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=10(1) stonev=128 dmgF=1.27
+[ab] ep 44/50: win  running 32W/12L
+[opp] powerstone_v6_leg22_league.zip
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1     win len= 521  dmg +2.00/-0.61  stones: picked=8 lost=3 opp=10(-6) forms=2/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=21(1) stonev=286 dmgF=0.79
+[ab] ep 45/50: win  running 33W/12L
+[opp] powerstone_v6_leg22_league.zip
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1     win len= 235  dmg +2.00/-0.20  stones: picked=3 lost=1 opp=2(-2) forms=1/0  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=7(3) stonev=87 dmgF=1.00
+[ab] ep 46/50: win  running 34W/12L
+[opp] powerstone_v6_leg22_league.zip
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1     win len= 431  dmg +2.00/-0.21  stones: picked=3 lost=1 opp=2(-3) forms=1/0  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=6(0) stonev=67 dmgF=1.21
+[ab] ep 47/50: win  running 35W/12L
+[opp] powerstone_v6_leg22_league.zip
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1    loss len= 200  dmg +0.47/-1.00  stones: picked=2 lost=3 opp=3(-1) forms=0/1  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=5(1) stonev=64 dmgF=0.00
+[ab] ep 48/50: loss  running 35W/13L
+[opp] powerstone_v6_leg22_league.zip
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1    loss len= 569  dmg +1.69/-1.00  stones: picked=4 lost=5 opp=5(-5) forms=0/0  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=11(3) stonev=181 dmgF=0.00
+[ab] ep 49/50: loss  running 35W/14L
+[opp] powerstone_v6_leg22_league.zip
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1     win len= 343  dmg +2.00/-0.33  stones: picked=5 lost=3 opp=3(-3) forms=1/0  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=6(3) stonev=102 dmgF=0.84
+[ab] ep 50/50: win  running 36W/14L
+AB RESULT vs powerstone_v6_leg22_league.zip: 36W/14L/0T
+libc++abi: terminating due to uncaught exception of type std::__1::system_error: mutex lock failed: Invalid argument
+[ab50] exit=134 Sat Sep 12 22:02:48 PDT 2026

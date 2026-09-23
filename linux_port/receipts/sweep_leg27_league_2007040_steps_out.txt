@@ -1,0 +1,7 @@
+
+================ EVAL SUMMARY ================
+model=leg27_league_2007040_steps.zip  slot=2  n=100  mode=deterministic  distinct-outcome-tuples~93  shards=10x10
+win% :  82.0   (82W/18L/0T)   95% Wilson [73-88]
+picks: 10.07 /ep
+forms:  3.04 /ep
+shard files: sweep_leg27_league_2007040_steps_s0.txt sweep_leg27_league_2007040_steps_s1.txt sweep_leg27_league_2007040_steps_s2.txt sweep_leg27_league_2007040_steps_s3.txt sweep_leg27_league_2007040_steps_s4.txt sweep_leg27_league_2007040_steps_s5.txt sweep_leg27_league_2007040_steps_s6.txt sweep_leg27_league_2007040_steps_s7.txt sweep_leg27_league_2007040_steps_s8.txt sweep_leg27_league_2007040_steps_s9.txt

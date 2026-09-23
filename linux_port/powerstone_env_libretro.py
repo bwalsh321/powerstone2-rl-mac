@@ -85,7 +85,16 @@ class PowerStoneEnvLibretro(PowerStoneEnvV6):
             # 0-599 (was 0-59: birthday collisions left ~35-40 distinct
             # episodes out of 50 — pairs 2/10, 16/25, 23/50, 40/47 observed
             # bit-identical in the Aug 24 parity run).
-            self._lr_bridge.run_frames(random.randrange(600))
+            # Sep 17 2026 (Blake: the bot "lost 1/4 of his bar before it started to
+            # move"): the live stagger was 0-599 frames with NO input on the bot's
+            # port. Probe on slot 3 (3x lv8 COM, instance 13): first hit lands
+            # between 4.0 and 5.0 s live; health at first action was 1000 for every
+            # k <= 240, 964 at 300, 928 at 360-420, 740 at >= 480. Range is now
+            # 0-239 (PS2_STAGGER_FRAMES, default 240; 600 = old behaviour): still
+            # 240 distinct offsets (~93%% distinct episodes per 50-ep deterministic
+            # shard vs ~95%% before), zero pre-roll damage. Eval contract change:
+            # champion + candidates re-baselined (HANDOFF "PRE-ROLL FIX").
+            self._lr_bridge.run_frames(random.randrange(int(os.environ.get("PS2_STAGGER_FRAMES", "240"))))
 
     def _parse_state_once(self):
         line = self._lr_synth.line

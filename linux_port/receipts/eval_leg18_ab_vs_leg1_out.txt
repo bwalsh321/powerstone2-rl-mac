@@ -1,0 +1,74 @@
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+Set variable override: flycast_hle_bios = enabled
+Set variable override: reicast_hle_bios = enabled
+Set variable override: flycast_device_port1_slot1 = VMU
+Set variable override: flycast_device_port2_slot1 = VMU
+Set variable override: flycast_threaded_rendering = disabled
+Set variable override: reicast_threaded_rendering = disabled
+2026-09-10 23:24:19.193 Python[5350:9211534] ApplePersistenceIgnoreState: Existing state will not be touched. New state will be written to /var/folders/gz/b_ggdqsj0s9_8mxs_fyvdkym0000gn/T/org.python.python.savedState
+[env] bridge alive (frame 8, line=v7 obs_dim=122 actions=10)
+[ab] model=powerstone_v6_leg18_league.zip opp=powerstone_v6_ppo.zip episodes=12 seats=learner:P2 opponent:P1 (one-seat probe; see HANDOFF 'AB probes are one-seat')
+[opp] powerstone_v6_ppo.zip
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1     win len= 700  dmg +2.00/-0.42  stones: picked=6 lost=4 opp=3(-3) forms=1/0  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=16(7) stonev=200 dmgF=1.25
+[ab] ep 1/12: win  running 1W/0L
+[opp] powerstone_v6_ppo.zip
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1    loss len= 419  dmg +1.39/-1.00  stones: picked=3 lost=1 opp=7(-2) forms=1/2  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=15(2) stonev=179 dmgF=1.06
+[ab] ep 2/12: loss  running 1W/1L
+[opp] powerstone_v6_ppo.zip
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1     win len= 367  dmg +2.00/-0.19  stones: picked=7 lost=2 opp=4(-4) forms=2/0  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=10(1) stonev=195 dmgF=1.08
+[ab] ep 3/12: win  running 2W/1L
+[opp] powerstone_v6_ppo.zip
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1    loss len= 266  dmg +0.75/-1.00  stones: picked=2 lost=3 opp=4(-2) forms=0/1  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=7(1) stonev=92 dmgF=0.00
+[ab] ep 4/12: loss  running 2W/2L
+[opp] powerstone_v6_ppo.zip
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1     win len= 341  dmg +2.00/-0.20  stones: picked=5 lost=1 opp=3(-4) forms=1/0  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=10(2) stonev=102 dmgF=1.23
+[ab] ep 5/12: win  running 3W/2L
+[opp] powerstone_v6_ppo.zip
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1     win len= 546  dmg +2.00/-0.61  stones: picked=7 lost=5 opp=4(-5) forms=1/0  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=10(1) stonev=158 dmgF=0.69
+[ab] ep 6/12: win  running 4W/2L
+[opp] powerstone_v6_ppo.zip
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1     win len= 444  dmg +2.00/-0.72  stones: picked=5 lost=3 opp=7(-3) forms=1/1  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=15(5) stonev=276 dmgF=1.44
+[ab] ep 7/12: win  running 5W/2L
+[opp] powerstone_v6_ppo.zip
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1     win len= 629  dmg +2.00/-0.53  stones: picked=9 lost=4 opp=7(-4) forms=2/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=18(1) stonev=242 dmgF=1.27
+[ab] ep 8/12: win  running 6W/2L
+[opp] powerstone_v6_ppo.zip
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1     win len= 457  dmg +2.00/-0.41  stones: picked=4 lost=2 opp=3(-2) forms=1/0  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=16(5) stonev=68 dmgF=0.18
+[ab] ep 9/12: win  running 7W/2L
+[opp] powerstone_v6_ppo.zip
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1     win len= 601  dmg +2.00/-0.70  stones: picked=7 lost=2 opp=5(-5) forms=2/0  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=15(2) stonev=155 dmgF=1.02
+[ab] ep 10/12: win  running 8W/2L
+[opp] powerstone_v6_ppo.zip
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1     win len= 378  dmg +2.00/-0.31  stones: picked=5 lost=3 opp=1(-1) forms=1/0  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=13(3) stonev=122 dmgF=0.92
+[ab] ep 11/12: win  running 9W/2L
+[opp] powerstone_v6_ppo.zip
+[env] match ready after 1 tries
+[env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+[ep] slot1 opps=1    loss len= 362  dmg +0.60/-1.04  stones: picked=4 lost=2 opp=5(-0) forms=1/2  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=15(2) stonev=130 dmgF=0.53
+[ab] ep 12/12: loss  running 9W/3L
+AB RESULT vs powerstone_v6_ppo.zip: 9W/3L/0T
+libc++abi: terminating due to uncaught exception of type std::__1::system_error: mutex lock failed: Invalid argument

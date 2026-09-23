@@ -1,0 +1,10 @@
+sweep leg27 slot2 start Sun Sep 13 22:55:49 PDT 2026
+leg27_league_1003520_steps: win% :  91.0   (91W/9L/0T)   95% Wilson [84-95] picks:  9.84 /ep forms:  3.11 /ep
+leg27_league_1515520_steps: win% :  86.0   (86W/14L/0T)   95% Wilson [78-91] picks:  9.97 /ep forms:  3.13 /ep
+leg27_league_2007040_steps: win% :  82.0   (82W/18L/0T)   95% Wilson [73-88] picks: 10.07 /ep forms:  3.04 /ep
+leg27_league_2519040_steps: win% :  80.0   (80W/20L/0T)   95% Wilson [71-87] picks:  9.76 /ep forms:  2.81 /ep
+leg27_league_3010560_steps: win% :  84.0   (84W/16L/0T)   95% Wilson [76-90] picks:  9.86 /ep forms:  2.86 /ep
+leg27_league_3502080_steps: win% :  66.0   (66W/34L/0T)   95% Wilson [56-75] picks:  9.67 /ep forms:  2.75 /ep
+leg27_league_4014080_steps: win% :  74.0   (74W/26L/0T)   95% Wilson [65-82] picks:  9.86 /ep forms:  2.84 /ep
+leg27_league_512000_steps: win% :  89.0   (89W/11L/0T)   95% Wilson [81-94] picks:  9.76 /ep forms:  3.01 /ep
+sweep end Mon Sep 14 00:21:33 PDT 2026

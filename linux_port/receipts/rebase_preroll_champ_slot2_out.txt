@@ -1,0 +1,7 @@
+
+================ EVAL SUMMARY ================
+model=powerstone_v6_ppo.zip  slot=2  n=250  mode=deterministic  distinct-outcome-tuples~186  shards=10x25
+win% :  92.0   (230W/20L/0T)   95% Wilson [88-95]
+picks:  8.91 /ep
+forms:  2.75 /ep
+shard files: rebase_preroll_champ_slot2_s0_out.txt rebase_preroll_champ_slot2_s1_out.txt rebase_preroll_champ_slot2_s2_out.txt rebase_preroll_champ_slot2_s3_out.txt rebase_preroll_champ_slot2_s4_out.txt rebase_preroll_champ_slot2_s5_out.txt rebase_preroll_champ_slot2_s6_out.txt rebase_preroll_champ_slot2_s7_out.txt rebase_preroll_champ_slot2_s8_out.txt rebase_preroll_champ_slot2_s9_out.txt

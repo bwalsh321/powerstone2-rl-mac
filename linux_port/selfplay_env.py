@@ -106,6 +106,7 @@ class SelfPlayEnv(PowerStoneEnvLibretro):
             print(f"[opp] {os.path.basename(self._pool.last_path)}")
         self._view_prev.clear()
         self._view_last.clear()
+        self._opp_stack = None
         return super().reset()
 
     def step(self, action):
@@ -113,6 +114,15 @@ class SelfPlayEnv(PowerStoneEnvLibretro):
         #    learner's frames — mirrors two humans pressing simultaneously)
         if self._opp_model is not None:
             opp_obs = self._obs_from_view(self._opp_synth, agent_player=1)
+            kv = self._opp_model.observation_space.shape[0] // opp_obs.shape[0]
+            if kv > 1:                                   # Sep 22: stacked opponent model
+                st = getattr(self, "_opp_stack", None)
+                if st is None or st.k != kv or getattr(self, "_opp_stack_model", None) is not self._opp_model:
+                    from obs_stack import FrameStack
+                    st = FrameStack(kv, opp_obs.shape[0]); self._opp_stack = st; self._opp_stack_model = self._opp_model
+                    opp_obs = st.reset(opp_obs)
+                else:
+                    opp_obs = st.push(opp_obs)
             opp_action, _ = self._opp_model.predict(
                 opp_obs, deterministic=self._opp_det)
             self._view_last[1] = int(opp_action)

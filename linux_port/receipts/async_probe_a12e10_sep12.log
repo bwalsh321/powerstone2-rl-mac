@@ -1,0 +1,1111 @@
+1789220070 Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+1789220070 Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+1789220070 Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+1789220070 See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+1789220070 [config] learning_rate=0.0003 n_steps=2048 batch_size=64 n_epochs=10 gamma=0.999 gae_lambda=0.95 ent_coef=0.01 clip_range=0.2 net_arch=[256, 256] warm=./powerstone_v6_leg21_league pool=./pool_league n_envs=10 n_actors=12 total_steps=80000 instance_base=0 mode=async
+1789220071 Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+1789220071 Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+1789220071 Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+1789220071 See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+1789220071 Set variable override: flycast_hle_bios = enabled
+1789220071 Set variable override: reicast_hle_bios = enabled
+1789220071 Set variable override: flycast_device_port1_slot1 = VMU
+1789220071 Set variable override: flycast_device_port2_slot1 = VMU
+1789220071 Set variable override: flycast_threaded_rendering = disabled
+1789220071 Set variable override: reicast_threaded_rendering = disabled
+1789220071 2026-09-12 06:34:31.411 Python[29672:489246] ApplePersistenceIgnoreState: Existing state will not be touched. New state will be written to /var/folders/39/dg_z5std11vctgrpnntr4k8r0000gn/T/org.python.python.savedState
+1789220071 [env] bridge alive (frame 8, line=v7 obs_dim=122 actions=10)
+1789220071 [actor 0] up: instance 0, policy v0
+1789220071 [opp] leg21_league_2500000_steps.zip
+1789220073 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220084 [ep] slot1 opps=1    loss len= 505  dmg +1.65/-1.00  stones: picked=5 lost=3 opp=5(-3) forms=1/1  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=13(2) stonev=206 dmgF=0.71
+1789220084 [opp] leg21_league_1500000_steps.zip
+1789220086 [env] match ready after 1 tries
+1789220087 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220091 Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+1789220091 Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+1789220091 Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+1789220091 See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+1789220091 Set variable override: flycast_hle_bios = enabled
+1789220091 Set variable override: reicast_hle_bios = enabled
+1789220091 Set variable override: flycast_device_port1_slot1 = VMU
+1789220091 Set variable override: flycast_device_port2_slot1 = VMU
+1789220091 Set variable override: flycast_threaded_rendering = disabled
+1789220091 Set variable override: reicast_threaded_rendering = disabled
+1789220091 2026-09-12 06:34:51.472 Python[29673:489249] ApplePersistenceIgnoreState: Existing state will not be touched. New state will be written to /var/folders/39/dg_z5std11vctgrpnntr4k8r0000gn/T/org.python.python.savedState
+1789220091 [env] bridge alive (frame 8, line=v7 obs_dim=122 actions=10)
+1789220092 [actor 1] up: instance 1, policy v0
+1789220092 [opp] leg17_league_1000008_steps.zip
+1789220094 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220095 [ep] slot1 opps=1     win len= 398  dmg +2.00/-0.32  stones: picked=4 lost=2 opp=4(-3) forms=1/0  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=9(1) stonev=111 dmgF=1.06
+1789220095 [opp] leg21_league_2000000_steps.zip
+1789220097 [env] match ready after 1 tries
+1789220098 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220100 [ep] slot1 opps=1     win len= 261  dmg +2.00/-0.08  stones: picked=3 lost=1 opp=1(-2) forms=1/0  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=6(2) stonev=86 dmgF=0.81
+1789220100 [opp] leg10_league_1000008_steps.zip
+1789220100 [env] match ready after 1 tries
+1789220101 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220109 [ep] slot1 opps=1     win len= 473  dmg +2.00/-0.20  stones: picked=2 lost=2 opp=3(-2) forms=0/0  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=8(2) stonev=60 dmgF=0.00
+1789220109 [opp] prog_leg20.zip
+1789220110 [env] match ready after 1 tries
+1789220111 Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+1789220111 Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+1789220111 Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+1789220111 See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+1789220111 Set variable override: flycast_hle_bios = enabled
+1789220111 Set variable override: reicast_hle_bios = enabled
+1789220111 Set variable override: flycast_device_port1_slot1 = VMU
+1789220111 Set variable override: flycast_device_port2_slot1 = VMU
+1789220111 Set variable override: flycast_threaded_rendering = disabled
+1789220111 Set variable override: reicast_threaded_rendering = disabled
+1789220111 2026-09-12 06:35:11.455 Python[29674:489252] ApplePersistenceIgnoreState: Existing state will not be touched. New state will be written to /var/folders/39/dg_z5std11vctgrpnntr4k8r0000gn/T/org.python.python.savedState
+1789220111 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220111 [env] bridge alive (frame 8, line=v7 obs_dim=122 actions=10)
+1789220112 [actor 2] up: instance 2, policy v0
+1789220112 [opp] leg13_league_1500012_steps.zip
+1789220114 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220119 [ep] slot1 opps=1     win len= 357  dmg +2.00/-0.32  stones: picked=3 lost=1 opp=0(-1) forms=1/0  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=6(0) stonev=29 dmgF=0.35
+1789220119 [opp] leg21_league_1000000_steps.zip
+1789220121 [env] match ready after 1 tries
+1789220122 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220124 [ep] slot1 opps=1     win len= 436  dmg +2.00/-0.73  stones: picked=7 lost=5 opp=3(-4) forms=1/0  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=9(1) stonev=131 dmgF=0.14
+1789220124 [opp] leg21_league_500000_steps.zip
+1789220125 [env] match ready after 1 tries
+1789220126 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220131 Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+1789220131 Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+1789220131 Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+1789220131 See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+1789220131 Set variable override: flycast_hle_bios = enabled
+1789220131 Set variable override: reicast_hle_bios = enabled
+1789220131 Set variable override: flycast_device_port1_slot1 = VMU
+1789220131 Set variable override: flycast_device_port2_slot1 = VMU
+1789220131 Set variable override: flycast_threaded_rendering = disabled
+1789220131 Set variable override: reicast_threaded_rendering = disabled
+1789220131 2026-09-12 06:35:31.491 Python[29675:489256] ApplePersistenceIgnoreState: Existing state will not be touched. New state will be written to /var/folders/39/dg_z5std11vctgrpnntr4k8r0000gn/T/org.python.python.savedState
+1789220131 [env] bridge alive (frame 8, line=v7 obs_dim=122 actions=10)
+1789220132 [actor 3] up: instance 3, policy v0
+1789220132 [opp] prog_leg12.zip
+1789220134 [ep] slot1 opps=1     win len= 496  dmg +2.11/-0.33  stones: picked=5 lost=3 opp=4(-5) forms=1/0  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=9(2) stonev=123 dmgF=0.16
+1789220134 [opp] leg21_league_1000000_steps.zip
+1789220134 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220135 [env] match ready after 1 tries
+1789220136 [ep] slot1 opps=1     win len= 388  dmg +2.00/-0.60  stones: picked=6 lost=1 opp=6(-1) forms=2/2  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=16(5) stonev=210 dmgF=1.78
+1789220136 [opp] prog_leg20.zip
+1789220136 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220137 [env] match ready after 1 tries
+1789220139 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220140 [ep] slot1 opps=1     win len= 251  dmg +2.00/-0.19  stones: picked=4 lost=2 opp=4(-3) forms=1/0  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=9(2) stonev=133 dmgF=1.12
+1789220140 [opp] prog_leg20.zip
+1789220142 [env] match ready after 1 tries
+1789220143 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220145 [ep] slot1 opps=1     win len=2537  dmg +2.00/-0.39  stones: picked=9 lost=4 opp=6(-3) forms=2/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=11(2) stonev=221 dmgF=1.04
+1789220145 [opp] prog_leg5.zip
+1789220145 [ep] slot1 opps=1     win len= 362  dmg +2.00/-0.20  stones: picked=4 lost=2 opp=4(-4) forms=1/0  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=10(5) stonev=159 dmgF=0.91
+1789220145 [opp] leg14_league_1500012_steps.zip
+1789220146 [env] match ready after 1 tries
+1789220147 [env] match ready after 1 tries
+1789220147 [ep] slot1 opps=1     win len= 350  dmg +2.00/-0.36  stones: picked=4 lost=2 opp=3(-2) forms=1/0  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=11(5) stonev=127 dmgF=1.23
+1789220147 [opp] leg21_league_500000_steps.zip
+1789220147 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220147 [env] match ready after 1 tries
+1789220148 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220148 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220151 Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+1789220151 Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+1789220151 Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+1789220151 See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+1789220151 Set variable override: flycast_hle_bios = enabled
+1789220151 Set variable override: reicast_hle_bios = enabled
+1789220151 Set variable override: flycast_device_port1_slot1 = VMU
+1789220151 Set variable override: flycast_device_port2_slot1 = VMU
+1789220151 Set variable override: flycast_threaded_rendering = disabled
+1789220151 Set variable override: reicast_threaded_rendering = disabled
+1789220151 2026-09-12 06:35:51.463 Python[29676:489258] ApplePersistenceIgnoreState: Existing state will not be touched. New state will be written to /var/folders/39/dg_z5std11vctgrpnntr4k8r0000gn/T/org.python.python.savedState
+1789220151 [env] bridge alive (frame 8, line=v7 obs_dim=122 actions=10)
+1789220152 [actor 4] up: instance 4, policy v0
+1789220152 [opp] leg13_league_1500012_steps.zip
+1789220152 [ep] slot1 opps=1     win len= 185  dmg +2.00/+0.00  stones: picked=2 lost=0 opp=0(-1) forms=1/0  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=7(3) stonev=32 dmgF=1.57
+1789220152 [opp] leg21_league_4000000_steps.zip
+1789220153 [ep] slot1 opps=1     win len= 223  dmg +2.00/-0.07  stones: picked=3 lost=1 opp=3(-2) forms=1/0  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=10(1) stonev=81 dmgF=1.35
+1789220153 [opp] prog_leg21.zip
+1789220154 [env] match ready after 1 tries
+1789220154 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220154 [env] match ready after 1 tries
+1789220155 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220155 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220156 [ep] slot1 opps=1     win len= 593  dmg +2.00/-0.84  stones: picked=5 lost=2 opp=4(-2) forms=1/1  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=18(4) stonev=150 dmgF=1.23
+1789220156 [opp] leg9_league_1000008_steps.zip
+1789220158 [env] match ready after 1 tries
+1789220159 [ep] slot1 opps=1     win len= 213  dmg +2.00/-0.15  stones: picked=3 lost=1 opp=1(-2) forms=1/0  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=6(3) stonev=56 dmgF=1.45
+1789220159 [opp] prog_leg9.zip
+1789220159 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220160 [ep] slot1 opps=1     win len= 468  dmg +2.00/-0.30  stones: picked=5 lost=3 opp=1(-2) forms=1/0  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=6(3) stonev=112 dmgF=0.19
+1789220160 [opp] leg20_league_1000008_steps.zip
+1789220161 [env] match ready after 1 tries
+1789220161 [env] match ready after 1 tries
+1789220162 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220162 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220165 [ep] slot1 opps=1     win len= 125  dmg +2.00/+0.00  stones: picked=2 lost=0 opp=0(-1) forms=1/0  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=4(2) stonev=61 dmgF=1.78
+1789220165 [opp] leg21_league_4000000_steps.zip
+1789220166 [env] match ready after 1 tries
+1789220167 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220168 [ep] slot1 opps=1     win len= 226  dmg +2.00/-0.08  stones: picked=3 lost=1 opp=2(-2) forms=1/0  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=6(2) stonev=44 dmgF=1.10
+1789220168 [opp] prog_leg9.zip
+1789220169 [ep] slot1 opps=1     win len= 544  dmg +2.00/-0.59  stones: picked=6 lost=4 opp=6(-6) forms=1/0  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=13(3) stonev=207 dmgF=0.69
+1789220169 [opp] prog_leg21.zip
+1789220169 [ep] slot1 opps=1     win len= 380  dmg +2.00/-0.28  stones: picked=4 lost=2 opp=3(-4) forms=1/0  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=7(4) stonev=114 dmgF=0.61
+1789220169 [opp] prog_3C_mixleg.zip
+1789220169 [env] match ready after 1 tries
+1789220170 [env] match ready after 1 tries
+1789220170 [env] match ready after 1 tries
+1789220170 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220171 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220171 Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+1789220171 Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+1789220171 Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+1789220171 See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+1789220171 Set variable override: flycast_hle_bios = enabled
+1789220171 Set variable override: reicast_hle_bios = enabled
+1789220171 Set variable override: flycast_device_port1_slot1 = VMU
+1789220171 Set variable override: flycast_device_port2_slot1 = VMU
+1789220171 Set variable override: flycast_threaded_rendering = disabled
+1789220171 Set variable override: reicast_threaded_rendering = disabled
+1789220171 2026-09-12 06:36:11.520 Python[29677:489261] ApplePersistenceIgnoreState: Existing state will not be touched. New state will be written to /var/folders/39/dg_z5std11vctgrpnntr4k8r0000gn/T/org.python.python.savedState
+1789220171 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220171 [env] bridge alive (frame 8, line=v7 obs_dim=122 actions=10)
+1789220172 [actor 5] up: instance 5, policy v0
+1789220172 [opp] leg21_league_500000_steps.zip
+1789220174 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220174 [ep] slot1 opps=1     win len= 726  dmg +2.00/-0.94  stones: picked=7 lost=7 opp=7(-6) forms=0/0  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=13(5) stonev=228 dmgF=0.00
+1789220174 [opp] leg21_league_1000000_steps.zip
+1789220175 [env] match ready after 1 tries
+1789220176 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220181 [ep] slot1 opps=1    loss len= 533  dmg +1.90/-1.00  stones: picked=4 lost=2 opp=5(-3) forms=1/1  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=16(2) stonev=184 dmgF=0.88
+1789220181 [opp] leg21_league_2500000_steps.zip
+1789220182 [ep] slot1 opps=1     win len= 437  dmg +2.00/-0.82  stones: picked=7 lost=5 opp=4(-5) forms=1/0  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=7(2) stonev=264 dmgF=0.54
+1789220182 [opp] leg16_league_500004_steps.zip
+1789220182 [env] match ready after 1 tries
+1789220182 [env] match ready after 1 tries
+1789220183 [ep] slot1 opps=1     win len= 473  dmg +2.00/-0.44  stones: picked=5 lost=3 opp=3(-3) forms=1/0  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=11(2) stonev=126 dmgF=0.52
+1789220183 [opp] leg21_league_3500000_steps.zip
+1789220183 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220183 [ep] slot1 opps=1     win len= 445  dmg +2.00/-0.53  stones: picked=5 lost=4 opp=4(-3) forms=0/0  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=12(2) stonev=146 dmgF=0.00
+1789220183 [opp] prog_leg7.zip
+1789220183 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220185 [env] match ready after 1 tries
+1789220185 [env] match ready after 1 tries
+1789220186 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220186 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220187 [ep] slot1 opps=1    loss len= 493  dmg +1.70/-1.00  stones: picked=5 lost=3 opp=8(-3) forms=1/2  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=15(2) stonev=240 dmgF=1.23
+1789220187 [opp] leg21_league_2500000_steps.zip
+1789220187 [ep] slot1 opps=1    loss len= 387  dmg +0.78/-1.00  stones: picked=5 lost=6 opp=5(-3) forms=0/1  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=11(2) stonev=142 dmgF=0.00
+1789220187 [opp] leg8_league_1500012_steps.zip
+1789220188 [env] match ready after 1 tries
+1789220188 [env] match ready after 1 tries
+1789220189 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220189 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220191 [ep] slot1 opps=1     win len= 279  dmg +2.00/-0.21  stones: picked=4 lost=2 opp=3(-4) forms=1/0  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=6(1) stonev=99 dmgF=0.81
+1789220191 [opp] prog_leg14.zip
+1789220191 Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+1789220191 Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+1789220191 Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+1789220191 See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+1789220191 Set variable override: flycast_hle_bios = enabled
+1789220191 Set variable override: reicast_hle_bios = enabled
+1789220191 Set variable override: flycast_device_port1_slot1 = VMU
+1789220191 Set variable override: flycast_device_port2_slot1 = VMU
+1789220191 Set variable override: flycast_threaded_rendering = disabled
+1789220191 Set variable override: reicast_threaded_rendering = disabled
+1789220191 2026-09-12 06:36:31.529 Python[29678:489264] ApplePersistenceIgnoreState: Existing state will not be touched. New state will be written to /var/folders/39/dg_z5std11vctgrpnntr4k8r0000gn/T/org.python.python.savedState
+1789220191 [env] bridge alive (frame 8, line=v7 obs_dim=122 actions=10)
+1789220192 [actor 6] up: instance 6, policy v0
+1789220192 [opp] leg11_league_500004_steps.zip
+1789220193 [env] match ready after 1 tries
+1789220193 [ep] slot1 opps=1     win len= 384  dmg +2.00/-0.24  stones: picked=5 lost=2 opp=5(-4) forms=1/0  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=7(1) stonev=138 dmgF=0.88
+1789220193 [opp] prog_leg13.zip
+1789220194 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220194 [env] match ready after 1 tries
+1789220195 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220195 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220197 [ep] slot1 opps=1     win len= 316  dmg +2.00/-0.07  stones: picked=5 lost=1 opp=2(-2) forms=1/0  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=5(1) stonev=131 dmgF=1.23
+1789220198 [opp] leg21_league_3000000_steps.zip
+1789220198 [ep] slot1 opps=1     win len= 488  dmg +2.00/-0.30  stones: picked=5 lost=3 opp=2(-2) forms=1/0  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=9(3) stonev=144 dmgF=1.15
+1789220198 [opp] leg21_league_2500000_steps.zip
+1789220199 [env] match ready after 1 tries
+1789220199 [env] match ready after 1 tries
+1789220200 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220201 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220202 [ep] slot1 opps=1     win len= 448  dmg +2.00/-0.17  stones: picked=2 lost=1 opp=1(-2) forms=0/0  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=7(1) stonev=55 dmgF=0.00
+1789220202 [opp] leg21_league_4000000_steps.zip
+1789220203 [ep] slot1 opps=1    loss len= 656  dmg +1.67/-1.00  stones: picked=7 lost=5 opp=5(-3) forms=1/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=16(3) stonev=221 dmgF=0.88
+1789220203 [opp] leg18_league_1000008_steps.zip
+1789220204 [env] match ready after 1 tries
+1789220204 [ep] slot1 opps=1     win len= 379  dmg +2.00/-0.44  stones: picked=5 lost=3 opp=7(-3) forms=1/1  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=12(4) stonev=161 dmgF=1.27
+1789220204 [opp] selfplay_1000008_steps.zip
+1789220204 [ep] slot1 opps=1     win len= 325  dmg +2.00/-0.41  stones: picked=3 lost=2 opp=2(-3) forms=0/0  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=5(2) stonev=56 dmgF=0.00
+1789220204 [opp] leg21_league_2500000_steps.zip
+1789220204 [env] match ready after 1 tries
+1789220205 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220205 [env] match ready after 1 tries
+1789220205 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220206 [env] match ready after 1 tries
+1789220206 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220206 [ep] slot1 opps=1    loss len= 199  dmg +0.19/-1.00  stones: picked=1 lost=2 opp=3(-1) forms=0/1  gem_rew=+3.00 shape=+0.00 appr=+0.00  chests=9(2) stonev=46 dmgF=0.00
+1789220206 [opp] selfplay_1500012_steps.zip
+1789220207 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220207 [env] match ready after 1 tries
+1789220208 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220210 [ep] slot1 opps=1    loss len= 189  dmg +0.00/-1.00  stones: picked=0 lost=1 opp=2(-0) forms=0/1  gem_rew=+0.00 shape=+0.00 appr=+0.00  chests=6(1) stonev=38 dmgF=0.00
+1789220210 [opp] leg19_league_1000008_steps.zip
+1789220211 Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+1789220211 Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+1789220211 Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+1789220211 See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+1789220211 Set variable override: flycast_hle_bios = enabled
+1789220211 Set variable override: reicast_hle_bios = enabled
+1789220211 Set variable override: flycast_device_port1_slot1 = VMU
+1789220211 Set variable override: flycast_device_port2_slot1 = VMU
+1789220211 Set variable override: flycast_threaded_rendering = disabled
+1789220211 Set variable override: reicast_threaded_rendering = disabled
+1789220211 2026-09-12 06:36:51.547 Python[29679:489268] ApplePersistenceIgnoreState: Existing state will not be touched. New state will be written to /var/folders/39/dg_z5std11vctgrpnntr4k8r0000gn/T/org.python.python.savedState
+1789220211 [env] bridge alive (frame 8, line=v7 obs_dim=122 actions=10)
+1789220212 [actor 7] up: instance 7, policy v0
+1789220212 [env] match ready after 1 tries
+1789220212 [opp] leg21_league_2500000_steps.zip
+1789220213 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220214 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220214 [ep] slot1 opps=1     win len= 245  dmg +2.00/-0.36  stones: picked=6 lost=1 opp=4(-4) forms=2/1  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=11(4) stonev=114 dmgF=1.72
+1789220214 [opp] leg21_league_3500000_steps.zip
+1789220215 [env] match ready after 1 tries
+1789220216 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220216 [ep] slot1 opps=1    loss len= 545  dmg +0.75/-1.00  stones: picked=3 lost=4 opp=5(-3) forms=0/1  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=7(1) stonev=81 dmgF=0.00
+1789220216 [opp] leg21_league_3000000_steps.zip
+1789220217 [env] match ready after 1 tries
+1789220217 [ep] slot1 opps=1     win len= 414  dmg +2.00/-0.52  stones: picked=5 lost=5 opp=4(-4) forms=0/0  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=9(3) stonev=164 dmgF=0.00
+1789220217 [opp] leg21_league_3500000_steps.zip
+1789220218 [ep] slot1 opps=1     win len= 461  dmg +2.00/-0.31  stones: picked=6 lost=4 opp=3(-4) forms=1/0  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=11(6) stonev=132 dmgF=0.55
+1789220218 [opp] leg21_league_2000000_steps.zip
+1789220218 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220219 [ep] slot1 opps=1     win len= 379  dmg +2.00/-0.47  stones: picked=4 lost=4 opp=2(-2) forms=0/0  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=6(1) stonev=103 dmgF=0.00
+1789220219 [opp] leg17_league_2000016_steps.zip
+1789220219 [env] match ready after 1 tries
+1789220219 [env] match ready after 1 tries
+1789220220 [env] match ready after 1 tries
+1789220220 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220220 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220221 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220224 [ep] slot1 opps=1     win len= 132  dmg +2.00/-0.02  stones: picked=2 lost=0 opp=0(-1) forms=1/0  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=4(2) stonev=55 dmgF=1.42
+1789220224 [opp] leg21_league_2500000_steps.zip
+1789220225 [env] match ready after 1 tries
+1789220225 [ep] slot1 opps=1     win len= 246  dmg +2.00/-0.19  stones: picked=5 lost=2 opp=1(-1) forms=1/0  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=8(1) stonev=102 dmgF=1.59
+1789220225 [opp] prog_leg11.zip
+1789220226 [env] match ready after 1 tries
+1789220226 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220227 [ep] slot1 opps=1    loss len= 391  dmg +1.05/-1.00  stones: picked=3 lost=4 opp=6(-4) forms=0/1  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=7(1) stonev=160 dmgF=0.00
+1789220227 [opp] leg21_league_3000000_steps.zip
+1789220227 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220227 [ep] slot1 opps=1    loss len= 494  dmg +1.67/-1.00  stones: picked=5 lost=3 opp=4(-2) forms=1/1  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=14(1) stonev=168 dmgF=0.70
+1789220227 [opp] leg21_league_500000_steps.zip
+1789220227 [env] match ready after 1 tries
+1789220228 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220229 [env] match ready after 1 tries
+1789220230 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220230 [ep] slot1 opps=1     win len= 346  dmg +2.00/-0.71  stones: picked=4 lost=2 opp=3(-1) forms=1/1  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=9(1) stonev=99 dmgF=1.36
+1789220230 [opp] prog_leg20.zip
+1789220231 [ep] slot1 opps=1     win len=1747  dmg +2.00/-0.31  stones: picked=5 lost=3 opp=3(-4) forms=1/0  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=23(14) stonev=1090 dmgF=0.90
+1789220231 [opp] leg21_league_4000000_steps.zip
+1789220231 Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+1789220231 Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+1789220231 Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+1789220231 See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+1789220231 Set variable override: flycast_hle_bios = enabled
+1789220231 Set variable override: reicast_hle_bios = enabled
+1789220231 Set variable override: flycast_device_port1_slot1 = VMU
+1789220231 Set variable override: flycast_device_port2_slot1 = VMU
+1789220231 Set variable override: flycast_threaded_rendering = disabled
+1789220231 Set variable override: reicast_threaded_rendering = disabled
+1789220231 2026-09-12 06:37:11.541 Python[29680:489271] ApplePersistenceIgnoreState: Existing state will not be touched. New state will be written to /var/folders/39/dg_z5std11vctgrpnntr4k8r0000gn/T/org.python.python.savedState
+1789220231 [env] bridge alive (frame 8, line=v7 obs_dim=122 actions=10)
+1789220231 [env] match ready after 1 tries
+1789220232 [ep] slot1 opps=1     win len= 645  dmg +2.00/-0.95  stones: picked=7 lost=2 opp=5(-3) forms=2/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=16(3) stonev=186 dmgF=1.34
+1789220232 [opp] leg21_league_2000000_steps.zip
+1789220232 [actor 8] up: instance 8, policy v0
+1789220232 /Users/Apple/ps2rl/lib/python3.11/site-packages/stable_baselines3/common/save_util.py:167: UserWarning: Could not deserialize object clip_range. Consider using `custom_objects` argument to replace this object.
+1789220232 Exception: code() argument 13 must be str, not int
+1789220232   warnings.warn(
+1789220232 /Users/Apple/ps2rl/lib/python3.11/site-packages/stable_baselines3/common/save_util.py:167: UserWarning: Could not deserialize object lr_schedule. Consider using `custom_objects` argument to replace this object.
+1789220232 Exception: code() argument 13 must be str, not int
+1789220232   warnings.warn(
+1789220232 [opp] ps_v6_5033239_steps.zip
+1789220232 [env] match ready after 1 tries
+1789220232 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220233 [env] match ready after 1 tries
+1789220233 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220233 [ep] slot1 opps=1     win len= 428  dmg +2.00/-0.29  stones: picked=2 lost=3 opp=3(-3) forms=0/0  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=10(1) stonev=110 dmgF=0.00
+1789220233 [opp] leg21_league_2000000_steps.zip
+1789220234 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220234 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220234 [env] match ready after 1 tries
+1789220235 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220237 [ep] slot1 opps=1     win len= 340  dmg +2.00/-0.35  stones: picked=3 lost=1 opp=5(-1) forms=1/1  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=14(2) stonev=102 dmgF=0.39
+1789220237 [opp] leg21_league_1000000_steps.zip
+1789220239 [ep] slot1 opps=1    loss len= 458  dmg +1.17/-1.00  stones: picked=6 lost=4 opp=6(-4) forms=1/1  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=13(1) stonev=132 dmgF=0.00
+1789220239 [opp] leg21_league_1500000_steps.zip
+1789220239 [env] match ready after 1 tries
+1789220240 [env] match ready after 1 tries
+1789220240 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220241 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220243 [ep] slot1 opps=1    loss len= 520  dmg +1.26/-1.00  stones: picked=4 lost=5 opp=7(-5) forms=0/1  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=9(1) stonev=185 dmgF=0.00
+1789220243 [opp] leg21_league_1000000_steps.zip
+1789220244 [ep] slot1 opps=1     win len= 376  dmg +2.00/-0.75  stones: picked=4 lost=2 opp=7(-3) forms=1/1  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=13(1) stonev=116 dmgF=1.17
+1789220244 [opp] leg21_league_2500000_steps.zip
+1789220245 [ep] slot1 opps=1    loss len= 349  dmg +0.69/-1.00  stones: picked=2 lost=3 opp=4(-2) forms=0/1  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=6(1) stonev=84 dmgF=0.00
+1789220245 [opp] leg16_league_500004_steps.zip
+1789220245 [env] match ready after 1 tries
+1789220245 [learner] update 1 steps=20480 nan steps/s (since end of update 1) train=2.1s lag(min/mean/max)=0/0.00/0 actors=[0, 0, 1, 1, 2, 2, 3, 4, 5, 6] ep_starts_in_batch=46 mean_reward=+0.0569
+1789220245 [env] match ready after 1 tries
+1789220245 [ep] slot1 opps=1     win len= 411  dmg +2.00/-0.24  stones: picked=4 lost=2 opp=2(-3) forms=1/0  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=10(2) stonev=93 dmgF=0.61
+1789220245 [opp] leg21_league_2000000_steps.zip
+1789220246 [ep] slot1 opps=1    loss len= 525  dmg +0.91/-1.00  stones: picked=3 lost=4 opp=4(-2) forms=0/1  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=11(3) stonev=109 dmgF=0.00
+1789220246 /Users/Apple/ps2rl/lib/python3.11/site-packages/stable_baselines3/common/save_util.py:167: UserWarning: Could not deserialize object clip_range. Consider using `custom_objects` argument to replace this object.
+1789220246 Exception: code() argument 13 must be str, not int
+1789220246   warnings.warn(
+1789220246 /Users/Apple/ps2rl/lib/python3.11/site-packages/stable_baselines3/common/save_util.py:167: UserWarning: Could not deserialize object lr_schedule. Consider using `custom_objects` argument to replace this object.
+1789220246 Exception: code() argument 13 must be str, not int
+1789220246   warnings.warn(
+1789220246 [opp] ps_v6_219500_steps.zip
+1789220246 [env] match ready after 1 tries
+1789220246 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220246 [ep] slot1 opps=1     win len= 428  dmg +2.00/-0.35  stones: picked=2 lost=0 opp=4(-1) forms=1/1  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=17(4) stonev=164 dmgF=1.72
+1789220246 [opp] ps_v6_20024179_steps.zip
+1789220246 [env] match ready after 1 tries
+1789220246 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220247 [env] match ready after 1 tries
+1789220247 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220247 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220248 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220248 [env] match ready after 1 tries
+1789220249 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220250 [ep] slot1 opps=1     win len= 338  dmg +2.00/-0.25  stones: picked=4 lost=2 opp=4(-3) forms=1/0  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=7(1) stonev=140 dmgF=0.72
+1789220250 [opp] leg21_league_3500000_steps.zip
+1789220251 [ep] slot1 opps=1     win len= 418  dmg +2.00/-0.28  stones: picked=7 lost=2 opp=2(-3) forms=2/0  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=10(3) stonev=126 dmgF=1.24
+1789220251 [opp] leg21_league_2500000_steps.zip
+1789220251 Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+1789220251 Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+1789220251 Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+1789220251 See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+1789220251 Set variable override: flycast_hle_bios = enabled
+1789220251 Set variable override: reicast_hle_bios = enabled
+1789220251 Set variable override: flycast_device_port1_slot1 = VMU
+1789220251 Set variable override: flycast_device_port2_slot1 = VMU
+1789220251 Set variable override: flycast_threaded_rendering = disabled
+1789220251 Set variable override: reicast_threaded_rendering = disabled
+1789220251 2026-09-12 06:37:31.742 Python[29681:489274] ApplePersistenceIgnoreState: Existing state will not be touched. New state will be written to /var/folders/39/dg_z5std11vctgrpnntr4k8r0000gn/T/org.python.python.savedState
+1789220251 [env] bridge alive (frame 8, line=v7 obs_dim=122 actions=10)
+1789220252 [env] match ready after 1 tries
+1789220252 [actor 9] up: instance 9, policy v1
+1789220252 [opp] leg21_league_3500000_steps.zip
+1789220252 [env] match ready after 1 tries
+1789220253 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220253 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220253 [ep] slot1 opps=1     win len= 207  dmg +2.00/+0.00  stones: picked=2 lost=0 opp=0(-1) forms=1/0  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=5(1) stonev=20 dmgF=1.44
+1789220253 [opp] leg21_league_3500000_steps.zip
+1789220254 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220254 [env] match ready after 1 tries
+1789220255 [ep] slot1 opps=1     win len= 296  dmg +2.00/-0.22  stones: picked=4 lost=2 opp=3(-4) forms=1/0  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=8(0) stonev=94 dmgF=1.05
+1789220255 [opp] prog_leg8.zip
+1789220255 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220255 [ep] slot1 opps=1     win len= 655  dmg +2.00/-0.46  stones: picked=4 lost=3 opp=5(-5) forms=0/0  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=10(3) stonev=122 dmgF=0.00
+1789220255 [opp] leg11_league_1500012_steps.zip
+1789220256 [env] match ready after 1 tries
+1789220257 [env] match ready after 1 tries
+1789220257 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220258 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220258 [ep] slot1 opps=1     win len= 384  dmg +2.00/-0.24  stones: picked=3 lost=2 opp=1(-1) forms=0/0  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=6(1) stonev=37 dmgF=0.00
+1789220258 /Users/Apple/ps2rl/lib/python3.11/site-packages/stable_baselines3/common/save_util.py:167: UserWarning: Could not deserialize object clip_range. Consider using `custom_objects` argument to replace this object.
+1789220258 Exception: code() argument 13 must be str, not int
+1789220258   warnings.warn(
+1789220258 /Users/Apple/ps2rl/lib/python3.11/site-packages/stable_baselines3/common/save_util.py:167: UserWarning: Could not deserialize object lr_schedule. Consider using `custom_objects` argument to replace this object.
+1789220258 Exception: code() argument 13 must be str, not int
+1789220258   warnings.warn(
+1789220258 [opp] ps_v6_25011619_steps.zip
+1789220259 [ep] slot1 opps=1    loss len= 197  dmg +0.31/-1.00  stones: picked=1 lost=2 opp=3(-1) forms=0/1  gem_rew=+3.00 shape=+0.00 appr=+0.00  chests=5(1) stonev=76 dmgF=0.00
+1789220259 [opp] leg21_league_1500000_steps.zip
+1789220260 [env] match ready after 1 tries
+1789220260 [ep] slot1 opps=1     win len= 421  dmg +2.00/-0.11  stones: picked=3 lost=1 opp=2(-3) forms=1/0  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=8(1) stonev=74 dmgF=0.13
+1789220260 [opp] leg21_league_2000000_steps.zip
+1789220260 [env] match ready after 1 tries
+1789220261 [ep] slot1 opps=1     win len= 381  dmg +2.00/-0.13  stones: picked=3 lost=1 opp=2(-2) forms=1/0  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=9(4) stonev=114 dmgF=1.26
+1789220261 [opp] leg21_league_1000000_steps.zip
+1789220261 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220261 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220262 [env] match ready after 1 tries
+1789220262 [env] match ready after 1 tries
+1789220263 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220263 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220264 [ep] slot1 opps=1     win len= 359  dmg +2.00/-0.25  stones: picked=6 lost=1 opp=3(-3) forms=2/0  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=9(5) stonev=186 dmgF=1.27
+1789220264 [opp] prog_leg21.zip
+1789220266 [env] match ready after 1 tries
+1789220267 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220268 [ep] slot1 opps=1     win len= 655  dmg +2.00/-0.54  stones: picked=6 lost=4 opp=5(-6) forms=1/0  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=9(3) stonev=160 dmgF=0.01
+1789220268 [opp] leg21_league_4000000_steps.zip
+1789220269 [env] match ready after 1 tries
+1789220269 [ep] slot1 opps=1     win len= 373  dmg +2.00/-0.43  stones: picked=4 lost=4 opp=3(-3) forms=0/0  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=4(0) stonev=145 dmgF=0.00
+1789220269 [opp] leg8_league_1500012_steps.zip
+1789220269 [ep] slot1 opps=1     win len= 383  dmg +2.00/-0.25  stones: picked=7 lost=2 opp=4(-4) forms=2/0  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=13(1) stonev=141 dmgF=0.93
+1789220269 [opp] leg21_league_500000_steps.zip
+1789220269 [ep] slot1 opps=1     win len= 280  dmg +2.00/-0.07  stones: picked=5 lost=0 opp=0(-1) forms=2/0  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=8(1) stonev=98 dmgF=1.79
+1789220269 [opp] leg15_league_1500012_steps.zip
+1789220270 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220270 [env] match ready after 1 tries
+1789220271 [env] match ready after 1 tries
+1789220271 Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+1789220271 Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+1789220271 Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+1789220271 See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+1789220271 Set variable override: flycast_hle_bios = enabled
+1789220271 Set variable override: reicast_hle_bios = enabled
+1789220271 Set variable override: flycast_device_port1_slot1 = VMU
+1789220271 Set variable override: flycast_device_port2_slot1 = VMU
+1789220271 Set variable override: flycast_threaded_rendering = disabled
+1789220271 Set variable override: reicast_threaded_rendering = disabled
+1789220271 [env] match ready after 1 tries
+1789220271 2026-09-12 06:37:51.548 Python[29682:489276] ApplePersistenceIgnoreState: Existing state will not be touched. New state will be written to /var/folders/39/dg_z5std11vctgrpnntr4k8r0000gn/T/org.python.python.savedState
+1789220271 [env] bridge alive (frame 8, line=v7 obs_dim=122 actions=10)
+1789220271 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220272 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220272 [actor 10] up: instance 10, policy v1
+1789220272 [opp] leg21_league_3500000_steps.zip
+1789220272 [ep] slot1 opps=1     win len= 601  dmg +2.00/-0.20  stones: picked=3 lost=1 opp=3(-3) forms=1/0  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=11(0) stonev=80 dmgF=0.72
+1789220272 [opp] prog_leg21.zip
+1789220272 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220273 [env] match ready after 1 tries
+1789220274 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220274 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220277 [ep] slot1 opps=1     win len= 696  dmg +2.00/-0.93  stones: picked=9 lost=7 opp=7(-6) forms=1/0  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=14(2) stonev=240 dmgF=0.67
+1789220277 [opp] leg21_league_4000000_steps.zip
+1789220277 [ep] slot1 opps=1     win len= 225  dmg +2.00/-0.10  stones: picked=3 lost=1 opp=1(-1) forms=1/0  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=7(0) stonev=84 dmgF=1.59
+1789220277 /Users/Apple/ps2rl/lib/python3.11/site-packages/stable_baselines3/common/save_util.py:167: UserWarning: Could not deserialize object clip_range. Consider using `custom_objects` argument to replace this object.
+1789220277 Exception: code() argument 13 must be str, not int
+1789220277   warnings.warn(
+1789220277 /Users/Apple/ps2rl/lib/python3.11/site-packages/stable_baselines3/common/save_util.py:167: UserWarning: Could not deserialize object lr_schedule. Consider using `custom_objects` argument to replace this object.
+1789220277 Exception: code() argument 13 must be str, not int
+1789220277   warnings.warn(
+1789220277 [opp] ps_v6_31915459_steps.zip
+1789220277 [ep] slot1 opps=1     win len= 422  dmg +2.00/-0.34  stones: picked=4 lost=3 opp=2(-3) forms=0/0  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=7(2) stonev=87 dmgF=0.00
+1789220277 [opp] leg21_league_3500000_steps.zip
+1789220277 [env] match ready after 1 tries
+1789220278 [ep] slot1 opps=1     win len= 383  dmg +2.00/-0.14  stones: picked=6 lost=1 opp=2(-3) forms=2/0  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=10(3) stonev=99 dmgF=0.71
+1789220278 [opp] leg21_league_2500000_steps.zip
+1789220278 [ep] slot1 opps=1     win len= 468  dmg +2.00/-0.39  stones: picked=4 lost=4 opp=2(-3) forms=0/0  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=7(2) stonev=99 dmgF=0.00
+1789220278 [opp] selfplay_28915473_steps.zip
+1789220278 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220278 [env] match ready after 1 tries
+1789220279 [env] match ready after 1 tries
+1789220279 [env] match ready after 1 tries
+1789220279 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220280 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220280 [ep] slot1 opps=1     win len= 592  dmg +2.00/-0.69  stones: picked=6 lost=1 opp=5(-3) forms=2/1  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=14(2) stonev=212 dmgF=1.28
+1789220280 [opp] prog_leg15.zip
+1789220280 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220280 [env] match ready after 1 tries
+1789220281 [ep] slot1 opps=1     win len= 321  dmg +2.00/-0.09  stones: picked=6 lost=1 opp=2(-2) forms=2/0  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=9(1) stonev=83 dmgF=0.86
+1789220281 [opp] leg18_league_500004_steps.zip
+1789220281 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220282 [env] match ready after 1 tries
+1789220283 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220283 [ep] slot1 opps=1    loss len= 345  dmg +0.93/-1.00  stones: picked=2 lost=0 opp=3(-1) forms=1/1  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=13(0) stonev=126 dmgF=0.70
+1789220283 [opp] leg21_league_2500000_steps.zip
+1789220284 [env] match ready after 1 tries
+1789220285 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220285 [env] match ready after 1 tries
+1789220286 [ep] slot1 opps=1     win len= 446  dmg +2.00/-0.78  stones: picked=5 lost=3 opp=6(-4) forms=1/1  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=13(3) stonev=142 dmgF=0.85
+1789220286 [opp] leg21_league_1500000_steps.zip
+1789220286 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220287 [ep] slot1 opps=1     win len= 254  dmg +2.00/-0.20  stones: picked=6 lost=2 opp=0(-1) forms=2/0  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=7(5) stonev=135 dmgF=1.82
+1789220287 [opp] leg21_league_500000_steps.zip
+1789220288 [env] match ready after 1 tries
+1789220288 [env] match ready after 1 tries
+1789220288 [ep] slot1 opps=1     win len= 264  dmg +2.00/-0.13  stones: picked=3 lost=1 opp=2(-2) forms=1/0  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=7(1) stonev=101 dmgF=1.55
+1789220288 [opp] leg21_league_2500000_steps.zip
+1789220288 [ep] slot1 opps=1     win len= 441  dmg +2.11/-0.49  stones: picked=6 lost=4 opp=3(-3) forms=1/0  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=11(4) stonev=163 dmgF=1.31
+1789220288 [opp] leg21_league_2000000_steps.zip
+1789220288 [ep] slot1 opps=1    loss len= 269  dmg +0.89/-1.00  stones: picked=3 lost=1 opp=3(-1) forms=1/1  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=10(3) stonev=105 dmgF=0.53
+1789220288 [opp] leg16_league_1500012_steps.zip
+1789220289 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220289 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220289 [env] match ready after 1 tries
+1789220290 [env] match ready after 1 tries
+1789220290 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220290 [env] match ready after 1 tries
+1789220291 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220291 Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+1789220291 Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+1789220291 Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+1789220291 See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+1789220291 Set variable override: flycast_hle_bios = enabled
+1789220291 Set variable override: reicast_hle_bios = enabled
+1789220291 Set variable override: flycast_device_port1_slot1 = VMU
+1789220291 Set variable override: flycast_device_port2_slot1 = VMU
+1789220291 Set variable override: flycast_threaded_rendering = disabled
+1789220291 Set variable override: reicast_threaded_rendering = disabled
+1789220291 2026-09-12 06:38:11.905 Python[29683:489277] ApplePersistenceIgnoreState: Existing state will not be touched. New state will be written to /var/folders/39/dg_z5std11vctgrpnntr4k8r0000gn/T/org.python.python.savedState
+1789220291 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220292 [env] bridge alive (frame 8, line=v7 obs_dim=122 actions=10)
+1789220292 [actor 11] up: instance 11, policy v1
+1789220292 [opp] leg21_league_500000_steps.zip
+1789220294 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220294 [ep] slot1 opps=1     win len= 432  dmg +2.00/-0.53  stones: picked=5 lost=3 opp=3(-4) forms=1/0  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=9(2) stonev=116 dmgF=0.48
+1789220294 [opp] leg21_league_1500000_steps.zip
+1789220294 [ep] slot1 opps=1     win len= 392  dmg +2.00/-0.32  stones: picked=5 lost=3 opp=4(-3) forms=1/0  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=14(2) stonev=141 dmgF=1.46
+1789220294 [opp] selfplay_1500012_steps.zip
+1789220294 [ep] slot1 opps=1     win len= 322  dmg +2.00/-0.45  stones: picked=3 lost=1 opp=4(-1) forms=1/1  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=12(3) stonev=86 dmgF=1.39
+1789220294 [opp] leg17_league_500004_steps.zip
+1789220295 [env] match ready after 1 tries
+1789220295 [env] match ready after 1 tries
+1789220296 [env] match ready after 1 tries
+1789220296 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220296 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220297 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220298 [ep] slot1 opps=1    loss len= 227  dmg +1.13/-1.00  stones: picked=4 lost=2 opp=3(-1) forms=1/1  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=12(2) stonev=121 dmgF=0.88
+1789220298 [opp] leg21_league_3500000_steps.zip
+1789220299 [env] match ready after 1 tries
+1789220300 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220301 [ep] slot1 opps=1     win len= 325  dmg +2.00/-0.14  stones: picked=3 lost=1 opp=2(-2) forms=1/0  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=7(0) stonev=56 dmgF=1.25
+1789220301 [opp] leg19_league_2000016_steps.zip
+1789220301 [ep] slot1 opps=1     win len= 368  dmg +2.00/-0.09  stones: picked=4 lost=1 opp=3(-3) forms=1/0  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=5(1) stonev=88 dmgF=0.88
+1789220301 [opp] leg19_league_2000016_steps.zip
+1789220302 [env] match ready after 1 tries
+1789220302 [env] match ready after 1 tries
+1789220303 [ep] slot1 opps=1     win len= 908  dmg +2.00/-0.83  stones: picked=6 lost=4 opp=6(-6) forms=1/0  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=11(3) stonev=236 dmgF=0.68
+1789220303 [opp] leg19_league_1500012_steps.zip
+1789220303 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220303 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220303 [ep] slot1 opps=1    loss len= 401  dmg +0.77/-1.00  stones: picked=1 lost=2 opp=3(-1) forms=0/1  gem_rew=+3.00 shape=+0.00 appr=+0.00  chests=10(1) stonev=54 dmgF=0.00
+1789220303 [opp] leg21_league_2500000_steps.zip
+1789220304 [env] match ready after 1 tries
+1789220305 [env] match ready after 1 tries
+1789220305 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220306 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220307 [ep] slot1 opps=1     win len= 300  dmg +2.00/-0.32  stones: picked=4 lost=3 opp=2(-3) forms=0/0  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=5(2) stonev=162 dmgF=0.00
+1789220307 [opp] prog_leg21.zip
+1789220308 [ep] slot1 opps=1     win len= 348  dmg +2.00/-0.26  stones: picked=5 lost=0 opp=4(-3) forms=2/0  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=11(4) stonev=106 dmgF=1.24
+1789220308 [opp] prog_leg18.zip
+1789220308 [ep] slot1 opps=1     win len= 633  dmg +2.00/-0.83  stones: picked=5 lost=3 opp=5(-6) forms=1/0  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=16(6) stonev=170 dmgF=0.49
+1789220308 [opp] selfplay_28415469_steps.zip
+1789220308 [env] match ready after 1 tries
+1789220309 [ep] slot1 opps=1     win len= 245  dmg +2.00/-0.19  stones: picked=3 lost=1 opp=1(-2) forms=1/0  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=7(1) stonev=115 dmgF=1.15
+1789220309 [opp] leg18_league_1000008_steps.zip
+1789220309 [env] match ready after 1 tries
+1789220309 [ep] slot1 opps=1     win len= 175  dmg +2.00/-0.06  stones: picked=2 lost=0 opp=1(-2) forms=1/0  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=5(0) stonev=61 dmgF=1.46
+1789220309 [opp] prog_leg17.zip
+1789220309 [ep] slot1 opps=1     win len= 359  dmg +2.00/-0.57  stones: picked=6 lost=5 opp=3(-4) forms=0/0  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=5(1) stonev=138 dmgF=0.00
+1789220309 [opp] leg21_league_1000000_steps.zip
+1789220309 [env] match ready after 1 tries
+1789220310 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220310 [ep] slot1 opps=1    loss len= 481  dmg +1.79/-1.00  stones: picked=4 lost=1 opp=4(-2) forms=1/1  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=11(2) stonev=252 dmgF=1.06
+1789220310 [opp] leg8_league_1500012_steps.zip
+1789220310 [env] match ready after 1 tries
+1789220310 [ep] slot1 opps=1     win len= 958  dmg +2.00/-0.39  stones: picked=5 lost=0 opp=2(-2) forms=2/0  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=9(5) stonev=80 dmgF=1.09
+1789220310 [opp] leg21_league_3500000_steps.zip
+1789220310 [env] match ready after 1 tries
+1789220310 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220311 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220311 [env] match ready after 1 tries
+1789220311 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220311 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220311 [env] match ready after 1 tries
+1789220312 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220312 [env] match ready after 1 tries
+1789220312 [ep] slot1 opps=1     win len= 602  dmg +2.00/-0.95  stones: picked=7 lost=2 opp=8(-5) forms=2/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=21(5) stonev=248 dmgF=0.76
+1789220312 [opp] leg21_league_500000_steps.zip
+1789220313 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220313 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220314 [env] match ready after 1 tries
+1789220315 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220317 [ep] slot1 opps=1     win len= 325  dmg +2.00/-0.14  stones: picked=3 lost=1 opp=2(-2) forms=1/0  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=7(2) stonev=79 dmgF=1.17
+1789220317 [opp] leg19_league_500004_steps.zip
+1789220318 [ep] slot1 opps=1    loss len= 359  dmg +1.40/-1.00  stones: picked=2 lost=3 opp=4(-2) forms=0/1  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=6(0) stonev=69 dmgF=0.00
+1789220318 [opp] leg18_league_2000016_steps.zip
+1789220319 [env] match ready after 1 tries
+1789220319 [env] match ready after 1 tries
+1789220320 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220321 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220321 [ep] slot1 opps=1     win len= 506  dmg +2.00/-0.48  stones: picked=5 lost=4 opp=4(-5) forms=0/0  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=3(1) stonev=131 dmgF=0.00
+1789220321 [opp] prog_leg5.zip
+1789220323 [ep] slot1 opps=1     win len= 341  dmg +2.00/-0.79  stones: picked=6 lost=1 opp=6(-3) forms=2/1  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=10(2) stonev=186 dmgF=1.42
+1789220323 [opp] leg21_league_4000000_steps.zip
+1789220323 [ep] slot1 opps=1     win len= 378  dmg +2.00/-0.18  stones: picked=6 lost=1 opp=3(-3) forms=2/0  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=7(2) stonev=115 dmgF=1.22
+1789220324 [env] match ready after 1 tries
+1789220324 [opp] leg21_league_1500000_steps.zip
+1789220324 [env] match ready after 1 tries
+1789220325 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220325 [env] match ready after 1 tries
+1789220325 [ep] slot1 opps=1     win len= 384  dmg +2.00/-0.21  stones: picked=3 lost=2 opp=1(-2) forms=0/0  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=5(2) stonev=62 dmgF=0.00
+1789220325 [opp] leg21_league_1500000_steps.zip
+1789220325 [ep] slot1 opps=1     win len= 437  dmg +2.00/-0.43  stones: picked=5 lost=3 opp=4(-3) forms=1/0  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=13(1) stonev=123 dmgF=0.88
+1789220325 [opp] leg21_league_4000000_steps.zip
+1789220326 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220326 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220326 [ep] slot1 opps=1     win len= 377  dmg +2.00/-0.45  stones: picked=4 lost=2 opp=4(-4) forms=1/0  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=7(1) stonev=113 dmgF=1.06
+1789220326 [opp] selfplay_30415485_steps.zip
+1789220326 [ep] slot1 opps=1     win len= 569  dmg +2.00/-0.30  stones: picked=3 lost=1 opp=4(-3) forms=1/0  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=12(5) stonev=128 dmgF=0.86
+1789220326 [opp] leg21_league_2500000_steps.zip
+1789220327 [env] match ready after 1 tries
+1789220327 [ep] slot1 opps=1     win len= 366  dmg +2.00/-0.20  stones: picked=3 lost=1 opp=1(-2) forms=1/0  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=8(1) stonev=66 dmgF=1.17
+1789220327 [opp] leg9_league_2000016_steps.zip
+1789220327 [env] match ready after 1 tries
+1789220328 [env] match ready after 1 tries
+1789220328 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220328 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220328 [env] match ready after 1 tries
+1789220329 [env] match ready after 1 tries
+1789220329 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220329 [ep] slot1 opps=1     win len= 247  dmg +2.00/-0.13  stones: picked=3 lost=1 opp=1(-1) forms=1/0  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=8(3) stonev=63 dmgF=0.35
+1789220329 [opp] prog_leg20.zip
+1789220329 [learner] update 2 steps=40960 244.7 steps/s (since end of update 1) train=1.0s lag(min/mean/max)=0/0.90/1 actors=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9] ep_starts_in_batch=53 mean_reward=+0.0656
+1789220329 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220330 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220330 [env] match ready after 1 tries
+1789220331 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220332 [ep] slot1 opps=1     win len= 219  dmg +2.00/+0.00  stones: picked=2 lost=0 opp=0(-1) forms=1/0  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=6(2) stonev=19 dmgF=0.50
+1789220332 [opp] leg9_league_1000008_steps.zip
+1789220333 [env] match ready after 1 tries
+1789220334 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220335 [ep] slot1 opps=1     win len= 641  dmg +2.00/-0.36  stones: picked=5 lost=3 opp=5(-4) forms=1/0  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=9(3) stonev=132 dmgF=0.70
+1789220335 [opp] leg15_league_500004_steps.zip
+1789220336 [env] match ready after 1 tries
+1789220337 [ep] slot1 opps=1     win len= 345  dmg +2.00/-0.34  stones: picked=6 lost=1 opp=2(-2) forms=2/0  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=6(1) stonev=92 dmgF=1.34
+1789220337 [opp] leg21_league_500000_steps.zip
+1789220337 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220337 [ep] slot1 opps=1     win len= 474  dmg +2.00/-0.70  stones: picked=4 lost=2 opp=6(-2) forms=1/1  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=12(0) stonev=182 dmgF=0.88
+1789220337 [opp] leg21_league_1500000_steps.zip
+1789220338 [env] match ready after 1 tries
+1789220338 [env] match ready after 1 tries
+1789220339 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220339 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220341 [ep] slot1 opps=1     win len= 828  dmg +2.00/-0.37  stones: picked=5 lost=3 opp=4(-5) forms=1/0  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=5(2) stonev=126 dmgF=0.70
+1789220341 [opp] leg21_league_2000000_steps.zip
+1789220342 [ep] slot1 opps=1     win len= 357  dmg +2.00/-0.33  stones: picked=5 lost=3 opp=2(-3) forms=1/0  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=9(3) stonev=184 dmgF=0.60
+1789220342 [opp] selfplay_28415469_steps.zip
+1789220342 [ep] slot1 opps=1     win len= 347  dmg +2.00/-0.18  stones: picked=3 lost=2 opp=1(-2) forms=0/0  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=7(4) stonev=80 dmgF=0.00
+1789220342 [opp] selfplay_31415493_steps.zip
+1789220342 [ep] slot1 opps=1     win len= 322  dmg +2.00/-0.12  stones: picked=3 lost=1 opp=1(-2) forms=1/0  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=5(0) stonev=59 dmgF=0.25
+1789220342 [opp] prog_leg14.zip
+1789220343 [env] match ready after 1 tries
+1789220343 [env] match ready after 1 tries
+1789220343 [env] match ready after 1 tries
+1789220344 [env] match ready after 1 tries
+1789220344 [ep] slot1 opps=1     win len= 292  dmg +2.00/-0.11  stones: picked=4 lost=1 opp=0(-1) forms=1/0  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=5(2) stonev=84 dmgF=1.06
+1789220344 [opp] leg21_league_1000000_steps.zip
+1789220344 [ep] slot1 opps=1    loss len= 450  dmg +0.41/-1.00  stones: picked=2 lost=2 opp=5(-2) forms=0/1  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=7(0) stonev=103 dmgF=0.00
+1789220344 [opp] leg21_league_500000_steps.zip
+1789220344 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220344 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220344 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220345 [ep] slot1 opps=1     win len= 498  dmg +2.00/-0.63  stones: picked=5 lost=4 opp=4(-5) forms=0/0  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=9(2) stonev=161 dmgF=0.00
+1789220345 [opp] leg12_league_1000008_steps.zip
+1789220345 [env] match ready after 1 tries
+1789220345 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220345 [env] match ready after 1 tries
+1789220346 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220346 [env] match ready after 1 tries
+1789220346 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220346 [ep] slot1 opps=1     win len= 224  dmg +2.00/-0.17  stones: picked=3 lost=1 opp=3(-3) forms=1/0  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=7(0) stonev=61 dmgF=1.19
+1789220346 [opp] leg15_league_500004_steps.zip
+1789220347 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220348 [env] match ready after 1 tries
+1789220349 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220350 [ep] slot1 opps=1     win len= 664  dmg +2.00/-0.45  stones: picked=9 lost=4 opp=4(-5) forms=2/0  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=11(4) stonev=163 dmgF=0.22
+1789220350 [opp] leg21_league_4000000_steps.zip
+1789220351 [ep] slot1 opps=1     win len= 391  dmg +2.00/-0.83  stones: picked=5 lost=2 opp=4(-4) forms=1/1  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=15(3) stonev=215 dmgF=0.88
+1789220351 [opp] prog_leg20.zip
+1789220352 [env] match ready after 1 tries
+1789220352 [env] match ready after 1 tries
+1789220352 [ep] slot1 opps=1     win len= 233  dmg +2.00/-0.07  stones: picked=3 lost=1 opp=2(-3) forms=1/0  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=8(1) stonev=87 dmgF=1.22
+1789220352 [opp] leg21_league_1500000_steps.zip
+1789220353 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220353 [ep] slot1 opps=1     win len= 232  dmg +2.00/-0.08  stones: picked=3 lost=1 opp=0(-1) forms=1/0  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=9(4) stonev=71 dmgF=1.37
+1789220353 [opp] prog_leg21.zip
+1789220353 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220353 [ep] slot1 opps=1     win len= 259  dmg +2.18/-0.16  stones: picked=3 lost=1 opp=2(-2) forms=1/0  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=6(2) stonev=53 dmgF=1.59
+1789220353 [opp] prog_leg20.zip
+1789220354 [env] match ready after 1 tries
+1789220354 [env] match ready after 1 tries
+1789220354 [env] match ready after 1 tries
+1789220355 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220355 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220355 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220356 [ep] slot1 opps=1    loss len= 849  dmg +1.76/-1.00  stones: picked=7 lost=8 opp=7(-5) forms=0/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=14(2) stonev=205 dmgF=0.00
+1789220356 [opp] prog_leg15.zip
+1789220356 [ep] slot1 opps=1     win len= 334  dmg +2.00/-0.40  stones: picked=4 lost=2 opp=2(-3) forms=1/0  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=10(1) stonev=75 dmgF=1.07
+1789220356 [opp] leg21_league_3000000_steps.zip
+1789220357 [ep] slot1 opps=1    loss len= 327  dmg +0.19/-1.00  stones: picked=0 lost=1 opp=2(-0) forms=0/1  gem_rew=+0.00 shape=+0.00 appr=+0.00  chests=6(1) stonev=34 dmgF=0.00
+1789220357 [opp] leg21_league_1500000_steps.zip
+1789220358 [env] match ready after 1 tries
+1789220358 [env] match ready after 1 tries
+1789220358 [env] match ready after 1 tries
+1789220358 [ep] slot1 opps=1    loss len= 558  dmg +1.80/-1.00  stones: picked=6 lost=4 opp=7(-2) forms=1/2  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=15(1) stonev=173 dmgF=0.59
+1789220358 /Users/Apple/ps2rl/lib/python3.11/site-packages/stable_baselines3/common/save_util.py:167: UserWarning: Could not deserialize object clip_range. Consider using `custom_objects` argument to replace this object.
+1789220358 Exception: code() argument 13 must be str, not int
+1789220358   warnings.warn(
+1789220358 /Users/Apple/ps2rl/lib/python3.11/site-packages/stable_baselines3/common/save_util.py:167: UserWarning: Could not deserialize object lr_schedule. Consider using `custom_objects` argument to replace this object.
+1789220358 Exception: code() argument 13 must be str, not int
+1789220358   warnings.warn(
+1789220358 [opp] ps_v6_14999799_steps.zip
+1789220359 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220359 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220359 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220360 [env] match ready after 1 tries
+1789220361 [ep] slot1 opps=1     win len= 345  dmg +2.00/-0.20  stones: picked=4 lost=1 opp=3(-2) forms=1/0  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=9(2) stonev=95 dmgF=0.88
+1789220361 [opp] selfplay_1500012_steps.zip
+1789220361 [ep] slot1 opps=1     win len= 414  dmg +2.00/-0.73  stones: picked=6 lost=4 opp=4(-5) forms=1/0  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=9(1) stonev=165 dmgF=0.37
+1789220361 [opp] leg21_league_1500000_steps.zip
+1789220361 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220362 [env] match ready after 1 tries
+1789220363 [env] match ready after 1 tries
+1789220363 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220364 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220365 [ep] slot1 opps=1     win len= 350  dmg +2.00/-0.20  stones: picked=3 lost=1 opp=3(-3) forms=1/0  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=6(2) stonev=103 dmgF=0.35
+1789220365 [opp] leg17_league_1000008_steps.zip
+1789220367 [env] match ready after 1 tries
+1789220368 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220368 [ep] slot1 opps=1     win len= 400  dmg +2.00/-0.18  stones: picked=3 lost=1 opp=3(-2) forms=1/0  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=6(1) stonev=69 dmgF=0.27
+1789220368 [opp] leg21_league_2000000_steps.zip
+1789220370 [env] match ready after 1 tries
+1789220371 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220371 [ep] slot1 opps=1    loss len= 435  dmg +1.38/-1.00  stones: picked=2 lost=3 opp=3(-1) forms=0/1  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=11(0) stonev=70 dmgF=0.00
+1789220371 [opp] selfplay_2000016_steps.zip
+1789220372 [ep] slot1 opps=1     win len= 358  dmg +2.00/-0.25  stones: picked=3 lost=1 opp=2(-2) forms=1/0  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=6(2) stonev=49 dmgF=0.91
+1789220372 [opp] leg21_league_1000000_steps.zip
+1789220373 [ep] slot1 opps=1    loss len= 554  dmg +0.50/-1.00  stones: picked=2 lost=3 opp=4(-2) forms=0/1  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=11(4) stonev=69 dmgF=0.00
+1789220373 [opp] leg13_league_1500012_steps.zip
+1789220373 [env] match ready after 1 tries
+1789220373 [env] match ready after 1 tries
+1789220374 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220374 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220374 [ep] slot1 opps=1     win len= 531  dmg +2.00/-0.33  stones: picked=3 lost=3 opp=3(-3) forms=0/0  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=11(5) stonev=100 dmgF=0.00
+1789220374 [opp] prog_leg21.zip
+1789220375 [env] match ready after 1 tries
+1789220375 [ep] slot1 opps=1    loss len= 319  dmg +1.04/-1.00  stones: picked=3 lost=4 opp=3(-1) forms=0/1  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=8(1) stonev=117 dmgF=0.00
+1789220375 [opp] leg11_league_1500012_steps.zip
+1789220376 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220376 [env] match ready after 1 tries
+1789220376 [ep] slot1 opps=1     win len= 235  dmg +2.00/-0.36  stones: picked=4 lost=2 opp=3(-2) forms=1/0  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=6(2) stonev=132 dmgF=1.33
+1789220376 [opp] selfplay_31415493_steps.zip
+1789220377 [ep] slot1 opps=1     win len= 864  dmg +2.00/-0.39  stones: picked=5 lost=2 opp=2(-2) forms=1/0  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=8(2) stonev=83 dmgF=0.53
+1789220377 [opp] leg21_league_4000000_steps.zip
+1789220377 [ep] slot1 opps=1     win len= 504  dmg +2.00/-0.31  stones: picked=5 lost=3 opp=5(-5) forms=1/0  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=11(3) stonev=160 dmgF=0.41
+1789220377 [opp] ps_v6_31915459_steps.zip
+1789220377 [env] match ready after 1 tries
+1789220377 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220377 [ep] slot1 opps=1     win len= 440  dmg +2.00/+0.00  stones: picked=2 lost=0 opp=0(-1) forms=1/0  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=15(4) stonev=87 dmgF=1.36
+1789220377 [opp] leg21_league_2000000_steps.zip
+1789220378 [env] match ready after 1 tries
+1789220378 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220378 [env] match ready after 1 tries
+1789220378 [env] match ready after 1 tries
+1789220379 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220379 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220379 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220379 [env] match ready after 1 tries
+1789220379 [ep] slot1 opps=1     win len= 573  dmg +2.00/-0.90  stones: picked=5 lost=5 opp=8(-4) forms=0/1  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=15(3) stonev=231 dmgF=0.00
+1789220379 [opp] prog_leg21.zip
+1789220380 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220381 [env] match ready after 1 tries
+1789220382 [ep] slot1 opps=1     win len= 540  dmg +2.00/-0.64  stones: picked=6 lost=4 opp=5(-5) forms=1/0  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=12(5) stonev=202 dmgF=0.71
+1789220382 [opp] leg21_league_3000000_steps.zip
+1789220382 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220384 [env] match ready after 1 tries
+1789220385 [ep] slot1 opps=1    loss len= 382  dmg +1.04/-1.00  stones: picked=2 lost=3 opp=3(-1) forms=0/1  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=10(3) stonev=103 dmgF=0.00
+1789220385 [opp] leg21_league_1500000_steps.zip
+1789220385 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220385 [env] match ready after 1 tries
+1789220387 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220387 [ep] slot1 opps=1     win len= 300  dmg +2.00/-0.22  stones: picked=3 lost=1 opp=1(-2) forms=1/0  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=4(1) stonev=30 dmgF=0.64
+1789220387 [opp] leg21_league_4000000_steps.zip
+1789220389 [env] match ready after 1 tries
+1789220390 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220390 [ep] slot1 opps=1     win len= 467  dmg +2.23/-0.68  stones: picked=6 lost=6 opp=6(-6) forms=0/0  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=10(2) stonev=197 dmgF=0.00
+1789220390 [opp] leg11_league_500004_steps.zip
+1789220391 [ep] slot1 opps=1     win len= 334  dmg +2.00/-0.22  stones: picked=2 lost=1 opp=1(-2) forms=0/0  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=6(1) stonev=39 dmgF=0.00
+1789220391 [opp] leg10_league_500004_steps.zip
+1789220391 [ep] slot1 opps=1     win len= 344  dmg +2.00/-0.24  stones: picked=4 lost=2 opp=2(-2) forms=1/0  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=8(0) stonev=94 dmgF=1.18
+1789220391 [opp] leg21_league_2500000_steps.zip
+1789220392 [ep] slot1 opps=1     win len= 480  dmg +2.00/-0.67  stones: picked=6 lost=3 opp=4(-4) forms=1/0  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=14(1) stonev=166 dmgF=0.53
+1789220392 [opp] leg21_league_500000_steps.zip
+1789220392 [env] match ready after 1 tries
+1789220392 [env] match ready after 1 tries
+1789220393 [ep] slot1 opps=1     win len= 522  dmg +2.00/-0.31  stones: picked=5 lost=3 opp=4(-5) forms=1/0  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=6(0) stonev=125 dmgF=0.54
+1789220393 [opp] prog_3D_bclv8leg.zip
+1789220393 [ep] slot1 opps=1     win len= 361  dmg +2.00/-0.64  stones: picked=8 lost=3 opp=4(-2) forms=2/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=14(4) stonev=232 dmgF=1.65
+1789220393 [opp] leg20_league_1500012_steps.zip
+1789220393 [env] match ready after 1 tries
+1789220393 [ep] slot1 opps=1    loss len= 450  dmg +1.37/-1.00  stones: picked=3 lost=4 opp=8(-3) forms=0/2  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=12(2) stonev=163 dmgF=0.00
+1789220393 [opp] selfplay_30915489_steps.zip
+1789220393 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220393 [env] match ready after 1 tries
+1789220394 [env] match ready after 1 tries
+1789220394 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220394 [env] match ready after 1 tries
+1789220394 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220395 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220395 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220395 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220395 [ep] slot1 opps=1     win len= 473  dmg +2.00/-0.52  stones: picked=6 lost=4 opp=5(-6) forms=1/0  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=11(1) stonev=146 dmgF=0.19
+1789220395 [opp] leg21_league_3500000_steps.zip
+1789220395 [env] match ready after 1 tries
+1789220396 [ep] slot1 opps=1     win len= 176  dmg +2.00/-0.07  stones: picked=2 lost=0 opp=1(-1) forms=1/0  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=8(2) stonev=41 dmgF=1.80
+1789220396 [opp] leg10_league_2000016_steps.zip
+1789220396 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220397 [env] match ready after 1 tries
+1789220397 [env] match ready after 1 tries
+1789220398 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220398 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220399 [ep] slot1 opps=1    loss len= 373  dmg +0.19/-1.00  stones: picked=1 lost=2 opp=3(-1) forms=0/1  gem_rew=+3.00 shape=+0.00 appr=+0.00  chests=10(1) stonev=70 dmgF=0.00
+1789220399 [opp] leg16_league_2000016_steps.zip
+1789220401 [ep] slot1 opps=1     win len= 439  dmg +2.00/-0.40  stones: picked=6 lost=4 opp=5(-4) forms=1/0  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=14(1) stonev=200 dmgF=0.41
+1789220401 [opp] leg21_league_1500000_steps.zip
+1789220401 [env] match ready after 1 tries
+1789220401 [ep] slot1 opps=1     win len= 548  dmg +2.00/-0.42  stones: picked=5 lost=1 opp=3(-2) forms=1/0  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=16(3) stonev=101 dmgF=1.23
+1789220401 [opp] prog_leg15.zip
+1789220402 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220402 [env] match ready after 1 tries
+1789220403 [env] match ready after 1 tries
+1789220403 [ep] slot1 opps=1     win len= 254  dmg +2.00/-0.10  stones: picked=3 lost=1 opp=3(-2) forms=1/0  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=8(1) stonev=180 dmgF=1.59
+1789220403 [opp] prog_leg21.zip
+1789220403 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220404 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220404 [ep] slot1 opps=1     win len= 264  dmg +2.00/+0.00  stones: picked=2 lost=0 opp=0(-1) forms=1/0  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=8(1) stonev=48 dmgF=0.18
+1789220404 [opp] leg15_league_500004_steps.zip
+1789220404 [env] match ready after 1 tries
+1789220405 [env] match ready after 1 tries
+1789220405 [ep] slot1 opps=1     win len= 314  dmg +2.00/-0.07  stones: picked=3 lost=1 opp=2(-2) forms=1/0  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=5(0) stonev=52 dmgF=1.40
+1789220405 [opp] leg21_league_500000_steps.zip
+1789220405 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220406 [ep] slot1 opps=1     win len= 219  dmg +2.00/-0.20  stones: picked=4 lost=2 opp=3(-3) forms=1/0  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=8(2) stonev=143 dmgF=1.21
+1789220406 [opp] leg21_league_1000000_steps.zip
+1789220406 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220406 [env] match ready after 1 tries
+1789220406 [learner] update 3 steps=61440 254.2 steps/s (since end of update 1) train=2.0s lag(min/mean/max)=1/1.00/1 actors=[0, 1, 2, 3, 4, 5, 7, 8, 10, 11] ep_starts_in_batch=48 mean_reward=+0.0628
+1789220407 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220408 [env] match ready after 1 tries
+1789220409 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220411 [ep] slot1 opps=1     win len= 488  dmg +2.00/-0.68  stones: picked=5 lost=3 opp=7(-3) forms=1/1  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=14(0) stonev=179 dmgF=0.81
+1789220411 [opp] leg13_league_1500012_steps.zip
+1789220412 [ep] slot1 opps=1     win len= 428  dmg +2.00/-0.80  stones: picked=4 lost=2 opp=4(-2) forms=1/1  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=11(0) stonev=128 dmgF=0.54
+1789220412 [opp] prog_leg21.zip
+1789220412 [env] match ready after 1 tries
+1789220413 [ep] slot1 opps=1     win len= 558  dmg +2.00/-0.27  stones: picked=3 lost=1 opp=2(-3) forms=1/0  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=5(0) stonev=73 dmgF=1.36
+1789220413 [opp] leg11_league_1500012_steps.zip
+1789220413 [env] match ready after 1 tries
+1789220413 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220414 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220415 [env] match ready after 1 tries
+1789220415 [ep] slot1 opps=1     win len= 604  dmg +2.00/-0.84  stones: picked=7 lost=7 opp=5(-6) forms=0/0  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=11(3) stonev=206 dmgF=0.00
+1789220415 [opp] leg21_league_4000000_steps.zip
+1789220415 [ep] slot1 opps=1     win len= 246  dmg +2.00/-0.09  stones: picked=3 lost=1 opp=2(-3) forms=1/0  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=7(3) stonev=59 dmgF=1.04
+1789220415 [opp] leg21_league_3500000_steps.zip
+1789220416 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220416 [env] match ready after 1 tries
+1789220417 [env] match ready after 1 tries
+1789220417 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220417 [ep] slot1 opps=1     win len= 225  dmg +2.00/-0.23  stones: picked=3 lost=1 opp=1(-2) forms=1/0  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=9(2) stonev=87 dmgF=1.32
+1789220417 [opp] prog_leg20.zip
+1789220417 [ep] slot1 opps=1     win len= 443  dmg +2.00/-0.81  stones: picked=7 lost=2 opp=4(-1) forms=2/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=16(3) stonev=180 dmgF=1.62
+1789220417 [opp] leg21_league_3000000_steps.zip
+1789220417 [ep] slot1 opps=1     win len= 388  dmg +2.00/-0.32  stones: picked=4 lost=2 opp=2(-3) forms=1/0  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=8(3) stonev=77 dmgF=1.33
+1789220417 [opp] prog_leg21.zip
+1789220417 [ep] slot1 opps=1     win len= 567  dmg +2.00/-0.65  stones: picked=5 lost=2 opp=4(-3) forms=1/0  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=13(2) stonev=239 dmgF=0.53
+1789220417 [opp] leg21_league_3000000_steps.zip
+1789220418 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220418 [env] match ready after 1 tries
+1789220419 [env] match ready after 1 tries
+1789220419 [ep] slot1 opps=1     win len= 433  dmg +2.00/-0.30  stones: picked=5 lost=3 opp=1(-2) forms=1/0  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=9(3) stonev=104 dmgF=1.32
+1789220419 [opp] leg8_league_1500012_steps.zip
+1789220419 [env] match ready after 1 tries
+1789220419 [env] match ready after 1 tries
+1789220419 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220419 [ep] slot1 opps=1    loss len= 395  dmg +0.81/-1.00  stones: picked=6 lost=7 opp=5(-3) forms=0/1  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=9(3) stonev=128 dmgF=0.00
+1789220419 [opp] leg10_league_1500012_steps.zip
+1789220420 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220420 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220420 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220421 [ep] slot1 opps=1     win len= 222  dmg +2.00/+0.00  stones: picked=5 lost=0 opp=1(-2) forms=2/0  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=6(0) stonev=101 dmgF=1.32
+1789220421 [opp] leg20_league_1000008_steps.zip
+1789220421 [env] match ready after 1 tries
+1789220421 [ep] slot1 opps=1     win len= 408  dmg +2.00/-0.93  stones: picked=5 lost=3 opp=5(-2) forms=1/1  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=9(0) stonev=169 dmgF=0.85
+1789220421 [opp] prog_leg21.zip
+1789220421 [env] match ready after 1 tries
+1789220422 [env] match ready after 1 tries
+1789220422 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220422 [env] match ready after 1 tries
+1789220423 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220423 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220423 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220426 [ep] slot1 opps=1     win len= 317  dmg +2.00/-0.19  stones: picked=7 lost=2 opp=3(-2) forms=2/0  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=11(2) stonev=148 dmgF=0.91
+1789220426 [opp] prog_leg21.zip
+1789220428 [env] match ready after 1 tries
+1789220429 [ep] slot1 opps=1     win len= 294  dmg +2.00/-0.36  stones: picked=4 lost=2 opp=2(-3) forms=1/0  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=5(1) stonev=86 dmgF=1.14
+1789220429 [opp] leg21_league_1000000_steps.zip
+1789220429 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220430 [env] match ready after 1 tries
+1789220431 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220431 [ep] slot1 opps=1    loss len= 404  dmg +1.43/-1.00  stones: picked=5 lost=3 opp=7(-2) forms=1/2  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=16(2) stonev=198 dmgF=1.06
+1789220431 [opp] leg21_league_2000000_steps.zip
+1789220431 [ep] slot1 opps=1     win len= 347  dmg +2.23/-0.55  stones: picked=5 lost=2 opp=7(-4) forms=1/1  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=12(4) stonev=214 dmgF=0.70
+1789220432 [opp] leg21_league_3000000_steps.zip
+1789220432 [ep] slot1 opps=1     win len= 319  dmg +2.00/-0.11  stones: picked=3 lost=1 opp=1(-2) forms=1/0  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=8(3) stonev=53 dmgF=0.94
+1789220432 [opp] leg1_selfplay_31918k.zip
+1789220432 [env] match ready after 1 tries
+1789220432 [env] match ready after 1 tries
+1789220433 [env] match ready after 1 tries
+1789220433 [ep] slot1 opps=1     win len= 305  dmg +2.00/-0.19  stones: picked=3 lost=1 opp=2(-3) forms=1/0  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=6(1) stonev=90 dmgF=1.35
+1789220433 /Users/Apple/ps2rl/lib/python3.11/site-packages/stable_baselines3/common/save_util.py:167: UserWarning: Could not deserialize object clip_range. Consider using `custom_objects` argument to replace this object.
+1789220433 Exception: code() argument 13 must be str, not int
+1789220433   warnings.warn(
+1789220433 /Users/Apple/ps2rl/lib/python3.11/site-packages/stable_baselines3/common/save_util.py:167: UserWarning: Could not deserialize object lr_schedule. Consider using `custom_objects` argument to replace this object.
+1789220433 Exception: code() argument 13 must be str, not int
+1789220433   warnings.warn(
+1789220433 [opp] ps_v6_31915459_steps.zip
+1789220433 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220434 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220434 [env] match ready after 1 tries
+1789220434 [ep] slot1 opps=1    loss len= 317  dmg +0.89/-1.00  stones: picked=2 lost=3 opp=4(-2) forms=0/1  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=9(1) stonev=121 dmgF=0.00
+1789220434 [opp] prog_leg15.zip
+1789220434 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220435 [ep] slot1 opps=1     win len= 422  dmg +2.00/-0.23  stones: picked=4 lost=2 opp=2(-3) forms=1/0  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=9(3) stonev=67 dmgF=0.84
+1789220435 [opp] selfplay_1000008_steps.zip
+1789220435 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220436 [env] match ready after 1 tries
+1789220436 [env] match ready after 1 tries
+1789220436 [ep] slot1 opps=1     win len= 435  dmg +2.00/-0.68  stones: picked=3 lost=1 opp=3(-4) forms=1/0  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=7(0) stonev=81 dmgF=1.04
+1789220436 [opp] selfplay_30415485_steps.zip
+1789220437 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220437 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220437 [env] match ready after 1 tries
+1789220437 [ep] slot1 opps=1    loss len= 407  dmg +1.30/-1.00  stones: picked=5 lost=3 opp=5(-3) forms=1/1  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=9(1) stonev=175 dmgF=0.35
+1789220437 [opp] leg21_league_2000000_steps.zip
+1789220438 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220439 [ep] slot1 opps=1     win len= 230  dmg +2.00/-0.05  stones: picked=4 lost=2 opp=2(-2) forms=1/0  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=9(2) stonev=89 dmgF=1.58
+1789220439 [opp] leg21_league_1000000_steps.zip
+1789220439 [env] match ready after 1 tries
+1789220440 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220440 [env] match ready after 1 tries
+1789220441 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220442 [ep] slot1 opps=1    loss len= 802  dmg +1.86/-1.00  stones: picked=7 lost=5 opp=8(-4) forms=1/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=17(2) stonev=290 dmgF=0.71
+1789220442 [opp] leg14_league_1000008_steps.zip
+1789220443 [env] match ready after 1 tries
+1789220444 [ep] slot1 opps=1     win len= 759  dmg +2.00/-0.88  stones: picked=6 lost=5 opp=6(-7) forms=0/0  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=10(1) stonev=180 dmgF=0.00
+1789220444 [opp] leg1_selfplay_31918k.zip
+1789220444 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220445 [env] match ready after 1 tries
+1789220446 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220446 [ep] slot1 opps=1     win len= 357  dmg +2.00/+0.00  stones: picked=4 lost=0 opp=2(-2) forms=1/0  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=10(3) stonev=70 dmgF=1.41
+1789220446 [opp] leg10_league_1000008_steps.zip
+1789220447 [ep] slot1 opps=1    loss len= 513  dmg +1.32/-1.08  stones: picked=7 lost=5 opp=5(-3) forms=1/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=12(1) stonev=230 dmgF=0.35
+1789220447 [opp] leg21_league_1000000_steps.zip
+1789220447 [ep] slot1 opps=1     win len= 287  dmg +2.00/-0.14  stones: picked=3 lost=1 opp=2(-3) forms=1/0  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=6(1) stonev=78 dmgF=0.36
+1789220447 [opp] leg21_league_3500000_steps.zip
+1789220447 [ep] slot1 opps=1     win len= 407  dmg +2.00/-0.22  stones: picked=6 lost=1 opp=2(-3) forms=2/0  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=9(4) stonev=123 dmgF=1.26
+1789220447 [opp] leg11_league_2000016_steps.zip
+1789220447 [ep] slot1 opps=1    loss len= 415  dmg +1.71/-1.00  stones: picked=4 lost=2 opp=7(-2) forms=1/2  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=11(3) stonev=183 dmgF=1.06
+1789220447 [opp] leg21_league_2500000_steps.zip
+1789220448 [env] match ready after 1 tries
+1789220448 [env] match ready after 1 tries
+1789220448 [env] match ready after 1 tries
+1789220448 [ep] slot1 opps=1     win len= 119  dmg +2.00/-0.03  stones: picked=2 lost=0 opp=0(-1) forms=1/0  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=4(1) stonev=14 dmgF=1.78
+1789220448 [opp] leg21_league_3500000_steps.zip
+1789220449 [env] match ready after 1 tries
+1789220449 [env] match ready after 1 tries
+1789220449 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220449 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220449 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220449 [env] match ready after 1 tries
+1789220450 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220450 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220450 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220451 [ep] slot1 opps=1     win len= 381  dmg +2.00/-0.76  stones: picked=5 lost=3 opp=7(-4) forms=1/1  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=9(1) stonev=167 dmgF=0.74
+1789220451 [opp] leg21_league_2500000_steps.zip
+1789220452 [env] match ready after 1 tries
+1789220453 [ep] slot1 opps=1     win len= 476  dmg +2.00/-0.58  stones: picked=4 lost=2 opp=1(-2) forms=1/0  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=9(4) stonev=62 dmgF=1.37
+1789220453 [opp] leg11_league_500004_steps.zip
+1789220453 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220453 [ep] slot1 opps=1    loss len= 529  dmg +0.95/-1.00  stones: picked=5 lost=6 opp=4(-2) forms=0/1  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=8(1) stonev=154 dmgF=0.00
+1789220453 [opp] selfplay_31915497_steps.zip
+1789220454 [env] match ready after 1 tries
+1789220454 [env] match ready after 1 tries
+1789220455 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220455 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220456 [ep] slot1 opps=1     win len= 412  dmg +2.00/-0.34  stones: picked=5 lost=3 opp=2(-3) forms=1/0  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=9(2) stonev=109 dmgF=0.88
+1789220456 [opp] leg8_league_1000008_steps.zip
+1789220456 [ep] slot1 opps=1     win len= 454  dmg +2.00/-0.34  stones: picked=4 lost=2 opp=2(-2) forms=1/0  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=12(5) stonev=118 dmgF=0.08
+1789220456 [opp] prog_leg18.zip
+1789220456 [ep] slot1 opps=1     win len= 209  dmg +2.00/-0.05  stones: picked=2 lost=0 opp=2(-2) forms=1/0  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=8(1) stonev=59 dmgF=1.17
+1789220456 [opp] leg21_league_500000_steps.zip
+1789220458 [ep] slot1 opps=1     win len= 227  dmg +2.00/+0.00  stones: picked=2 lost=0 opp=1(-2) forms=1/0  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=5(1) stonev=69 dmgF=1.09
+1789220458 [opp] leg21_league_1500000_steps.zip
+1789220458 [env] match ready after 1 tries
+1789220458 [env] match ready after 1 tries
+1789220458 [ep] slot1 opps=1     win len= 256  dmg +2.00/-0.18  stones: picked=1 lost=1 opp=1(-1) forms=0/0  gem_rew=+3.00 shape=+0.00 appr=+0.00  chests=4(2) stonev=15 dmgF=0.00
+1789220458 [opp] prog_leg11.zip
+1789220459 [env] match ready after 1 tries
+1789220459 [ep] slot1 opps=1     win len= 391  dmg +2.00/-0.34  stones: picked=5 lost=3 opp=6(-3) forms=1/1  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=13(2) stonev=138 dmgF=1.00
+1789220459 [opp] prog_leg5.zip
+1789220459 [ep] slot1 opps=1     win len= 249  dmg +2.00/-0.20  stones: picked=3 lost=1 opp=2(-1) forms=1/0  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=6(2) stonev=91 dmgF=1.59
+1789220459 [opp] leg21_league_1000000_steps.zip
+1789220459 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220459 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220459 [env] match ready after 1 tries
+1789220460 [ep] slot1 opps=1     win len= 303  dmg +2.00/-0.09  stones: picked=3 lost=1 opp=1(-2) forms=1/0  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=8(0) stonev=80 dmgF=0.57
+1789220460 [opp] prog_leg14.zip
+1789220460 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220460 [env] match ready after 1 tries
+1789220460 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220460 [env] match ready after 1 tries
+1789220460 [env] match ready after 1 tries
+1789220461 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220461 [env] match ready after 1 tries
+1789220461 [ep] slot1 opps=1     win len= 371  dmg +2.00/-0.49  stones: picked=5 lost=3 opp=4(-5) forms=1/0  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=5(2) stonev=135 dmgF=0.05
+1789220461 [opp] prog_leg21.zip
+1789220461 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220461 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220462 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220462 [env] match ready after 1 tries
+1789220463 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220463 [ep] slot1 opps=1     win len= 317  dmg +2.00/-0.12  stones: picked=5 lost=1 opp=4(-3) forms=1/0  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=8(2) stonev=115 dmgF=1.06
+1789220463 [opp] leg21_league_3000000_steps.zip
+1789220465 [env] match ready after 1 tries
+1789220466 [ep] slot1 opps=1     win len= 209  dmg +2.00/-0.16  stones: picked=3 lost=1 opp=4(-1) forms=1/1  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=11(3) stonev=98 dmgF=1.74
+1789220466 [opp] prog_leg21.zip
+1789220466 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220466 [ep] slot1 opps=1     win len= 158  dmg +2.00/-0.07  stones: picked=2 lost=0 opp=1(-2) forms=1/0  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=6(2) stonev=109 dmgF=1.46
+1789220466 [opp] leg21_league_1500000_steps.zip
+1789220467 [ep] slot1 opps=1     win len= 337  dmg +2.00/-0.33  stones: picked=6 lost=4 opp=3(-4) forms=1/0  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=5(3) stonev=123 dmgF=0.37
+1789220467 [opp] leg21_league_500000_steps.zip
+1789220468 [env] match ready after 1 tries
+1789220468 [env] match ready after 1 tries
+1789220469 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220469 [env] match ready after 1 tries
+1789220469 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220469 [ep] slot1 opps=1     win len= 414  dmg +2.00/-0.57  stones: picked=4 lost=3 opp=5(-6) forms=0/0  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=8(2) stonev=141 dmgF=0.00
+1789220469 [opp] leg21_league_500000_steps.zip
+1789220469 [ep] slot1 opps=1     win len= 264  dmg +2.00/-0.07  stones: picked=2 lost=0 opp=4(-3) forms=1/0  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=10(3) stonev=104 dmgF=1.21
+1789220469 [opp] selfplay_2000016_steps.zip
+1789220470 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220470 [env] match ready after 1 tries
+1789220470 [ep] slot1 opps=1     win len= 259  dmg +2.00/-0.34  stones: picked=5 lost=3 opp=6(-6) forms=1/0  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=9(1) stonev=156 dmgF=0.59
+1789220470 [opp] prog_leg20.zip
+1789220471 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220472 [env] match ready after 1 tries
+1789220472 [env] match ready after 1 tries
+1789220473 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220473 [env] SHORT OPPONENT SET slot1: 1/3 after 1.0s  h=[1000.0, 1000.0, 0.0, 0.0] pinned=[True, True, False, False] active=[0]
+1789220473 [ep] slot1 opps=1     win len= 430  dmg +2.00/-0.13  stones: picked=2 lost=1 opp=1(-2) forms=0/0  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=8(2) stonev=51 dmgF=0.00
+1789220473 [opp] leg21_league_4000000_steps.zip
+1789220476 [env] match ready after 1 tries
+1789220476 [learner] update 4 steps=81920 265.9 steps/s (since end of update 1) train=0.1s lag(min/mean/max)=1/1.20/2 actors=[0, 1, 3, 4, 6, 7, 8, 9, 10, 11] ep_starts_in_batch=51 mean_reward=+0.0728
+1789220476 leg complete -> ./powerstone_v6_asyncprobe_a12e10.zip
+1789220476 /opt/homebrew/Cellar/python@3.11/3.11.16/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/resource_tracker.py:254: UserWarning: resource_tracker: There appear to be 3 leaked semaphore objects to clean up at shutdown
+1789220476   warnings.warn('resource_tracker: There appear to be %d '

@@ -56,6 +56,15 @@ class FlycastBridge:
         # is also the deterministic mode the RL loop wants.
         self.emu.set_variable("flycast_threaded_rendering", "disabled")
         self.emu.set_variable("reicast_threaded_rendering", "disabled")
+        # Sep 11 (M4): optional extra core variables for benches/experiments,
+        # e.g. PS2_CORE_VARS="reicast_frame_skipping=2;reicast_auto_skip_frame=more".
+        # Unset = no-op, so training defaults are untouched. Any value used
+        # for a training leg must first pass a 50-ep parity eval (chest-obs law).
+        for kv in filter(None, os.environ.get("PS2_CORE_VARS", "").split(";")):
+            k, _, v = kv.partition("=")
+            if k and v:
+                self.emu.set_variable(k.strip(), v.strip())
+                print(f"[bridge] core var override {k.strip()} = {v.strip()}")
         self.emu.init(core_path.encode(), game_path.encode(), instance_id)
         self.states_dir = states_dir
         self.ram = self.emu.get_ram()           # zero-copy SYSTEM_RAM view
@@ -118,6 +127,18 @@ class FlycastBridge:
         for s in self._synths:                   # a stuck button
             s.on_loadstate()
         self.run_frames(2)                       # let the core settle a frame
+        # Sep 13 2026 (4-port harness, opt-in): a savestate restores the maple
+        # device table, so a state saved with two controllers silently drops
+        # ports C/D. The FFA state is saved WITH four controllers (settled 120
+        # frames after a reconnect); this hook is the safety net for any other
+        # state: PS2_RECONNECT_PORTS=1 re-attaches joypads A-D after a load.
+        if os.environ.get("PS2_RECONNECT_PORTS") == "1" and hasattr(self.emu, "set_controller_port_device"):
+            for _p in range(4):
+                self.emu.set_controller_port_device(_p, 0)
+            self.run_frames(6)
+            for _p in range(4):
+                self.emu.set_controller_port_device(_p, 1)
+            self.run_frames(120)
 
     def savestate(self, slot):
         path = os.path.join(self.states_dir, f"slot{slot}.state")

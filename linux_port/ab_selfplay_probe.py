@@ -36,7 +36,8 @@ def main():
         "~/Library/Application Support/RetroArch/cores/flycast_libretro.dylib"))
     game = os.environ.get("PS2_GAME", os.path.join(ROOT, "../Power Stone 2 (USA).chd"))
 
-    pool_ab = os.path.join(ROOT, "pool_ab")
+    # per-instance scratch pool + bridge dir so shards can run concurrently
+    pool_ab = os.path.join(ROOT, "pool_ab" if args.instance == 5 else f"pool_ab_i{args.instance}")
     shutil.rmtree(pool_ab, ignore_errors=True)
     os.makedirs(pool_ab)
     shutil.copy(args.opp, pool_ab)
@@ -44,9 +45,11 @@ def main():
     env = SelfPlayEnv(core_path=core, game_path=game,
                       states_dir=os.path.join(ROOT, "states"),
                       instance_id=args.instance, state_slots=[1],
-                      bridge_dir=os.path.join(ROOT, "bridge_ab"),
+                      bridge_dir=os.path.join(ROOT, "bridge_ab" if args.instance == 5 else f"bridge_ab_i{args.instance}"),
                       pool_dir=pool_ab)
     model = PPO.load(args.model.removesuffix(".zip"), device="cpu")
+    from obs_stack import k_for, FrameStack            # Sep 22: stacked policies
+    _k = k_for(model); _fs = FrameStack(_k, 122) if _k > 1 else None
     print(f"[ab] model={os.path.basename(args.model)} "
           f"opp={os.path.basename(args.opp)} episodes={args.episodes} "
           f"seats=learner:P2 opponent:P1 (one-seat probe; see HANDOFF "
@@ -54,11 +57,12 @@ def main():
 
     wins = losses = 0
     for ep in range(args.episodes):
-        obs = env.reset()
+        obs = (_fs.reset(env.reset()) if _fs else env.reset())
         done = False
         while not done:
             action, _ = model.predict(obs, deterministic=False)
             obs, _r, done, info = env.step(action)
+            obs = _fs.push(obs) if _fs else obs
         res = info.get("result", "?")
         wins += res == "win"
         losses += res == "loss"

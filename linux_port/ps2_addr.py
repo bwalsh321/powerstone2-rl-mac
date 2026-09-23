@@ -15,6 +15,13 @@ RAM_DELTA = 0                  # probe_ram.py may discover an offset; set here
 
 # --- 1. Health (floats, full = 1000.0), 4-byte stride --------------------
 HEALTH = [0x8C475A04, 0x8C475A08, 0x8C475A0C, 0x8C475A10]   # P1..P4
+# Sep 20 2026 (RAM scan, instance 13): the table above is a DISPLAY MIRROR refreshed from
+# the player objects every frame — writing it does nothing once the fight is live. The
+# primary health float lives in each player object at PLAYER_MAT[k] - 0x330 (stride
+# 0x3938); writing THAT sticks and damage applies on top (verified on slot3, lv8).
+# Used by ffa_selfplay_env's start-health randomization. Mirror cells at HEALTH[k]+0x30
+# and +0x50 also track health (written too, harmlessly).
+HEALTH_OBJ = [0x8C5325F8, 0x8C535F30, 0x8C539868, 0x8C53D1A0]   # P1..P4 primary
 
 # --- 2. Player render-matrix roots (0x3938 stride, savestate-independent) -
 # lua v4 blocks: translation at +0x30/+0x34/+0x38 (x,y,z),

@@ -78,24 +78,32 @@ def main():
                     help="matched reference 'wins/n,picks,forms' from the "
                          "source machine's battery for THIS checkpoint and "
                          "slot; enables the Gate 4 pass/fail (exit 1 on fail)")
+    ap.add_argument("--instance", type=int, default=0,
+                    help="emulator instance id (system/dolphin-<id>, bridge_eval_<id>); "
+                         "distinct ids let shards run concurrently")
     ap.add_argument("--stochastic", action="store_true",
                     help="sample actions instead of argmax — matches how the "
                          "training-time Windows band was actually measured, "
                          "and breaks determinism-induced repeated episodes")
     args = ap.parse_args()
 
+    bridge = "./bridge_eval" if args.instance == 0 else f"./bridge_eval_{args.instance}"
     env = PowerStoneEnvLibretro(
         core_path=args.core, game_path=args.game, states_dir=args.states,
-        state_slots=[args.slot], bridge_dir=os.path.abspath("./bridge_eval"))
+        state_slots=[args.slot], instance_id=args.instance,
+        bridge_dir=os.path.abspath(bridge))
     model = PPO.load(args.model.removesuffix(".zip"), device="cpu")
+    from obs_stack import k_for, FrameStack            # Sep 22: stacked policies
+    _k = k_for(model); _fs = FrameStack(_k, 122) if _k > 1 else None
 
     eps = []
     for ep in range(args.episodes):
-        obs = env.reset()
+        obs = (_fs.reset(env.reset()) if _fs else env.reset())
         done, info = False, {}
         while not done:
             action, _ = model.predict(obs, deterministic=not args.stochastic)
             obs, r, done, info = env.step(action)
+            obs = _fs.push(obs) if _fs else obs
         eps.append(dict(env._ep, result=info.get("result", "timeout")))
 
     n = len(eps)

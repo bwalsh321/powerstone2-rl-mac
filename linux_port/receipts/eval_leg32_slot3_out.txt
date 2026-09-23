@@ -1,0 +1,7 @@
+
+================ EVAL SUMMARY ================
+model=powerstone_v6_leg32_league.zip  slot=3  n=500  mode=deterministic  distinct-outcome-tuples~464  shards=10x50
+win% :   2.8   (14W/486L/0T)   95% Wilson [2-5]
+picks:  4.03 /ep
+forms:  0.65 /ep
+shard files: eval_leg32_slot3_s0_out.txt eval_leg32_slot3_s1_out.txt eval_leg32_slot3_s2_out.txt eval_leg32_slot3_s3_out.txt eval_leg32_slot3_s4_out.txt eval_leg32_slot3_s5_out.txt eval_leg32_slot3_s6_out.txt eval_leg32_slot3_s7_out.txt eval_leg32_slot3_s8_out.txt eval_leg32_slot3_s9_out.txt

@@ -1,0 +1,18 @@
+# Scouting report — league leg 61 (Desert Area)
+
+**1. LOSS (ep01)**
+Intro closeup at 0:00; HUD appears 0:01. For the first ~7s (0:01–0:07) the bot sits alone behind a cactus near the map edge while Pride, Ryoma and Accel already cluster together at the top of the map — it does not close the distance until ~0:08, when it joins the group scrum near the chests. Stones spawn repeatedly (0:11, 0:24–0:25) and chests get grabbed/thrown as weapons (Accel does this often: 0:12–0:19, 0:53–0:58). Opponents fire off big specials — pink beam burst 0:44–0:47, orange fireball 1:24–1:28 — consistent with their 3 transforms; the bot's own single transform is not clearly identifiable in stills. From 1:36–1:44 the bot's (2P) health bar visibly drains from full to empty while it is boxed in against rocks/cacti with Pride (red) and Accel (green) both tagged adjacent. The last captured frame (1:47) shows the bot flung upward with hit-sparkles right next to Pride's "ENEMY" tag — Pride appears to land the finishing blow while the bot is cornered; the literal KO frame is just past the last sample.
+
+**2. WIN (ep13)**
+Sample starts mid-fight at 18:48 (already past any intro). Accel (4P, green) is KO'd first: bot is adjacent to him near a rocket/missile pickup 19:19–19:20, explosion at 19:21, green bar shows a permanent red X from then on — the bot appears to land this kill. Ryoma (3P, blue) stays healthy far longer, then is KO'd sometime between 20:11 and 20:24, during a chaotic missile/plane-swarm effect centered on him at 20:20–20:23; the X is permanent by 20:24 but the attacker isn't identifiable frame-to-frame. Pride (1P, red) is critically low and blinking for the *entire* second half of the clip (18:48 through the last frame at 20:51) yet is never finished off on camera — he's still alive, unmarked, at 20:51 with the bot nearby a large cactus, so his KO happens just after the sampled window. The bot shows two glow/halo effects that look like transforms: a golden aura at 19:48–19:56, and a swarm effect tagged "2P" at 20:20–20:23.
+
+**3. PATTERNS**
+- Loss ep: opens isolated at a map edge for ~7s while the other three already group up — not visible whether this is deliberate avoidance or just slow engagement.
+- Loss ep: gets pinned against terrain (rock/cactus) by two opponents simultaneously in its final seconds — a repeatable corner-trap, not one clean 1v1 loss.
+- Win ep: bot does not appear to prioritize the visibly weakest opponent (Pride, critical for ~90+ seconds) — it keeps engaging elsewhere while Pride limps along; not proof of neglect, but no visible pursuit of the easy kill either.
+- Both eps: chests are grabbed and thrown constantly by all fighters as improvised weapons; stone gems litter the field often unclaimed for several seconds.
+- Not visible at 1 fps: exact attacker credit for any single KO, or whether the bot ever stands still/spams jumps (motion between samples is lost).
+
+**4. SUGGESTION / TO VERIFY**
+Suggestion: when an opponent's health bar is already critical/blinking, bias the bot toward pressuring that target to close out the kill quickly, rather than continuing to split attention across all three (win ep left Pride alive-but-crippled for the whole back half; loss ep instead let the bot get double-teamed while distracted in a 3-way scrum).
+Verify: pull per-frame RAM health/attacker logs for both episodes to confirm (a) who actually landed each KO in the win episode (bot vs. Ryoma's own swarm mishap) and (b) whether the bot's final loss-episode hit came from Pride or Accel — the contact sheets show the chaos but can't attribute credit at 1 fps.

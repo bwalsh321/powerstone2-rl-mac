@@ -1,0 +1,7 @@
+
+================ EVAL SUMMARY ================
+model=powerstone_v6_leg27_league.zip  slot=3  n=500  mode=deterministic  distinct-outcome-tuples~474  shards=10x50
+win% :   1.2   (6W/494L/0T)   95% Wilson [1-3]
+picks:  2.73 /ep
+forms:  0.32 /ep
+shard files: eval_leg27_slot3_s0_out.txt eval_leg27_slot3_s1_out.txt eval_leg27_slot3_s2_out.txt eval_leg27_slot3_s3_out.txt eval_leg27_slot3_s4_out.txt eval_leg27_slot3_s5_out.txt eval_leg27_slot3_s6_out.txt eval_leg27_slot3_s7_out.txt eval_leg27_slot3_s8_out.txt eval_leg27_slot3_s9_out.txt

@@ -9,6 +9,7 @@ the face_norm fingerprint 0.895 vs 0.991 was the tell).
 Steps (comma-separated, run in order):
   p1:<btn>:<frames>   hold button on DC port A, then release
   p2:<btn>:<frames>   same on DC port B
+  p3/p4:<btn>:<frames> ports C/D (4-port harness: PYTHONPATH=../sdlarch-rl/p4:...)
   wait:<frames>       run frames with no input change
   shot:<name>         write <name>.png to --outdir + print RAM fingerprint
   save:<path>         gzip current emu state to <path>
@@ -72,8 +73,8 @@ def main():
 
     for step in args.steps.split(","):
         parts = step.strip().split(":")
-        if parts[0] in ("p1", "p2"):
-            player = 0 if parts[0] == "p1" else 1
+        if parts[0] in ("p1", "p2", "p3", "p4"):     # Sep 13: ports C/D (needs the 4-port harness, sdlarch-rl/p4)
+            player = int(parts[0][1]) - 1
             mask, frames = BTN[parts[1]], int(parts[2])
             br.press(mask, frames, player=player)
             br.press(0x000, 4, player=player)     # release + settle

@@ -58,6 +58,11 @@ HEIGHT_SCALE = 500.0      # real height observed -175..+495 in the RE take
 
 class PowerStoneEnvV6(gym.Env):
     AGENT_PLAYER = 2          # bot is the port-2 human side (verify per slot!)
+    # obs v2 (Sep 13 2026, PS2_OBS_V2=1): the last-action one-hot is a_t for
+    # every seat (v1 gave the learner a_{t-1} while the P1 view and the demo
+    # recorders used a_t). Default stays v1 so running v1 lineages are
+    # untouched; the FFA self-play lineage sets it. See HANDOFF "obs v2".
+    OBS_V2 = os.environ.get("PS2_OBS_V2", "0") == "1"
     LOAD_STATE_KEY = "f7"
     TURBO_KEY = "f9"
 
@@ -395,6 +400,7 @@ class PowerStoneEnvV6(gym.Env):
         # NOT RETUNED ON PURPOSE — see note above.
 
     MAX_STEPS = 6000
+    RELOAD_ON_RESET = os.environ.get("PS2_RELOAD_ON_RESET", "1") == "1"   # Sep 16, see reset()
 
     # ACTION LABELS CORRECTED Aug 8 2026 (GameFAQs CChan movelist — Blake
     # spotted that "block" doesn't exist): real PS2 mapping is A=jump,
@@ -834,10 +840,21 @@ class PowerStoneEnvV6(gym.Env):
         # Caught live: "SHORT OPPONENT SET slot0 ... h=[0.0, 563.3, 645.0, 0.0]
         # pinned=[True,True,True,True]" — everything pinned, two players simply
         # already KO'd. Costs ~10 junk episodes per launch if left alone.
-        if not getattr(self, "_did_first_load", False):
+        # Sep 16 2026 (Blake: "fix the timeout reload"): reload on EVERY reset.
+        # Before this, a loadstate was sent only on the first reset or when
+        # _match_ready was false (bot dead / all opponents dead). After a
+        # MAX_STEPS timeout everyone is alive, so the next episode silently
+        # CONTINUED the same match (residual health, stones, and freshly
+        # sampled opponent brains in the old bodies) — verified live on the
+        # mixed state (HANDOFF "TWO RESET FINDINGS"). Evals have 0 timeouts,
+        # so this changes the training distribution only. PS2_RELOAD_ON_RESET=0
+        # restores the old behaviour for reproduction runs.
+        first = not getattr(self, "_did_first_load", False)
+        if first or self.RELOAD_ON_RESET:
             self._did_first_load = True
             self._send(f"loadstate {slot}")
-            time.sleep(0.5)
+            if first:
+                time.sleep(0.5)
             s = self._read_state()
         while not self._match_ready(s, provisional=True):
             mode = tries % 3
@@ -951,6 +968,8 @@ class PowerStoneEnvV6(gym.Env):
         # (selfplay_env._obs_from_view) and the demo recorders use a
         # one-step-fresher one. Changing it is an observation-version
         # change, deferred to the end of the current campaign.
+        if self.OBS_V2:
+            self.last_action = action      # v2: the policy sees a_t (see class attr)
         obs = self._observe(s, self.prev)
         self.prev = s
         self.prev_health = health

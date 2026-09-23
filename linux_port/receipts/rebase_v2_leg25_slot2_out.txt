@@ -1,0 +1,7 @@
+
+================ EVAL SUMMARY ================
+model=powerstone_v6_leg25_league.zip  slot=2  n=250  mode=deterministic  distinct-outcome-tuples~215  shards=10x25
+win% :  88.0   (220W/30L/0T)   95% Wilson [83-91]
+picks:  9.71 /ep
+forms:  2.95 /ep
+shard files: rebase_v2_leg25_slot2_s0_out.txt rebase_v2_leg25_slot2_s1_out.txt rebase_v2_leg25_slot2_s2_out.txt rebase_v2_leg25_slot2_s3_out.txt rebase_v2_leg25_slot2_s4_out.txt rebase_v2_leg25_slot2_s5_out.txt rebase_v2_leg25_slot2_s6_out.txt rebase_v2_leg25_slot2_s7_out.txt rebase_v2_leg25_slot2_s8_out.txt rebase_v2_leg25_slot2_s9_out.txt

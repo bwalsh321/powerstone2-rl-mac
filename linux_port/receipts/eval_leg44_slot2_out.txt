@@ -1,0 +1,7 @@
+
+================ EVAL SUMMARY ================
+model=powerstone_v6_leg44_league.zip  slot=2  n=250  mode=deterministic  distinct-outcome-tuples~195  shards=10x25
+win% :  90.4   (226W/24L/0T)   95% Wilson [86-93]
+picks:  9.48 /ep
+forms:  2.82 /ep
+shard files: eval_leg44_slot2_s0_out.txt eval_leg44_slot2_s1_out.txt eval_leg44_slot2_s2_out.txt eval_leg44_slot2_s3_out.txt eval_leg44_slot2_s4_out.txt eval_leg44_slot2_s5_out.txt eval_leg44_slot2_s6_out.txt eval_leg44_slot2_s7_out.txt eval_leg44_slot2_s8_out.txt eval_leg44_slot2_s9_out.txt

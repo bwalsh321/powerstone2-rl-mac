@@ -1,0 +1,18 @@
+# Scouting report — league leg 65 (Desert Area)
+
+**1. LOSS (ep01, 0:00–1:52)**
+Opens isolated at a cactus near the left edge (intro 0:00, ACTION! 0:04); the bot closes fast this time, adjacent to the Pride/Ryoma/Accel cluster by ~0:07–08 (not leg64's ~7s reversion). From 0:08 it's a running 4-way scrum over chests/gems across open sand into a rockier area (0:12–1:00), with big white radiating-beam flashes on/near "2P" at 0:38–39 and ~0:47–48 (possible bot transforms, forms=2/3, not confirmable at 1fps) and an opponent robot-swarm transform ~1:06. Pride (1P) is the first KO, ~1:09, inside the scrum (attacker not identifiable at 1fps). "HELP" tags recur on/near the bot from 1:09 through 1:35 as the fight drags into a rocky/watery sub-area. The last12s strip pins the bot's own death: a "HELP" flash at strip-time 3.0–3.5s (~1:50) is followed by a red KO-flash across the screen at 3.75–4.25s (~1:51), with only Ryoma (3P, blue) visible adjacent — a likely but not certain double-team kill, not a visible gradual health drain.
+
+**2. WIN (ep02, 1:52–3:52, continuous from the loss episode)**
+Same edge-open (intro ~1:52, ACTION! 1:53) with a similarly fast close, group contact by ~2:00–04. Fight ranges the same chest-heavy sand/rock/water map (stones picked=12 vs lost=1, opp stones down 12, matching the lopsided win) with opponent robot-swarm/missile bursts (2:06, 2:39–43, 3:16–20) and bot's own white-flash transforms near "2P" at ~2:44–59 and ~3:36–43 (forms=4/2). Accel (4P) is KO'd first, ~3:17, in a robot-swarm explosion with "2P" tagged immediately adjacent the frame before — plausibly the bot's kill, the same signature as leg64's Accel KO. Pride (1P) goes down shortly after, ~3:19–24, in the same scrum with no single attacker identifiable. From ~3:24 it's bot vs. Ryoma (3P) alone for the rest of the footage — HELP tags and countdown-style number popups (8,7,6,5,3) recur but Ryoma is never shown dying; the video ends at 3:52 with both still fighting, so — like the loss's death — the finishing blow lands after the last sampled frame.
+
+**3. PATTERNS**
+- Round-opening isolation at a map edge continues (now 5 legs: 61–65), but close speed this leg is fast (~3–4s) in BOTH episodes, unlike leg64's slow ~7s reversion — not visible at 1fps whether this is a real behavior change or map-layout luck.
+- "HELP" tags recur heavily in both rounds (loss 1:09–1:35, win 2:16–3:47 range), including well into a round the bot is winning — same "ganged even while winning" pattern as leg64.
+- Neither KO that ends a round (loss's own death, win's Ryoma finish) is visible even in the 4fps last-12s strips — both still land strictly after the last sampled frame, same blind-KO issue as leg63/64.
+- Win ep02 spends ~28s (3:24–3:52+) in a bot-vs-low-Ryoma 1v1 without a finish while chests/gems keep spawning unused nearby (3:30, 3:33) — a possible "not finishing a low opponent," not certain from these frames alone.
+
+**4. SUGGESTION / TO VERIFY**
+Compared to leg64: edge-opening isolation persists but leg64's slow-close regression did not repeat here — closing speed reverted to fast, yet both rounds still end in an off-camera KO, so closing speed and KO-visibility look like independent issues.
+Suggestion: since the bot again appears to land Accel's KO adjacent to a robot-swarm blast (leg64 and leg65 both), check whether the bot is specifically baiting/finishing robot-transformed opponents or this is coincidental proximity.
+Verify: pull per-tick health + attacker logs for loss ep01 1:50–1:52 (double-team death, was Ryoma the killer) and win ep02 3:24–3:52+ (confirm the Ryoma KO and how long the 1v1 actually took to close).
