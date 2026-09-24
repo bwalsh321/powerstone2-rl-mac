@@ -176,7 +176,10 @@ bands already cover the vertical junk); ov7 rerun: Falcon 0x0C7FD6B8 187 reports
 items 0x0C6xxxxx, the old 'rocket' 0x0C7F9A10 21; reader-vs-independent-check gap 74/1,500 steps (timing).
 FINAL v3 PROJECTILE RULE: pool slot live (low byte == 1), class not in PROJ_EXCLUDE / PROJ_EXCLUDE_V3 / the
 chest, item, stone, 0x0C54D, 0x0C5A-0x0C5D bands, speed >= 700 u/s over the 3-frame sweep OR known class;
-one entry per position; 3 nearest reported.
+one entry per position; 3 nearest reported. LATER (ov6 projectile-only review, 11:50 pm): 38/60 YES tiles were loot
+gems flying out of chests / dropped or held items (0x0C6xxxxx) -> that band excluded too (thrown items in flight
+are lost with it: FOLLOW-UP to identify and whitelist them). Three real misses: a missile swarm mid-dive (fixed
+by dropping the horizontal gate), an X-pattern beam and a gatling bullet trail (not pool movers; follow-up).
 CUTOVER: `league_trainer.txt` = hold (written 11:05 pm) so leg 73's battery HOLDS leg 74's launch. Then
 `bash cutover_v3.sh 74` (guards: state "74 ./powerstone_v6_leg73_league.zip", hold, LAUNCH_HELD marker,
 no trainer) widens leg 73's zip -> `powerstone_v6_leg73_v3.zip`, re-proves equivalence, points

@@ -94,7 +94,11 @@ PROJ_EXCLUDE_V3 = {0x0}
 # sparkles 0x0C5A7xxx, blast cloud 0x0C5BAA80, 13-at-once 0x0C5B9A50 ...): they move fast but are
 # effects, not things in flight. Every real projectile seen so far lives elsewhere (Pride 0x0C7EExxx/
 # 0x0C7EFxxx, Falcon 0x0C7FD6B8, Ryoma 0x0C80D230, Accel 0x0C81xxxx, thrown items 0x0C6xxxxx).
-PROJ_EXCLUDE_BANDS_V3 = ((0x0C54D000, 0x0C54E000), (0x0C5A0000, 0x0C5D0000))
+# 0x0C600000-0x0C700000: loot gems flying out of opened chests, dropped/held weapons and items
+# (ov6 projectile review: 0x0C630A28/0x0C6311E8 held object, 0x0C6707D0/0x0C66F400 loot gems and
+# ground weapons, 0x0C6486D0 gem glow). Thrown items in flight probably live here too: accepted
+# loss for now (follow-up: identify the thrown-item classes and whitelist them).
+PROJ_EXCLUDE_BANDS_V3 = ((0x0C54D000, 0x0C54E000), (0x0C5A0000, 0x0C5D0000), (0x0C600000, 0x0C700000))
 
 # --- 6. Projectiles -------------------------------------------------------
 PROJ_CLASSES = {0x0C7F9A10: "rocket"}       # THE projectile (single record)
