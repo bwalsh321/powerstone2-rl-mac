@@ -217,7 +217,10 @@ class StateLineSynth:
         xs = r.pool_floats(A.POOL_POS[0])
         ys = r.pool_floats(A.POOL_POS[1])
         zs = r.pool_floats(A.POOL_POS[2])
-        live = act == 1
+        # Sep 23 2026 (obs v3): the active flag is the LOW BYTE; special-attack volley objects
+        # (Pride's 0x0C7EE3A0 etc.) carry a counter in the upper bytes (0x00090001...), so the
+        # whole-word test hid every rocket in a swarm. v2 keeps the old mask (eval contract).
+        live = ((act & 0xFF) == 1) if OBS_V3 else (act == 1)
         bx, bz = self._bot_xz()
 
         # ---- stones + chests -------------------------------------------

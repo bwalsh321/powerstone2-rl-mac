@@ -146,9 +146,20 @@ eval_parity 2 eps and ab_selfplay_probe 2 eps (v3 candidate vs v2 champion) both
 VISUAL VALIDATION (Blake's method: RAM values printed on the frame, Sonnet reviews footage vs data):
 `ram_scan.py capture --overlay-every 15` + `sheets` (RAM overlays, `scan/val1_slot3`, rubric
 `scan/validation_rubric.md`); `obs_overlay.py` (END TO END: the policy's own observation decoded on the
-frame, `scan/ov3`, rubric `scan/obs_validation_rubric.md`). RAM review sheets 1-4: 0 disagreements over
-~890 tile-checks (many "unclear": only 2P carries an on-screen tag). Reviews for RAM sheets 5-8 and the
-obs overlays (ov3 sheets 1-4, 5-9) were running at 11:15 pm; results go in `scan/*/review_*.md`.
+frame, `scan/ov3`, rubric `scan/obs_validation_rubric.md`). RAM reviews (val1_slot3, sheets 1-8): 0 real
+disagreements over ~1,600 tile-checks; the 3 flagged were Accel's form flag leading the visible model swap
+by ~2 s (RAM leads the picture: early warning, not error). Obs overlay reviews (ov3): sheets 1-4 = 0
+disagreements over 764 checks; sheets 5-9 = 12 flags, checked one by one: 9 were reviewer misreads
+(wrong line or wrong ENEMY; state 5 = airborne is confirmed by measured height: median 300 u up, 92%% of
+its frames > 100 u, and state 16 is a launched-high state, median 476 u, now mapped to AIR), and ONE was
+REAL: at step 900 the bot's own missile swarm was in flight with no projectile reported. Root cause found
+with an independent per-step pool check (`obs_overlay.py` column `pool_fast`): the reader's pool sweep
+tested the active flag as a whole u32 == 1, but volley objects carry a counter in the upper bytes
+(0x00090001...), so EVERY rocket in a swarm was invisible (in v2 too). Fixed under v3 only (eval
+contract): `live = (act & 0xFF) == 1`. After the fix (ov5, 1,500 steps) the reader reports Pride's
+volley classes 0x0C7EE3A0 / 0x0C7EC9C8, Falcon's missiles 0x0C7FD6B8, Ryoma's 0x0C80D230; projectile
+slots filled on 437/1,500 steps (was ~235). Remaining reader-vs-check differences are timing (3-frame vs
+6-frame speed windows). Final ov5 reviews (A: steps <= 864, B: > 864) were running at 11:55 pm.
 CUTOVER: `league_trainer.txt` = hold (written 11:05 pm) so leg 73's battery HOLDS leg 74's launch. Then
 `bash cutover_v3.sh 74` (guards: state "74 ./powerstone_v6_leg73_league.zip", hold, LAUNCH_HELD marker,
 no trainer) widens leg 73's zip -> `powerstone_v6_leg73_v3.zip`, re-proves equivalence, points

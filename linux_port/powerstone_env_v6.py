@@ -487,8 +487,9 @@ class PowerStoneEnvV6(gym.Env):
     _OPP0, _STN0, _PRJ0, _STG0, _ACT0 = 18, 57, 81, 93, 97
     _CHT0, _RSV0 = 107, 111
     _V3_0, _PRJ3 = 122, 154               # obs v3 block, third projectile slot
-    STATE_CLASS = {0: 0, 1: 0, 2: 0, 4: 1, 5: 1, 6: 1, 7: 2, 8: 2, 9: 2, 10: 2, 11: 2, 12: 2,
-                   32: 3, 34: 3, 25: 4, 26: 5}      # else -> 6 "other"
+    STATE_CLASS = {0: 0, 1: 0, 2: 0, 4: 1, 5: 1, 6: 1, 16: 1, 7: 2, 8: 2, 9: 2, 10: 2, 11: 2, 12: 2,
+                   32: 3, 34: 3, 25: 4, 26: 5}      # else -> 6 "other"; 16 = launched high (median
+                                                    # height 476 u, 90% of its frames > 100 u up)
     N_STONE_OBS = 6
     N_PROJ_OBS = 3 if os.environ.get("PS2_OBS_V3", "0") == "1" else 2
     PROJ_VEL_SCALE = 1200.0   # ~rocket speed, so a rocket reads ~1.0
