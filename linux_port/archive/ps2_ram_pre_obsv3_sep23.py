@@ -21,17 +21,10 @@ Also Aug 28: the line is composed LAZILY — tick() updates caches, the
 read (the env reads once per ~8.6 frames; composing every frame was +32%
 on the whole loop, measured by bench_fps.py).
 """
-import os
 import struct
 import numpy as np
 
 import ps2_addr as A
-
-# Sep 23 2026 obs v3: PS2_OBS_V3=1 appends per-player state byte + hit-stun timer and a third
-# projectile slot to the line (v8, 93 fields, cmdseq still LAST), and drops the "exactly one
-# instance of this class" gate on the projectile fallback so special-attack VOLLEYS (Pride's
-# rockets, Accel's bolts: 3-15 simultaneous objects) are reported instead of hidden.
-OBS_V3 = os.environ.get("PS2_OBS_V3", "0") == "1"
 
 
 class PS2Ram:
@@ -257,38 +250,24 @@ class StateLineSynth:
                 self._proj_hist.pop(int(k), None)
                 continue
             h = self._proj_hist.get(int(k))
-            sp, vx, vz, spxz = None, 0.0, 0.0, 0.0
+            sp, vx, vz = None, 0.0, 0.0
             if h and h[0] == c and self.frame > h[4]:
                 dt = (self.frame - h[4]) / 60.0
                 if 0 < dt < 1.0:
                     dx, dz, dy = x - h[1], z - h[3], y - h[2]
                     sp = (dx*dx + dz*dz + dy*dy) ** 0.5 / dt
                     vx, vz = dx / dt, dz / dt
-                    spxz = (dx*dx + dz*dz) ** 0.5 / dt
             self._proj_hist[int(k)] = (c, x, y, z, self.frame)
             known = c in A.PROJ_CLASSES
             banded = any(lo <= c < hi for lo, hi in A.PROJ_EXCLUDE_BANDS)
-            if OBS_V3 and (c in A.PROJ_EXCLUDE_V3 or any(lo <= c < hi for lo, hi in A.PROJ_EXCLUDE_BANDS_V3)):
-                continue
-            # v3: a projectile also has to MOVE ACROSS THE FLOOR (>= 300 u/s in xz): the
-            # vertical-only fast movers are persistent stage effects (e.g. 0x0C54Dxxx, 7 at once).
-            if known or (sp and sp >= A.PROJ_SPEED_MIN and (OBS_V3 or counts.get(c) == 1)
-                         and (not OBS_V3 or spxz >= 300.0)
+            if known or (sp and sp >= A.PROJ_SPEED_MIN and counts.get(c) == 1
                          and c not in A.PROJ_EXCLUDE and not banded):
-                if OBS_V3 or c not in seen:        # v3: every volley member is a projectile
+                if c not in seen:
                     seen.add(c)
-                    out.append((x, y, z, vx, vz, c))
+                    out.append((x, y, z, vx, vz))
         if bx is not None:
             out.sort(key=lambda p: (p[0]-bx)**2 + (p[2]-bz)**2)
-        if OBS_V3:                                  # v3: one entry per distinct position (a
-            dd = []                                 # multi-part visual is ONE object)
-            for p in out:
-                if all((p[0]-q[0])**2 + (p[2]-q[2])**2 > 25.0 for q in dd):
-                    dd.append(p)
-            out = dd
-        n_rep = A.PROJ_REPORT_V3 if OBS_V3 else A.PROJ_REPORT
-        self._proj_cache_cls = [p[5] for p in out[:n_rep]]
-        self._proj_cache = [p[:5] for p in out[:n_rep]]
+        self._proj_cache = out[:A.PROJ_REPORT]
 
     # ----------------------------------------------------------- compose
     def _compose(self, ack: int) -> str:
@@ -334,7 +313,7 @@ class StateLineSynth:
                 mparts.append("-1.00"); iparts.append("0")
 
         pparts = []
-        for k in range(A.PROJ_REPORT_V3 if OBS_V3 else A.PROJ_REPORT):
+        for k in range(A.PROJ_REPORT):
             if k < len(self._proj_cache):
                 x, y, z, vx, vz = self._proj_cache[k]
                 pparts.append(f"{x:.2f},{y:.2f},{z:.2f},{vx:.2f},{vz:.2f}")
@@ -343,19 +322,9 @@ class StateLineSynth:
 
         g1 = r.u8(A.G1_LEGACY[0]); g2 = r.u8(A.G2_LEGACY[0])
 
-        v3 = ""
-        if OBS_V3:                                  # v8: + state x4, stun x4, proj3 (cmdseq LAST)
-            st, sn = [], []
-            for b in A.PLAYER_MAT:
-                try:
-                    st.append(str(r.u8(b + A.PSTATE_OFF))); sn.append(str(r.u8(b + A.PSTUN_OFF)))
-                except ValueError:
-                    st.append("0"); sn.append("0")
-            v3 = f"{','.join(st)},{','.join(sn)},{pparts[2]},"
-
         return (f"{self.frame},{h[0]:.2f},{h[1]:.2f},{h[2]:.2f},{h[3]:.2f},"
                 f"{blocks[0]},{blocks[1]},{blocks[2]},{blocks[3]},"
                 f"{g1},{g2},{self._stone_cache},"
                 f"{','.join(gparts)},{','.join(fparts)},"
                 f"{','.join(mparts)},{','.join(iparts)},"
-                f"{pparts[0]},{pparts[1]},{self._chest_frag},{v3}{ack}\n")
+                f"{pparts[0]},{pparts[1]},{self._chest_frag},{ack}\n")

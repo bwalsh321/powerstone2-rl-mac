@@ -79,19 +79,6 @@ CHEST_FALL_VT = 0x0C0C9810   # chest descending from the sky — count only
 OBJ_KNOWN_UNREPORTED = {0x0C0CACAC, 0x0C0F18D4, 0x0C0F1688}  # absorb arc +
                                                              # static spawners
 
-# --- 5b. Obs v3 (Sep 23 2026, ram_scan.py "better eyes") ------------------
-# Per player object (PLAYER_MAT[k] + off): state byte (0 idle, 1 walk, 4/5 jump/air,
-# 7 attack, 25 transforming, 26 special in progress, 32 hit, 34 hit airborne, ...)
-# and the hit-stun timer (set to ~40 on a hit, -1/frame). Both verified on all four
-# seats across six characters (HANDOFF "BETTER EYES").
-PSTATE_OFF = 0x3285
-PSTUN_OFF = 0x3392
-PROJ_REPORT_V3 = 3      # third projectile slot on the v8 line
-# v3 projectile junk seen in the Sep 23 overlays: a null class pointer, and the 0x0C54Dxxx band
-# (7 objects at once that ride along with running fighters: stage/dust effect, never a threat).
-PROJ_EXCLUDE_V3 = {0x0}
-PROJ_EXCLUDE_BANDS_V3 = ((0x0C54D000, 0x0C54E000),)
-
 # --- 6. Projectiles -------------------------------------------------------
 PROJ_CLASSES = {0x0C7F9A10: "rocket"}       # THE projectile (single record)
 # Full exclusion list from powerstone.lua (kit #3) — the old 3-entry list

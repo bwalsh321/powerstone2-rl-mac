@@ -43,6 +43,12 @@ TRAINER_MODE="$(awk -v n="$N" '$1==n {m=$2} END {print m}' leg_modes.txt 2>/dev/
 if [ "$TRAINER_MODE" = "ffa" ] || [ "$TRAINER_MODE" = "mixed" ]; then
   export PYTHONPATH=../sdlarch-rl/p4:$PYTHONPATH PS2_OBS_V2=1
 fi
+# Sep 23 2026 (obs v3): a leg trained with PS2_OBS_V3=1 (5th column of its leg_modes.txt row) is
+# evaluated under the same observation contract; v2 opponents/champions read obs[:122] themselves.
+if awk -v n="$N" '$1==n' leg_modes.txt 2>/dev/null | grep -q "PS2_OBS_V3=1"; then
+  export PS2_OBS_V3=1
+  echo "battery leg $N: obs v3 eval contract (PS2_OBS_V3=1)"
+fi
 GAME="../Power Stone 2 (USA).chd"
 M=./powerstone_v6_leg${N}_league.zip
 LEG1=./powerstone_v6_ppo.zip

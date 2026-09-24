@@ -80,9 +80,7 @@ def main():
     bridge_dir = os.path.abspath(f"./bridge_play_{args.instance}")
     model = PPO.load(args.model.removesuffix(".zip"), device="cpu")
     from obs_stack import k_for, FrameStack            # Sep 22: stacked policies
-    from obs_stack import kd_for
-    _k, _d = kd_for(model); _fs = FrameStack(_k, _d) if _k > 1 else None   # Sep 23: v3 models are 160/frame
-    _sl = (lambda o: o[:_d])                                   # a v2 model under an obs v3 env reads obs[:122]
+    _k = k_for(model); _fs = FrameStack(_k, 122) if _k > 1 else None
     if args.mode == "1v1":
         env = PowerStoneEnvLibretro(core_path=args.core, game_path=args.game, states_dir="./states",
                                     state_slots=[1], instance_id=args.instance, bridge_dir=bridge_dir)
@@ -222,12 +220,12 @@ def main():
     bot_w = bot_l = ep = 0
     try:
         while args.episodes == 0 or ep < args.episodes:
-            obs = _sl(env.reset()); obs = _fs.reset(obs) if _fs else obs
+            obs = (_fs.reset(env.reset()) if _fs else env.reset())
             done, info = False, {}
             while not done:
                 action, _ = model.predict(obs, deterministic=not args.stochastic)
                 obs, r, done, info = env.step(action)
-                obs = _sl(obs); obs = _fs.push(obs) if _fs else obs
+                obs = _fs.push(obs) if _fs else obs
             ep += 1
             res = info.get("result", "timeout")
             bot_w += res == "win"

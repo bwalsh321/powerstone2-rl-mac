@@ -216,10 +216,7 @@ class FFASelfPlayEnv(PowerStoneEnvLibretro):
             if v.model is None:
                 continue
             obs_v = self._obs_from_view(v)
-            from obs_stack import kd_for
-            kv, dv = kd_for(v.model)
-            if dv < obs_v.shape[0]:
-                obs_v = obs_v[:dv]              # Sep 23: v2 pool policy under an obs v3 env
+            kv = v.model.observation_space.shape[0] // obs_v.shape[0]
             if kv > 1:                                   # stacked pool policy: keep its own history
                 if v.stack is None:
                     from obs_stack import FrameStack

@@ -114,10 +114,7 @@ class SelfPlayEnv(PowerStoneEnvLibretro):
         #    learner's frames — mirrors two humans pressing simultaneously)
         if self._opp_model is not None:
             opp_obs = self._obs_from_view(self._opp_synth, agent_player=1)
-            from obs_stack import kd_for
-            kv, dv = kd_for(self._opp_model)
-            if dv < opp_obs.shape[0]:
-                opp_obs = opp_obs[:dv]                    # Sep 23: v2 opponent under an obs v3 env
+            kv = self._opp_model.observation_space.shape[0] // opp_obs.shape[0]
             if kv > 1:                                   # Sep 22: stacked opponent model
                 st = getattr(self, "_opp_stack", None)
                 if st is None or st.k != kv or getattr(self, "_opp_stack_model", None) is not self._opp_model:

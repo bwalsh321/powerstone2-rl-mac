@@ -65,9 +65,7 @@ def main():
         bridge_dir=os.path.abspath(f"./bridge_watch_{args.instance}"))
     model = PPO.load(args.model.removesuffix(".zip"), device="cpu")
     from obs_stack import k_for, FrameStack            # Sep 22: stacked policies
-    from obs_stack import kd_for
-    _k, _d = kd_for(model); _fs = FrameStack(_k, _d) if _k > 1 else None   # Sep 23: v3 models are 160/frame
-    _sl = (lambda o: o[:_d])                                   # a v2 model under an obs v3 env reads obs[:122]
+    _k = k_for(model); _fs = FrameStack(_k, 122) if _k > 1 else None
 
     br = env._lr_bridge
     emu = br.emu
@@ -207,13 +205,13 @@ def main():
     wins = losses = ep = 0
     try:
         while args.episodes == 0 or ep < args.episodes:
-            obs = _sl(env.reset()); obs = _fs.reset(obs) if _fs else obs
+            obs = (_fs.reset(env.reset()) if _fs else env.reset())
             done, info = False, {}
             while not done:
                 action, _ = model.predict(
                     obs, deterministic=not args.stochastic)
                 obs, r, done, info = env.step(action)
-                obs = _sl(obs); obs = _fs.push(obs) if _fs else obs
+                obs = _fs.push(obs) if _fs else obs
             if args.record and args.tail_frames > 0:
                 br.run_frames(args.tail_frames)       # let the KO animation / X render into the clip
             ep += 1

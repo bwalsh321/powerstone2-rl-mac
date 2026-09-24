@@ -68,12 +68,6 @@ class PowerStoneEnvV6(gym.Env):
     # training episodes since leg 58) fed zeros where the slot-2/3 evals feed real values.
     # Now every slot with a SLOT_META entry writes its context. PS2_OBS_CTX_FIX=0 reverts.
     OBS_CTX_FIX = os.environ.get("PS2_OBS_CTX_FIX", "1") == "1"
-    # obs v3 (Sep 23 2026, "better eyes"; PS2_OBS_V3=1): 38 dims appended at [122..159]:
-    # self stun/40 + 7-way state one-hot (idle-walk, air, attack, hit, transforming, special,
-    # other) at [122..129], the same 8 for each opponent NEAREST-FIRST (same order as the
-    # opponent block) at [130..153], and a THIRD projectile slot at [154..159]. The first 122
-    # dims are byte-identical to v2, so a v2 policy reads obs[:122]. Default off.
-    OBS_V3 = os.environ.get("PS2_OBS_V3", "0") == "1"
     LOAD_STATE_KEY = "f7"
     TURBO_KEY = "f9"
 
@@ -483,14 +477,11 @@ class PowerStoneEnvV6(gym.Env):
     #            2 stage phase, 5 sky hazard, 4 spare. Reserved on purpose:
     #            known-wanted and un-pinned; paying the dims now is far
     #            cheaper than a bus change (which orphans the model).
-    OBS_DIM = 160 if os.environ.get("PS2_OBS_V3", "0") == "1" else 122
+    OBS_DIM = 122
     _OPP0, _STN0, _PRJ0, _STG0, _ACT0 = 18, 57, 81, 93, 97
     _CHT0, _RSV0 = 107, 111
-    _V3_0, _PRJ3 = 122, 154               # obs v3 block, third projectile slot
-    STATE_CLASS = {0: 0, 1: 0, 2: 0, 4: 1, 5: 1, 6: 1, 7: 2, 8: 2, 9: 2, 10: 2, 11: 2, 12: 2,
-                   32: 3, 34: 3, 25: 4, 26: 5}      # else -> 6 "other"
     N_STONE_OBS = 6
-    N_PROJ_OBS = 3 if os.environ.get("PS2_OBS_V3", "0") == "1" else 2
+    N_PROJ_OBS = 2
     PROJ_VEL_SCALE = 1200.0   # ~rocket speed, so a rocket reads ~1.0
 
     # ---- item identity -------------------------------------------------
@@ -668,7 +659,7 @@ class PowerStoneEnvV6(gym.Env):
             v = [float(p) for p in parts]
             players = [{"pos": np.zeros(3), "face": np.zeros(2)}
                        for _ in range(4)]
-            if len(v) in (72, 80, 93):             # v6: v5 + stone y, meters,
+            if len(v) in (72, 80):                 # v6: v5 + stone y, meters,
                 #                                    item ptrs, projectiles
                 # v7 (80 fields, Aug 10): v6 + chest block at [71..78] =
                 # chestN, fallN, [cx,cz,cy]x2 nearest-first, cmdseq LAST.
@@ -711,7 +702,7 @@ class PowerStoneEnvV6(gym.Env):
                        "stones": stones, "stones_y": stones_y, "proj": proj,
                        "v4": True, "v5": True, "v6": True,
                        "ack": int(v[71])}
-                if len(v) in (80, 93):
+                if len(v) == 80:
                     chests = []
                     for k in range(2):
                         o = 73 + 3 * k
@@ -723,14 +714,6 @@ class PowerStoneEnvV6(gym.Env):
                     out["chests"] = chests
                     out["v7"] = True
                     out["ack"] = int(v[79])
-                if len(v) == 93:                   # v8 (Sep 23, obs v3): state x4, stun x4,
-                    out["pstate"] = [int(v[79 + k]) for k in range(4)]   # proj3, cmdseq LAST
-                    out["pstun"] = [int(v[83 + k]) for k in range(4)]
-                    px, py, pz, pvx, pvz = v[87], v[88], v[89], v[90], v[91]
-                    if px != 0.0 or pz != 0.0:
-                        proj.append((px, py, pz, pvx, pvz))
-                    out["v8"] = True
-                    out["ack"] = int(v[92])
                 return out
             if len(v) == 44:                       # v5: v4 + real counters
                 h = [max(0.0, x) for x in v[1:5]]
@@ -1347,7 +1330,7 @@ class PowerStoneEnvV6(gym.Env):
             pr = sorted((s.get("proj") or []),
                         key=lambda q: (q[0] - mp[0]) ** 2 + (q[2] - mp[2]) ** 2)
             for k, (px, py, pz, pvx, pvz) in enumerate(pr[:self.N_PROJ_OBS]):
-                b = self._PRJ0 + 6 * k if k < 2 else self._PRJ3
+                b = self._PRJ0 + 6 * k
                 obs[b] = 1.0
                 obs[b + 1] = (px - mp[0]) / POS_SCALE
                 obs[b + 2] = (pz - mp[2]) / POS_SCALE
@@ -1380,17 +1363,6 @@ class PowerStoneEnvV6(gym.Env):
             obs[self._STG0 + stage_dim] = 1.0
             obs[self.DIFF_DIM] = level / 8.0   # COM difficulty (curriculum)
         obs[self._ACT0 + self.last_action] = 1.0
-        # ---- obs v3 [122..153]: self + 3 nearest opponents' stun and state class
-        if self.OBS_V3:
-            pst, psn = s.get("pstate"), s.get("pstun")
-            if pst is not None:
-                b = self._V3_0
-                obs[b] = min(1.0, psn[i] / 40.0)
-                obs[b + 1 + self.STATE_CLASS.get(pst[i], 6)] = 1.0
-                for k, (d, j, p) in enumerate(self._opps(s)[:self.N_OPP]):
-                    b = self._V3_0 + 8 * (k + 1)
-                    obs[b] = min(1.0, psn[j] / 40.0)
-                    obs[b + 1 + self.STATE_CLASS.get(pst[j], 6)] = 1.0
         return np.clip(obs, -5.0, 5.0)
 
     def _meter(self, p):

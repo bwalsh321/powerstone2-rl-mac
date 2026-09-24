@@ -32,6 +32,11 @@ import time
 
 import numpy as np
 
+STATE_NAMES = {0: "idle", 1: "walk", 2: "t2", 4: "jump0", 5: "air", 6: "t6", 7: "attack", 8: "s8", 9: "s9",
+               10: "s10", 11: "s11", 12: "s12", 14: "s14", 15: "s15", 16: "s16", 25: "XFORM", 26: "SPECIAL",
+               30: "s30", 32: "HIT", 33: "s33", 34: "HITair", 35: "s35"}
+PCOL = ["1P-red", "2P-yel", "3P-blu", "4P-grn"]
+
 OBJ_LEN = 0x3938
 OBJ_PRE = 0x400                 # window starts this far BEFORE PLAYER_MAT[k]
 DC_B, DC_A = 0x2, 0x4
@@ -65,6 +70,28 @@ def capture(a):
     def shot(name):
         emu.get_frame(fbuf, W, H)
         Image.fromarray(fbuf[::-1]).save(os.path.join(a.out, name))
+
+    from PIL import ImageDraw
+    ov_dir = os.path.join(a.out, "overlay")
+    if a.overlay_every:
+        os.makedirs(ov_dir, exist_ok=True)
+    csv = open(os.path.join(a.out, "frames.csv"), "w")
+    csv.write("frame,mask," + ",".join(f"p{k+1}_hp,p{k+1}_state,p{k+1}_stun,p{k+1}_form,p{k+1}_x,p{k+1}_z" for k in range(4))
+              + ",nfast,fast1_cls,fast1_spd,fast1_dist,fast2_cls,fast2_spd,fast2_dist,fast3_cls,fast3_spd,fast3_dist\n")
+    prev_pool = None                 # (act, cls, pos) of the previous frame for speeds
+
+    def overlay(f, hh, rows, fast):
+        emu.get_frame(fbuf, W, H)
+        im = Image.fromarray(fbuf[::-1]); dr = ImageDraw.Draw(im)
+        dr.rectangle((0, 0, W, 78), fill=(0, 0, 0))
+        dr.text((4, 2), f"f{f:05d}  t={f/60:6.2f}s  P2mask={int(mask[f]):#05x}", fill=(255, 255, 255))
+        for k in range(4):
+            st_, stun_, form_ = rows[k]
+            dr.text((4, 14 + 12 * k), f"{PCOL[k]} hp={hh[k]:4.0f} state={st_:2d}:{STATE_NAMES.get(st_, '?'):7s} "
+                    f"stun={stun_:2d} form={form_}", fill=(255, 255, 0) if k == 1 else (220, 220, 220))
+        dr.text((4, 64), "fast objs: " + ("  ".join(f"{c:#x}@{d:.0f}u {sp:.0f}u/s" for c, sp, d in fast) if fast else "none"),
+                fill=(120, 255, 255))
+        im.save(os.path.join(ov_dir, f"f{f:05d}.png"))
 
     def pool_read():
         act = ram[pool_idx + A.POOL_ACTIVE]
@@ -169,6 +196,29 @@ def capture(a):
                         pool_cls_seen[c] = n + 1
                         shot(f"pool_{c:08x}_s{j:03d}_f{f:05d}.png")
                         events.append((f, "pool", int(j), f"{c:#010x}"))
+        rows = [(int(snaps[f, k, 0x3685]), int(snaps[f, k, 0x3792]), int(snaps[f, k, 0x368a] & 1)) for k in range(4)]
+        fast = []
+        if a.pool:
+            act, cls = pact[f], pcls[f]
+            if prev_pool is not None:
+                pa_, pc_, pp_ = prev_pool
+                same = (act == 1) & (pa_ == 1) & (cls == pc_)
+                dp = ppos[f] - pp_
+                spd = np.sqrt((dp ** 2).sum(-1)) * 60.0
+                spd[~same] = 0.0
+                cand = [j for j in np.flatnonzero(spd >= 700.0)
+                        if int(cls[j]) not in A.PROJ_EXCLUDE
+                        and not any(lo <= int(cls[j]) < hi for lo, hi in A.PROJ_EXCLUDE_BANDS)]
+                bx, bz = pos[f, 1, 0], pos[f, 1, 2]
+                fast = sorted(((int(cls[j]), float(spd[j]),
+                                float(np.hypot(ppos[f, j, 0] - bx, ppos[f, j, 2] - bz))) for j in cand),
+                              key=lambda t: t[2])[:3]
+            prev_pool = (act.copy(), cls.copy(), ppos[f].copy())
+        csv.write(f"{f},{int(m):#05x}," + ",".join(f"{hh[k]:.0f},{rows[k][0]},{rows[k][1]},{rows[k][2]},{pos[f,k,0]:.0f},{pos[f,k,2]:.0f}" for k in range(4))
+                  + f",{len(fast)}," + ",".join(f"{c:#x},{sp:.0f},{d:.0f}" for c, sp, d in fast)
+                  + ",,," * (3 - len(fast)) + "\n")
+        if a.overlay_every and f % a.overlay_every == 0:
+            overlay(f, hh, rows, fast)
         for k in range(4):
             if hh[k] < prev_h[k] - 0.5:
                 events.append((f, "hit", k, f"{prev_h[k]:.0f}->{hh[k]:.0f}"))
@@ -181,6 +231,7 @@ def capture(a):
             print(f"[scan] frame {f}/{F} health={hh.astype(int).tolist()} events={len(events)} "
                   f"{time.time()-t0:.0f}s", flush=True)
     set_mask(0, 1)
+    csv.close()
     np.savez_compressed(os.path.join(a.out, "snaps.npz"), snaps=snaps, health=hlth, pos=pos, mask=mask,
                         pool_act=pact, pool_cls=pcls, pool_pos=ppos)
     with open(os.path.join(a.out, "events.json"), "w") as fh:
@@ -358,12 +409,37 @@ def main():
     c.add_argument("--dict-shots", type=int, default=2)
     c.add_argument("--pool", action="store_true", help="track the 160-slot entity pool; PNG per new class pointer")
     c.add_argument("--pool-shots", type=int, default=2)
+    c.add_argument("--overlay-every", type=int, default=0, help="save an annotated frame every N frames (15 = 4 fps)")
+    s_ = sub.add_parser("sheets", help="tile overlay frames into 6x8 contact sheets")
+    s_.add_argument("--out", required=True); s_.add_argument("--cols", type=int, default=6); s_.add_argument("--rows", type=int, default=8)
     z = sub.add_parser("analyze")
     z.add_argument("--out", required=True); z.add_argument("--top", type=int, default=30)
     z.add_argument("--max-rate", type=float, default=0.25, help="drop offsets changing more often than this share of frames")
     z.add_argument("--min-events", type=int, default=3)
     a = ap.parse_args()
-    capture(a) if a.cmd == "capture" else analyze(a)
+    if a.cmd == "capture":
+        capture(a)
+    elif a.cmd == "sheets":
+        sheets(a)
+    else:
+        analyze(a)
+
+
+def sheets(a):
+    import glob
+    from PIL import Image
+    files = sorted(glob.glob(os.path.join(a.out, "overlay", "f*.png")))
+    per = a.cols * a.rows
+    tw, th = 480, 360
+    n = 0
+    for i in range(0, len(files), per):
+        chunk = files[i:i + per]
+        im = Image.new("RGB", (a.cols * tw, a.rows * th), (0, 0, 0))
+        for j, f in enumerate(chunk):
+            im.paste(Image.open(f).resize((tw, th)), ((j % a.cols) * tw, (j // a.cols) * th))
+        n += 1
+        im.save(os.path.join(a.out, f"sheet{n:03d}.png"))
+    print(f"{len(files)} overlay frames -> {n} sheets ({a.cols}x{a.rows}, {tw}x{th} tiles) in {a.out}")
 
 
 if __name__ == "__main__":

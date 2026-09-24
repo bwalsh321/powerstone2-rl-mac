@@ -223,9 +223,8 @@ def main():
     del probe
     # Sep 22 (frame stacking): PS2_OBS_STACK=K must match the warm zip's input (122*K).
     OBS_STACK = int(os.environ.get("PS2_OBS_STACK", "1"))
-    _D = 160 if os.environ.get("PS2_OBS_V3", "0") == "1" else 122
-    assert obs_space.shape[0] == _D * OBS_STACK, (
-        f"warm zip expects {obs_space.shape[0]} inputs but PS2_OBS_STACK={OBS_STACK} x obs dim {_D} gives {_D * OBS_STACK}; "
+    assert obs_space.shape[0] == 122 * OBS_STACK, (
+        f"warm zip expects {obs_space.shape[0]} inputs but PS2_OBS_STACK={OBS_STACK} gives {122 * OBS_STACK}; "
         f"run surgery_stack.py or fix league_env.txt")
     if OBS_STACK > 1:
         print(f"[config] obs_stack={OBS_STACK} (learner sees the last {OBS_STACK} frames, oldest first)", flush=True)
@@ -270,7 +269,6 @@ def main():
           f"instance_base={INSTANCE_BASE} pull_every={PULL_EVERY} env={ENV_KIND} "
           f"state_slots={STATE_SLOTS} obs_v2={os.environ.get('PS2_OBS_V2', '0')} "
           f"obs_ctx_fix={os.environ.get('PS2_OBS_CTX_FIX', '1')} zs_time={os.environ.get('PS2_ZS_TIME', '1')} "
-          f"obs_v3={os.environ.get('PS2_OBS_V3', '0')} obs_dim={_D} "
           f"pool_sampling={os.environ.get('PS2_POOL_SAMPLING', 'uniform')} "
           f"states={STATES} seats={os.environ.get('PS2_FFA_SEATS', '0,2,3')} mode=async", flush=True)
 

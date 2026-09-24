@@ -10,8 +10,7 @@ ap = argparse.ArgumentParser(); ap.add_argument("src"); ap.add_argument("dst")
 ap.add_argument("--frames", type=int, default=2000); ap.add_argument("--instance", type=int, default=13)
 a = ap.parse_args()
 A = PPO.load(a.src.removesuffix(".zip"), device="cpu"); B = PPO.load(a.dst.removesuffix(".zip"), device="cpu")
-from obs_stack import kd_for
-fa, fb = FrameStack(*kd_for(A)), FrameStack(*kd_for(B))
+fa, fb = FrameStack(k_for(A), 122), FrameStack(k_for(B), 122)
 core = os.path.expanduser("~/Library/Application Support/RetroArch/cores/flycast_libretro.dylib")
 env = PowerStoneEnvLibretro(core_path=core, game_path="../Power Stone 2 (USA).chd", states_dir="./states",
                             state_slots=[3], instance_id=a.instance, bridge_dir=os.path.abspath(f"./bridge_probe_{a.instance}"))

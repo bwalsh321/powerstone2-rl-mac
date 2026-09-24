@@ -21,7 +21,7 @@ lines are misreads (rubric now carries a data dictionary). The battery now enfor
 thresholds itself (`hold_gate.py`, marker `claude_bridge/hold_leg<N>.txt`), verifies the pool copy
 before advancing state, and takes a per-leg lock dir `claude_bridge/battery_leg<N>.lock`.
 
-**Live:** leg 73 training (launched 10:03 pm EDT Sep 23, done ~2:30 am; wake `ps2-leg73-end-wake` 3:18 am; leg 72 = 21.0 / 96.4 / 81-19, leg 71 = 16.6 / 93.6 / 75-25),
+**Live:** leg 73 training (launched 10:03 pm EDT Sep 23, done ~2:30 am; wake `ps2-leg73-end-wake` 3:18 am; leg 72 = 21.0 / 96.4 / 81-19). `league_trainer.txt` = HOLD on purpose: leg 74 is the obs v3 cutover via `cutover_v3.sh 74` (see OBS V3 BUILT + CUTOVER PLAN),
 state `71 ./powerstone_v6_leg70_league.zip`, `league_trainer.txt` = mixed, battery chains leg 72.
 Leg 70's scouting run (tmux scout70) was still encoding at compaction: when `claude_bridge/
 scout_leg70_done.txt` appears, spawn the Sonnet reviewer on `videos/review_leg70/` (rubric
@@ -120,6 +120,43 @@ ground items: 2 nearest with pos + category (item dictionary from the pool class
 ~40 new dims -> input 162 (x7 stack = 1,134); warm start by surgery with zero columns on the new inputs,
 agreement test, two-leg read vs the 16-24 band. Chests/weapons: visibility only, NO item reward (Blake's
 economy point; the bot learned cactus-throwing blind, wins will teach value).
+
+## OBS V3 BUILT + CUTOVER PLAN (Sep 23 2026 10 pm - 11:15 pm EDT; Blake: "Go. Do multiple smoke tests")
+
+Flag `PS2_OBS_V3=1` (default off; everything v2 untouched when unset). Backups `archive/*_pre_obsv3_sep23.py`.
+- Line v8 (93 fields, cmdseq LAST): v7 + state x4 + stun x4 + a THIRD projectile slot. `ps2_addr.PSTATE_OFF`
+  (PLAYER_MAT+0x3285) / `PSTUN_OFF` (+0x3392); `ps2_ram.py` composes it and, under v3, reports projectile
+  VOLLEYS (no uniqueness gate), requires >= 300 u/s horizontal motion, one entry per position, and excludes
+  a null class and the 0x0C54Dxxx stage-effect band (both seen in overlays). `_proj_cache_cls` keeps the ids.
+- Obs 160 = the v2 122 (byte-identical) + [122..129] self stun/40 + 7-way state class (idle-walk, air, attack,
+  hit, transforming, special, other) + [130..153] the same for the 3 opponents NEAREST-FIRST (same order
+  as the opponent block) + [154..159] projectile slot 3. `powerstone_env_v6.OBS_V3/OBS_DIM/STATE_CLASS`.
+- Stack helpers: `obs_stack.kd_for(model)` -> (K, 122|160); eval_parity / ab_selfplay_probe / watch_play /
+  play_vs / agreement_stack use it and slice obs[:d] so a v2 policy runs under a v3 env; FFA SeatView and
+  SelfPlayEnv opponent views slice the same way (v2 pool policies keep working). Trainer assert uses obs_dim.
+- `surgery_widen.py` (122 -> 160 per lag slot, new columns ZERO, Adam not carried, same as the stack
+  surgeries); `equivalence_widen.py` (live frames; parent on obs[:122] vs widened on v3 obs with the new
+  dims zeroed: 1500/1500 argmax, logit diff 1.1e-5 = float32 noise, threshold 1e-4).
+- Battery exports PS2_OBS_V3=1 when the leg's leg_modes.txt row carries it (eval contract); scout_leg.sh
+  reads it too (tmux drops the environment); league_leg_async.sh whitelist accepts it.
+SMOKE TESTS PASSED: `test_obs_v3.py` (synthetic v8 line through the real parser + builder, 0 failures),
+`test_obs_context.py` still 0 failures, equivalence_widen PASS, `smoke_ffa_v3.py` (mixed arena, K=7 widened
+learner, v2 pool policies K=1 and K=7 sliced, 400 steps, v3 block live every step, [zs] line printed),
+eval_parity 2 eps and ab_selfplay_probe 2 eps (v3 candidate vs v2 champion) both run.
+VISUAL VALIDATION (Blake's method: RAM values printed on the frame, Sonnet reviews footage vs data):
+`ram_scan.py capture --overlay-every 15` + `sheets` (RAM overlays, `scan/val1_slot3`, rubric
+`scan/validation_rubric.md`); `obs_overlay.py` (END TO END: the policy's own observation decoded on the
+frame, `scan/ov3`, rubric `scan/obs_validation_rubric.md`). RAM review sheets 1-4: 0 disagreements over
+~890 tile-checks (many "unclear": only 2P carries an on-screen tag). Reviews for RAM sheets 5-8 and the
+obs overlays (ov3 sheets 1-4, 5-9) were running at 11:15 pm; results go in `scan/*/review_*.md`.
+CUTOVER: `league_trainer.txt` = hold (written 11:05 pm) so leg 73's battery HOLDS leg 74's launch. Then
+`bash cutover_v3.sh 74` (guards: state "74 ./powerstone_v6_leg73_league.zip", hold, LAUNCH_HELD marker,
+no trainer) widens leg 73's zip -> `powerstone_v6_leg73_v3.zip`, re-proves equivalence, points
+league_state.txt at it, appends PS2_OBS_V3=1 to league_env.txt, sets mixed, launches, prints the boot
+line (`obs_v3=1 obs_dim=160`, obs_stack=7, warm=leg73_v3) and the leg_modes row. V3 READ = legs 74-75 vs
+72-73 (band 16-24). Revert = PS2_OBS_V3 removed from league_env.txt + warm start from the last v2 zip.
+If the overlay reviews report real disagreements, fix first; `echo mixed > league_trainer.txt` before
+~3 am keeps the standard chain instead.
 
 ## ASTRA REVIEW FIXES (Sep 23 2026, applied ~1:10-1:30 pm EDT, before the leg 71 battery)
 

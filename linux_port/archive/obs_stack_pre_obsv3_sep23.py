@@ -89,21 +89,7 @@ class StackedEnv:
         return getattr(self._env, name)
 
 
-BASE_DIMS = (160, 122)          # obs v3, obs v2/v1 (checked in this order)
-
-
-def kd_for(model):
-    """(K, per-frame dim) of a policy from its input width: 122 (v2) or 160 (v3) per frame."""
-    n = int(model.observation_space.shape[0])
-    for d in BASE_DIMS:
-        if n % d == 0 and (n // d) in OFFSETS_BY_K:
-            return n // d, d
-    raise ValueError(f"model obs dim {n} is not K x 122 or K x 160 for a known K")
-
-
-def k_for(model, base_dim=None):
-    if base_dim is None:
-        return kd_for(model)[0]
+def k_for(model, base_dim=122):
     n = int(model.observation_space.shape[0])
     if n % base_dim:
         raise ValueError(f"model obs dim {n} is not a multiple of {base_dim}")
