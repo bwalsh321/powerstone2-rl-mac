@@ -1,0 +1,18 @@
+# Scouting report — league leg 75 (Desert Area)
+
+**1. LOSS (ep02, round 2 of 2, ACTION! ~0:04, video 90-177s)**
+Same cactus-scrum open, bot mixes straight into the chest cluster. Accel (4P, green) transforms and stays transformed unusually long — rainbow gauge visible continuously from round-clock ~0:42 to ~1:19 (~37s), longer than any single transform seen in recent legs. The bot's own transform (forms=1) never shows a clear rainbow gauge in any 1fps sheet; a faint ring tagged "2P" in the closing 4fps strip may be it but isn't confirmable. In the round's final ~7s (round-clock ~1:12-1:19) a charge/telegraph ring pulses under Accel just before its fire-spiral special erupts with the "2P" tag sitting directly inside it; the bot never creates separation, and the screen-wide red-X KO lands on the bot right as the spiral resolves, crediting Accel by exclusivity (last one tagged alive). Stats: dmg+5.09/-1.00, picked=4/lost=2, opp=9(-3), chests=19(0), dmgF=2.85.
+
+**2. WIN (ep01, round 1 of 2, ACTION! ~0:04, video 0-90s)**
+Same scrum open. Bot's first transform (rainbow gauge) fires ~0:19-20 while still in the scrum. Pride (1P) goes down ~0:59-1:00 right after a non-swarm whiteout blast — likely an opponent special, not Falcon's fusion swarm, so per the fusion rule this KO is not credited to the bot. The bot's own missile/robot swarm (2nd transform, forms=2) is clearly on screen ~1:01-03 but secures no visible kill in that window, same shape as leg74's loss transform. Ryoma and Accel both go down later (~1:16-1:33) amid overlapping "HELP" tags and a white-beam volley, attackers unresolvable at 1fps; the final KO isn't captured even in the 4fps closing strip — an enemy is still shown alive and running one tile before the cut to round 2's "ACTION!". Stats: dmg+6.00/-0.81, picked=9/lost=2, opp=11(-5), chests=15(1), dmgF=3.72.
+
+**3. PATTERNS**
+- New this leg (opponent hit-stun/attack/transform/special-volley states now visible): clearest read is in the loss — a charge/telegraph ring pulses under Accel for a couple seconds before its fire-spiral special erupts, and the bot stays tagged inside/adjacent through both the telegraph and the eruption rather than backing off; no clean instance of the bot dodging a volley or pressing a stunned opponent is resolvable at 1/4fps.
+- forms=2/2 (win) vs forms=1/3 (loss): the bot under-transforms in the loss while Accel alone accounts for most of the opponents' 3, and that same transform ends up landing the winning blow.
+- chests=15(1) win / 19(0) loss: still ~zero near-bot chest credit despite standing in chest scrums throughout both rounds — not visible at 1fps whether the bot itself opens any.
+- Stone economy: loss picked=4/lost=2 (net+2) vs win picked=9/lost=2 (net+7) — same shape as leg74 (bigger net stone gain in the win than the loss).
+
+**4. SUGGESTION / TO VERIFY**
+Vs leg74: leg74's loss ended past the clip cutoff next to a freshly-transformed opponent, attacker unresolvable; leg75's loss is more legible — a charge-ring telegraph is visible before the eruption, and the bot fails to disengage through both the wind-up and the attack itself, a sharper version of leg74's "stayed adjacent through transform" failure.
+Suggestion: treat a charge/telegraph ring on a nearby opponent as a hard disengage cue and create separation before its special erupts, rather than staying tagged adjacent through both the wind-up and the resulting attack as in this loss.
+Verify: confirm via hit/combat log that Accel's fire-spiral (not a stray hit from Pride/Ryoma, both already down by then) is what lands the loss's final blow, since the red-X overlay pins timing (~1:19 round-clock) but not the attacker directly.

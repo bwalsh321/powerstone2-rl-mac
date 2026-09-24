@@ -21,7 +21,7 @@ lines are misreads (rubric now carries a data dictionary). The battery now enfor
 thresholds itself (`hold_gate.py`, marker `claude_bridge/hold_leg<N>.txt`), verifies the pool copy
 before advancing state, and takes a per-leg lock dir `claude_bridge/battery_leg<N>.lock`.
 
-**Live:** leg 76 training (obs v3 standing recipe; launched 12:16 pm EDT Sep 24, done ~5:00 pm; wake `ps2-leg76-end-wake` 5:31 pm), state `76 ./powerstone_v6_leg75_league.zip`, trainer = mixed. V3 READ (legs 74-75 = 26.6 / 24.0) PASSED, neutral on evals, training stream up (win share 39-42%%, stones 5.3, zs +14); lv8 on WATCH (two drops: 29.2 -> 26.6 -> 24.0). Leg 73 = 29.2 best lv8; leg 74 = 84-16 best AB.
+**Live:** leg 77 training (obs v3 standing recipe; launched 4:57 pm EDT Sep 24, done ~9:40 pm; wake `ps2-leg77-end-wake` 10:13 pm), state `77 ./powerstone_v6_leg76_league.zip`, trainer = mixed. SIGNAL on lv8: three consecutive drops 29.2 -> 26.6 -> 24.0 -> 22.6 (leg 76 = 22.6 / 98.0 best lv3 / 81-19); discriminator evals proposed (leg 76 note); no diet change without Blake. Leg 73 = 29.2 best lv8; leg 74 = 84-16 best AB.
 state `71 ./powerstone_v6_leg70_league.zip`, `league_trainer.txt` = mixed, battery chains leg 72.
 Leg 70's scouting run (tmux scout70) was still encoding at compaction: when `claude_bridge/
 scout_leg70_done.txt` appears, spawn the Sonnet reviewer on `videos/review_leg70/` (rubric
@@ -1149,6 +1149,7 @@ entropy_loss is trending toward 0. Every collection wake reports the leg's
 entropy median and the trigger state; the interactive session's watcher
 emits the running median hourly.
 
+| 76 | 240M (MIXED, warm leg 75, STACK + ARENA + COM CHARACTER RANDOM + 7-LAG OBS STACK + OBS CTX FIX + ZS TIME COST + OBS V3, NEW CONTRACT (v3 eval); third obs v3 leg) | 37.9/39.8/39.4/38.8 (7,897 eps; timeouts 0/0/0/0%%; picks 5.07/5.10/5.06/5.00; entropy -0.625; KL/update 0.025; epochs/update 2.10; expl_var 0.82; [zs] adj +12.7/+13.6/+13.2/+12.7; win share by transforms 0/1/2/3 = 0.02/0.30/0.72/0.86) | 22.6 (113W/387L, n=500, Wilson 19-26) | **98.0** (245/250, Wilson 95-99; best lv3 so far) | — | 81-19 (n=100) |
 | 75 | 236M (MIXED, warm leg 74, STACK + ARENA + COM CHARACTER RANDOM + 7-LAG OBS STACK + OBS CTX FIX + ZS TIME COST + OBS V3, NEW CONTRACT (v3 eval); second obs v3 leg) | 39.1/40.6/41.6/39.1 (7,768 eps; timeouts 0/0/0/0%%; picks 5.04/5.36/5.45/5.31; entropy -0.623; KL/update 0.027; epochs/update 2.15; expl_var 0.81; [zs] adj +13.1/+14.4/+14.9/+13.7; win share by transforms 0/1/2/3 = 0.01/0.27/0.72/0.87) | 24.0 (120W/380L, n=500, Wilson 20-28; 6.61/1.49) | 93.2 (233/250, Wilson 89-96; 9.62/3.07) | — | 79-21 (n=100) |
 | 74 | 232M (MIXED, warm leg 73 WIDENED to OBS V3 (160/frame, zero new columns), STACK + ARENA + COM CHARACTER RANDOM + 7-LAG OBS STACK + OBS CTX FIX + ZS TIME COST + OBS V3, NEW CONTRACT (v3 eval); FIRST OBS V3 LEG) | 37.2/38.7/38.9/40.5 (7,878 eps; timeouts 0/0/0/0%%; picks 4.89/5.05/5.13/5.16; entropy -0.641; KL/update 0.027; epochs/update 2.15; expl_var 0.81; [zs] adj +12.2/+13.0/+13.3/+14.0 (rising through the leg); win share by transforms 0/1/2/3 = 0.01/0.29/0.73/0.85) | 26.6 (133W/367L, n=500, Wilson 23-31; 6.85/1.63) | 96.4 (241/250, Wilson 93-98; 9.32/2.95) | — | **84-16** (n=100; BEST AB SO FAR) |
 | 73 | 228M (MIXED, warm leg 72, STACK + ARENA + COM CHARACTER RANDOM + 7-LAG OBS STACK + OBS CTX FIX + ZS TIME COST, NEW CONTRACT; second leg of the combined read) | 36.6/35.2/37.3/37.0 (7,850 eps; timeouts 1/1/0/1%%; picks 5.00/4.81/5.03/5.02; entropy -0.655; KL/update 0.025; epochs/update 2.51; expl_var 0.80; [zs] adj +12.1/+11.4/+12.6/+12.4; win share by transforms 0/1/2/3 = 0.02/0.28/0.71/0.84) | **29.2** (146W/354L, n=500, Wilson 25-33; 6.85/1.60; NEW OBSERVED BEST) | **97.2** (243/250, Wilson 94-99; 9.56/2.95) | — | 80-20 (n=100) |
@@ -1156,6 +1157,17 @@ emits the running median hourly.
 | 71 | 220M (MIXED, warm leg 70, STACK + ARENA + COM CHARACTER RANDOM + 7-LAG OBS STACK, NEW CONTRACT; second strided leg, old obs code) | 36.4/38.7/36.9/39.6 (7,936 eps; timeouts 0/0/1/0%%; picks 4.94/4.96/4.94/5.05; entropy -0.657; KL/update 0.025; epochs/update 2.47; expl_var 0.80; [zs] adj +12.9/+13.8/+13.2/+14.4) | 16.6 (83W/417L, n=500, Wilson 14-20; 6.24/1.32) | 93.6 (234/250, Wilson 90-96; 9.70/3.04) | — | 75-25 (n=100) |
 | 70 | 216M (MIXED, warm leg 69 SURGERY K=7 strided [16,8,4,3,2,1,0], STACK + ARENA + COM CHARACTER RANDOM + 7-LAG OBS STACK, NEW CONTRACT; FIRST STRIDED LEG) | 36.0/38.0/39.0/37.0 (7,639 eps; timeouts 0/0/0/0%%; picks 4.92/5.01/5.07/5.08; entropy -0.681; KL/update 0.025; epochs/update 2.42; expl_var 0.80; [zs] adj +12.5/+13.8/+14.3/+13.6, dealt_nn 0.89-0.93; per-character 0.34 Ryoma/Pete/Julia to 0.43 Ayame; win share by transforms 0/1/2/3 = 0.01/0.25/0.70/0.83) | **28.8** (144W/356L, n=500, Wilson 25-33; **6.79/1.57**) | **97.6** (244/250, Wilson 95-99; 9.77/3.06) | — | 74-26 (n=100) |
 | 69 | 212M (MIXED, warm leg 68, STACK + ARENA + COM CHARACTER RANDOM + 4-FRAME OBS STACK, NEW CONTRACT; second stacked leg) | 38.0/37.0/37.0/41.0 (7,432 eps; timeouts 0/1/0/0%%; picks 4.92/4.86/4.95/5.05; entropy -0.706; KL/update 0.026; epochs/update 4.68; expl_var 0.80; [zs] adj +13.7/+13.3/+13.0/+15.1, dealt_nn 0.89-0.91; per-character 0.33 Wang-Tang to 0.43 Pete) | **23.0** (115W/385L, n=500, Wilson 20-27; 6.04/1.32) | 94.8 (237/250, Wilson 91-97; 8.99/2.77) | — | 75-25 (n=100) |
+
+Leg 76 note (Sep 24 5:05 pm EDT): lv8 22.6 (19-26), lv3 98.0 (best ever), AB 81-19. No hold. SIGNAL: lv8 has now
+dropped THREE legs in a row, 29.2 -> 26.6 -> 24.0 -> 22.6 (Blake's rule: two = watch, three = signal), while lv3
+and AB are at their best and the self-play stream is up (win share 38-40%%, stones 5.0-5.1, zs +12.7 to +13.6).
+Reading: the v3 learner is getting stronger against Falcons (pool + champion, whose only special is the missile
+swarm) and weaker against the lv8 COM trio, i.e. it is not learning the COM-special disengage the scouts keep
+flagging (reviews 73-75), and may be drifting toward pool-specific play. Pre-registered plan on a signal: eval
+discriminators FIRST, report, no diet change without Blake. Discriminators proposed (read-only evals on instances
+12/13): (1) AB leg 76 vs leg 73 head-to-head n=100 (does the v3 lineage beat its own v2 parent?); (2) lv8 with the
+STOCHASTIC policy n=200 (is the deterministic argmax the thing sliding?). The hold rule is nowhere near; the chain
+continues (leg 77 booted 4:57 pm, warm leg 76).
 
 Leg 75 note (Sep 24 12:25 pm EDT): second obs v3 leg. lv8 24.0 (20-28), lv3 93.2, AB 79-21. No hold. V3 READ VERDICT
 (legs 74-75 = 26.6 / 24.0, mean 25.3) vs legs 72-73 (21.0 / 29.2, mean 25.1) and the band 16-24: PASS, both legs
