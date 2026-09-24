@@ -165,8 +165,11 @@ sparkles 0x0C5A7xxx, blast cloud 0x0C5BAA80) -> excluded under v3 (`PROJ_EXCLUDE
 337/1,500 steps with a projectile, top classes Pride 0x0C7EC9C8/0x0C7EE3A0, Falcon 0x0C7FD6B8, Accel
 0x0C81E158, Ryoma 0x0C80D230, thrown items 0x0C6xxxxx; (ii) opponent-ordering doubts that were reviewer
 perspective (checked f01311 myself: Accel is right next to the bot as printed; the stage has elevation);
-(iii) AIR printed for Accel while running (steps 906/909 in ov5) -> state 5 = airborne holds statistically
-(92%% of its frames > 100 u up) but small hops are not visible at frame scale; accepted. A projectile-only
+(iii) AIR: reviewers disagreed on ~20%% of AIR tiles (ov5 review_A: 10/45). Measured on run2: state 5 has
+per-frame vertical motion |dy| > 4 u in 80%% of its frames and a median height gain of ~350 u per episode, but
+11-21%% of COM state-5 episodes gain < 20 u (a hop/pre-jump the state machine still calls jump). So AIR is
+~80-85%% precise; kept as is (the obs also carries heights: self obs[3], opponents' dy). A true grounded
+flag from RAM is a follow-up, not a blocker. A projectile-only
 review of ov6 (`scan/ov6/review_projectiles.md`) was running at 11:30 pm. Then (ov5 sheet011 flags 1476/1479:
 Falcon's missiles invisible during their near-vertical dive) the horizontal-speed gate was DROPPED (the effect
 bands already cover the vertical junk); ov7 rerun: Falcon 0x0C7FD6B8 187 reports, Ryoma 0x0C80D230 65, thrown
