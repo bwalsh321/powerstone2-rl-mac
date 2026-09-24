@@ -273,10 +273,10 @@ class StateLineSynth:
             banded = any(lo <= c < hi for lo, hi in A.PROJ_EXCLUDE_BANDS)
             if OBS_V3 and (c in A.PROJ_EXCLUDE_V3 or any(lo <= c < hi for lo, hi in A.PROJ_EXCLUDE_BANDS_V3)):
                 continue
-            # v3: a projectile also has to MOVE ACROSS THE FLOOR (>= 300 u/s in xz): the
-            # vertical-only fast movers are persistent stage effects (e.g. 0x0C54Dxxx, 7 at once).
+            # v3 (Sep 24 12:10 am): NO horizontal-speed requirement any more. It was added to kill
+            # vertical-only stage effects, but those are now excluded by band (0x0C54Dxxx, 0x0C5A-0x0C5D),
+            # and it hid Falcon's missiles during their near-vertical dive (ov5 steps 1476/1479).
             if known or (sp and sp >= A.PROJ_SPEED_MIN and (OBS_V3 or counts.get(c) == 1)
-                         and (not OBS_V3 or spxz >= 300.0)
                          and c not in A.PROJ_EXCLUDE and not banded):
                 if OBS_V3 or c not in seen:        # v3: every volley member is a projectile
                     seen.add(c)

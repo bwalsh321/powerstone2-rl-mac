@@ -63,7 +63,7 @@ def pool_fast():
         pa, pc, ppp = prev_pool
         same = (act == 1) & (pa == 1) & (cls == pc)
         dp = pp - ppp; sp = np.sqrt((dp ** 2).sum(-1)) * 10.0; spxz = np.sqrt(dp[:, 0] ** 2 + dp[:, 2] ** 2) * 10.0
-        for j in np.flatnonzero(same & (sp >= 700) & (spxz >= 300)):
+        for j in np.flatnonzero(same & (sp >= 700)):
             c = int(cls[j])
             if c in A.PROJ_EXCLUDE or c in A.PROJ_EXCLUDE_V3 or any(lo <= c < hi for lo, hi in A.PROJ_EXCLUDE_BANDS + A.PROJ_EXCLUDE_BANDS_V3):
                 continue
