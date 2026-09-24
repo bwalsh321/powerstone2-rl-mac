@@ -146,6 +146,11 @@ class FFASelfPlayEnv(PowerStoneEnvLibretro):
         # it was stamped with (the learner is always Falcon in P2; obs has no character id).
         self.SLOT_META = dict(self.SLOT_META)
         for _slot in self.STATE_SLOTS:
+            # Sep 24 2026 (Blake: "do the fast test"): the COM eval states 1-9 keep their own context
+            # (slot 3 = Pride/Ryoma/Accel at lv8 -> stage 2, DIFF_DIM 1.0, lv8 gem caps) so training
+            # on them matches the eval; the mixed-arena slots (0, 10+) stay (1, 2).
+            if 1 <= _slot <= 9 and _slot in PowerStoneEnvLibretro.SLOT_META:
+                continue
             self.SLOT_META[_slot] = (1, 2)
         self._views = {}
         for k in seats:

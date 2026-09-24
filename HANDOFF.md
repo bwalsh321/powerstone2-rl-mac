@@ -21,7 +21,7 @@ lines are misreads (rubric now carries a data dictionary). The battery now enfor
 thresholds itself (`hold_gate.py`, marker `claude_bridge/hold_leg<N>.txt`), verifies the pool copy
 before advancing state, and takes a per-leg lock dir `claude_bridge/battery_leg<N>.lock`.
 
-**Live:** leg 77 training (obs v3 standing recipe; launched 4:57 pm EDT Sep 24, done ~9:40 pm; wake `ps2-leg77-end-wake` 10:13 pm), state `77 ./powerstone_v6_leg76_league.zip`, trainer = mixed. SIGNAL on lv8: three consecutive drops 29.2 -> 26.6 -> 24.0 -> 22.6 (leg 76 = 22.6 / 98.0 best lv3 / 81-19); discriminator evals proposed (leg 76 note); no diet change without Blake. Leg 73 = 29.2 best lv8; leg 74 = 84-16 best AB.
+**Live:** leg 77 = LV8 FAST TEST (relaunched 6:39 pm EDT Sep 24 on Blake's order; obs v3 recipe + states/slot3 lv8 trio in ~26%% of episodes; done ~11:20 pm; wake `ps2-leg77-end-wake` 11:55 pm), state `77 ./powerstone_v6_leg76_league.zip`, trainer = mixed. lv8 signal in force (29.2 -> 26.6 -> 24.0 -> 22.6); discriminators: AB vs parent 56-44, stochastic lv8 22.0. Slot 3 is no longer a clean held-out from leg 77 on. Proper fix queued: stamp lv8 versions of the 13 character states (P4 COM at lv8).
 state `71 ./powerstone_v6_leg70_league.zip`, `league_trainer.txt` = mixed, battery chains leg 72.
 Leg 70's scouting run (tmux scout70) was still encoding at compaction: when `claude_bridge/
 scout_leg70_done.txt` appears, spawn the Sonnet reviewer on `videos/review_leg70/` (rubric
@@ -1177,6 +1177,20 @@ the training distribution. Proper: stamp lv8 versions of the 13 character states
 mix them ~50/50 with the lv3 ones. Fast test: add `states/slot3` (Pride/Ryoma/Accel at lv8, the eval state) to
 PS2_STATE_SLOTS at ~25%% share; caveat: that trains on the eval state, so slot3 stops being a clean held-out
 (Astra's dev-set point) and a fresh lv8 state would be needed as the new test.
+BLAKE (6:35 pm): "Do the fast test. Stop the current run unless it's about to break a record." Also confirmed the
+end state he wants = the P4 COM seat at LEVEL 8 (the proper fix: stamp lv8 versions of the 13 character states).
+DONE 6:39 pm: leg 77 (3,003 eps in, lv3-only mix) stopped (tmux ps2train killed, trainer + actors, log archived
+as archive/train_leg77_out_aborted_lv3only_sep24.txt); `states/slot3.state` copied to `states_mixed/slot3.state`;
+ffa_selfplay_env.py keeps the base SLOT_META for slots 1-9 (slot 3 -> stage 2, DIFF_DIM 1.0, lv8 caps, matching
+the eval); league_env.txt PS2_STATE_SLOTS=0,10,...,22,3,3,3,3,3 (5/19 = 26%% lv8 episodes); leg 77 RELAUNCHED
+6:39 pm from leg 76's zip, config confirmed (state_slots incl. 3 x5, obs_v3=1), lv8 episodes flowing ('slot3
+opps=3' [ep] lines). Backup of the env file: archive/league_env_pre_lv8mix_sep24.txt. Wake moved to 11:55 pm.
+WHAT ELSE CHANGED AT THE V3 CUTOVER (Blake asked): besides the 38 new dims, (a) the two existing projectile slots
+[81..92] now carry special-attack volleys and Falcon missiles that v2 never saw (v2 reported ~nothing there), so
+12 dims the old policy had learned to ignore became live; (b) Adam was reset by the widening surgery; (c) pool
+zips from leg 74 on are v3. Optimizer, reward, arena, stack: unchanged. Whether the lv8 slide is caused by v3 or
+is drift that v3 merely coincided with is NOT established (29.2 was itself a high draw; 26.6 is inside its
+interval); the fast test answers a different question (does lv8 COM exposure fix the disengage).
 
 Leg 75 note (Sep 24 12:25 pm EDT): second obs v3 leg. lv8 24.0 (20-28), lv3 93.2, AB 79-21. No hold. V3 READ VERDICT
 (legs 74-75 = 26.6 / 24.0, mean 25.3) vs legs 72-73 (21.0 / 29.2, mean 25.1) and the band 16-24: PASS, both legs
