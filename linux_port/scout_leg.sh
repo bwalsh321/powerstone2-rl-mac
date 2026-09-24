@@ -9,9 +9,9 @@
 cd "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source ~/ps2rl/bin/activate
 export SDL_AUDIODRIVER=dummy PYTHONPATH=../sdlarch-rl/p4:../sdlarch-rl:. PYTHONUNBUFFERED=1 PS2_OBS_V2=1
-# Sep 23 2026 (obs v3): tmux does not pass the battery's environment; read the leg's own contract.
-if awk -v n="$N" '$1==n' leg_modes.txt 2>/dev/null | grep -q "PS2_OBS_V3=1"; then export PS2_OBS_V3=1; fi
 N=$1; M=./powerstone_v6_leg${N}_league.zip
+# Sep 24 2026 (obs v3; must come AFTER N is set): tmux does not pass the battery's environment; read the leg's own contract.
+if awk -v n="$N" '$1==n' leg_modes.txt 2>/dev/null | grep -q "PS2_OBS_V3=1"; then export PS2_OBS_V3=1; fi
 CORE="$HOME/Library/Application Support/RetroArch/cores/flycast_libretro.dylib"; GAME="../Power Stone 2 (USA).chd"
 mkdir -p videos claude_bridge
 echo "scout leg $N start $(date)"
