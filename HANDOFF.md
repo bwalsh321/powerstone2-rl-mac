@@ -159,7 +159,15 @@ tested the active flag as a whole u32 == 1, but volley objects carry a counter i
 contract): `live = (act & 0xFF) == 1`. After the fix (ov5, 1,500 steps) the reader reports Pride's
 volley classes 0x0C7EE3A0 / 0x0C7EC9C8, Falcon's missiles 0x0C7FD6B8, Ryoma's 0x0C80D230; projectile
 slots filled on 437/1,500 steps (was ~235). Remaining reader-vs-check differences are timing (3-frame vs
-6-frame speed windows). Final ov5 reviews (A: steps <= 864, B: > 864) were running at 11:55 pm.
+6-frame speed windows). ov5 reviews (helper agents per sheet): stun/HIT, SPECIAL/XFORM and hp checks agree ~100%%; the flags were
+(i) explosion/blast-dome particles reported as projectiles (class band 0x0C5A0000-0x0C5D0000: Accel-impact
+sparkles 0x0C5A7xxx, blast cloud 0x0C5BAA80) -> excluded under v3 (`PROJ_EXCLUDE_BANDS_V3`), ov6 rerun:
+337/1,500 steps with a projectile, top classes Pride 0x0C7EC9C8/0x0C7EE3A0, Falcon 0x0C7FD6B8, Accel
+0x0C81E158, Ryoma 0x0C80D230, thrown items 0x0C6xxxxx; (ii) opponent-ordering doubts that were reviewer
+perspective (checked f01311 myself: Accel is right next to the bot as printed; the stage has elevation);
+(iii) AIR printed for Accel while running (steps 906/909 in ov5) -> state 5 = airborne holds statistically
+(92%% of its frames > 100 u up) but small hops are not visible at frame scale; accepted. A projectile-only
+review of ov6 (`scan/ov6/review_projectiles.md`) was running at 12:30 am.
 CUTOVER: `league_trainer.txt` = hold (written 11:05 pm) so leg 73's battery HOLDS leg 74's launch. Then
 `bash cutover_v3.sh 74` (guards: state "74 ./powerstone_v6_leg73_league.zip", hold, LAUNCH_HELD marker,
 no trainer) widens leg 73's zip -> `powerstone_v6_leg73_v3.zip`, re-proves equivalence, points

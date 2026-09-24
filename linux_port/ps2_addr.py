@@ -90,7 +90,11 @@ PROJ_REPORT_V3 = 3      # third projectile slot on the v8 line
 # v3 projectile junk seen in the Sep 23 overlays: a null class pointer, and the 0x0C54Dxxx band
 # (7 objects at once that ride along with running fighters: stage/dust effect, never a threat).
 PROJ_EXCLUDE_V3 = {0x0}
-PROJ_EXCLUDE_BANDS_V3 = ((0x0C54D000, 0x0C54E000),)
+# 0x0C5A0000-0x0C5D0000: explosion / sparkle / blast-dome particle objects (Accel-special impact
+# sparkles 0x0C5A7xxx, blast cloud 0x0C5BAA80, 13-at-once 0x0C5B9A50 ...): they move fast but are
+# effects, not things in flight. Every real projectile seen so far lives elsewhere (Pride 0x0C7EExxx/
+# 0x0C7EFxxx, Falcon 0x0C7FD6B8, Ryoma 0x0C80D230, Accel 0x0C81xxxx, thrown items 0x0C6xxxxx).
+PROJ_EXCLUDE_BANDS_V3 = ((0x0C54D000, 0x0C54E000), (0x0C5A0000, 0x0C5D0000))
 
 # --- 6. Projectiles -------------------------------------------------------
 PROJ_CLASSES = {0x0C7F9A10: "rocket"}       # THE projectile (single record)
