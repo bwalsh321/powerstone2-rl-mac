@@ -21,7 +21,7 @@ lines are misreads (rubric now carries a data dictionary). The battery now enfor
 thresholds itself (`hold_gate.py`, marker `claude_bridge/hold_leg<N>.txt`), verifies the pool copy
 before advancing state, and takes a per-leg lock dir `claude_bridge/battery_leg<N>.lock`.
 
-**Live:** leg 73 training (launched 10:03 pm EDT Sep 23, done ~2:30 am; wake `ps2-leg73-end-wake` 3:18 am; leg 72 = 21.0 / 96.4 / 81-19). `league_trainer.txt` = HOLD on purpose: leg 74 is the obs v3 cutover via `cutover_v3.sh 74` (see OBS V3 BUILT + CUTOVER PLAN),
+**Live:** leg 74 training = FIRST OBS V3 LEG (launched 2:47 am EDT Sep 24 via cutover_v3.sh, done ~7:45 am; wake `ps2-leg74-end-wake` 8:02 am), state `74 ./powerstone_v6_leg73_v3.zip` (leg 73 widened 122 -> 160/frame, zero new columns, equivalence PASS 600/600), `league_env.txt` now carries `PS2_OBS_V3=1`, `league_trainer.txt` = mixed. Leg 73 = 29.2 / 97.2 / 80-20 (new observed best); COMBINED READ (72-73) PASSED, both Sep 23 fixes kept. V3 READ = legs 74-75 vs 72-73 (21.0 / 29.2) and the band 16-24.
 state `71 ./powerstone_v6_leg70_league.zip`, `league_trainer.txt` = mixed, battery chains leg 72.
 Leg 70's scouting run (tmux scout70) was still encoding at compaction: when `claude_bridge/
 scout_leg70_done.txt` appears, spawn the Sonnet reviewer on `videos/review_leg70/` (rubric
@@ -1149,10 +1149,19 @@ entropy_loss is trending toward 0. Every collection wake reports the leg's
 entropy median and the trigger state; the interactive session's watcher
 emits the running median hourly.
 
+| 73 | 228M (MIXED, warm leg 72, STACK + ARENA + COM CHARACTER RANDOM + 7-LAG OBS STACK + OBS CTX FIX + ZS TIME COST, NEW CONTRACT; second leg of the combined read) | 36.6/35.2/37.3/37.0 (7,850 eps; timeouts 1/1/0/1%%; picks 5.00/4.81/5.03/5.02; entropy -0.655; KL/update 0.025; epochs/update 2.51; expl_var 0.80; [zs] adj +12.1/+11.4/+12.6/+12.4; win share by transforms 0/1/2/3 = 0.02/0.28/0.71/0.84) | **29.2** (146W/354L, n=500, Wilson 25-33; 6.85/1.60; NEW OBSERVED BEST) | **97.2** (243/250, Wilson 94-99; 9.56/2.95) | — | 80-20 (n=100) |
 | 72 | 224M (MIXED, warm leg 71, STACK + ARENA + COM CHARACTER RANDOM + 7-LAG OBS STACK + OBS CTX FIX + ZS TIME COST, NEW CONTRACT; first leg of the combined read) | 36.5/37.0/37.9/37.2 (8,040 eps; timeouts 0/0/0/0%%; picks 4.96/4.98/4.89/4.88; entropy -0.646; KL/update 0.025; epochs/update 2.56; expl_var 0.80; [zs] adj +12.1/+12.4/+12.6/+12.2 (about -1.2 vs leg 71 = the restored time cost, as expected); win share by transforms 0/1/2/3 = 0.01/0.28/0.72/0.88) | 21.0 (105W/395L, n=500, Wilson 18-25; 7.01/1.55) | 96.4 (241/250, Wilson 93-98; 9.52/3.06) | — | **81-19** (n=100; best AB so far) |
 | 71 | 220M (MIXED, warm leg 70, STACK + ARENA + COM CHARACTER RANDOM + 7-LAG OBS STACK, NEW CONTRACT; second strided leg, old obs code) | 36.4/38.7/36.9/39.6 (7,936 eps; timeouts 0/0/1/0%%; picks 4.94/4.96/4.94/5.05; entropy -0.657; KL/update 0.025; epochs/update 2.47; expl_var 0.80; [zs] adj +12.9/+13.8/+13.2/+14.4) | 16.6 (83W/417L, n=500, Wilson 14-20; 6.24/1.32) | 93.6 (234/250, Wilson 90-96; 9.70/3.04) | — | 75-25 (n=100) |
 | 70 | 216M (MIXED, warm leg 69 SURGERY K=7 strided [16,8,4,3,2,1,0], STACK + ARENA + COM CHARACTER RANDOM + 7-LAG OBS STACK, NEW CONTRACT; FIRST STRIDED LEG) | 36.0/38.0/39.0/37.0 (7,639 eps; timeouts 0/0/0/0%%; picks 4.92/5.01/5.07/5.08; entropy -0.681; KL/update 0.025; epochs/update 2.42; expl_var 0.80; [zs] adj +12.5/+13.8/+14.3/+13.6, dealt_nn 0.89-0.93; per-character 0.34 Ryoma/Pete/Julia to 0.43 Ayame; win share by transforms 0/1/2/3 = 0.01/0.25/0.70/0.83) | **28.8** (144W/356L, n=500, Wilson 25-33; **6.79/1.57**) | **97.6** (244/250, Wilson 95-99; 9.77/3.06) | — | 74-26 (n=100) |
 | 69 | 212M (MIXED, warm leg 68, STACK + ARENA + COM CHARACTER RANDOM + 4-FRAME OBS STACK, NEW CONTRACT; second stacked leg) | 38.0/37.0/37.0/41.0 (7,432 eps; timeouts 0/1/0/0%%; picks 4.92/4.86/4.95/5.05; entropy -0.706; KL/update 0.026; epochs/update 4.68; expl_var 0.80; [zs] adj +13.7/+13.3/+13.0/+15.1, dealt_nn 0.89-0.91; per-character 0.33 Wang-Tang to 0.43 Pete) | **23.0** (115W/385L, n=500, Wilson 20-27; 6.04/1.32) | 94.8 (237/250, Wilson 91-97; 8.99/2.77) | — | 75-25 (n=100) |
+
+Leg 73 note (Sep 24 2:50 am EDT): NEW OBSERVED BEST lv8 29.2 (25-33), edging leg 70's 28.8; lv3 97.2; AB 80-20
+(second-best AB after leg 72's 81-19). No hold (gate empty). COMBINED READ VERDICT (obs ctx fix + zero-sum time
+cost, legs 72-73 = 21.0 / 29.2, mean 25.1) vs legs 70-71 (28.8 / 16.6, mean 22.7) and the band 16-24: PASS,
+both legs in/above the band with lv3 and AB in band and the two best AB results of the league. Proposal: KEEP both
+changes (they are the standing recipe from here). The intervals still overlap the old ones; the trend across
+four legs (16.6 -> 21.0 -> 29.2 on lv8, 75 -> 81 -> 80 on AB) is the evidence, not any single leg. Stream
+unchanged (win share 0.35-0.37, stones ~5, timeouts ~0.5%%). Leg 74 = OBS V3 CUTOVER from this zip (widened).
 
 Leg 72 note (Sep 23 10:10 pm EDT): first leg with the obs ctx fix + zero-sum time cost. lv8 21.0 (18-25), in the
 band and above leg 71 (16.6); lv3 96.4; AB 81-19, the best champion result so far (previous best 78). No hold (gate

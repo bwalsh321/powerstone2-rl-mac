@@ -22,7 +22,7 @@ It is written so a smaller model can run the relay without re-deriving anything.
 - Unattended permission allowlist: `.claude/settings.local.json` (git-ignored).
   Scheduled tasks run without prompts because of it.
 
-## 2. Live state (Sep 23 11:15 pm EDT; leg 73 live; trainer file = hold ON PURPOSE for the obs v3 cutover at leg 74, HANDOFF "OBS V3 BUILT + CUTOVER PLAN")
+## 2. Live state (Sep 24 2:55 am EDT; leg 74 live = first obs v3 leg (PS2_OBS_V3=1, 160/frame), launched 2:47 am; trainer file = mixed; HANDOFF "OBS V3 BUILT + CUTOVER PLAN")
 
 - **Standing override changed 16:00 EDT Sep 19 (Blake: "Stack")**: `league_optim.txt` =
   `PS2_LR=1e-4 PS2_TARGET_KL=0.03 PS2_BATCH_SIZE=256`, applies from leg 52 (leg 51 unchanged). Read over two legs vs the
