@@ -167,7 +167,13 @@ sparkles 0x0C5A7xxx, blast cloud 0x0C5BAA80) -> excluded under v3 (`PROJ_EXCLUDE
 perspective (checked f01311 myself: Accel is right next to the bot as printed; the stage has elevation);
 (iii) AIR printed for Accel while running (steps 906/909 in ov5) -> state 5 = airborne holds statistically
 (92%% of its frames > 100 u up) but small hops are not visible at frame scale; accepted. A projectile-only
-review of ov6 (`scan/ov6/review_projectiles.md`) was running at 12:30 am.
+review of ov6 (`scan/ov6/review_projectiles.md`) was running at 11:30 pm. Then (ov5 sheet011 flags 1476/1479:
+Falcon's missiles invisible during their near-vertical dive) the horizontal-speed gate was DROPPED (the effect
+bands already cover the vertical junk); ov7 rerun: Falcon 0x0C7FD6B8 187 reports, Ryoma 0x0C80D230 65, thrown
+items 0x0C6xxxxx, the old 'rocket' 0x0C7F9A10 21; reader-vs-independent-check gap 74/1,500 steps (timing).
+FINAL v3 PROJECTILE RULE: pool slot live (low byte == 1), class not in PROJ_EXCLUDE / PROJ_EXCLUDE_V3 / the
+chest, item, stone, 0x0C54D, 0x0C5A-0x0C5D bands, speed >= 700 u/s over the 3-frame sweep OR known class;
+one entry per position; 3 nearest reported.
 CUTOVER: `league_trainer.txt` = hold (written 11:05 pm) so leg 73's battery HOLDS leg 74's launch. Then
 `bash cutover_v3.sh 74` (guards: state "74 ./powerstone_v6_leg73_league.zip", hold, LAUNCH_HELD marker,
 no trainer) widens leg 73's zip -> `powerstone_v6_leg73_v3.zip`, re-proves equivalence, points
