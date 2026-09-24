@@ -21,7 +21,7 @@ lines are misreads (rubric now carries a data dictionary). The battery now enfor
 thresholds itself (`hold_gate.py`, marker `claude_bridge/hold_leg<N>.txt`), verifies the pool copy
 before advancing state, and takes a per-leg lock dir `claude_bridge/battery_leg<N>.lock`.
 
-**Live:** leg 71 training (launched 12:35 pm EDT, done ~5:00 pm; wake `ps2-leg71-end-wake` 5:50 pm),
+**Live:** leg 73 training (launched 10:03 pm EDT Sep 23, done ~2:30 am; wake `ps2-leg73-end-wake` 3:18 am; leg 72 = 21.0 / 96.4 / 81-19, leg 71 = 16.6 / 93.6 / 75-25),
 state `71 ./powerstone_v6_leg70_league.zip`, `league_trainer.txt` = mixed, battery chains leg 72.
 Leg 70's scouting run (tmux scout70) was still encoding at compaction: when `claude_bridge/
 scout_leg70_done.txt` appears, spawn the Sonnet reviewer on `videos/review_leg70/` (rubric
@@ -76,6 +76,50 @@ recurrent policy (needs the recurrent PPO path; "a week"); (6) the 7950X Linux b
 lab (build harness, headless GL, dolphin dirs, parity with the leg 70 zip first); (7) human play
 test of the current zip (`play_vs.py`). Old open items still parked: finishing-bonus diet idea,
 level-5 COM seat, discriminator states.
+
+## BETTER EYES (Sep 23 2026 10 pm-11 pm EDT; Blake: "Let's work on better eyes... I'd rather do that than buy compute")
+
+Tool: `linux_port/ram_scan.py` (`capture` on a hidden instance: every frame, all four player objects
+[PLAYER_MAT[k]-0x400, +0x3938), health/pos/mask, scripted P2 presses, HEALTH_OBJ refill every 300 f so
+nobody dies; `--dict-off 3685` PNG per new state value; `--pool` tracks the 160-slot entity pool with a
+PNG per new class pointer. `analyze` ranks offsets by alignment with hit / press events). Runs:
+`scan/run1` (slot 2, 7,200 f) and `scan/run2_slot3` (slot 3, 14,400 f, 253 hits, 12 COM transforms).
+Instance 12; 14,400 frames capture in ~70 s. Never use instances 0-9 (actors) or 11 (scout/battery).
+
+FOUND (offsets inside the object window; all four objects, character-independent):
+- **+0x3792 u8 = HIT-STUN TIMER.** Set to ~40 on the hit frame, -1 per frame to 0, retriggered per hit.
+  Alignment with the object's own health drops 0.94-1.00 on all four seats (Falcon, Pride, Ryoma, Accel,
+  Ayame, Pete). "This fighter cannot act for N frames."
+- **+0x3685 u8 = STATE BYTE** (+0x3686 = previous state). Dictionary from 14,400 f: 0 idle, 1 walk (~35 f),
+  2/4/6 short transitions, 5 airborne (~40 f; every jump press -> 4 -> 5), 7 attack animation (~45 f; attack,
+  throw AND grab presses all -> 7), 8/9/10/11/12 throw/grab variants, 14/15/16 ? (chest/pickup-adjacent,
+  unlabelled), 25 transforming (28 f; half its frames formed), 26 TRANSFORMED SPECIAL IN PROGRESS (100%% of
+  its frames while formed, ~96 f), 30 ? (yellow ring under 2P), 32 hit reaction (stun>0 64%%, ~82 f incl.
+  knockdown), 33 one 97 f episode, 34 hit while airborne, 35 one-frame.
+- +0x00a2 u8 = hits-taken counter. +0x3788 u16 = fine action word (35-70 values per character; bit 0x400
+  set during hit reactions). +0x36e4 u16 = changes on hit, stays (last-hit-by pointer low bits?).
+  +0x039d/+0x039f/+0x03a1 = input latch (1 jump, 2 throw, 4 right...; also readable on COM seats).
+- Knockback vector floats around +0x2680-0x2689 change on every hit (many values).
+
+PROJECTILES: the reader's only known class `0x0C7F9A10 "rocket"` was NEVER live in 4 minutes with Pride
+transforming 4 times. The specials are multi-instance object clusters and the `counts.get(c) == 1`
+uniqueness gate in ps2_ram.py rejects them: Pride's special = 0x0C7EExxx/0x0C7EFxxx cluster (up to 15
+simultaneous, ~2,100 u/s), Ryoma's = 0x0C80D230 (6-8 simultaneous), Accel's = 0x0C815xxx-0x0C81Exxx
+(3-10 simultaneous, 1,500-2,400 u/s). Screenshot-confirmed (`scan/run2_slot3/montage_specials.png`): the
+0x0C7EF130 / 0x0C7EECD8 first appearances show transformed Pride firing the rocket arc; 0x0C815EC8 / 0x0C816A88
+show the sky beam of a transformed special; 0x0C81Cxxx-0x0C81E158 appear with Accel's armored form in melee.
+=> THE BOT CANNOT SEE ANY COM SPECIAL PROJECTILE TODAY (Blake's
+"Pride rockets take 80%% point blank" item confirmed as a blind spot). Ground items live in the
+0x0C61xxxx band (excluded from projectiles on purpose; not on the obs at all); chests 0x0C5Dxxxx.
+
+PROPOSED OBS V3 (Blake's go needed; nothing touches the league until then): per fighter (self + 3 opps,
+nearest-first like the existing blocks) stun/40 + state one-hot {idle-walk, air, attack, hit, transforming,
+special, other} = 8 dims x 4 = 32; projectiles: drop the uniqueness gate, report the 2-3 nearest fast
+pool objects with velocity whatever their class (exclude stone/chest/item bands + carried visuals);
+ground items: 2 nearest with pos + category (item dictionary from the pool class pointer, to build).
+~40 new dims -> input 162 (x7 stack = 1,134); warm start by surgery with zero columns on the new inputs,
+agreement test, two-leg read vs the 16-24 band. Chests/weapons: visibility only, NO item reward (Blake's
+economy point; the bot learned cactus-throwing blind, wins will teach value).
 
 ## ASTRA REVIEW FIXES (Sep 23 2026, applied ~1:10-1:30 pm EDT, before the leg 71 battery)
 
@@ -1037,8 +1081,24 @@ entropy_loss is trending toward 0. Every collection wake reports the leg's
 entropy median and the trigger state; the interactive session's watcher
 emits the running median hourly.
 
+| 72 | 224M (MIXED, warm leg 71, STACK + ARENA + COM CHARACTER RANDOM + 7-LAG OBS STACK + OBS CTX FIX + ZS TIME COST, NEW CONTRACT; first leg of the combined read) | 36.5/37.0/37.9/37.2 (8,040 eps; timeouts 0/0/0/0%%; picks 4.96/4.98/4.89/4.88; entropy -0.646; KL/update 0.025; epochs/update 2.56; expl_var 0.80; [zs] adj +12.1/+12.4/+12.6/+12.2 (about -1.2 vs leg 71 = the restored time cost, as expected); win share by transforms 0/1/2/3 = 0.01/0.28/0.72/0.88) | 21.0 (105W/395L, n=500, Wilson 18-25; 7.01/1.55) | 96.4 (241/250, Wilson 93-98; 9.52/3.06) | — | **81-19** (n=100; best AB so far) |
+| 71 | 220M (MIXED, warm leg 70, STACK + ARENA + COM CHARACTER RANDOM + 7-LAG OBS STACK, NEW CONTRACT; second strided leg, old obs code) | 36.4/38.7/36.9/39.6 (7,936 eps; timeouts 0/0/1/0%%; picks 4.94/4.96/4.94/5.05; entropy -0.657; KL/update 0.025; epochs/update 2.47; expl_var 0.80; [zs] adj +12.9/+13.8/+13.2/+14.4) | 16.6 (83W/417L, n=500, Wilson 14-20; 6.24/1.32) | 93.6 (234/250, Wilson 90-96; 9.70/3.04) | — | 75-25 (n=100) |
 | 70 | 216M (MIXED, warm leg 69 SURGERY K=7 strided [16,8,4,3,2,1,0], STACK + ARENA + COM CHARACTER RANDOM + 7-LAG OBS STACK, NEW CONTRACT; FIRST STRIDED LEG) | 36.0/38.0/39.0/37.0 (7,639 eps; timeouts 0/0/0/0%%; picks 4.92/5.01/5.07/5.08; entropy -0.681; KL/update 0.025; epochs/update 2.42; expl_var 0.80; [zs] adj +12.5/+13.8/+14.3/+13.6, dealt_nn 0.89-0.93; per-character 0.34 Ryoma/Pete/Julia to 0.43 Ayame; win share by transforms 0/1/2/3 = 0.01/0.25/0.70/0.83) | **28.8** (144W/356L, n=500, Wilson 25-33; **6.79/1.57**) | **97.6** (244/250, Wilson 95-99; 9.77/3.06) | — | 74-26 (n=100) |
 | 69 | 212M (MIXED, warm leg 68, STACK + ARENA + COM CHARACTER RANDOM + 4-FRAME OBS STACK, NEW CONTRACT; second stacked leg) | 38.0/37.0/37.0/41.0 (7,432 eps; timeouts 0/1/0/0%%; picks 4.92/4.86/4.95/5.05; entropy -0.706; KL/update 0.026; epochs/update 4.68; expl_var 0.80; [zs] adj +13.7/+13.3/+13.0/+15.1, dealt_nn 0.89-0.91; per-character 0.33 Wang-Tang to 0.43 Pete) | **23.0** (115W/385L, n=500, Wilson 20-27; 6.04/1.32) | 94.8 (237/250, Wilson 91-97; 8.99/2.77) | — | 75-25 (n=100) |
+
+Leg 72 note (Sep 23 10:10 pm EDT): first leg with the obs ctx fix + zero-sum time cost. lv8 21.0 (18-25), in the
+band and above leg 71 (16.6); lv3 96.4; AB 81-19, the best champion result so far (previous best 78). No hold (gate
+empty). The [zs] adj sums dropped by ~1.2 per round exactly as the restored time cost predicts; stream otherwise
+unchanged (win share 0.37, stones ~4.9, timeouts ~0). COMBINED READ first half: pass so far; leg 73 completes it.
+Leg 73 booted 10:03 pm (obs_stack=7 obs_ctx_fix=1 zs_time=1, warm leg 72). Blake (10 pm): start the "better eyes"
+observation audit (hit-stun / attack-active / action id) instead of buying compute; scanner work runs on instance 11.
+
+Leg 71 note (Sep 23 5:30 pm EDT): BACK IN THE BAND. lv8 16.6 (14-20) after leg 70's 28.8; lv3 93.6; AB 75-25.
+No hold (the battery's own gate ran: empty reason). Strided K=7 read over legs 70-71 = 28.8 / 16.6, mean 22.7,
+vs the K=4 pair 18.2 / 23.0 and the single-frame legs 55-67 (~20, band 16-24): NEUTRAL. Leg 70 reads as a high
+draw, not a confirmed step (its interval already overlapped leg 59's). One drop = no watch yet. Training stream
+unchanged (win share 0.36-0.40, stones ~5, timeouts ~0). Leg 72 booted 5:24 pm with obs_ctx_fix=1 zs_time=1
+(ASTRA REVIEW FIXES): legs 72-73 are the combined read for those two changes.
 
 Leg 70 note (Sep 23 12:40 pm EDT): ALL-TIME RECORD BY FIVE POINTS. lv8 28.8 (25-33): the lower
 bound of its interval (25) clears the previous record (23.8, leg 59), so this is the first leg
