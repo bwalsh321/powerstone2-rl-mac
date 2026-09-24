@@ -1168,6 +1168,15 @@ discriminators FIRST, report, no diet change without Blake. Discriminators propo
 12/13): (1) AB leg 76 vs leg 73 head-to-head n=100 (does the v3 lineage beat its own v2 parent?); (2) lv8 with the
 STOCHASTIC policy n=200 (is the deterministic argmax the thing sliding?). The hold rule is nowhere near; the chain
 continues (leg 77 booted 4:57 pm, warm leg 76).
+DISCRIMINATOR RESULTS (5:36 pm, `receipts/discrim_leg76_*`): (1) AB leg 76 vs leg 73 = 56-44 (n=100): the v3
+lineage beats its own v2 parent head-to-head, modestly. (2) lv8 STOCHASTIC n=100 = 22.0%% (10/50 + 12/50) vs the
+deterministic 22.6%%: the argmax is not the thing sliding; the policy itself is at ~22%% against the lv8 trio.
+=> The slide is real policy drift, not an eval artifact: stronger vs Falcons (pool, champion, its parent), weaker
+vs COM specials it never trains against. PROPOSAL (Blake's call, no diet change made): put lv8 COM specials into
+the training distribution. Proper: stamp lv8 versions of the 13 character states (options-menu path, queued) and
+mix them ~50/50 with the lv3 ones. Fast test: add `states/slot3` (Pride/Ryoma/Accel at lv8, the eval state) to
+PS2_STATE_SLOTS at ~25%% share; caveat: that trains on the eval state, so slot3 stops being a clean held-out
+(Astra's dev-set point) and a fresh lv8 state would be needed as the new test.
 
 Leg 75 note (Sep 24 12:25 pm EDT): second obs v3 leg. lv8 24.0 (20-28), lv3 93.2, AB 79-21. No hold. V3 READ VERDICT
 (legs 74-75 = 26.6 / 24.0, mean 25.3) vs legs 72-73 (21.0 / 29.2, mean 25.1) and the band 16-24: PASS, both legs
