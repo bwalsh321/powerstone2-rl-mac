@@ -11,7 +11,7 @@ ap.add_argument("--frames", type=int, default=3000); ap.add_argument("--instance
 a = ap.parse_args()
 P = PPO.load(a.parent.removesuffix(".zip"), device="cpu"); S = PPO.load(a.stacked.removesuffix(".zip"), device="cpu")
 k = k_for(S); d = P.observation_space.shape[0]
-core = os.path.expanduser("~/Library/Application Support/RetroArch/cores/flycast_libretro.dylib")
+core = os.environ.get("PS2_CORE") or os.path.expanduser("~/Library/Application Support/RetroArch/cores/flycast_libretro.dylib" if os.uname().sysname == "Darwin" else "~/cores/flycast_libretro.so")
 env = PowerStoneEnvLibretro(core_path=core, game_path="../Power Stone 2 (USA).chd", states_dir="./states",
                             state_slots=[3], instance_id=a.instance, bridge_dir=os.path.abspath(f"./bridge_probe_{a.instance}"))
 rng = np.random.default_rng(0)

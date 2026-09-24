@@ -26,7 +26,8 @@ grep -q "PS2_OBS_V3=1" league_env.txt || { printf '%s PS2_OBS_V3=1\n' "$(tr -d '
 echo "$N $V3" > league_state.txt.tmp && mv league_state.txt.tmp league_state.txt
 echo mixed > league_trainer.txt
 echo "cutover: state=[$(cat league_state.txt)] env=[$(cat league_env.txt)]"
-tmux new -s ps2train -d "caffeinate -is bash $(pwd)/league_leg_async.sh" || { echo "tmux launch failed"; exit 2; }
+KEEPAWAKE=""; [ "$(uname)" = "Darwin" ] && KEEPAWAKE="caffeinate -is"
+tmux new -s ps2train -d "$KEEPAWAKE bash $(pwd)/league_leg_async.sh" || { echo "tmux launch failed"; exit 2; }
 sleep 150
 grep '\[config\]' "train_leg${N}_out.txt" | grep -o "obs_stack=[0-9]*\|obs_v3=[01] obs_dim=[0-9]*\|warm=[^ ]*" | tr '\n' ' '; echo
 echo "actors: $(pgrep -f 'spawn_mai[n]' | wc -l | tr -d ' ')"

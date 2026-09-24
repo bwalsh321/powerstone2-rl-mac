@@ -18,7 +18,7 @@ a = ap.parse_args()
 assert os.environ.get("PS2_OBS_V3") == "1"
 os.makedirs(os.path.join(a.out, "overlay"), exist_ok=True)
 M = PPO.load(a.model.removesuffix(".zip"), device="cpu"); K, D = kd_for(M); assert D == 160
-core = os.path.expanduser("~/Library/Application Support/RetroArch/cores/flycast_libretro.dylib")
+core = os.environ.get("PS2_CORE") or os.path.expanduser("~/Library/Application Support/RetroArch/cores/flycast_libretro.dylib" if os.uname().sysname == "Darwin" else "~/cores/flycast_libretro.so")
 env = PowerStoneEnvLibretro(core_path=core, game_path="../Power Stone 2 (USA).chd", states_dir="./states",
                             state_slots=[a.slot], instance_id=a.instance, bridge_dir=os.path.abspath(f"./bridge_probe_{a.instance}"))
 emu = env._lr_bridge.emu; H, W = emu.get_shape(); buf = np.zeros((H, W, 3), np.uint8)

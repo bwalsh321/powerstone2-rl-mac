@@ -7,7 +7,7 @@ from obs_stack import StackedEnv, kd_for
 from ffa_selfplay_env import FFASelfPlayEnv
 assert os.environ.get("PS2_OBS_V3") == "1" and os.environ.get("PS2_OBS_V2") == "1"
 model = sys.argv[1]; inst = int(sys.argv[2]) if len(sys.argv) > 2 else 13; N = int(sys.argv[3]) if len(sys.argv) > 3 else 400
-core = os.path.expanduser("~/Library/Application Support/RetroArch/cores/flycast_libretro.dylib")
+core = os.environ.get("PS2_CORE") or os.path.expanduser("~/Library/Application Support/RetroArch/cores/flycast_libretro.dylib" if os.uname().sysname == "Darwin" else "~/cores/flycast_libretro.so")
 slots = [int(x) for x in os.environ.get("PS2_STATE_SLOTS", "0").split(",")]
 env = FFASelfPlayEnv(core_path=core, game_path="../Power Stone 2 (USA).chd", states_dir="./states_mixed",
                      instance_id=inst, state_slots=slots, bridge_dir=os.path.abspath(f"./bridge_probe_{inst}"), pool_dir="./pool_league")

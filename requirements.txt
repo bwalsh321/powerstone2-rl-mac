@@ -10,6 +10,8 @@ torch==2.13.0
 numpy==2.4.6
 pygame==2.6.1            # make_savestates / watch_play windows
 tensorboard==2.21.0
+pillow>=10               # ram_scan / obs_overlay frame overlays (Sep 23 2026)
+imageio-ffmpeg>=0.5      # watch_play --record, battery clips, scouting
 
 # Optional — live audio in watch_play.py (warns and runs silent without it):
 # sounddevice

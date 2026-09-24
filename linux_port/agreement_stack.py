@@ -12,7 +12,7 @@ a = ap.parse_args()
 A = PPO.load(a.src.removesuffix(".zip"), device="cpu"); B = PPO.load(a.dst.removesuffix(".zip"), device="cpu")
 from obs_stack import kd_for
 fa, fb = FrameStack(*kd_for(A)), FrameStack(*kd_for(B))
-core = os.path.expanduser("~/Library/Application Support/RetroArch/cores/flycast_libretro.dylib")
+core = os.environ.get("PS2_CORE") or os.path.expanduser("~/Library/Application Support/RetroArch/cores/flycast_libretro.dylib" if os.uname().sysname == "Darwin" else "~/cores/flycast_libretro.so")
 env = PowerStoneEnvLibretro(core_path=core, game_path="../Power Stone 2 (USA).chd", states_dir="./states",
                             state_slots=[3], instance_id=a.instance, bridge_dir=os.path.abspath(f"./bridge_probe_{a.instance}"))
 obs = env.reset(); oa, ob = fa.reset(obs), fb.reset(obs)
