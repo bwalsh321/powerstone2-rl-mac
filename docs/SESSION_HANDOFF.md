@@ -22,7 +22,7 @@ It is written so a smaller model can run the relay without re-deriving anything.
 - Unattended permission allowlist: `.claude/settings.local.json` (git-ignored).
   Scheduled tasks run without prompts because of it.
 
-## 2. Live state (Sep 25 4:30 am EDT; leg 79 live on the full lv3+lv8 character set (slots 0,10-22,30-43), launched 4:24 am; leg 78 = 27.4 / 98.0 / 77-23; trainer = mixed)
+## 2. Live state (Sep 25 9:20 am EDT; leg 80 live on the lv3+lv8 character set, launched 9:13 am; leg 79 = 26.2 / 98.0 / 89-11 best AB; trainer = mixed)
 
 - **Standing override changed 16:00 EDT Sep 19 (Blake: "Stack")**: `league_optim.txt` =
   `PS2_LR=1e-4 PS2_TARGET_KL=0.03 PS2_BATCH_SIZE=256`, applies from leg 52 (leg 51 unchanged). Read over two legs vs the
