@@ -119,14 +119,6 @@ sharded_eval slot2 slot "$S2_PER" --model "$M" --slot 2 -- \
   python eval_parity.py --core "$CORE" --game "$GAME" --slot 2 --model "$M"
 sharded_eval ab_vs_leg1 ab "$AB_PER" --model "$M" --opp "$LEG1" -- \
   python -u ab_selfplay_probe.py --model "$M" --opp "$LEG1"
-# Sep 25 2026 (Blake: "it has to be a test"): 4th eval = five HELD-OUT three-lv8-COM lineups (states/slot90-94,
-# never trained on), n = SHARDS x S3_PER over the set, uniformly sampled per episode. Not part of the hold rule.
-# PS2_LV8MIX=0 disables.
-if [ "${PS2_LV8MIX:-1}" = "1" ]; then
-  echo "battery leg $N: lv8mix held-out set (slots 90-94)"
-  sharded_eval lv8mix slot "$S3_PER" --model "$M" --slot 90 -- \
-    python eval_parity.py --core "$CORE" --game "$GAME" --slots 90,91,92,93,94 --model "$M"
-fi
 
 if [ ${#FAILED[@]} -gt 0 ]; then
   {

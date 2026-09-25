@@ -19,3 +19,9 @@ slot30-43    P4 COM at LEVEL 8 (Sep 25 2026), same lineup (P1/P2/P3 HUMAN Falcon
              difficulty cell 0x8C472AD4 = 7 (0-based) + 4 AI copies (0x8C4683A6, 0x8C46C3D4, 0x8C5429AD, 0x8C5429C8);
              idle probe: COM first hit ~1,000 f vs ~1,400 f and 3-13x the damage of the lv3 set; P1-P3 face_norm 0.991
              (Falcon body). Source copies in states_mixed_lv8/.
+
+slot50-59    THREE lv8 COMs (P1, P3, P4) + P2 HUMAN Falcon, Desert, saved 200 frames in (Sep 25 2026): training lineups
+             (see states_3com_lv8/lineups.json; held-out lineups live in states/slot90-94 and NEVER train). Stamped
+             from the main menu like slot30-43; with three COM seats the COM rosters gain the RANDOM SELECT entry after
+             Pride, so picks step BACKWARD (B) when the target index is below the column default (P1 from Falcon 0,
+             P3 from Pete 8, P4 from Accel 11) and forward (A) otherwise. Verified on the select screens (all names).

@@ -149,8 +149,8 @@ class FFASelfPlayEnv(PowerStoneEnvLibretro):
             # Sep 24 2026 (Blake: "do the fast test"): the COM eval states 1-9 keep their own context
             # (slot 3 = Pride/Ryoma/Accel at lv8 -> stage 2, DIFF_DIM 1.0, lv8 gem caps) so training
             # on them matches the eval; the mixed-arena slots (0, 10+) stay (1, 2).
-            if 1 <= _slot <= 9 and _slot in PowerStoneEnvLibretro.SLOT_META:
-                continue
+            if (1 <= _slot <= 9 or 50 <= _slot <= 59 or 90 <= _slot <= 94) and _slot in PowerStoneEnvLibretro.SLOT_META:
+                continue                              # COM-only lv8 arenas keep the base (2, 8) context
             # Sep 25 2026: slots 30-43 = the same mixed arena with the P4 COM at LEVEL 8 (stamped from
             # the options menu, DIFFICULTY 8; HANDOFF "LV8 CHARACTER STATES"): stage dim 1, level 8.
             self.SLOT_META[_slot] = (1, 8) if 30 <= _slot <= 43 else (1, 2)

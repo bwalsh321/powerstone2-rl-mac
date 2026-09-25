@@ -85,19 +85,12 @@ def main():
                     help="sample actions instead of argmax — matches how the "
                          "training-time Windows band was actually measured, "
                          "and breaks determinism-induced repeated episodes")
-    ap.add_argument("--slots", default=None,
-                    help="Sep 25 2026: comma list of state slots sampled uniformly per episode (a held-out "
-                         "SET of lineups, e.g. 90,91,92,93,94); overrides --slot; the summary prints slot=<first> "
-                         "plus slots=<list> so merge_receipts keeps validating")
     args = ap.parse_args()
-    _slots = [int(x) for x in args.slots.split(",")] if args.slots else [args.slot]
-    if args.slots:
-        args.slot = _slots[0]
 
     bridge = "./bridge_eval" if args.instance == 0 else f"./bridge_eval_{args.instance}"
     env = PowerStoneEnvLibretro(
         core_path=args.core, game_path=args.game, states_dir=args.states,
-        state_slots=_slots, instance_id=args.instance,
+        state_slots=[args.slot], instance_id=args.instance,
         bridge_dir=os.path.abspath(bridge))
     model = PPO.load(args.model.removesuffix(".zip"), device="cpu")
     from obs_stack import k_for, FrameStack            # Sep 22: stacked policies
@@ -129,7 +122,7 @@ def main():
     print("\n================ EVAL SUMMARY ================")
     print(f"model={os.path.basename(args.model)}  slot={args.slot}  n={n}  "
           f"mode={'stochastic' if args.stochastic else 'deterministic'}  "
-          f"distinct-outcome-tuples~{uniq}" + (f"  slots={args.slots}" if args.slots else ""))
+          f"distinct-outcome-tuples~{uniq}")
     print(f"win% : {win_pct:5.1f}   ({wins}W/{losses}L/{tos}T)   "
           f"95% Wilson [{lo:.0f}-{hi:.0f}]")
     print(f"picks: {picks:5.2f} /ep")

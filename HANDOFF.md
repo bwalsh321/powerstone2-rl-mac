@@ -21,7 +21,7 @@ lines are misreads (rubric now carries a data dictionary). The battery now enfor
 thresholds itself (`hold_gate.py`, marker `claude_bridge/hold_leg<N>.txt`), verifies the pool copy
 before advancing state, and takes a per-leg lock dir `claude_bridge/battery_leg<N>.lock`.
 
-**Live:** leg 80 training (lv3+lv8 character set, second leg of the read; launched 9:13 am EDT Sep 25, done ~1:55 pm; wake `ps2-leg80-end-wake` 2:28 pm), state `80 ./powerstone_v6_leg79_league.zip`, trainer = mixed. Leg 79 = 26.2 (clean held-out) / 98.0 / **89-11 best AB**; leg 78 = 27.4 / 98.0 / 77-23. Fresh lv8 held-out `states/slot90` stamped, not in the battery.
+**Live:** leg 80 training (lv3+lv8 character set, second leg of the read; launched 9:13 am EDT Sep 25, done ~1:55 pm; wake `ps2-leg80-end-wake` 2:28 pm), state `80 ./powerstone_v6_leg79_league.zip`, trainer = mixed. Leg 79 = 26.2 (clean held-out) / 98.0 / **89-11 best AB**. LEG 81 ONWARD: `league_env.txt` adds slots 50-59 (ten three-lv8-COM training lineups, 26%% of episodes); the battery gains a 4th eval `lv8mix` (five held-out three-COM lineups, states/slot90-94, n=500) from leg 80's battery. See NEXT MOVES.
 state `71 ./powerstone_v6_leg70_league.zip`, `league_trainer.txt` = mixed, battery chains leg 72.
 Leg 70's scouting run (tmux scout70) was still encoding at compaction: when `claude_bridge/
 scout_leg70_done.txt` appears, spawn the Sonnet reviewer on `videos/review_leg70/` (rubric
@@ -120,6 +120,40 @@ ground items: 2 nearest with pos + category (item dictionary from the pool class
 ~40 new dims -> input 162 (x7 stack = 1,134); warm start by surgery with zero columns on the new inputs,
 agreement test, two-leg read vs the 16-24 band. Chests/weapons: visibility only, NO item reward (Blake's
 economy point; the bot learned cactus-throwing blind, wins will teach value).
+
+## NEXT MOVES (Sep 25 2026 ~11:30 am EDT; Blake: "update the handoff with the next moves", "train on the eval shape
+## should be the first variable to change", memory = "the biggest lift but also the biggest lever")
+
+WHY, in one table (leg 79 lv8 eval, 500 rounds): bot transforms 0 -> 21%% of rounds, 0%% won; 1 -> 30%%, 1%%; 2 -> 24%%,
+27%%; 3 -> 25%%, 78%%. It never wins a lv8 round with fewer than two transforms and fails to reach two in half its
+rounds; 7.0 stones picked and 3.1 knocked off per round. Skill when stoned up is already 78%%; the gap is the stone
+economy under pressure from three lv8 COMs, and the recurring death is standing inside a special (6 reviews in a row).
+BENCHMARKS: Blake vs three lv8 COMs = 23-1 (Aug 30 2026, rig, demos_lv8/demo_005.npz, 1,000+ hours of play). Bot:
+26.2%% clean. Milestones to chase: 35%% next, then 50%% (half the gap to the 78%% ceiling), then Blake's number.
+Benchmark design (Blake: "it has to be a test"): KEEP the fixed trio (states/slot3, 80 legs of history) AND a second
+held-out set of five fixed three-COM lv8 lineups (states/slot90-94) that never train; training three-COM lineups are
+different (states_mixed/slot50-59). Battery = 4 evals from leg 80 on (lv8 trio 500, lv3 250, champion AB 100, lv8mix
+500 = ~15 min more); the hold rule still reads only the first three.
+
+ORDER OF WORK (each = a pre-registered two-leg read against the band; nothing changes without Blake's go except #1):
+1. TRAIN ON THE EVAL SHAPE (GO, applied for leg 81): ten three-lv8-COM lineups (slots 50-59) at 26%% of episodes
+   alongside the 28 mixed-arena character states (14 lv3 + 14 lv8 P4-COM). This is a SLICE, not a switch: the
+   fast test (legs 77-78, one trio at 26%%) lifted lv8 from 22.6 to ~27 and it held at 26.2 with the trio removed.
+   Read = legs 81-82 on the trio AND on lv8mix. Revert = drop 50-59 from league_env.txt.
+2. REWARD: (a) special-death penalty = extra cost for damage taken while a nearby opponent is in state 25/26
+   (the obs v3 class the bot can now see; the Sep 20-era attempt failed because the bot could not see specials);
+   (b) stone retention = a larger penalty per stone knocked off the bot. Kill switch: timeout share (a bot that only
+   runs). Blake's go needed (diet).
+3. LV8 COM AS A POOL SEAT: two-COM versions of the character states (one pool Falcon + one lv8 COM + P4 COM) so
+   specials are common in self-play; same menu path. Blake's go needed.
+4. MEMORY = recurrent policy (RecurrentPPO / LSTM). The frame stack is a 1.6 s window; a recurrent state carries
+   "who charged a special ten seconds ago", "where the stone went", "I am being double-teamed" across the round.
+   Biggest lift (new trainer path, no direct warm start: distil the current policy into the recurrent one or start
+   from the BC seed), biggest lever. Queued behind 1-3 unless Blake pulls it forward; a 9950X job.
+5. 9950X migration (box ordered Sep 24): `linux_port/setup_9950x.sh`, LINUX_BRINGUP.md, parity gate on the leg 73
+   zip, then the league moves.
+Also open: thrown-item classes for the projectile slots; a true grounded flag (AIR is ~80-85%% precise); the beam and
+gatling projectiles the pool scan misses.
 
 ## LV8 CHARACTER STATES (Sep 25 2026 12:30-2:30 am EDT; Blake: the P4 COM seat at level 8 is the end state)
 

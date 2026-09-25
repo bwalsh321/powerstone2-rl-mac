@@ -1,0 +1,18 @@
+# Scouting report — league leg 79 (Desert Area)
+
+**1. LOSS (ep02, round 2 of 2, ACTION! ~2:05, video 121-212s)**
+New spawn, same cactus/chest open; Pride (1P) is first to approach the bot alone before the 3-way scrum forms. Fighting drifts onto a rockier, water-fringed stretch of the map; an opponent ice/crystal formation grows near the bot ~2:16-23 (3-on-1, bot does not visibly back off). The bot's only transform this round fires its own missile/plane swarm ~2:25-27 (forms=1/2); Ryoma (3P) is the first to die, ~3:01, attacker unresolvable at 1fps. Accel (4P) then charges and fully transforms into a fire/spiral aura ~3:11-3:27-29, with the bot standing right beside it inside a yellow lock-on ring both times (~3:19 and ~3:29) — no disengage attempt visible either time. The bot dies ~3:30 in a large gold/white cross-shaped explosion erupting right off that transform, i.e. this loss ends inside a special, not a melee juggle or idle lull as in legs76-78. Stats: dmg+4.11/-1.00, picked=2/lost=0, opp=7(-4), forms=1/2, chests=14(0), dmgF=2.24.
+
+**2. WIN (ep01, round 1 of 2, ACTION! ~0:04, video 0-121s)**
+Same three-way scrum open. The bot transforms twice (forms=2/4): a beam/swarm burst ~0:20-25, then a second golden transform with a full robot/plane swarm ~1:05-08, both credited to the bot's own fusion special. Opponents show clear transform effects too — Pride's red fire aura ~1:02 and a blue ring around Ryoma ~1:14-15 (forms opp=4 total; the other two instances are not visible at 1fps). Pride and Accel are both dead (X on 1P/4P) by ~1:39, but which of the overlapping ~1:00-1:25 explosions killed each is unresolvable at 1fps. A long, quiet chest-collecting lull follows ~0:36-0:59 with almost no opponent contact. Ryoma (3P), the last opponent, dies in the final-12s window: a large golden explosion ~1:44 (strip ~3.75s) is followed by wing/victory effects ~1:51-53 (strip ~10-11.75s) and the round-ending X; the exact final blow is not resolvable frame-by-frame. Stats: dmg+6.00/-0.92, picked=9/lost=2, opp=24(-10), forms=2/4, chests=26(4), dmgF=2.14.
+
+**3. PATTERNS**
+- First leg with the full character roster and the P4 (Accel) COM at level 8 in half its episodes (previous legs saw the level-8 trio throughout): this loss is the first of legs76-79 to end inside a special rather than a juggle (leg77) or an unresolved lull-then-1v1 (leg78) — and like those legs, the bot shows no disengage from the charging/transformed opponent it dies next to.
+- forms=2/4 (win) / 1/2 (loss) this leg vs leg78's 2/0 / 4/2: far more opponent-transform activity in this win than leg78 saw in either round, but far less bot-transforming in this loss.
+- chests=26(4) win / 14(0) loss: still near-zero proximity credit despite dense chest fields, consistent with legs77-78.
+- The ~0:36-0:59 stretch of the win is an extended idle/chest-wander lull with no opponent contact — worth flagging alongside leg78's pre-death lull pattern.
+- Stone economy: win nets picked9-lost2=+7 vs loss's picked2-lost0=+2, a much thinner cushion in the loss — the opposite of leg78, where the loss banked the larger net.
+
+**4. SUGGESTION / TO VERIFY**
+Suggestion: add a check for "adjacent to a transformed/charging opponent inside its lock-on ring at time of death" — this loss shows the bot standing inside Accel's yellow ring twice (~3:19, ~3:29) before dying to the resulting explosion, extending the same disengage gap flagged in legs77-78.
+Verify: via hit log, confirm Accel was the attacker on the bot's ~3:30 death and was transformed at that moment; also confirm which opponent (Pride or Accel) died to the bot's ~1:05-08 swarm in the win.
