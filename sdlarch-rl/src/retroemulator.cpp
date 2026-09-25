@@ -76,7 +76,10 @@ class RetroEmulator {
         py::bytes getState() {
             size_t size = sdlarch.get_state_size();
             py::bytes bytes(NULL, size);
-            SDLArch::g_retro.retro_serialize(PyBytes_AsString(bytes.ptr()), size);
+            // Sep 25 2026 (Astra review): a failed serialize used to return a garbage buffer
+            if (!SDLArch::g_retro.retro_serialize(PyBytes_AsString(bytes.ptr()), size)) {
+                return py::bytes("");
+            }
             return bytes;
         }
 

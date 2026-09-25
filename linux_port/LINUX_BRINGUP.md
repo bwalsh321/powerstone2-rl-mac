@@ -22,17 +22,34 @@ From the Mac: the game `Power Stone 2 (USA).chd` (repo root), `linux_port/states
 Model zips are tracked in git. The script prints the rsync lines (section 7) and checks presence.
 
 ## 3. Headless rule
-Every emulator process runs under `xvfb-run -a` (Mesa llvmpipe) with `SDL_AUDIODRIVER=dummy`.
-NEVER set `SDL_VIDEODRIVER=dummy`: the harness opens a hidden real GL 4.1 window and dies without one.
-Try GPU EGL later as a speed experiment, never as the first path.
+One PERSISTENT X server for the whole relay (Astra Sep 25: the launchers and battery shards call python
+directly and spawn tmux sessions, so a per-command `xvfb-run` does not cover them):
+```bash
+sudo tee /etc/systemd/system/xvfb99.service >/dev/null <<'UNIT'
+[Unit]
+Description=Xvfb :99 for the Power Stone 2 relay
+[Service]
+ExecStart=/usr/bin/Xvfb :99 -screen 0 1280x720x24 -nolisten tcp
+Restart=always
+[Install]
+WantedBy=multi-user.target
+UNIT
+sudo systemctl enable --now xvfb99
+```
+Every relay script exports `DISPLAY=${DISPLAY:-:99}` on Linux (league_leg_async.sh, league_battery.sh,
+scout_leg.sh, cutover_v3.sh), with `SDL_AUDIODRIVER=dummy`. NEVER set `SDL_VIDEODRIVER=dummy`: the harness
+opens a hidden real GL 4.1 window and dies without one. Try GPU EGL later as a speed experiment.
 
 ## 4. Gates, in order (all must pass before training moves)
 - G1 imports (in the script). G2 files present (in the script).
 - G3 headless probe: `probe_ram.py` on `states/slot3.state` reads four live health floats.
 - G4 unit tests: `PS2_OBS_V3=1 python test_obs_v3.py` and `python test_obs_context.py` print 0 failures.
-- G5 PARITY: `eval_parity.py --slot 3 --model powerstone_v6_leg73_league.zip --episodes 100` under
-  `PS2_OBS_V2=1`; PASS when the win% is inside the Mac's n=500 Wilson interval for the same zip
-  (leg 73: 29.2%, [25, 33]); repeat on slot 2 (97.2%, [94, 99]). A v3 zip (leg 74+) needs `PS2_OBS_V3=1`.
+- G5 PARITY: `eval_parity.py --slot 3 --model powerstone_v6_leg73_league.zip --episodes 200` under
+  `PS2_OBS_V2=1` (deterministic). PASS rule (Astra Sep 25: a fresh point estimate need not fall inside the
+  reference interval): two-proportion z-test between the box's 200 and the Mac's 500 (leg 73: 146/500) with
+  p >= 0.05, AND the absolute gap <= 6 points; repeat on slot 2 (243/250). A v3 zip (leg 74+) needs
+  `PS2_OBS_V3=1`. Pin the core: record `sha256sum ~/cores/flycast_libretro.so` in the parity receipt and
+  in HANDOFF; the nightly URL is mutable, so keep the exact file that passed.
 - Speed: time G5. The Mac runs 10 shards x 50 lv8 episodes in ~15 min; the league needs 10 actors + the
   scout instance, so measure with 12 emulator instances alive before choosing `n_actors`.
 

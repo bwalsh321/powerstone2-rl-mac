@@ -145,11 +145,13 @@ class FlycastBridge:
     def savestate(self, slot):
         path = os.path.join(self.states_dir, f"slot{slot}.state")
         os.makedirs(self.states_dir, exist_ok=True)
-        with gzip.open(path, "wb") as fh:
-            blob = self.emu.get_state()
-            if not blob:
-                raise RuntimeError(f"retro_serialize returned nothing for slot {slot}")
+        blob = self.emu.get_state()                 # Sep 25 2026 (Astra): validate BEFORE touching the
+        if not blob or len(blob) < 1_000_000:         # destination; a failed native serialize can return a
+            raise RuntimeError(f"retro_serialize returned {0 if not blob else len(blob)} bytes for slot {slot}")  # tiny buffer
+        tmp = path + ".tmp"
+        with gzip.open(tmp, "wb") as fh:
             fh.write(blob)
+        os.replace(tmp, path)                        # atomic: the old state survives any failure above
 
     # ------------------------------------------------------------ commands
     def execute(self, cmd):

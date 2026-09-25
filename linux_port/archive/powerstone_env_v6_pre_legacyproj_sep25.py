@@ -674,7 +674,7 @@ class PowerStoneEnvV6(gym.Env):
             v = [float(p) for p in parts]
             players = [{"pos": np.zeros(3), "face": np.zeros(2)}
                        for _ in range(4)]
-            if len(v) in (72, 80, 93, 103):        # v6: v5 + stone y, meters,
+            if len(v) in (72, 80, 93):             # v6: v5 + stone y, meters,
                 #                                    item ptrs, projectiles
                 # v7 (80 fields, Aug 10): v6 + chest block at [71..78] =
                 # chestN, fallN, [cx,cz,cy]x2 nearest-first, cmdseq LAST.
@@ -717,7 +717,7 @@ class PowerStoneEnvV6(gym.Env):
                        "stones": stones, "stones_y": stones_y, "proj": proj,
                        "v4": True, "v5": True, "v6": True,
                        "ack": int(v[71])}
-                if len(v) in (80, 93, 103):
+                if len(v) in (80, 93):
                     chests = []
                     for k in range(2):
                         o = 73 + 3 * k
@@ -729,7 +729,7 @@ class PowerStoneEnvV6(gym.Env):
                     out["chests"] = chests
                     out["v7"] = True
                     out["ack"] = int(v[79])
-                if len(v) in (93, 103):            # v8 (Sep 23, obs v3): state x4, stun x4,
+                if len(v) == 93:                   # v8 (Sep 23, obs v3): state x4, stun x4,
                     out["pstate"] = [int(v[79 + k]) for k in range(4)]   # proj3, cmdseq LAST
                     out["pstun"] = [int(v[83 + k]) for k in range(4)]
                     px, py, pz, pvx, pvz = v[87], v[88], v[89], v[90], v[91]
@@ -737,16 +737,6 @@ class PowerStoneEnvV6(gym.Env):
                         proj.append((px, py, pz, pvx, pvz))
                     out["v8"] = True
                     out["ack"] = int(v[92])
-                if len(v) == 103:                  # v9 (Sep 25): + the v2-RULE projectile pair for v2
-                    legacy = []                    # policies (pool seats / AB champion), cmdseq LAST
-                    for k in range(2):
-                        o = 92 + 5 * k
-                        px, py, pz, pvx, pvz = v[o], v[o+1], v[o+2], v[o+3], v[o+4]
-                        if px != 0.0 or pz != 0.0:
-                            legacy.append((px, py, pz, pvx, pvz))
-                    out["proj_legacy"] = legacy
-                    out["v9"] = True
-                    out["ack"] = int(v[102])
                 return out
             if len(v) == 44:                       # v5: v4 + real counters
                 h = [max(0.0, x) for x in v[1:5]]
@@ -1360,10 +1350,7 @@ class PowerStoneEnvV6(gym.Env):
         # list; sort again here so a v5/v4 fallback line (which carries none)
         # and any future reordering both stay correct.
         if self.CH_PROJ:
-            # Sep 25 2026: a v2 policy's view (pool seat / AB champion) is fed the v2-rule projectile
-            # list so its 12 projectile inputs keep the contract it was trained on (Astra Sep 25).
-            _src = s.get("proj_legacy") if (getattr(self, "_legacy_proj", False) and "proj_legacy" in s) else s.get("proj")
-            pr = sorted((_src or []),
+            pr = sorted((s.get("proj") or []),
                         key=lambda q: (q[0] - mp[0]) ** 2 + (q[2] - mp[2]) ** 2)
             for k, (px, py, pz, pvx, pvz) in enumerate(pr[:self.N_PROJ_OBS]):
                 b = self._PRJ0 + 6 * k if k < 2 else self._PRJ3

@@ -92,7 +92,6 @@ class SelfPlayEnv(PowerStoneEnvLibretro):
         self._opp_model = None
         self._opp_det = opp_deterministic
         self._view_prev = {}   # agent_player -> previous parsed state
-        self._view_ctr = {}    # agent_player -> [form_timer, g_int] (Sep 25: per-seat, no learner leak)
                                # (velocity deltas in _observe; cleared per ep)
         self._view_last = {}   # agent_player -> that view's own last action
         # a P1-perspective obs builder: reuse this env's own machinery by
@@ -107,7 +106,6 @@ class SelfPlayEnv(PowerStoneEnvLibretro):
             print(f"[opp] {os.path.basename(self._pool.last_path)}")
         self._view_prev.clear()
         self._view_last.clear()
-        self._view_ctr.clear()
         self._opp_stack = None
         return super().reset()
 
@@ -115,13 +113,9 @@ class SelfPlayEnv(PowerStoneEnvLibretro):
         # 1) opponent acts first (its held input persists through the
         #    learner's frames — mirrors two humans pressing simultaneously)
         if self._opp_model is not None:
+            opp_obs = self._obs_from_view(self._opp_synth, agent_player=1)
             from obs_stack import kd_for
             kv, dv = kd_for(self._opp_model)
-            self._legacy_proj = (dv == 122)               # Sep 25: v2 opponent -> v2-rule projectiles
-            try:
-                opp_obs = self._obs_from_view(self._opp_synth, agent_player=1)
-            finally:
-                self._legacy_proj = False
             if dv < opp_obs.shape[0]:
                 opp_obs = opp_obs[:dv]                    # Sep 23: v2 opponent under an obs v3 env
             if kv > 1:                                   # Sep 22: stacked opponent model
@@ -194,7 +188,6 @@ class SelfPlayEnv(PowerStoneEnvLibretro):
         saved_agent = self.AGENT_PLAYER
         saved_active = self._active_opp
         saved_last = self.last_action
-        saved_ctr = (self._form_timer, self._my_g_int)
         try:
             type(self).AGENT_PLAYER = agent_player
             # 1v1 mirror: the other port is the whole opponent set
@@ -207,19 +200,6 @@ class SelfPlayEnv(PowerStoneEnvLibretro):
             if s is None:
                 return np.zeros(self.OBS_DIM, dtype=np.float32)
             prev = self._view_prev.get(agent_player, s)
-            # Sep 25 2026 (Astra, the "KNOWN ISSUE" above, now fixed): the view's own form timer and
-            # gem fallback, mirrored from ITS transitions exactly like FFASelfPlayEnv._update_view_counters,
-            # so an untransformed P1 never reads the learner's running timer as its own form.
-            ctr = self._view_ctr.setdefault(agent_player, [0, 0])
-            me_n = s["players"][agent_player - 1]; me_p = prev["players"][agent_player - 1]
-            if me_n.get("form", 0) == 1 and me_p.get("form", 0) == 0:
-                ctr[0] = self.FORM_STEPS
-            if me_n.get("form", 0) == 1:
-                ctr[0] = max(ctr[0], 2)
-            ctr[1] = max(0, min(3, int(me_n.get("gems", 0) if me_n.get("gems", -1) >= 0 else ctr[1])))
-            if ctr[0] > 0:
-                ctr[0] -= 1
-            self._form_timer, self._my_g_int = ctr[0], ctr[1]
             obs = self._observe(s, prev)
             self._view_prev[agent_player] = s
             return obs
@@ -227,7 +207,6 @@ class SelfPlayEnv(PowerStoneEnvLibretro):
             type(self).AGENT_PLAYER = saved_agent
             self._active_opp = saved_active
             self.last_action = saved_last
-            self._form_timer, self._my_g_int = saved_ctr
 
 
 # NOTE resolved Aug 28: the obs constructor is _observe(s, prev) — wired

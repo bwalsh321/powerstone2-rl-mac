@@ -8,6 +8,7 @@
 # sheets itself. Runs on instance 11 beside the next leg's training; zero footprint elsewhere.
 cd "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source ~/ps2rl/bin/activate
+[ "$(uname)" = "Darwin" ] || export DISPLAY="${DISPLAY:-:99}"   # Sep 25: Linux relay uses a persistent Xvfb :99
 export SDL_AUDIODRIVER=dummy PYTHONPATH=../sdlarch-rl/p4:../sdlarch-rl:. PYTHONUNBUFFERED=1 PS2_OBS_V2=1
 N=$1; M=./powerstone_v6_leg${N}_league.zip
 # Sep 24 2026 (obs v3; must come AFTER N is set): tmux does not pass the battery's environment; read the leg's own contract.

@@ -252,15 +252,6 @@ class StateLineSynth:
         counts = {}
         for k in np.nonzero(live)[0]:
             c = int(cls[k]); counts[c] = counts.get(c, 0) + 1
-        # Sep 25 2026 (Astra: contract per policy generation): under v3 also compute the projectile list
-        # by the OLD v2 rule (whole-word active flag, exactly one instance of the class, no v3 bands,
-        # one entry per class, 2 slots) so v2 policies (pool seats, the AB champion) can be fed the
-        # prefix they were trained on. Speeds come from the same per-slot history, computed once.
-        live_v2 = (act == 1) if OBS_V3 else live
-        counts_v2 = {}
-        for k in np.nonzero(live_v2)[0]:
-            c = int(cls[k]); counts_v2[c] = counts_v2.get(c, 0) + 1
-        out_v2, seen_v2 = [], set()
         out, seen = [], set()
         for k in np.nonzero(live)[0]:
             c = int(cls[k])
@@ -280,10 +271,6 @@ class StateLineSynth:
             self._proj_hist[int(k)] = (c, x, y, z, self.frame)
             known = c in A.PROJ_CLASSES
             banded = any(lo <= c < hi for lo, hi in A.PROJ_EXCLUDE_BANDS)
-            if OBS_V3 and live_v2[k] and (known or (sp and sp >= A.PROJ_SPEED_MIN and counts_v2.get(c) == 1
-                                                     and c not in A.PROJ_EXCLUDE and not banded)):
-                if c not in seen_v2:                # the v2 rule, verbatim
-                    seen_v2.add(c); out_v2.append((x, y, z, vx, vz))
             if OBS_V3 and (c in A.PROJ_EXCLUDE_V3 or any(lo <= c < hi for lo, hi in A.PROJ_EXCLUDE_BANDS_V3)):
                 continue
             # v3 (Sep 24 12:10 am): NO horizontal-speed requirement any more. It was added to kill
@@ -305,10 +292,6 @@ class StateLineSynth:
         n_rep = A.PROJ_REPORT_V3 if OBS_V3 else A.PROJ_REPORT
         self._proj_cache_cls = [p[5] for p in out[:n_rep]]
         self._proj_cache = [p[:5] for p in out[:n_rep]]
-        if OBS_V3:
-            if bx is not None:
-                out_v2.sort(key=lambda p: (p[0]-bx)**2 + (p[2]-bz)**2)
-            self._proj_cache_v2 = out_v2[:A.PROJ_REPORT]
 
     # ----------------------------------------------------------- compose
     def _compose(self, ack: int) -> str:
@@ -371,15 +354,7 @@ class StateLineSynth:
                     st.append(str(r.u8(b + A.PSTATE_OFF))); sn.append(str(r.u8(b + A.PSTUN_OFF)))
                 except ValueError:
                     st.append("0"); sn.append("0")
-            lp = []                                 # v9 (Sep 25): + the v2-rule projectile pair
-            for k in range(A.PROJ_REPORT):
-                cache = getattr(self, "_proj_cache_v2", [])
-                if k < len(cache):
-                    x, y, z, vx, vz = cache[k]
-                    lp.append(f"{x:.2f},{y:.2f},{z:.2f},{vx:.2f},{vz:.2f}")
-                else:
-                    lp.append("0.00,0.00,0.00,0.00,0.00")
-            v3 = f"{','.join(st)},{','.join(sn)},{pparts[2]},{lp[0]},{lp[1]},"
+            v3 = f"{','.join(st)},{','.join(sn)},{pparts[2]},"
 
         return (f"{self.frame},{h[0]:.2f},{h[1]:.2f},{h[2]:.2f},{h[3]:.2f},"
                 f"{blocks[0]},{blocks[1]},{blocks[2]},{blocks[3]},"

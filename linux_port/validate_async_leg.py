@@ -164,6 +164,10 @@ def main():
     ap.add_argument("--lockstep-log", required=True)
     ap.add_argument("--async-receipts", type=int, default=None, help="leg number of the async leg")
     ap.add_argument("--ref-receipts", type=int, default=None, help="leg number of a lockstep reference leg")
+    ap.add_argument("--expect-updates", type=int, default=196,
+                    help="Sep 25 2026 (Astra): a full 4M-step leg has this many learner updates / seam checks; "
+                         "fewer than 90%% of them, or fewer than --min-episodes [ep] lines, is FAIL (coverage)")
+    ap.add_argument("--min-episodes", type=int, default=1000)
     ap.add_argument("--stream-report-only", action="store_true",
                     help="layer 3 is reported but not gated (pre-registered for the FFA lineage: "
                          "win share vs THREE pool opponents is lower by construction)")
@@ -178,6 +182,9 @@ def main():
     if not ch:
         print("   no [check] lines found"); fails.append("no seam checks")
     else:
+        if len(ch) < 0.9 * a.expect_updates:
+            print(f"   coverage: {len(ch)} seam checks < 90% of the expected {a.expect_updates} -> FAIL")
+            fails.append("coverage:seam checks")
         mx_lp, mx_v = max(c[0] for c in ch), max(c[1] for c in ch)
         ok = mx_lp < 1e-4 and mx_v < 1e-3
         print(f"   {len(ch)} checks; max |dlogp|={mx_lp:.2e} max |dvalue|={mx_v:.2e} -> {'PASS' if ok else 'FAIL'}")
@@ -223,6 +230,9 @@ def main():
             if name == "async" and not a.stream_report_only:
                 fails.append("stream:no [ep] lines")
             continue
+        if name == "async" and sres[0]["n"] < a.min_episodes:
+            print(f"   coverage: {sres[0]['n']} [ep] lines < {a.min_episodes} -> FAIL")
+            fails.append("coverage:episodes")
         whole, qs = sres
         print(f"   {name:9s} n={whole['n']:5d} win {whole['win']:5.1f}% len {whole['len']:5.0f} picks {whole['picks']:.2f} forms {whole['forms']:.2f}")
         for i, q in enumerate(qs):

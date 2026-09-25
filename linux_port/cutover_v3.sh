@@ -16,6 +16,7 @@ read SN SZ < league_state.txt
 pgrep -f 'train_selfplay_asyn[c]' >/dev/null && { echo "a trainer is alive; abort"; exit 1; }
 tmux has-session -t ps2train 2>/dev/null && { echo "tmux ps2train exists; abort"; exit 1; }
 source ~/ps2rl/bin/activate
+[ "$(uname)" = "Darwin" ] || export DISPLAY="${DISPLAY:-:99}"   # Sep 25: Linux relay uses a persistent Xvfb :99
 export SDL_AUDIODRIVER=dummy PYTHONPATH=../sdlarch-rl/p4:. PYTHONUNBUFFERED=1 PS2_OBS_V2=1 PS2_OBS_V3=1
 V3="./powerstone_v6_leg${P}_v3.zip"
 python surgery_widen.py "$SZ" "$V3" | tail -1 || { echo "surgery failed; abort"; exit 1; }

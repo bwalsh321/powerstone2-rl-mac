@@ -5,6 +5,7 @@ import os, sys, tempfile
 import numpy as np
 assert os.environ.get("PS2_OBS_V3") == "1", "run with PS2_OBS_V3=1"
 from powerstone_env_libretro import PowerStoneEnvLibretro as Env
+import powerstone_env_v6 as PE
 
 def make_env():
     e = Env.__new__(Env)
@@ -63,5 +64,16 @@ check(o8[147 + 0] == 1.0, f"opp3 block {o8[146:154]}")
 # third projectile at 154: present, dx=(2000-100)/POS_SCALE, vx=-600/1200
 check(o8[154] == 1.0 and o8[155] > 0 and abs(o8[158] + 600 / e.PROJ_VEL_SCALE) < 1e-6, f"proj3 block {o8[154:160]}")
 check(o8[81] == 1.0 and o8[87] == 1.0, "first two projectile slots still populated")
+# v9 line (103 fields): + the v2-rule projectile pair; a v2 view (_legacy_proj) must see THAT pair in [81..92]
+line9 = v7_line(players, proj, extra="7,32,26,1,0,38,0,0,2000,0,2000,-600,600,777,0,777,300,0,0,0,0,0,0")
+with tempfile.NamedTemporaryFile("w", suffix=".txt", delete=False) as fh:
+    fh.write(line9); p9 = fh.name
+e._state_file = p9; s9 = Base._parse_state_once(e)
+check(s9 is not None and s9.get("v9") and s9["ack"] == 7 and len(s9["proj_legacy"]) == 1 and s9["proj_legacy"][0][0] == 777, f"v9 parses legacy pair {s9 and s9.get('proj_legacy')}")
+o9 = e._observe(s9, s9)
+check(np.array_equal(o9, o8), "v9 line with _legacy_proj off == v8 obs")
+e._legacy_proj = True; o9l = e._observe(s9, s9); e._legacy_proj = False
+check(o9l[81] == 1.0 and abs(o9l[82] - (777 - 100) / PE.POS_SCALE) < 1e-6 and o9l[87] == 0.0, f"legacy view uses the v2-rule pair {o9l[81:93]}")
+check(np.array_equal(o9l[:81], o9[:81]) and np.array_equal(o9l[93:154], o9[93:154]), "legacy view differs only in [81..92] (+ the v3-only slot 3, unread by v2 policies)")
 print(f"obs v3 unit test: {fails} failures")
 sys.exit(1 if fails else 0)

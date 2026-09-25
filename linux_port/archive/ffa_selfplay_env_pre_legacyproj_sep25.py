@@ -226,13 +226,9 @@ class FFASelfPlayEnv(PowerStoneEnvLibretro):
         for v in self._views.values():
             if v.model is None:
                 continue
+            obs_v = self._obs_from_view(v)
             from obs_stack import kd_for
             kv, dv = kd_for(v.model)
-            self._legacy_proj = (dv == 122)     # Sep 25: v2 policy -> v2-rule projectile prefix
-            try:
-                obs_v = self._obs_from_view(v)
-            finally:
-                self._legacy_proj = False
             if dv < obs_v.shape[0]:
                 obs_v = obs_v[:dv]              # Sep 23: v2 pool policy under an obs v3 env
             if kv > 1:                                   # stacked pool policy: keep its own history

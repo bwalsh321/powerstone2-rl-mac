@@ -23,6 +23,7 @@ if ! mkdir "$LOCK" 2>/dev/null; then
   exit 3
 fi
 source ~/ps2rl/bin/activate
+[ "$(uname)" = "Darwin" ] || export DISPLAY="${DISPLAY:-:99}"   # Sep 25: Linux relay uses a persistent Xvfb :99
 export SDL_AUDIODRIVER=dummy PYTHONPATH=../sdlarch-rl:. PYTHONUNBUFFERED=1
 if [ "$(uname)" = "Darwin" ]; then
   CORE="${PS2_CORE:-$HOME/Library/Application Support/RetroArch/cores/flycast_libretro.dylib}"

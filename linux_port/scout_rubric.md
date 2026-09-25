@@ -4,8 +4,8 @@ Ryoma (blue 3P), Accel (green 4P), Desert Area. Sheets are 1 frame/second, 4x3, 
 top-bottom, timestamp top-left. Frames before the HUD appears are intro, not play. episodes.txt lists
 the rounds, which sheets belong to the first LOSS and the first WIN, and the per-round stats lines.
 Move identification (Blake, Sep 22): when the bot (2P) is transformed, the missile / plane / robot SWARM
-that fills the screen is FALCON'S OWN fusion special, fired at close range — credit KOs inside it to the
-bot. Other characters have their own transformed specials (beams, fire, ice); do not label every swarm
+that fills the screen is FALCON'S OWN fusion special, fired at close range — a KO inside it is LIKELY the bot's;
+write "likely bot (swarm)" not "bot", and "uncertain" when another attacker is adjacent (four-player fights). Other characters have their own transformed specials (beams, fire, ice); do not label every swarm
 as an opponent transform.
 DATA DICTIONARY (Sep 23, after Astra's review): in the stats lines, forms=A/B means A = number of times the
 BOT transformed, B = number of times any OPPONENT transformed. It is NOT closed/attempted; there is no

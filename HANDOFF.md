@@ -21,7 +21,7 @@ lines are misreads (rubric now carries a data dictionary). The battery now enfor
 thresholds itself (`hold_gate.py`, marker `claude_bridge/hold_leg<N>.txt`), verifies the pool copy
 before advancing state, and takes a per-leg lock dir `claude_bridge/battery_leg<N>.lock`.
 
-**Live:** leg 80 training (lv3+lv8 character set, second leg of the read; launched 9:13 am EDT Sep 25, done ~1:55 pm; wake `ps2-leg80-end-wake` 2:28 pm), state `80 ./powerstone_v6_leg79_league.zip`, trainer = mixed. Leg 79 = 26.2 (clean held-out) / 98.0 / **89-11 best AB**. LEG 81 ONWARD: `league_env.txt` adds slots 50-59 (ten three-lv8-COM training lineups, 26%% of episodes); the battery gains a 4th eval `lv8mix` (five held-out three-COM lineups, states/slot90-94, n=500) from leg 80's battery. See NEXT MOVES.
+**Live:** leg 80 training (lv3+lv8 character set, second leg of the read; launched 9:13 am EDT Sep 25, done ~1:55 pm; wake `ps2-leg80-end-wake` 2:28 pm), state `80 ./powerstone_v6_leg79_league.zip`, trainer = mixed. Leg 79 = 26.2 (slot 3 = SEEN-STATE regression benchmark since legs 77-78 trained on it; not a clean held-out) / 98.0 / **89-11 best AB (confounded: v2 champion under the v3 reader, P1 view bug)**. LEG 81 ONWARD: `league_env.txt` adds slots 50-59 (ten three-lv8-COM training lineups, 26%% of episodes); the battery gains a 4th eval `lv8mix` (five held-out three-COM lineups, states/slot90-94, n=500) from leg 80's battery. See NEXT MOVES.
 state `71 ./powerstone_v6_leg70_league.zip`, `league_trainer.txt` = mixed, battery chains leg 72.
 Leg 70's scouting run (tmux scout70) was still encoding at compaction: when `claude_bridge/
 scout_leg70_done.txt` appears, spawn the Sonnet reviewer on `videos/review_leg70/` (rubric
@@ -121,15 +121,35 @@ ground items: 2 nearest with pos + category (item dictionary from the pool class
 agreement test, two-leg read vs the 16-24 band. Chests/weapons: visibility only, NO item reward (Blake's
 economy point; the bot learned cactus-throwing blind, wins will teach value).
 
+## ASTRA REVIEW 2 (Sep 25 2026 ~12:30-2:30 pm EDT; Blake: "hold off on [the plan], queue that after these findings")
+
+Report: `~/Documents/Codex/2026-09-23/cp/outputs/powerstone-review-2026-09-25.md` (+ validation txt). Verified fixes it
+confirmed: context inputs, time cost, checkpoint persistence, hold gate, rejected loads, validator exit codes. What it
+found and what was done (all committed; backups `archive/*_sep25.*`):
+| # | Finding | Done |
+|---|---|---|
+| 1 | slot 3 is NOT "held out again": legs 77-78 trained on it (4,299 eps) and every later zip descends from them | prose corrected everywhere: slot 3 = SEEN-STATE regression benchmark from leg 77; states/slot90-94 = the fresh test; a third untouched set is still to be stamped for the eventual final test |
+| 2 | slicing the v3 obs to 122 keeps the layout, not the contract: the v3 reader fills the two projectile slots that the v2 reader left empty (8 prefix positions differ on identical RAM); v2 pool policies and the AB champion were fed a changed input | FIXED: the reader now also computes the projectile pair by the v2 rule (line v9 = 103 fields, `proj_legacy`), and every v2 view (FFA pool seats, the 1v1 opponent / AB champion) is built with `_legacy_proj` so its [81..92] follow the v2 contract; the learner keeps v3. Unit test + arena smoke pass |
+| 3 | AB champion P1 view leaked the learner's form timer / gem fallback (0.8 own-form while untransformed) | FIXED in selfplay_env: per-seat counters mirrored from the view's own transitions (the FFA method); seats still fixed (candidate P2, champion P1); AB re-baseline below |
+| 4 | lv8mix receipt cannot prove all five lineups ran; sampling unbalanced | TODO after leg 80's battery: round-robin 100 episodes per lineup, per-lineup W/L in the summary, merge_receipts requires the exact `slots=` list |
+| 5 | "78%% ceiling" is a conditional association, not causal; "never wins with < 2" is 1/149 wrong; the rubric's automatic swarm credit is too strong | prose corrected (hypothesis, not ceiling); rubric now says "likely bot (swarm)" and "uncertain" when another attacker is adjacent |
+| 6 | native `getState` ignores `retro_serialize`'s result (a failed save returns a 16-byte buffer); Python opened the destination first | Python: validate the blob (>= 1 MB) BEFORE touching the file, write a temp and `os.replace` (atomic); C++ source now returns empty bytes on failure (rebuild needed: next harness build / the 9950X; the Mac binaries are unchanged) |
+| 7 | headless Linux relay has no persistent DISPLAY path; G5 parity rule statistically wrong; core URL mutable | LINUX_BRINGUP: persistent Xvfb :99 systemd unit, every relay script exports DISPLAY on Linux; parity = two-proportion test + 6-point cap on n=200; pin the core by sha256 |
+| 8 | validator PASSes tiny fixtures | coverage rule: < 90%% of the expected 196 seam checks or < 1,000 [ep] lines = FAIL |
+| 9 | test_obs_context replicated the constructor's mapping by hand | `ffa_slot_meta()` is one function used by the constructor AND the test |
+Still open (Astra, agreed): run manifests per checkpoint, mtime-free pool chronology, per-actor deadlines, scoped
+`pkill`, evaluate both AB seat assignments, a recent-parent AB opponent, the legacy prose about "byte-identical".
+
 ## NEXT MOVES (Sep 25 2026 ~11:30 am EDT; Blake: "update the handoff with the next moves", "train on the eval shape
 ## should be the first variable to change", memory = "the biggest lift but also the biggest lever")
 
 WHY, in one table (leg 79 lv8 eval, 500 rounds): bot transforms 0 -> 21%% of rounds, 0%% won; 1 -> 30%%, 1%%; 2 -> 24%%,
 27%%; 3 -> 25%%, 78%%. It never wins a lv8 round with fewer than two transforms and fails to reach two in half its
-rounds; 7.0 stones picked and 3.1 knocked off per round. Skill when stoned up is already 78%%; the gap is the stone
-economy under pressure from three lv8 COMs, and the recurring death is standing inside a special (6 reviews in a row).
+rounds; 7.0 stones picked and 3.1 knocked off per round. Rounds with 3+ transforms are won 78%% of the time; that is a CONDITIONAL association (surviving
+longer also allows more transforms), a hypothesis about the stone economy under pressure from three lv8 COMs, not a
+causal estimate or a ceiling (Astra, Sep 25), and the recurring death is standing inside a special (6 reviews in a row).
 BENCHMARKS: Blake vs three lv8 COMs = 23-1 (Aug 30 2026, rig, demos_lv8/demo_005.npz, 1,000+ hours of play). Bot:
-26.2%% clean. Milestones to chase: 35%% next, then 50%% (half the gap to the 78%% ceiling), then Blake's number.
+26.2%% clean. Milestones to chase: 35%% next, then 50%%, then Blake's number (the 78%% row is a hypothesis, not a ceiling).
 Benchmark design (Blake: "it has to be a test"): KEEP the fixed trio (states/slot3, 80 legs of history) AND a second
 held-out set of five fixed three-COM lv8 lineups (states/slot90-94) that never train; training three-COM lineups are
 different (states_mixed/slot50-59). Battery = 4 evals from leg 80 on (lv8 trio 500, lv3 250, champion AB 100, lv8mix
@@ -185,7 +205,9 @@ FRESH HELD-OUT: `states/slot90.state` = P1 COM Gunrock, P2 HUMAN Falcon, P3 COM 
 Desert; `SLOT_META[90] = (2, 8)`. Not yet in the battery (Blake's call: it would replace or join slot 3,
 which is trained-on since leg 77).
 LEAGUE: `league_env.txt` PS2_STATE_SLOTS = 0,10-22,30-43 (14 lv3 + 14 lv8 = 50/50; the slot-3 padding of the
-fast test DROPPED, so slot 3 is a held-out again from leg 79 on). Takes effect at leg 79's launch (after leg
+fast test DROPPED; slot 3 is NOT trained on from leg 79 but it is NOT a clean held-out either: legs 77-78 trained on
+that exact state for 4,299 episodes and every later zip descends from them -> label it a SEEN-STATE regression
+benchmark from leg 77 onward; states/slot90-94 (never trained on) are the fresh test). Takes effect at leg 79's launch (after leg
 78's battery, ~4:50 am). Backup `archive/league_env_pre_lv8set_sep25.txt`.
 
 ## OBS V3 BUILT + CUTOVER PLAN (Sep 23 2026 10 pm - 11:15 pm EDT; Blake: "Go. Do multiple smoke tests")
@@ -195,7 +217,9 @@ Flag `PS2_OBS_V3=1` (default off; everything v2 untouched when unset). Backups `
   (PLAYER_MAT+0x3285) / `PSTUN_OFF` (+0x3392); `ps2_ram.py` composes it and, under v3, reports projectile
   VOLLEYS (no uniqueness gate), requires >= 300 u/s horizontal motion, one entry per position, and excludes
   a null class and the 0x0C54Dxxx stage-effect band (both seen in overlays). `_proj_cache_cls` keeps the ids.
-- Obs 160 = the v2 122 (byte-identical) + [122..129] self stun/40 + 7-way state class (idle-walk, air, attack,
+- Obs 160 = the v2 122 (same LAYOUT; NOT the same values: under v3 the reader itself changes, so the two projectile
+  slots [81..92] now carry volleys that the v2 reader never reported -> a v2 policy fed the v3 prefix sees a changed
+  contract on 12 dims; Astra Sep 25 measured 8 differing prefix positions on identical RAM) + [122..129] self stun/40 + 7-way state class (idle-walk, air, attack,
   hit, transforming, special, other) + [130..153] the same for the 3 opponents NEAREST-FIRST (same order
   as the opponent block) + [154..159] projectile slot 3. `powerstone_env_v6.OBS_V3/OBS_DIM/STATE_CLASS`.
 - Stack helpers: `obs_stack.kd_for(model)` -> (K, 122|160); eval_parity / ab_selfplay_probe / watch_play /
@@ -1216,7 +1240,7 @@ entropy_loss is trending toward 0. Every collection wake reports the leg's
 entropy median and the trigger state; the interactive session's watcher
 emits the running median hourly.
 
-| 79 | 252M (MIXED, 14 lv3 + 14 lv8 CHARACTER STATES (P4 COM lv3 or lv8), warm leg 78, STACK + ARENA + 7-LAG OBS STACK + OBS CTX FIX + ZS TIME COST + OBS V3, NEW CONTRACT (v3 eval; slot 3 held out again); FIRST LV3+LV8 LEG) | all 39.5/38.5/39.7/39.7, lv8 eps 36.3/37.0/38.0/37.1 (n=4,049), lv3 eps 42.7/39.8/41.7/42.2 (8,129 eps; timeouts 0/0/0/0%%; picks 5.25/5.29/5.33/5.15; entropy -0.609; KL/update 0.026; epochs/update 2.21; expl_var 0.80; [zs] adj +12.8/+12.5/+13.0/+12.7; win share by transforms 0/1/2/3 = 0.01/0.28/0.72/0.87; lv8 win share by COM character 32 (Ryoma, Jack) to 47 (Pride)) | 26.2 (131W/369L, n=500, Wilson 23-30; 6.96/1.59; clean held-out) | **98.0** (245/250, Wilson 95-99; ties best) | — | **89-11** (n=100; BEST AB BY FIVE) |
+| 79 | 252M (MIXED, 14 lv3 + 14 lv8 CHARACTER STATES (P4 COM lv3 or lv8), warm leg 78, STACK + ARENA + 7-LAG OBS STACK + OBS CTX FIX + ZS TIME COST + OBS V3, NEW CONTRACT (v3 eval; slot 3 = seen-state benchmark, trained on in legs 77-78); FIRST LV3+LV8 LEG) | all 39.5/38.5/39.7/39.7, lv8 eps 36.3/37.0/38.0/37.1 (n=4,049), lv3 eps 42.7/39.8/41.7/42.2 (8,129 eps; timeouts 0/0/0/0%%; picks 5.25/5.29/5.33/5.15; entropy -0.609; KL/update 0.026; epochs/update 2.21; expl_var 0.80; [zs] adj +12.8/+12.5/+13.0/+12.7; win share by transforms 0/1/2/3 = 0.01/0.28/0.72/0.87; lv8 win share by COM character 32 (Ryoma, Jack) to 47 (Pride)) | 26.2 (131W/369L, n=500, Wilson 23-30; 6.96/1.59; seen-state benchmark) | **98.0** (245/250, Wilson 95-99; ties best) | — | **89-11** (n=100; BEST AB BY FIVE) |
 | 78 | 248M (MIXED + LV8 SLOT3 x5 (26%% of episodes), warm leg 77, STACK + ARENA + COM CHARACTER RANDOM + 7-LAG OBS STACK + OBS CTX FIX + ZS TIME COST + OBS V3, NEW CONTRACT (v3 eval; slot 3 trained-on); LV8 FAST TEST leg 2) | all 38.9/38.2/36.2/37.8, lv8-slot3 eps 29.3/30.3/30.1/27.7 (n=2,168), mixed 41.9/41.1/38.3/41.5 (8,448 eps; timeouts 0/0/0/0%%; picks 5.43/5.21/5.18/5.26; entropy -0.587; KL/update 0.026; epochs/update 2.15; expl_var 0.80; [zs] adj +13.6/+13.0/+12.0/+13.0; win share by transforms 0/1/2/3 = 0.01/0.24/0.69/0.85) | 27.4 (137W/363L, n=500, Wilson 24-31; 6.92/1.58; trained-on state) | **98.0** (245/250, Wilson 95-99; ties best) | — | 77-23 (n=100) |
 | 77 | 244M (MIXED + LV8 SLOT3 x5 (26%% of episodes), warm leg 76, STACK + ARENA + COM CHARACTER RANDOM + 7-LAG OBS STACK + OBS CTX FIX + ZS TIME COST + OBS V3, NEW CONTRACT (v3 eval; SLOT 3 NO LONGER HELD OUT); LV8 FAST TEST, relaunched 6:39 pm) | all 35.5/37.0/38.7/38.0, lv8-slot3 eps 21.6/30.6/31.0/30.4 (n=2,131), mixed 40.6/39.3/41.2/40.4 (8,263 eps; timeouts 0/0/0/0%%; picks 5.17/5.30/5.46/5.30; entropy -0.592; KL/update 0.026; epochs/update 2.10; expl_var 0.81; [zs] adj +12.1/+12.7/+13.7/+13.0; win share by transforms 0/1/2/3 = 0.01/0.23/0.68/0.86) | 27.2 (136W/364L, n=500, Wilson 23-31; 7.19/1.66; trained-on state) | 92.8 (232/250, Wilson 89-95; 9.86/3.04) | — | 81-19 (n=100) |
 | 76 | 240M (MIXED, warm leg 75, STACK + ARENA + COM CHARACTER RANDOM + 7-LAG OBS STACK + OBS CTX FIX + ZS TIME COST + OBS V3, NEW CONTRACT (v3 eval); third obs v3 leg) | 37.9/39.8/39.4/38.8 (7,897 eps; timeouts 0/0/0/0%%; picks 5.07/5.10/5.06/5.00; entropy -0.625; KL/update 0.025; epochs/update 2.10; expl_var 0.82; [zs] adj +12.7/+13.6/+13.2/+12.7; win share by transforms 0/1/2/3 = 0.02/0.30/0.72/0.86) | 22.6 (113W/387L, n=500, Wilson 19-26) | **98.0** (245/250, Wilson 95-99; best lv3 so far) | — | 81-19 (n=100) |
@@ -1228,8 +1252,8 @@ emits the running median hourly.
 | 70 | 216M (MIXED, warm leg 69 SURGERY K=7 strided [16,8,4,3,2,1,0], STACK + ARENA + COM CHARACTER RANDOM + 7-LAG OBS STACK, NEW CONTRACT; FIRST STRIDED LEG) | 36.0/38.0/39.0/37.0 (7,639 eps; timeouts 0/0/0/0%%; picks 4.92/5.01/5.07/5.08; entropy -0.681; KL/update 0.025; epochs/update 2.42; expl_var 0.80; [zs] adj +12.5/+13.8/+14.3/+13.6, dealt_nn 0.89-0.93; per-character 0.34 Ryoma/Pete/Julia to 0.43 Ayame; win share by transforms 0/1/2/3 = 0.01/0.25/0.70/0.83) | **28.8** (144W/356L, n=500, Wilson 25-33; **6.79/1.57**) | **97.6** (244/250, Wilson 95-99; 9.77/3.06) | — | 74-26 (n=100) |
 | 69 | 212M (MIXED, warm leg 68, STACK + ARENA + COM CHARACTER RANDOM + 4-FRAME OBS STACK, NEW CONTRACT; second stacked leg) | 38.0/37.0/37.0/41.0 (7,432 eps; timeouts 0/1/0/0%%; picks 4.92/4.86/4.95/5.05; entropy -0.706; KL/update 0.026; epochs/update 4.68; expl_var 0.80; [zs] adj +13.7/+13.3/+13.0/+15.1, dealt_nn 0.89-0.91; per-character 0.33 Wang-Tang to 0.43 Pete) | **23.0** (115W/385L, n=500, Wilson 20-27; 6.04/1.32) | 94.8 (237/250, Wilson 91-97; 8.99/2.77) | — | 75-25 (n=100) |
 
-Leg 79 note (Sep 25 9:20 am EDT): FIRST LEG ON THE FULL LV3+LV8 CHARACTER SET. lv8 26.2 (23-30) as a clean held-out
-again (legs 77-78 trained on it: 27.2 / 27.4; before the fast test 22.6), lv3 98.0 (ties the record), AB 89-11 = the best
+Leg 79 note (Sep 25 9:20 am EDT): FIRST LEG ON THE FULL LV3+LV8 CHARACTER SET. lv8 26.2 (23-30) with slot 3 no longer in the training mix (but SEEN in legs 77-78, so a seen-state
+benchmark, not a clean held-out) (legs 77-78 trained on it: 27.2 / 27.4; before the fast test 22.6), lv3 98.0 (ties the record), AB 89-11 = the best
 champion result of the league by five points (84 was the previous). No hold. Training: the lv8-character episodes run at
 ~37%% win share vs ~41%% for the lv3 ones (one lv8 COM among two pool Falcons is only mildly harder), damage taken and
 round length the same; Pride is the softest lv8 COM (47%%), Ryoma and Jack the hardest (32%%). Read after one clean leg:
@@ -1240,7 +1264,7 @@ Leg 78 note (Sep 25 4:30 am EDT): second fast-test leg. lv8 27.4 (24-31; trained
 record), AB 77-23. No hold. FAST-TEST READ (legs 77-78 = 27.2 / 27.4 vs 22.6 before): lv8 exposure lifted the lv8
 score ~5 points and held it; the lv8 training episodes plateaued at ~29-30%% after leg 77's jump (no second climb);
 lv3 and AB in band. Leg 79 booted 4:24 am on the FULL character set: 14 lv3 + 14 lv8 slots (state_slots 0,10-22,
-30-43), slot-3 padding dropped -> slot 3 is a held-out again from this leg; the leg 79 lv8 score vs 27.4 is the
+30-43), slot-3 padding dropped -> slot 3 is no longer trained on from this leg (seen-state benchmark); the leg 79 lv8 score vs 27.4 is the
 first clean read of the P4-at-lv8 recipe (with the caveat that legs 77-78 trained on it).
 
 Leg 77 note (Sep 24 11:35 pm EDT): LV8 FAST TEST, first leg. lv8 27.2 (23-31), up from 22.6: the three-drop streak

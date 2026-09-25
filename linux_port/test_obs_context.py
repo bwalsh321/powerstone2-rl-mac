@@ -11,9 +11,8 @@ SLOTS = [int(x) for x in os.environ["PS2_STATE_SLOTS"].split(",")]
 
 def make_env(slot, agent_player):
     e = Env.__new__(Env)
-    e.SLOT_META = dict(Env.SLOT_META)
-    for s in SLOTS:                       # what FFASelfPlayEnv.__init__ does
-        e.SLOT_META[s] = (1, 2)
+    from ffa_selfplay_env import ffa_slot_meta   # Sep 25: the constructor's own mapping, no emulator
+    e.SLOT_META = ffa_slot_meta(SLOTS)
     e.AGENT_PLAYER = agent_player
     e._active_opp = [j for j in range(4) if j != agent_player - 1]
     e._episode_slot = slot
