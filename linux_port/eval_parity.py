@@ -107,13 +107,15 @@ def main():
 
     eps = []
     for ep in range(args.episodes):
+        if args.slots:                                   # Sep 25 (Astra): balanced, deterministic
+            env.STATE_SLOTS = [_slots[ep % len(_slots)]]  # round-robin over the held-out set
         obs = _sl(env.reset()); obs = _fs.reset(obs) if _fs else obs
         done, info = False, {}
         while not done:
             action, _ = model.predict(obs, deterministic=not args.stochastic)
             obs, r, done, info = env.step(action)
             obs = _sl(obs); obs = _fs.push(obs) if _fs else obs
-        eps.append(dict(env._ep, result=info.get("result", "timeout")))
+        eps.append(dict(env._ep, result=info.get("result", "timeout"), slot=int(getattr(env, "_episode_slot", args.slot))))
 
     n = len(eps)
     wins = sum(e["result"] == "win" for e in eps)
@@ -134,6 +136,11 @@ def main():
           f"95% Wilson [{lo:.0f}-{hi:.0f}]")
     print(f"picks: {picks:5.2f} /ep")
     print(f"forms: {forms:5.2f} /ep")
+    if args.slots:                                       # per-lineup counts so the receipt proves the set ran
+        per = {}
+        for e in eps:
+            d = per.setdefault(e["slot"], [0, 0]); d[0] += e["result"] == "win"; d[1] += 1
+        print("per-slot: " + "  ".join(f"slot{s}={per[s][0]}W/{per[s][1]}" for s in sorted(per)))
     ok = True
     if args.ref:
         rk, rn, rpicks, rforms = parse_ref(args.ref)

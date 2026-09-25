@@ -125,7 +125,7 @@ sharded_eval ab_vs_leg1 ab "$AB_PER" --model "$M" --opp "$LEG1" -- \
 # PS2_LV8MIX=0 disables.
 if [ "${PS2_LV8MIX:-1}" = "1" ]; then
   echo "battery leg $N: lv8mix held-out set (slots 90-94)"
-  sharded_eval lv8mix slot "$S3_PER" --model "$M" --slot 90 -- \
+  sharded_eval lv8mix slot "$S3_PER" --model "$M" --slot 90 --slots 90,91,92,93,94 -- \
     python eval_parity.py --core "$CORE" --game "$GAME" --slots 90,91,92,93,94 --model "$M"
 fi
 

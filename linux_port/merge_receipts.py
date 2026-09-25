@@ -40,13 +40,22 @@ def read(path):
         return f.read()
 
 
-def slot_shard(path, model, slot, per_shard):
+def slot_shard(path, model, slot, per_shard, slots=None):
     t = read(path)
     if t is None:
         return None, f"{path}: missing"
     m = re.search(r"model=(\S+)\s+slot=(\d+)\s+n=(\d+)", t)
     if not m:
         return None, f"{path}: no summary header"
+    per_slot = {}
+    if slots:                                            # Sep 25 (Astra): the receipt must name the set
+        ms = re.search(r"slots=([0-9,]+)", t)
+        if not ms or ms.group(1) != slots:
+            return None, f"{path}: slots={ms.group(1) if ms else None}, expected {slots}"
+        for s_, w_, n_ in re.findall(r"slot(\d+)=(\d+)W/(\d+)", t):
+            per_slot[int(s_)] = (int(w_), int(n_))
+        if sorted(per_slot) != sorted(int(x) for x in slots.split(",")):
+            return None, f"{path}: per-slot counts missing for {slots}"
     if m.group(1) != os.path.basename(model):
         return None, f"{path}: summary is for {m.group(1)}"
     if int(m.group(2)) != slot:
@@ -63,7 +72,7 @@ def slot_shard(path, model, slot, per_shard):
     if W + L + T != per_shard:
         return None, f"{path}: W+L+T={W+L+T}, expected {per_shard}"
     return dict(W=W, L=L, T=T, picks=float(p.group(1)), forms=float(f.group(1)),
-                uniq=int(u.group(1)) if u else 0, n=per_shard), None
+                uniq=int(u.group(1)) if u else 0, n=per_shard, per_slot=per_slot), None
 
 
 def ab_shard(path, model, opp, per_shard):
@@ -92,13 +101,14 @@ def main():
     ap.add_argument("--model", required=True)
     ap.add_argument("--opp")
     ap.add_argument("--slot", type=int)
+    ap.add_argument("--slots", default=None, help="Sep 25: the exact held-out set every shard must declare (slots=...)")
     ap.add_argument("--per-shard", type=int, required=True)
     ap.add_argument("--out", required=True)
     ap.add_argument("shards", nargs="+")
     a = ap.parse_args()
     parts, bad = [], []
     for sh in a.shards:
-        r, err = (slot_shard(sh, a.model, a.slot, a.per_shard) if a.kind == "slot"
+        r, err = (slot_shard(sh, a.model, a.slot, a.per_shard, a.slots) if a.kind == "slot"
                   else ab_shard(sh, a.model, a.opp, a.per_shard))
         if err:
             bad.append(err)
@@ -118,9 +128,15 @@ def main():
         uniq = sum(p["uniq"] for p in parts)
         lines += ["", "================ EVAL SUMMARY ================",
                   f"model={os.path.basename(a.model)}  slot={a.slot}  n={n}  mode=deterministic  "
-                  f"distinct-outcome-tuples~{uniq}  shards={len(parts)}x{a.per_shard}",
+                  f"distinct-outcome-tuples~{uniq}  shards={len(parts)}x{a.per_shard}" + (f"  slots={a.slots}" if a.slots else ""),
                   f"win% : {100.0*W/n:5.1f}   ({W}W/{L}L/{T}T)   95% Wilson [{lo:.0f}-{hi:.0f}]",
                   f"picks: {picks:5.2f} /ep", f"forms: {forms:5.2f} /ep"]
+        if a.slots:
+            tot = {}
+            for p_ in parts:
+                for s_, (w_, n_) in p_["per_slot"].items():
+                    t_ = tot.setdefault(s_, [0, 0]); t_[0] += w_; t_[1] += n_
+            lines.append("per-slot: " + "  ".join(f"slot{s_}={tot[s_][0]}W/{tot[s_][1]}" for s_ in sorted(tot)))
     else:
         lines += [f"[ab] model={os.path.basename(a.model)} opp={os.path.basename(a.opp)} "
                   f"episodes={n} shards={len(parts)}x{a.per_shard} (merged)"]

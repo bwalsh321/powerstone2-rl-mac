@@ -22,7 +22,7 @@ It is written so a smaller model can run the relay without re-deriving anything.
 - Unattended permission allowlist: `.claude/settings.local.json` (git-ignored).
   Scheduled tasks run without prompts because of it.
 
-## 2. Live state (Sep 25 11:30 am EDT; leg 80 live; from leg 81 league_env adds three-COM lineups 50-59; battery has a 4th eval lv8mix (slots 90-94) from leg 80; HANDOFF "NEXT MOVES"; trainer = mixed)
+## 2. Live state (Sep 25 2:35 pm EDT; leg 81 live = first three-COM-slice leg (slots 50-59) + Astra-2 fixes, launched 2:21 pm; leg 80 = 28.2 / 95.2 / 86-14 / lv8mix 26.2; battery = 4 evals (lv8mix balanced from leg 81); trainer = mixed)
 
 - **Standing override changed 16:00 EDT Sep 19 (Blake: "Stack")**: `league_optim.txt` =
   `PS2_LR=1e-4 PS2_TARGET_KL=0.03 PS2_BATCH_SIZE=256`, applies from leg 52 (leg 51 unchanged). Read over two legs vs the
