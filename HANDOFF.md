@@ -21,7 +21,7 @@ lines are misreads (rubric now carries a data dictionary). The battery now enfor
 thresholds itself (`hold_gate.py`, marker `claude_bridge/hold_leg<N>.txt`), verifies the pool copy
 before advancing state, and takes a per-leg lock dir `claude_bridge/battery_leg<N>.lock`.
 
-**Live:** leg 81 training = FIRST LEG WITH THE THREE-COM SLICE (slots 50-59 at 26%% + the 28 character states; launched 2:21 pm EDT Sep 25, done ~7:05 pm; wake `ps2-leg81-end-wake` 7:36 pm), state `81 ./powerstone_v6_leg80_league.zip`, trainer = mixed; leg 81 also runs the Astra-2 fixes (v2 views get the v2-rule projectile prefix; 1v1 view per-seat counters). Leg 80 = trio 28.2 / lv3 95.2 / AB 86-14 / lv8mix 26.2 (first five-lineup held-out number). READ for legs 81-82: trio AND lv8mix vs 28.2 / 26.2.
+**Live:** leg 81 training = FIRST LEG WITH THE THREE-COM SLICE (slots 50-59 at 26%% + the 28 character states; launched 2:21 pm EDT Sep 25, done ~7:05 pm; wake `ps2-leg81-end-wake` 7:36 pm), state `81 ./powerstone_v6_leg80_league.zip`, trainer = mixed; leg 81 also runs the Astra-2 fixes (v2 views get the v2-rule projectile prefix; 1v1 view per-seat counters). Leg 80 = trio 28.2 / lv3 95.2 / AB 86-14 old view = 78-22 FIXED view (the old view inflated AB ~8 points) / lv8mix 26.2 (first five-lineup held-out number). READ for legs 81-82: trio AND lv8mix vs 28.2 / 26.2; AB vs 78 (fixed series).
 state `71 ./powerstone_v6_leg70_league.zip`, `league_trainer.txt` = mixed, battery chains leg 72.
 Leg 70's scouting run (tmux scout70) was still encoding at compaction: when `claude_bridge/
 scout_leg70_done.txt` appears, spawn the Sonnet reviewer on `videos/review_leg70/` (rubric
@@ -130,7 +130,7 @@ found and what was done (all committed; backups `archive/*_sep25.*`):
 |---|---|---|
 | 1 | slot 3 is NOT "held out again": legs 77-78 trained on it (4,299 eps) and every later zip descends from them | prose corrected everywhere: slot 3 = SEEN-STATE regression benchmark from leg 77; states/slot90-94 = the fresh test; a third untouched set is still to be stamped for the eventual final test |
 | 2 | slicing the v3 obs to 122 keeps the layout, not the contract: the v3 reader fills the two projectile slots that the v2 reader left empty (8 prefix positions differ on identical RAM); v2 pool policies and the AB champion were fed a changed input | FIXED: the reader now also computes the projectile pair by the v2 rule (line v9 = 103 fields, `proj_legacy`), and every v2 view (FFA pool seats, the 1v1 opponent / AB champion) is built with `_legacy_proj` so its [81..92] follow the v2 contract; the learner keeps v3. Unit test + arena smoke pass |
-| 3 | AB champion P1 view leaked the learner's form timer / gem fallback (0.8 own-form while untransformed) | FIXED in selfplay_env: per-seat counters mirrored from the view's own transitions (the FFA method); seats still fixed (candidate P2, champion P1); AB re-baseline below |
+| 3 | AB champion P1 view leaked the learner's form timer / gem fallback (0.8 own-form while untransformed) | FIXED in selfplay_env: per-seat counters mirrored from the view's own transitions (the FFA method); seats still fixed (candidate P2, champion P1). RE-BASELINE: leg 80 vs champion = 80-22 (78%%) under the fixed view vs 86-14 old -> the old view inflated AB by ~8 points; fixed series starts at leg 81 |
 | 4 | lv8mix receipt cannot prove all five lineups ran; sampling unbalanced | TODO after leg 80's battery: round-robin 100 episodes per lineup, per-lineup W/L in the summary, merge_receipts requires the exact `slots=` list |
 | 5 | "78%% ceiling" is a conditional association, not causal; "never wins with < 2" is 1/149 wrong; the rubric's automatic swarm credit is too strong | prose corrected (hypothesis, not ceiling); rubric now says "likely bot (swarm)" and "uncertain" when another attacker is adjacent |
 | 6 | native `getState` ignores `retro_serialize`'s result (a failed save returns a 16-byte buffer); Python opened the destination first | Python: validate the blob (>= 1 MB) BEFORE touching the file, write a temp and `os.replace` (atomic); C++ source now returns empty bytes on failure (rebuild needed: next harness build / the 9950X; the Mac binaries are unchanged) |
@@ -1255,7 +1255,11 @@ emits the running median hourly.
 
 Leg 80 note (Sep 25 2:30 pm EDT): second lv3+lv8 character-set leg and the FIRST five-lineup held-out number.
 Trio 28.2 (24-32), lv3 95.2, AB 86-14 (this AB still ran under the OLD 1v1 view: the fix landed ~10 min after the
-shards started; the fixed-view re-baseline of leg 80 vs the champion is `receipts/discrim_leg80_ab_fixedview_*`).
+shards started). FIXED-VIEW RE-BASELINE (4:05 pm, `receipts/discrim_leg80_ab_fixedview_*`, 3 x 34 eps on instances
+12-14): leg 80 vs the champion = 80-22 (78.4%%) under the fixed view vs 86-14 under the old one. So the old view
+inflated the champion series by roughly 8 points (a champion fed v3 projectile inputs it never trained on, plus the
+form-timer leak). The AB series from leg 81 on is the fixed one; 78%% is its first baseline; legs 74-80's 84-89
+are not comparable with it.
 lv8mix (five never-trained three-COM lineups, states/slot90-94): 26.2%% (23-30), per lineup 20-38%%, i.e. the same
 level as the seen-state trio: no sign of lineup-specific memorisation. TWO-LEG READ of the lv3+lv8 character set
 (legs 79-80 trio = 26.2 / 28.2 vs 22.6 pre-exposure and 27.2/27.4 trained-on): PASS; lv3 95-98 and AB 86-89 in band;
