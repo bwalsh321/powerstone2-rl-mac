@@ -107,7 +107,10 @@ class PowerStoneEnvV6(gym.Env):
     # number kept < 4 ON PURPOSE: the obs gate below only writes stage
     # one-hot + DIFF_DIM for slots 0-3, and lv8 must be VISIBLE
     # (DIFF_DIM = 8/8 = 1.0).
-    SLOT_META = {0: (3, 4), 1: (1, 2), 2: (2, 3),
+    # Sep 25 2026: 30-43 = mixed arena, P4 COM at lv8 (states_mixed/slot30-43, Falcon..Pride)
+    # Sep 25 2026: 90 = fresh lv8 HELD-OUT trio (P1 COM Gunrock, P3 COM Julia, P4 COM Mel, all lv8; states/slot90)
+    SLOT_META = {**{k: (1, 8) for k in range(30, 44)}, 90: (2, 8),
+                 0: (3, 4), 1: (1, 2), 2: (2, 3),
                  3: (2, 8), 4: (2, 4), 5: (1, 5), 6: (1, 5),
                  # Leg I (Aug 19): 7/8 = Falcon-ditto SELF-PLAY states
                  # (opponent is a policy, not a COM -- level 4 declared on

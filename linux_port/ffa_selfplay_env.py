@@ -151,7 +151,9 @@ class FFASelfPlayEnv(PowerStoneEnvLibretro):
             # on them matches the eval; the mixed-arena slots (0, 10+) stay (1, 2).
             if 1 <= _slot <= 9 and _slot in PowerStoneEnvLibretro.SLOT_META:
                 continue
-            self.SLOT_META[_slot] = (1, 2)
+            # Sep 25 2026: slots 30-43 = the same mixed arena with the P4 COM at LEVEL 8 (stamped from
+            # the options menu, DIFFICULTY 8; HANDOFF "LV8 CHARACTER STATES"): stage dim 1, level 8.
+            self.SLOT_META[_slot] = (1, 8) if 30 <= _slot <= 43 else (1, 2)
         self._views = {}
         for k in seats:
             synth = StateLineSynth(self._lr_bridge.ram, bot_player=k + 1)

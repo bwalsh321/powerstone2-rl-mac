@@ -21,7 +21,7 @@ lines are misreads (rubric now carries a data dictionary). The battery now enfor
 thresholds itself (`hold_gate.py`, marker `claude_bridge/hold_leg<N>.txt`), verifies the pool copy
 before advancing state, and takes a per-leg lock dir `claude_bridge/battery_leg<N>.lock`.
 
-**Live:** leg 78 training (lv8 fast-test mix, second leg; launched 11:29 pm EDT Sep 24, done ~4:15 am; wake `ps2-leg78-end-wake` 4:44 am), state `78 ./powerstone_v6_leg77_league.zip`, trainer = mixed. Leg 77 = 27.2 / 92.8 / 81-19 (streak broken; slot 3 trained-on from leg 77). lv8 training episodes rose 21.6 -> 30.4 within leg 77. NEXT BUILD: stamp lv8 versions of the 13 character states (P4 COM at lv8) + a fresh lv8 held-out lineup.
+**Live:** leg 78 training (lv8 fast-test mix, second leg; launched 11:29 pm EDT Sep 24, done ~4:15 am; wake `ps2-leg78-end-wake` 4:44 am), state `78 ./powerstone_v6_leg77_league.zip`, trainer = mixed. Leg 77 = 27.2 / 92.8 / 81-19 (streak broken; slot 3 trained-on in legs 77-78). LEG 79 ONWARD: `league_env.txt` now = 14 lv3 + 14 lv8 character states (slots 30-43, P4 COM at LEVEL 8, stamped and verified Sep 25 ~2 am; section LV8 CHARACTER STATES), slot-3 padding dropped. Fresh lv8 held-out `states/slot90` stamped (not in the battery yet).
 state `71 ./powerstone_v6_leg70_league.zip`, `league_trainer.txt` = mixed, battery chains leg 72.
 Leg 70's scouting run (tmux scout70) was still encoding at compaction: when `claude_bridge/
 scout_leg70_done.txt` appears, spawn the Sonnet reviewer on `videos/review_leg70/` (rubric
@@ -120,6 +120,39 @@ ground items: 2 nearest with pos + category (item dictionary from the pool class
 ~40 new dims -> input 162 (x7 stack = 1,134); warm start by surgery with zero columns on the new inputs,
 agreement test, two-leg read vs the 16-24 band. Chests/weapons: visibility only, NO item reward (Blake's
 economy point; the bot learned cactus-throwing blind, wins will teach value).
+
+## LV8 CHARACTER STATES (Sep 25 2026 12:30-2:30 am EDT; Blake: the P4 COM seat at level 8 is the end state)
+
+The COM difficulty is a GLOBAL option consumed when a match session starts: writing the cell (0x8C472AD4,
+0-based, 3 = "2") in a live match and re-stamping through CHANGE CHARACTER changes NOTHING (controlled test:
+identical COM behaviour and a single differing byte). So the states were stamped from the main menu.
+MENU MAP (all P2 buttons unless noted; headless via FlycastBridge, instance 13, screenshots in the scratchpad):
+pause = START; pause menu CANCEL / BUTTON CONFIG / CHANGE CHARACTER / QUIT (DOWN x3 + A = QUIT, no confirm);
+main menu 1-ON-1 / ARCADE / ORIGINAL / ADVENTURE / ITEM SHOP / GAME OPTIONS / EXTRA OPTIONS / SAVE-LOAD
+(DOWN x5 + A = GAME OPTIONS); GAME OPTIONS row 1 DIFFICULTY (LEFT/RIGHT, 1-8; RIGHT x5 = 8), DOWN x10 + A =
+EXIT -> "settings changed, save?" B = No -> main menu (cursor on GAME OPTIONS); UP x3 + A = ORIGINAL -> PLAYER
+SELECT directly (4 columns 1P red / 2P yellow / 3P blue / 4P green; rows HUMAN-COM / colour / PLAYER SELECT /
+WIN). Each port has its own cursor and can roam columns; A on the HUMAN row toggles COM; DOWN x2 + A on
+PLAYER SELECT shows the column's default character (P1 Falcon, P2 Ryoma, P3 Pete, P4 Accel), then A cycles the
+roster FORWARD and B BACKWARD (roster: Falcon, Ayame, Gunrock, Ryoma, Wang-Tang, Galuda, Rouge, Jack, Pete,
+Julia, Gourmand, Accel, Mel, Pride; HUMAN rings also contain RANDOM SELECT after Pride, COM rings do not);
+START (any port) -> STAGE SELECT (Blue Sky default; UP = Desert Area) -> A -> match. Saved 200 frames in.
+Menu states kept in the scratchpad (`main_opt8.state`, `orig_select_opt8.state`) and the recipe in
+`states_mixed/README.md`.
+RESULT: `states_mixed/slot30-43` = the 13 characters + Falcon in the P4 COM seat at LEVEL 8, P1/P2/P3 HUMAN
+Falcon (face_norm 0.991 on all three; the first pass had P3 on RANDOM SELECT and was redone), sources in
+`states_mixed_lv8/`. VERIFIED: 5 RAM cells read 2 in every lv3 state and 7 in every lv8 state (the global
+cell + 4 AI copies: 0x8C4683A6, 0x8C46C3D4, 0x8C5429AD, 0x8C5429C8); idle probe (COM alone vs three idle
+humans, 40 s): lv3 first hit ~1,230-2,035 f and 63-210 damage vs lv8 first hit ~960-1,040 f and 205-1,134
+damage. Registered: `SLOT_META[30..43] = (1, 8)` (stage dim 1, level 8: DIFF_DIM 1.0, lv8 gem caps,
+LOSS_SCALE 0.2) in powerstone_env_v6 and ffa_selfplay_env; unit tests 0 failures; live FFA smoke on slots
+30/33/43 under obs v3: DIFF_DIM 1.0, pool views fine.
+FRESH HELD-OUT: `states/slot90.state` = P1 COM Gunrock, P2 HUMAN Falcon, P3 COM Julia, P4 COM Mel, all lv8,
+Desert; `SLOT_META[90] = (2, 8)`. Not yet in the battery (Blake's call: it would replace or join slot 3,
+which is trained-on since leg 77).
+LEAGUE: `league_env.txt` PS2_STATE_SLOTS = 0,10-22,30-43 (14 lv3 + 14 lv8 = 50/50; the slot-3 padding of the
+fast test DROPPED, so slot 3 is a held-out again from leg 79 on). Takes effect at leg 79's launch (after leg
+78's battery, ~4:50 am). Backup `archive/league_env_pre_lv8set_sep25.txt`.
 
 ## OBS V3 BUILT + CUTOVER PLAN (Sep 23 2026 10 pm - 11:15 pm EDT; Blake: "Go. Do multiple smoke tests")
 
