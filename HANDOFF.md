@@ -144,6 +144,12 @@ READ (legs 86-87): KILL SWITCH = timeout share > 2%% in a leg or lv3 < 85 (a bot
 for Blake (revert = drop the three flags from league_env.txt, warm start from powerstone_v6_leg85_league.zip).
 Pass = trio and lv8mix at or above the plateau (~31 / ~27) within noise after two legs, with stones lost per round
 and the spec_pen / lost_pen sums trending down. Behind this: the recurrent policy (NEXT MOVES #4) and the 9950X.
+QUEUED NEXT (Blake, Sep 26 6:15 pm: "death cost is next on the list for sure"): raise LOSS_SCALE_BY_LEVEL[8] from 0.2
+(death at lv8 = -2 vs a win of +20; set during the difficulty ladder so the bot could try lv8 at all) toward 0.5-1.0,
+as its own pre-registered two-leg read AFTER the reward-levers read (legs 86-87), one change at a time. Also queued:
+exact damage credit via the RAM 'last hit by' field (+0x36e4 in the player object, changes on the hit frame and
+holds; one scan session to confirm it names the attacker) replacing the nearest-attacker heuristic; the step cost
+(-0.002, ~-1.2/round, the old anti-stall term) stays until the caution penalties are read, then revisit.
 
 ## ASTRA REVIEW 2 (Sep 25 2026 ~12:30-2:30 pm EDT; Blake: "hold off on [the plan], queue that after these findings")
 
