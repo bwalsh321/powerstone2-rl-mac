@@ -21,7 +21,7 @@ lines are misreads (rubric now carries a data dictionary). The battery now enfor
 thresholds itself (`hold_gate.py`, marker `claude_bridge/hold_leg<N>.txt`), verifies the pool copy
 before advancing state, and takes a per-leg lock dir `claude_bridge/battery_leg<N>.lock`.
 
-**Live:** leg 86 training (standing recipe; launched 3:44 pm EDT Sep 26, done ~8:25 pm; wake `ps2-leg86-end-wake` 8:59 pm), state `86 ./powerstone_v6_leg85_league.zip`, trainer = mixed. PLATEAU: legs 82-85 trio 31.0 / 31.4 / 29.8 / 31.2, lv8mix 26.8 / 30.0 / 28.0 / 26.0, lv3 95-99, AB 75-85. NEXT LEVER needs Blake's go: special-death + stone-retention reward (NEXT MOVES #2); memory (recurrent policy) is the big one behind it.
+**Live:** leg 86 = REWARD LEVERS leg 1 (relaunched 5:43 pm EDT Sep 26 on Blake's order after the plateau; special-death cost + stone-retention cost, section REWARD LEVERS; done ~10:25 pm; wake `ps2-leg86-end-wake` 10:58 pm), state `86 ./powerstone_v6_leg85_league.zip`, trainer = mixed. Plateau legs 82-85: trio ~31, lv8mix ~27, lv3 95-99, AB 75-85. Read = legs 86-87; kill switch = timeouts > 2%% or lv3 < 85.
 state `71 ./powerstone_v6_leg70_league.zip`, `league_trainer.txt` = mixed, battery chains leg 72.
 Leg 70's scouting run (tmux scout70) was still encoding at compaction: when `claude_bridge/
 scout_leg70_done.txt` appears, spawn the Sonnet reviewer on `videos/review_leg70/` (rubric
@@ -120,6 +120,30 @@ ground items: 2 nearest with pos + category (item dictionary from the pool class
 ~40 new dims -> input 162 (x7 stack = 1,134); warm start by surgery with zero columns on the new inputs,
 agreement test, two-leg read vs the 16-24 band. Chests/weapons: visibility only, NO item reward (Blake's
 economy point; the bot learned cactus-throwing blind, wins will teach value).
+
+## REWARD LEVERS (Sep 26 2026 5:43 pm EDT; Blake: "if it's flat, cancel this run and adjust the rewards")
+
+Leg 86 (standing recipe) was flat at its halfway point (3,684 eps: all 39.9%%, three-COM 29.4, lv8 42, lv3 45 =
+the legs 82-85 plateau), so it was stopped at 5:41 pm (partial log `archive/train_leg86_out_aborted_flat_sep26.txt`)
+and RELAUNCHED 5:43 pm from the same warm start (leg 85) with NEXT MOVES #2 on, pre-registered here:
+- `PS2_SPECIAL_DMG_W=1.0`, `PS2_SPECIAL_R=700`: health lost while any other present seat within 700 xz-units is in
+  obs-v3 state 25/26 (transforming / special in progress) costs an EXTRA 1.0 x the fraction lost, on top of the
+  diet's DAMAGE_TAKEN_W 1.0. (Needs the v9 line's `pstate`; the Sep 20-era attempt failed because the bot could not
+  see specials.) Positions from the previous frame, like the nearest-attacker attribution.
+- `PS2_LOST_EXTRA_W=1.0`: every stone knocked off a seat costs an extra -1.0, OUTSIDE the per-episode gem cap (the
+  active diet's LOST_W has been 0 since the Leg F ablation, so a lost stone cost nothing directly). A gained stone
+  is still +3.0 (capped at 19/ep). Eight straight scout reviews died in a special or a scrum; leg 85's loss had
+  picked=1 / lost=2 vs the opponents' 8.
+Both terms apply to every seat inside the zero-sum sum (same constants for all), like the rest of the diet.
+Flags whitelisted in league_leg_async.sh and recorded in leg_modes.txt; `[config] reward2: ...` printed at boot;
+every `[zs]` line carries `spec_pen=` and `lost_pen=` (the learner's summed penalties per episode). Unit test
+(`_zero_sum_reward` on synthetic states): +0.3 health lost next to a special = -0.300 extra; two stones lost = -2.000;
+a special 1,500 units away = no extra. Backup `archive/ffa_selfplay_env_pre_reward2_sep26.py`,
+`archive/league_env_pre_reward2_sep26.txt`.
+READ (legs 86-87): KILL SWITCH = timeout share > 2%% in a leg or lv3 < 85 (a bot that only runs) -> revert candidate
+for Blake (revert = drop the three flags from league_env.txt, warm start from powerstone_v6_leg85_league.zip).
+Pass = trio and lv8mix at or above the plateau (~31 / ~27) within noise after two legs, with stones lost per round
+and the spec_pen / lost_pen sums trending down. Behind this: the recurrent policy (NEXT MOVES #4) and the 9950X.
 
 ## ASTRA REVIEW 2 (Sep 25 2026 ~12:30-2:30 pm EDT; Blake: "hold off on [the plan], queue that after these findings")
 

@@ -1,0 +1,18 @@
+# Scouting report — league leg 85 (Desert Area)
+
+**1. LOSS (ep02, round 2 of 2, ACTION! restart ~1:25, video 81-139s)**
+Same cactus/rock Desert arena; a brief spawn/transition screen runs ~1:21-1:24, then ACTION! at 1:25 throws all four back together almost immediately (Pride, Ryoma, Accel and the bot converging by 1:26-1:31 around a contested chest). The middle stretch (~1:35-2:05) is a shifting mix of duo/trio skirmishes around cacti with chests opening nearby, but poor stone pickups for the bot (picked=1/lost=2, opp=8(-4) — the worst stone economy scouted this leg). By ~2:12-2:18 the fight collapses into a tight cluster: the last-12s strip shows two "ENEMY" tags adjacent to the bot in the final second before its own bar hits zero at ~2:18 — a multi-attacker scrum finish, not an isolated special burst or a plain 1-on-1 (no charging-special glow is visible on the killing blow itself). No back-off from a charging special or a transformed opponent is visible anywhere in the sheets; with forms=0/2, two opponent transforms happened somewhere this round without a frame clearly catching one near the bot — "not visible at 1 fps." Stats: dmg+1.69/-1.00, picked=1/lost=2, opp=8(-4), forms=0/2, chests=15(1), stonev=190, dmgF=0.00.
+
+**2. WIN (ep01, round 1 of 2, video 0-81s)**
+Bot spawns alone by a rock/cactus; Pride, Ryoma and Accel arrive together off the ridge and ACTION! at 0:04 starts a four-way scrum that holds through the first minute, punctuated by a mech/missile swarm burst around 0:17 and repeated pond-side skirmishing from ~0:48-0:59. Accel (4P) is first out, around 0:53, inside a crowded pond-edge cluster — "uncertain" on exact credit. Pride (1P) goes down at ~1:12, also amid overlapping fights — "uncertain." The last 12s (4fps strip, ~1:09-1:21) narrows to the bot and a transformed Ryoma alone: the bot's own golden transform circles up at ~9.25s of the strip (real ~1:18) and a robot/missile-swarm burst at ~10.0-10.75s (real ~1:19-1:20) finishes Ryoma with no other combatant alive — reads "likely bot (swarm)," completing a clean sweep. Bot takes very little damage (dmg+6.00/-0.28). Stats: picked=9/lost=1, opp=7(-7), forms=3/0, chests=13(1), stonev=208, dmgF=5.02.
+
+**3. PATTERNS**
+- Fifth leg on the same ten-random-three-level-8-COM recipe; eval scores have plateaued across all four legs since leg84, and this leg's round mix (clean four-way sweep win, scrum-finish loss) shows no obvious break from that plateau.
+- vs leg84: the loss again ends without a disengage, but where leg84's loss resolved the group fight early and then lost a slow, low-contact 1-on-1, leg85's loss stays a multi-way cluster the whole way to the final KO — a different failure shape, not clearly better or worse.
+- picked=1/lost=2 in the loss vs picked=9/lost=1 in the win: the sharpest stone-economy swing between rounds scouted yet, lining up with the loss's messier, more contested 1:35-2:05 midgame.
+- chests=15(1) loss / 13(1) win: still near-zero proximity credit, consistent with legs77-84.
+- No idle stretch is visible in either round this leg (contrast leg84's ~32s low-contact lull); both rounds stay engaged throughout at 1 fps.
+
+**4. SUGGESTION / TO VERIFY**
+Suggestion: the loss round's stone economy is badly lopsided (opp=8(-4) vs the bot's picked=1/lost=2) — consider whether the bot is skipping nearby stone pickups while contesting chests/positioning during the 1:35-2:05 window.
+Verify: via hit log, confirm which opponent(s) landed the final blow at ~2:18 (the strip shows two "ENEMY" tags adjacent at that moment) and whether either of the two opponent transforms (forms=0/2) occurred close enough to the bot to have been avoidable.

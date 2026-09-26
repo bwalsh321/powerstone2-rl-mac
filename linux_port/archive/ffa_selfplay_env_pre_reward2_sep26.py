@@ -62,16 +62,6 @@ FFA_SLOT = int(os.environ.get("PS2_FFA_SLOT", "0"))
 #                       properties "to force exploration in strategy space".
 ZERO_SUM = os.environ.get("PS2_ZERO_SUM", "0") == "1"
 ZS_TIME = os.environ.get("PS2_ZS_TIME", "1") == "1"   # Sep 23: learner time cost after zero-sum
-# Sep 26 2026 (Blake: "cancel this run and adjust the rewards"; NEXT MOVES #2, pre-registered):
-#   PS2_SPECIAL_DMG_W  extra cost per unit of health lost while ANY other present seat within
-#                      PS2_SPECIAL_R (xz units) is in obs-v3 state 25/26 (transforming / special in
-#                      progress). Needs the v9 line (pstate); 0 = off.
-#   PS2_LOST_EXTRA_W   extra cost per stone knocked off the seat, OUTSIDE the per-episode gem cap
-#                      (the active diet's LOST_W is 0 since the Leg F ablation). 0 = off.
-# Both are applied to every seat inside the zero-sum sum (same constants for all), like the rest.
-SPECIAL_DMG_W = float(os.environ.get("PS2_SPECIAL_DMG_W", "0"))
-SPECIAL_R = float(os.environ.get("PS2_SPECIAL_R", "700"))
-LOST_EXTRA_W = float(os.environ.get("PS2_LOST_EXTRA_W", "0"))
 _SH = os.environ.get("PS2_START_HEALTH", "").strip()
 START_HEALTH = tuple(float(x) for x in _SH.split(",")) if _SH else None
 
@@ -181,8 +171,6 @@ class FFASelfPlayEnv(PowerStoneEnvLibretro):
         self._zs = None            # per-episode zero-sum telemetry
         if ZERO_SUM:
             print("[config] zero_sum=1 (r = own - mean(others); nearest-attacker damage attribution)", flush=True)
-            if SPECIAL_DMG_W > 0.0 or LOST_EXTRA_W > 0.0:
-                print(f"[config] reward2: special_dmg_w={SPECIAL_DMG_W} special_r={SPECIAL_R:.0f} lost_extra_w={LOST_EXTRA_W}", flush=True)
         if START_HEALTH:
             print(f"[config] start_health=U{START_HEALTH} per seat (RAM write at reset)", flush=True)
 
@@ -264,9 +252,7 @@ class FFASelfPlayEnv(PowerStoneEnvLibretro):
             if done:
                 z = self._zs
                 print(f"[zs] raw={z['raw']:+.2f} opp_mean={z['opp_mean']:+.2f} adj={z['adj']:+.2f} "
-                      f"dealt_nn={z['dealt_nn']:.2f} steps={z['n']}"
-                      + (f" spec_pen={z.get('spec_pen', 0.0):+.2f} lost_pen={z.get('lost_pen', 0.0):+.2f}"
-                         if (SPECIAL_DMG_W > 0.0 or LOST_EXTRA_W > 0.0) else ""), flush=True)
+                      f"dealt_nn={z['dealt_nn']:.2f} steps={z['n']}", flush=True)
         if done and info.get("timeout") and self.TIMEOUT_IS_LOSS and "result" not in info:
             level = self.SLOT_META.get(getattr(self, "_episode_slot", 0), (0, 2))[1]
             r -= self.LOSS_PENALTY * self.LOSS_SCALE_BY_LEVEL.get(level, 1.0)
@@ -305,27 +291,6 @@ class FFASelfPlayEnv(PowerStoneEnvLibretro):
         rk = (dmg_w * dealt.get(k, 0.0)
               + self.DAMAGE_TAKEN_W * min(0.0, own_delta)
               + gem - self.TIME_PENALTY)
-        # Sep 26 reward levers (see module flags): special-death cost and stone-retention cost
-        if SPECIAL_DMG_W > 0.0 and own_delta < 0.0:
-            pst = s.get("pstate")
-            if pst is not None:
-                px, pz = pk["pos"][0], pk["pos"][2]
-                for m in present:
-                    if m != k and pst[m] in (25, 26) and self._alive(prev_h[m]):
-                        pm = prev_s["players"][m]["pos"]
-                        if (px - pm[0]) ** 2 + (pz - pm[2]) ** 2 <= SPECIAL_R * SPECIAL_R:
-                            pen = SPECIAL_DMG_W * own_delta            # own_delta < 0
-                            rk += pen
-                            if self._zs is not None and k == self._learner_idx:
-                                self._zs["spec_pen"] = self._zs.get("spec_pen", 0.0) + pen
-                            break
-        if LOST_EXTRA_W > 0.0 and pk.get("gems", -1) >= 0 and nk.get("gems", -1) >= 0:
-            d_ = nk["gems"] - pk["gems"]
-            if d_ < 0 and not (nk.get("form") == 1 and pk.get("form") == 0) and pk.get("form") != 1:
-                pen = -LOST_EXTRA_W * (-d_)
-                rk += pen
-                if self._zs is not None and k == self._learner_idx:
-                    self._zs["lost_pen"] = self._zs.get("lost_pen", 0.0) + pen
         alive_p, alive_n = self._alive(prev_h[k]), self._alive(h[k])
         others_alive_now = any(self._alive(h[m]) for m in present if m != k)
         others_alive_prev = any(self._alive(prev_h[m]) for m in present if m != k)
