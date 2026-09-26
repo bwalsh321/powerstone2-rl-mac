@@ -215,6 +215,10 @@ class PowerStoneEnvV6(gym.Env):
     # -2 keeps dying worse than any survivable mistake without making
     # near-certain lv8 deaths poison every good habit (Sec 25.4 logic).
     LOSS_SCALE_BY_LEVEL = {2: 1.0, 3: 0.7, 4: 0.4, 8: 0.2}
+    # Sep 26 2026 (Blake: "death cost is next on the list"): PS2_LOSS_SCALE_LV8 overrides the lv8 entry
+    # (0.2 = death at lv8 costs -2 vs a win of +20, set during the difficulty ladder). Default unchanged.
+    if os.environ.get("PS2_LOSS_SCALE_LV8"):
+        LOSS_SCALE_BY_LEVEL = {**LOSS_SCALE_BY_LEVEL, 8: float(os.environ["PS2_LOSS_SCALE_LV8"])}
     TIME_PENALTY = 0.002  # anti-stall: corner-camping a 1200-step episode now bleeds -2.4
     APPROACH_W = 1.0
     STONE_APPROACH_W = 1.0   # Aug 15 Leg C: 1.25 -> 1.0, PARITY with
