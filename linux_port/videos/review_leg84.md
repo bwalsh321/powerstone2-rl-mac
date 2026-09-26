@@ -1,0 +1,17 @@
+# Scouting report — league leg 84 (Desert Area)
+
+**1. LOSS (ep02, round 2 of 2, ACTION! ~1:58, video 114-272s)**
+Same cactus-flat/rocky-ridge/pool arena as before; ACTION! restarts at 1:58 with all four characters converging fast into a scrum (by ~2:00-2:11 Pride, Ryoma, Accel and the bot are all adjacent). Pride and Ryoma go down in quick succession at ~3:22-3:24 amid that same cluster — too tight at 1 fps to credit either kill cleanly, "uncertain." From ~3:24 the round becomes a straight 1-on-1 with Accel (4P), including a notably contact-light stretch from ~3:39-4:11 (~32s) where both sides mostly reposition around cacti with little visible engagement. The round ends at ~4:31 with the bot's own bar hitting zero while chasing/being chased by Accel's gun — not inside a highlighted special burst, not a multi-attacker scrum (only two combatants left by then), closer to an idle-lull-into-finish than a clean special kill; no back-off from a charging special or transformed opponent is visible anywhere in the sheets. Stats: dmg+5.42/-1.00, picked=12/lost=4, opp=12(-6), forms=3/2, chests=26(2), stonev=389, dmgF=4.00.
+
+**2. WIN (ep01, round 1 of 2, video 0-114s)**
+Bot spawns alone by a cactus; Pride closes within ~1s, Ryoma and Accel arrive by ~2-3s and a four-way scrum holds for the whole round (forms=4/3, the bot transforming four times). Pride dies first at ~0:47-48 inside a crowded cluster with Ryoma and Accel both adjacent — "uncertain." Accel dies next at ~1:22-23, shortly after a robot/mech-style swarm burst at ~1:14 with only the bot nearby at the moment of death — reads as "likely bot," though the exact hit isn't crisp at 1 fps. In the last 12s (4fps strip, ~1:42-1:54) only the bot and a fire/winged, transformed Ryoma remain: the bot's own transformed (golden winged) form closes with a swirling attack at ~5.5-8s of the strip and a diving finish at ~11.0-11.25s that ends Ryoma — unambiguously the bot's kill since no other combatant is alive, completing a clean sweep. Bot takes light damage (dmg+6.00/-0.76). Stats: picked=11/lost=1, opp=16(-8), forms=4/3, chests=22(2), stonev=247, dmgF=5.05.
+
+**3. PATTERNS**
+- This is the fourth leg trained with ten random three-level-8-COM lineups; this leg set the level-3 record and the best fixed-view champion result so far, though both scouted rounds again used the fixed Pride/Ryoma/Accel roster.
+- vs leg83: the loss again shows no disengage, but instead of persisting to a multi-attacker scrum death it resolves the group fight early (two of three opponents dead by ~3:24) and then loses a prolonged, low-contact 1-on-1 to the last opponent — a different failure mode, not clearly better or worse.
+- picked=12/lost=4 in the loss: the most stones lost scouted yet, alongside the idle-feeling 3:39-4:11 stretch — possible wasted positioning time rather than pressing the 1-on-1.
+- chests=26(2) loss / 22(2) win: still near-zero proximity credit, consistent with legs77-83.
+
+**4. SUGGESTION / TO VERIFY**
+Suggestion: the bot spends ~32s (3:39-4:11) repositioning around cacti against a single opponent at rough HP parity before ultimately losing that fight — consider a more decisive close-and-commit behavior once the field narrows to a 1-on-1, rather than extended wandering.
+Verify: via hit log, confirm whether Pride's and Ryoma's near-simultaneous deaths at ~3:22-24 in the loss round were both the bot's doing, and identify what specifically landed the bot's final blow at ~4:31 (Accel's ranged shot vs. melee vs. incidental collision).
