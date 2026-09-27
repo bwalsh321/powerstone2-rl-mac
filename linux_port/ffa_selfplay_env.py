@@ -72,6 +72,10 @@ ZS_TIME = os.environ.get("PS2_ZS_TIME", "1") == "1"   # Sep 23: learner time cos
 SPECIAL_DMG_W = float(os.environ.get("PS2_SPECIAL_DMG_W", "0"))
 SPECIAL_R = float(os.environ.get("PS2_SPECIAL_R", "700"))
 LOST_EXTRA_W = float(os.environ.get("PS2_LOST_EXTRA_W", "0"))
+# Sep 27 2026 (Blake: "do both"): PS2_SPECIAL_WINDOW = seconds a seat stays "in a special" for the
+# special-damage term AFTER its state leaves 25/26. Legs 86-87 showed spec_pen ~ -0.09/round because
+# rockets / missiles / beams land after the caster's state clears (~1.6 s). 0 = state-only (legs 86-88).
+SPECIAL_WINDOW = float(os.environ.get("PS2_SPECIAL_WINDOW", "0"))
 _SH = os.environ.get("PS2_START_HEALTH", "").strip()
 START_HEALTH = tuple(float(x) for x in _SH.split(",")) if _SH else None
 
@@ -179,10 +183,14 @@ class FFASelfPlayEnv(PowerStoneEnvLibretro):
         self._learner_idx = self.AGENT_PLAYER - 1
         self._zs_gem = {}          # per-seat cumulative gem reward this episode (cap mirror)
         self._zs = None            # per-episode zero-sum telemetry
+        self._spec_win = int(round(SPECIAL_WINDOW * 60.0 / self.ACTION_FRAMES))   # window in env steps
+        self._spec_last = {}       # seat -> env step index when last seen in state 25/26
+        self._spec_t = 0           # env step counter (reset per episode)
         if ZERO_SUM:
             print("[config] zero_sum=1 (r = own - mean(others); nearest-attacker damage attribution)", flush=True)
             if SPECIAL_DMG_W > 0.0 or LOST_EXTRA_W > 0.0:
-                print(f"[config] reward2: special_dmg_w={SPECIAL_DMG_W} special_r={SPECIAL_R:.0f} lost_extra_w={LOST_EXTRA_W}", flush=True)
+                print(f"[config] reward2: special_dmg_w={SPECIAL_DMG_W} special_r={SPECIAL_R:.0f} lost_extra_w={LOST_EXTRA_W}"
+                      f" special_window={SPECIAL_WINDOW:g}s ({self._spec_win} steps) loss_scale_lv8={self.LOSS_SCALE_BY_LEVEL.get(8)}", flush=True)
         if START_HEALTH:
             print(f"[config] start_health=U{START_HEALTH} per seat (RAM write at reset)", flush=True)
 
@@ -197,6 +205,8 @@ class FFASelfPlayEnv(PowerStoneEnvLibretro):
                                       for v in self._views.values() if v.path))
         obs = super().reset()
         self._zs_gem = {}
+        self._spec_last = {}
+        self._spec_t = 0
         self._zs = {"raw": 0.0, "opp_mean": 0.0, "adj": 0.0, "dealt_nn": 0.0, "n": 0}
         if START_HEALTH:
             obs = self._randomize_start_health()
@@ -311,7 +321,7 @@ class FFASelfPlayEnv(PowerStoneEnvLibretro):
             if pst is not None:
                 px, pz = pk["pos"][0], pk["pos"][2]
                 for m in present:
-                    if m != k and pst[m] in (25, 26) and self._alive(prev_h[m]):
+                    if m != k and self._in_special(m, pst) and self._alive(prev_h[m]):
                         pm = prev_s["players"][m]["pos"]
                         if (px - pm[0]) ** 2 + (pz - pm[2]) ** 2 <= SPECIAL_R * SPECIAL_R:
                             pen = SPECIAL_DMG_W * own_delta            # own_delta < 0
@@ -356,7 +366,14 @@ class FFASelfPlayEnv(PowerStoneEnvLibretro):
                     best, bd = m, d
             if best is not None:
                 dealt[best] = dealt.get(best, 0.0) + drop
+        # Sep 27: special-window bookkeeping (state 25/26 seen this step -> stamp the seat)
+        pst = s.get("pstate")
+        if pst is not None:
+            for m in present:
+                if m < len(pst) and pst[m] in (25, 26):
+                    self._spec_last[m] = self._spec_t
         rs = {k: self._seat_reward(k, prev_s, s, prev_h, h, dealt, present, level) for k in present}
+        self._spec_t += 1
         others = [rs[k] for k in present if k != i]
         opp_mean = sum(others) / len(others) if others else 0.0
         adj = rs[i] - opp_mean
@@ -371,6 +388,16 @@ class FFASelfPlayEnv(PowerStoneEnvLibretro):
             z["dealt_nn"] += dealt.get(i, 0.0); z["n"] += 1
         info["r_raw"], info["r_opp_mean"] = rs[i], opp_mean
         return adj
+
+    def _in_special(self, m, pst):
+        """Seat m counts as 'in a special' when its state is 25/26 now, or was within the
+        last PS2_SPECIAL_WINDOW seconds (payload lands after the state clears)."""
+        if m < len(pst) and pst[m] in (25, 26):
+            return True
+        if self._spec_win <= 0:
+            return False
+        t0 = self._spec_last.get(m)
+        return t0 is not None and (self._spec_t - t0) <= self._spec_win
 
     # ------------------------------------------------------------------ helpers
     def _apply_action_for(self, action, player_port, run):

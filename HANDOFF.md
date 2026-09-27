@@ -21,7 +21,7 @@ lines are misreads (rubric now carries a data dictionary). The battery now enfor
 thresholds itself (`hold_gate.py`, marker `claude_bridge/hold_leg<N>.txt`), verifies the pool copy
 before advancing state, and takes a per-leg lock dir `claude_bridge/battery_leg<N>.lock`.
 
-**Live:** leg 88 = standing recipe + REWARD LEVERS (levers-only; launched 3:59 am EDT Sep 27, done ~8:45 am; wake `ps2-leg88-end-wake` 9:15 am), state `88 ./powerstone_v6_leg87_league.zip`, trainer = mixed. READ (legs 86-87) DONE: trio 35.8 / 32.6 (plateau 30.9), lv8mix 25.8 / 26.0 (flat), lv3 97.6 / 96.8, AB 85-15 / 89-11 (series best); kill switch clear; training stones-lost flat 2.4 and spec_pen -0.09 both legs = levers not yet changing behavior. PROPOSED to Blake: keep levers + 2 s special window + DEATH COST (PS2_LOSS_SCALE_LV8, value his call) as the next two-leg read from leg 89.
+**Live:** leg 88 = standing recipe + REWARD LEVERS (levers-only continuation; launched 3:59 am EDT Sep 27, done ~8:45 am; wake `ps2-leg88-end-wake` 9:15 am), state `88 ./powerstone_v6_leg87_league.zip`, trainer = mixed. BLAKE GO (Sep 27 ~6:10 am, "Do both from your proposal"): league_env.txt now also carries `PS2_SPECIAL_WINDOW=2.0 PS2_LOSS_SCALE_LV8=0.5` -> LEG 89 = DEATH COST + SPECIAL WINDOW leg 1 (two-leg read 89-90, pre-registered in REWARD LEVERS; kill switch timeouts > 2% or lv3 < 85). Code: `_in_special()` window tracker in ffa_selfplay_env.py, `test_special_window.py` 11/11 PASS. Legs 86-87 read: trio 35.8 / 32.6 (plateau 30.9), lv8mix flat, AB 89-11 best, kill switch clear, training stones-lost and spec_pen flat = levers alone did not change behavior.
 state `71 ./powerstone_v6_leg70_league.zip`, `league_trainer.txt` = mixed, battery chains leg 72.
 Leg 70's scouting run (tmux scout70) was still encoding at compaction: when `claude_bridge/
 scout_leg70_done.txt` appears, spawn the Sonnet reviewer on `videos/review_leg70/` (rubric
@@ -122,6 +122,37 @@ agreement test, two-leg read vs the 16-24 band. Chests/weapons: visibility only,
 economy point; the bot learned cactus-throwing blind, wins will teach value).
 
 ## REWARD LEVERS (Sep 26 2026 5:43 pm EDT; Blake: "if it's flat, cancel this run and adjust the rewards")
+
+### Sep 27 6:30 am: READ RESULT (legs 86-87) + DEATH COST / SPECIAL WINDOW read (legs 89-90), Blake's go
+
+Read result: kill switch clear both legs (timeouts 0.05-0.15%, lv3 96.8-97.6). Trio 35.8 / 32.6 vs plateau 30.9; lv8mix
+25.8 / 26.0 (flat); AB 85-15 / 89-11 (fixed-series best). Eval stones lost per trio round 2.74 / 2.95 vs 3.06. BUT the
+training telemetry did not move: stones lost per training round 2.4 in all eight quarters, spec_pen -0.08 to -0.09 per
+round in all eight quarters. Verdict: levers safe, not yet behavior-changing; the special term misses its target
+(casters leave state 25/26 before the payload lands, ~1.6 s).
+
+Blake (Sep 27, "Do both from your proposal"): keep the levers, ADD the special window, RUN the death cost.
+ - `PS2_SPECIAL_WINDOW=2.0` (seconds; 20 env steps at ACTION_FRAMES=6 / 60 Hz): a seat counts as "in a special" for the
+   special-damage term while its state is 25/26 OR within 2.0 s after it last was. Implementation: `_spec_last[seat]` is
+   stamped in `_zero_sum_reward` from the NEW frame's pstate; `_in_special(m, pst)` in `_seat_reward`; reset per
+   episode; radius check (PS2_SPECIAL_R=700 to the caster's previous-frame position) unchanged. 0 = legs 86-88 behavior.
+ - `PS2_LOSS_SCALE_LV8=0.5`: death at level 8 costs -5 (was -2; win +20 unchanged). Applies to every level-8 context
+   (slots 30-43 and the three-COM lineups 50-59, plus the eval trio's SLOT_META). lv3 scale 0.7 untouched. First change
+   to the win/death balance since the 9700K era.
+ - [config] line now: `reward2: special_dmg_w=1.0 special_r=700 lost_extra_w=1.0 special_window=2s (20 steps)
+   loss_scale_lv8=0.5`. Whitelisted in league_leg_async.sh. league_env.txt before the change is saved at
+   claude_bridge/league_env_pre_leg89_deathcost.txt (revert = restore it).
+ - Tests: `test_special_window.py` (synthetic states, no emulator; 11 checks: window off / 1.0 s / exactly 20 steps /
+   21 steps / during / never / far caster / lv8 scale 0.5 / lv3 0.7 / tracker reset) 0 failures; test_obs_v3 and
+   test_obs_context still 0 failures. Run with PYTHONPATH=../sdlarch-rl/p4:../sdlarch-rl:. and the venv python.
+ - Leg 88 (running, levers-only) is NOT affected (its processes loaded the old env). Leg 89 picks both up at launch
+   (~8:45 am). PRE-REGISTERED READ, legs 89-90: kill switch = timeout share > 2% or lv3 < 85 -> revert candidate
+   (Blake decides). Expected: spec_pen per round rises from -0.09 to roughly -0.3 to -0.6 (it should now catch the
+   payload); deaths per episode / loss share should fall a little on lv8 contexts; win share may dip 1-3 points early
+   while the policy trades aggression for survival. Success after two legs = trio at or above 32 and lv8mix at or above
+   the plateau (26-30) with deaths trending down; failure = trio below 29 twice or the kill switch. Watch the AB (a more
+   cautious policy may lose AB share vs the leg 1 champion). Nothing else changes.
+
 
 Leg 86 (standing recipe) was flat at its halfway point (3,684 eps: all 39.9%%, three-COM 29.4, lv8 42, lv3 45 =
 the legs 82-85 plateau), so it was stopped at 5:41 pm (partial log `archive/train_leg86_out_aborted_flat_sep26.txt`)
