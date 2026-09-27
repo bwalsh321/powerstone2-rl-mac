@@ -22,7 +22,7 @@ It is written so a smaller model can run the relay without re-deriving anything.
 - Unattended permission allowlist: `.claude/settings.local.json` (git-ignored).
   Scheduled tasks run without prompts because of it.
 
-## 2. Live state (Sep 27 2:30 pm EDT; leg 90 = DEATH COST + SPECIAL WINDOW leg 2, launched 2:19 pm, completes the read; leg 89 trio 33.2 / lv3 95.6 / AB 83-17 / lv8mix 26.8, lv8-context loss share 64% vs 62.9% baseline, spec_pen -0.10; trainer = mixed)
+## 2. Live state (Sep 27 7:35 pm EDT; leg 91 = continuation on death cost 0.5 + window 2 s, awaiting Blake's ruling; read legs 89-90 = FLAT (deaths not down, spec_pen -0.10; evals fine: leg 90 trio 30.4 / lv3 98.0 / AB 80-20 / lv8mix 31.2 held-out best); proposed PS2_LOSS_SCALE_LV8=1.0 next; trainer = mixed)
 
 - **Standing override changed 16:00 EDT Sep 19 (Blake: "Stack")**: `league_optim.txt` =
   `PS2_LR=1e-4 PS2_TARGET_KL=0.03 PS2_BATCH_SIZE=256`, applies from leg 52 (leg 51 unchanged). Read over two legs vs the
