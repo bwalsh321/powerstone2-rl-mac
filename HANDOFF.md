@@ -21,7 +21,7 @@ lines are misreads (rubric now carries a data dictionary). The battery now enfor
 thresholds itself (`hold_gate.py`, marker `claude_bridge/hold_leg<N>.txt`), verifies the pool copy
 before advancing state, and takes a per-leg lock dir `claude_bridge/battery_leg<N>.lock`.
 
-**Live:** leg 94 = sixth leg on death cost 0.5 + special window (20-decision clock), continuation; new telemetry live (spec_net / lost_net; config prints clock=steps) (launched 10:50 am EDT Sep 28, done ~3:40 pm; wake `ps2-leg94-end-wake` 4:05 pm), state `94 ./powerstone_v6_leg93_league.zip`, trainer = mixed. Leg 93 persistence check = MIXED: lv8mix **33.8** (held-out best, second in a row), trio 33.4 (one drop from 37.0), lv3 96.8, AB 84-16, but training lv8 loss share 63.1 (back above baseline). Blake has not yet ruled on: 0.5 vs 1.0; PS2_SPECIAL_WINDOW_CLOCK=frames; native rebuild hold; special-term fix (attribution recommended over radius). Hit-event diagnostic (ASTRA REVIEW 3): radius, not timing. Revert file claude_bridge/league_env_pre_leg89_deathcost.txt.
+**Live:** leg 94 = sixth and LAST leg on death cost 0.5 (20-decision clock), continuation with spec_net / lost_net telemetry (launched 10:50 am EDT Sep 28, done ~3:40 pm; wake `ps2-leg94-end-wake` 4:05 pm), state `94 ./powerstone_v6_leg93_league.zip`, trainer = mixed. BLAKE RULING Sep 28 11:35 am: DEATH COST 1.0 + TRUE 2 s CLOCK -> league_env.txt now `PS2_LOSS_SCALE_LV8=1.0 PS2_SPECIAL_WINDOW_CLOCK=frames` (applied 11:40 am; pre-change copy claude_bridge/league_env_pre_leg95_deathcost1.txt); LEG 95 = DEATH COST 1.0 + FRAME CLOCK leg 1, read legs 95-96 pre-registered in REWARD LEVERS (Sep 28 11:40 am). Still open: native rebuild hold; special-term attribution fix. Leg 93 = MIXED persistence (lv8mix 33.8 held-out best x2, trio 33.4, training deaths back to 63.1).
 state `71 ./powerstone_v6_leg70_league.zip`, `league_trainer.txt` = mixed, battery chains leg 72.
 Leg 70's scouting run (tmux scout70) was still encoding at compaction: when `claude_bridge/
 scout_leg70_done.txt` appears, spawn the Sonnet reviewer on `videos/review_leg70/` (rubric
@@ -186,6 +186,33 @@ chronology queued; setup_9950x.sh parity text aligned to n=200 + two-proportion 
 is being kept to one paragraph.
 
 ## REWARD LEVERS (Sep 26 2026 5:43 pm EDT; Blake: "if it's flat, cancel this run and adjust the rewards")
+
+### Sep 28 11:40 am: BLAKE'S RULING -> DEATH COST 1.0 + TRUE 2 s CLOCK, read legs 95-96 (pre-registered)
+
+Blake (Sep 28 ~11:35 am): "death cost 1.0" and "flip the window to the true 2 second clock". Not chosen (stay open):
+the native rebuild hold, the attribution-vs-radius fix for the special term. Applied to league_env.txt at 11:40 am
+(pre-change copy: claude_bridge/league_env_pre_leg95_deathcost1.txt): `PS2_LOSS_SCALE_LV8=1.0` (death at level 8
+costs -10 = half a win; was -5; lv3 stays 0.7) and `PS2_SPECIAL_WINDOW_CLOCK=frames` (the special window is 120
+emulator frames after state 25/26 clears, regardless of decision length; legs 89-94 used the 20-decision clock =
+2.0-3.3 s). Leg 94 (running, 0.5 / steps) is untouched; LEG 95 = DEATH COST 1.0 + FRAME CLOCK leg 1, expected
+[config] line: `reward2: special_dmg_w=1.0 special_r=700 lost_extra_w=1.0 special_window=2s (20 steps | 120 frames,
+clock=frames) loss_scale_lv8=1.0`. Smoke (one instance, leg 93 policy, 500 steps): that line and the four [zs]
+penalty fields print, no error; LOSS_SCALE_BY_LEVEL[8] = 1.0 -> death -10 vs win +20. test_special_window 19/19.
+
+PRE-REGISTERED READ (legs 95-96; verdict after leg 96):
+ - Kill switch (either leg): timeout share > 2%, or lv3 < 85, or training win share below 33% for two consecutive
+   quarters -> REVERT CANDIDATE for Blake (revert = restore the pre-change copy, warm start powerstone_v6_leg94_league.zip).
+ - Primary measure: lv8-context loss share (slots 30-59). Baseline = legs 89-94 on 0.5 (64.4 / 63.7 / 62.5 / 60.3 /
+   63.1 / leg 94 tbd; mean ~62.8). SUCCESS = both legs <= 60 with the second <= the first; also watch lv8 episode
+   length (482 -> 514 so far; a caution signal is > 540) and stones lost per training round (2.4).
+ - Evals: trio vs 33.4 / 37.0 and the 30.9 plateau; lv8mix vs 33.8 / 31.8 (two held-out bests; a third >= 31 with
+   1.0 = the candidate is robust to the change); AB may FALL (a more cautious policy vs the aggressive leg 1 champion):
+   an AB below 70 is a note, not a failure; stones lost per trio round vs 2.82.
+ - Expected early cost: training win share may dip 2-4 points in leg 95 while the policy re-weights; a dip that
+   persists through leg 96 with no death reduction = the death cost is not the lever (then the attribution fix and the
+   recurrent policy move up).
+ - Special term under the frame clock: spec_pen fire share should drop slightly from 42% (the diagnostic said the
+   extra 80 frames of the old clock added ~2 of 240 hits); spec_net stays the number to read, not spec_pen.
 
 ### Sep 27 6:30 am: READ RESULT (legs 86-87) + DEATH COST / SPECIAL WINDOW read (legs 89-90), Blake's go
 
