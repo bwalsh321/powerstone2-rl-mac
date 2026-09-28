@@ -165,6 +165,22 @@ atomic savestates, validator coverage, shared slot mapping. Findings and what wa
    reviews will say "uncertain" for forced-animation deaths; the rubric gets a line (scout_rubric.md). A real
    retreat measurement needs frame-aligned requested actions + validated stun/grab state (queued; the event
    log is the first half of that instrument).
+DIAGNOSTIC (Sep 28 10:05 am, `diag_special_events.py`, leg 92 policy, 16 lv8 episodes on slots 30-59, one instance,
+240 learner damage events; raw log scan/special_events/leg92_16ep_lv8.txt):
+ - The term fired on 42 of 240 hits (18%), covering 18% of the 11.5 bars lost.
+ - 136 hits (57%) had NO special by any alive seat in the previous 400 frames: ordinary melee/throw damage the
+   term is not meant to touch. So the special term's ceiling is ~40% of hits.
+ - Of the 94 hits with a caster in state 25/26 now or within 120 frames: 40 were within 700 units (fired), 54 were
+   beyond it (missed; distance median 1300, min 704, max 1765). Radius 1200 would catch 62/94, radius 2000 all 94.
+ - TIMING IS NOT THE ISSUE: widening 120 -> 200 frames adds 2 events, 120 -> 400 adds 10; frames-since-special at
+   hit time has median 22 (most special damage lands within ~0.4 s of the state, inside any window).
+ - CAVEAT (Astra finding 2): "a caster was in a special 1300 units away" is not proof THAT special caused the hit;
+   at 2000 units the predicate is nearly "any special anywhere". The clean fix is attribution by the RAM
+   "last hit by" field (+0x36e4, NEXT MOVES), not a radius. RECOMMENDATION to Blake: either PS2_SPECIAL_R=1800
+   (catches ~all recent-special hits in this sample; accepts some mis-attribution) as a two-leg read, or skip the
+   radius and build the attribution field first (a scan job, ~half a day). The clock flip (frames) is harmless
+   either way but changes nothing measurable here.
+
 Other: AB is still P2-candidate vs P1-champion (seat balance queued); run manifests / core hashes / pool
 chronology queued; setup_9950x.sh parity text aligned to n=200 + two-proportion (done); the top "Live" block
 is being kept to one paragraph.

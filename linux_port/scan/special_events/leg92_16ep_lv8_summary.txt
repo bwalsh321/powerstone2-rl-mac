@@ -1,0 +1,36 @@
+[config] reward2: special_dmg_w=1.0 special_r=700 lost_extra_w=1.0 special_window=2s (20 steps | 120 frames, clock=steps) loss_scale_lv8=0.5
+[ep] slot53 opps=3     win len= 895  dmg +4.36/-0.63  stones: picked=8 lost=3 opp=15(-8) forms=2/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=27(4) stonev=327 dmgF=2.22
+[ep] slot42 opps=3     win len= 889  dmg +3.97/-0.60  stones: picked=3 lost=1 opp=7(-5) forms=1/0  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=29(4) stonev=125 dmgF=1.02
+[ep] slot36 opps=3    loss len= 345  dmg +3.62/-0.56  stones: picked=3 lost=1 opp=10(-7) forms=1/2  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=9(0) stonev=149 dmgF=0.95
+[ep] slot53 opps=3    loss len= 487  dmg +3.57/-0.62  stones: picked=7 lost=2 opp=5(-4) forms=2/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=15(1) stonev=241 dmgF=1.79
+[ep] slot56 opps=3    loss len= 425  dmg +3.74/-0.82  stones: picked=6 lost=4 opp=10(-7) forms=1/1  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=9(1) stonev=149 dmgF=2.19
+[ep] slot36 opps=3    loss len= 484  dmg +3.14/-0.95  stones: picked=3 lost=4 opp=11(-10) forms=0/2  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=18(3) stonev=151 dmgF=0.00
+[ep] slot33 opps=3    loss len= 257  dmg +0.22/-0.80  stones: picked=1 lost=2 opp=2(-1) forms=0/1  gem_rew=+3.00 shape=+0.00 appr=+0.00  chests=8(1) stonev=44 dmgF=0.00
+[ep] slot53 opps=3     win len= 569  dmg +4.95/-0.65  stones: picked=9 lost=2 opp=10(-9) forms=3/0  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=16(2) stonev=256 dmgF=3.05
+[ep] slot30 opps=3     win len= 482  dmg +5.90/-0.61  stones: picked=7 lost=2 opp=13(-10) forms=2/2  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=24(3) stonev=267 dmgF=1.59
+[ep] slot30 opps=3    loss len= 486  dmg +2.81/-0.55  stones: picked=5 lost=0 opp=5(-4) forms=2/1  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=14(0) stonev=79 dmgF=1.57
+[ep] slot36 opps=3    loss len= 406  dmg +3.63/-0.67  stones: picked=6 lost=6 opp=7(-7) forms=0/1  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=12(1) stonev=176 dmgF=0.00
+[ep] slot53 opps=3    loss len= 286  dmg +1.74/-0.75  stones: picked=1 lost=2 opp=8(-7) forms=0/2  gem_rew=+3.00 shape=+0.00 appr=+0.00  chests=9(0) stonev=109 dmgF=0.00
+[ep] slot50 opps=3     win len= 552  dmg +4.40/-0.73  stones: picked=9 lost=4 opp=11(-10) forms=2/0  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=15(0) stonev=264 dmgF=2.73
+[ep] slot53 opps=3    loss len= 337  dmg +1.92/-0.72  stones: picked=2 lost=3 opp=6(-5) forms=0/0  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=10(1) stonev=132 dmgF=0.00
+[ep] slot56 opps=3    loss len= 550  dmg +4.06/-0.98  stones: picked=7 lost=2 opp=8(-7) forms=2/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=11(1) stonev=257 dmgF=2.44
+[ep] slot56 opps=3    loss len= 424  dmg +2.34/-0.84  stones: picked=3 lost=4 opp=6(-2) forms=0/2  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=16(0) stonev=192 dmgF=0.00
+[diag] 16 episodes, 240 learner damage events, term fired on 42 (18%)
+[diag] caster in special within   0 frames and   700 units:   20 events (8%)
+[diag] caster in special within   0 frames and  1200 units:   37 events (15%)
+[diag] caster in special within   0 frames and  2000 units:   66 events (28%)
+[diag] caster in special within   0 frames and 99999 units:   66 events (28%)
+[diag] caster in special within 120 frames and   700 units:   40 events (17%)
+[diag] caster in special within 120 frames and  1200 units:   62 events (26%)
+[diag] caster in special within 120 frames and  2000 units:   94 events (39%)
+[diag] caster in special within 120 frames and 99999 units:   94 events (39%)
+[diag] caster in special within 200 frames and   700 units:   42 events (18%)
+[diag] caster in special within 200 frames and  1200 units:   64 events (27%)
+[diag] caster in special within 200 frames and  2000 units:   96 events (40%)
+[diag] caster in special within 200 frames and 99999 units:   96 events (40%)
+[diag] caster in special within 400 frames and   700 units:   48 events (20%)
+[diag] caster in special within 400 frames and  1200 units:   70 events (29%)
+[diag] caster in special within 400 frames and  2000 units:  103 events (43%)
+[diag] caster in special within 400 frames and 99999 units:  104 events (43%)
+[diag] distance to the recent caster at hit time (n=94): median 900, p25 252, p75 1307, max 1765
+[diag] frames since the caster's special at hit time (all hits with any prior special, n=145): median 22, p25 0, p75 541
