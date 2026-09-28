@@ -21,7 +21,7 @@ lines are misreads (rubric now carries a data dictionary). The battery now enfor
 thresholds itself (`hold_gate.py`, marker `claude_bridge/hold_leg<N>.txt`), verifies the pool copy
 before advancing state, and takes a per-leg lock dir `claude_bridge/battery_leg<N>.lock`.
 
-**Live:** leg 93 = fifth leg on death cost 0.5 + special window 2 s = CONFIRMATION leg for leg 92's jump (launched 5:43 am EDT Sep 28, done ~10:30 am; wake `ps2-leg93-end-wake` 10:58 am), state `93 ./powerstone_v6_leg92_league.zip`, trainer = mixed. Leg 92: trio **37.0** (observed best) / lv3 97.2 / AB 82-18 / lv8mix **31.8** (held-out best), both benchmarks up together; training lv8-context loss share fell 62.6 -> 57.7 within the leg (baseline 62.9), stones lost 2.26 in q4 (2.4 flat before). spec_pen still -0.10 (radius change queued). UPDATED PROPOSAL: hold 0.5 through leg 93; confirmation = trio >= 34, lv8mix >= 29, loss share <= 61; else back to the 1.0 proposal. Revert file claude_bridge/league_env_pre_leg89_deathcost.txt.
+**Live:** leg 93 = fifth leg on death cost 0.5 + special window (20-decision clock) = PERSISTENCE check for leg 92 (launched 5:43 am EDT Sep 28, done ~10:00 am; wake `ps2-leg93-end-wake` 10:58 am), state `93 ./powerstone_v6_leg92_league.zip`, trainer = mixed. BLAKE RULING (Sep 28 ~9:30 am): "Hold 0.5 through leg 93, then decide." Leg 92: trio 37.0 (best) / lv3 97.2 / AB 82-18 / lv8mix 31.8 (held-out best). ASTRA REVIEW 3 (Sep 28) acted on: frame clock built but GATED (`PS2_SPECIAL_WINDOW_CLOCK=frames`, default steps), net penalty telemetry (`spec_net`/`lost_net`), per-hit event log + `diag_special_events.py`, strict per-lineup receipt validation, separate v2 projectile history, main-model contract in eval entry points; NOT done: native rebuild (needs a held launch). DECISIONS FOR BLAKE at the leg 93 boundary (~11:00 am leg 94 boot): death cost 0.5 vs 1.0; flip the window clock to frames; hold leg 94 ~20 min for the native rebuild. Revert file claude_bridge/league_env_pre_leg89_deathcost.txt.
 state `71 ./powerstone_v6_leg70_league.zip`, `league_trainer.txt` = mixed, battery chains leg 72.
 Leg 70's scouting run (tmux scout70) was still encoding at compaction: when `claude_bridge/
 scout_leg70_done.txt` appears, spawn the Sonnet reviewer on `videos/review_leg70/` (rubric
@@ -120,6 +120,54 @@ ground items: 2 nearest with pos + category (item dictionary from the pool class
 ~40 new dims -> input 162 (x7 stack = 1,134); warm start by surgery with zero columns on the new inputs,
 agreement test, two-leg read vs the 16-24 band. Chests/weapons: visibility only, NO item reward (Blake's
 economy point; the bot learned cactus-throwing blind, wins will teach value).
+
+## ASTRA REVIEW 3 (Sep 28 2026, HEAD 9e54fb3; Blake: "Hold 0.5 through leg 93, then decide")
+
+Astra reconciled 520 shards / 52 merged results (legs 80-92): every reported number holds; lv8mix is genuinely
+100 per lineup and never trained on; leg 92's training evidence (loss share 60.3, stones lost 2.32, within-leg
+rise 40.1 -> 43.7) is real. Earlier fixes verified: form-timer leak, legacy projectile pair, balanced lv8mix,
+atomic savestates, validator coverage, shared slot mapping. Findings and what was done (Sep 28 ~9:50 am):
+
+1. [P2, CONFIRMED] The "2 s" special window counts DECISIONS; movement decisions run 10 frames (ACTION_FRAMES+4),
+   others 6, so the real span was 2.0-3.3 s (Astra reproduced a penalty 200 frames = 3.33 s after the special).
+   DONE: `PS2_SPECIAL_WINDOW_CLOCK=frames` stamps the emulator frame from the state line and compares against
+   120 frames; DEFAULT STAYS `steps` (the legs 89-93 behavior, now honestly labeled "20 decisions") because
+   changing the clock is a reward-contract change = Blake's call at the leg 93 decision point. [config] now
+   prints `special_window=2s (20 steps | 120 frames, clock=steps)`. Test: 7 new cases (movement-only 200 f ->
+   legacy fires / frames does not; 120 f fires; 130 f does not; mixed 6/10; a 200-frame stall). Whitelisted.
+2. [P2, CONFIRMED gap] Logged spec_pen / lost_pen are the learner's RAW penalties; the optimized signal is
+   own - mean(others). DONE: [zs] lines now also carry `spec_net=` and `lost_net=` (net contribution; positive
+   when opponents were penalized more). Unit test: raw -0.10 vs net +0.033 on a simultaneous hit. Also DONE:
+   `PS2_SPECIAL_EVENTS=<path>` per-hit event log (frame, dmg, per-seat state / frames-since-special / distance,
+   fired) + `diag_special_events.py` (offline, one instance, no training impact) -> see the DIAGNOSTIC below.
+   Astra's caution stands: -0.10 does NOT by itself prove the radius is the cause; the event log decides.
+3. [P2] Legacy compat gaps. (a) DONE: the v2 projectile rule now uses its OWN velocity history (`_proj_hist_v2`,
+   whole-word-live slots only) so a slot flipping 0x90001 -> 1 has no v2 speed yet, as under the old reader.
+   (b) DONE: eval_parity / ab_selfplay_probe / watch_play / play_vs set `env._legacy_proj_main` for a 122-dim
+   MAIN model, and the FFA / selfplay opponent-view reset restores that instead of False. Not yet: recorded-RAM
+   transition tests, a model manifest beyond shape inference.
+4. [P2, CONFIRMED] merge_receipts accepted impossible per-lineup counts. DONE: per-slot counts must be
+   nonnegative, wins <= episodes, balanced (per_shard / n_lineups each), sum to the shard n, wins sum to W, no
+   duplicates. Regression: the real leg 92 lv8mix and slot3 shards still merge (exit 0); five synthetic bad
+   receipts (zero counts, 999W/10, unbalanced, duplicate, wins-sum mismatch) are rejected (exit 1).
+5. [P2] Native getState fix not deployed (both _retro.so dated Sep 13). NOT DONE: needs a rebuild at a safe
+   boundary (no actor / eval / scout process alive). PROPOSED to Blake: hold the leg 94 launch (the battery's
+   LAUNCH_HELD path) for ~20 min after the leg 93 battery, rebuild 2-port + 4-port, run the three unit tests +
+   smoke_ffa_v3 + a 20-episode eval_parity parity check on leg 92's zip, record sha256s, then launch.
+6. [P2, interpretation] "Death cost confirmed" is too strong: leg 92 does not isolate the death cost from the
+   window, continued training, or the evolving pool; the new confirmation thresholds are exploratory selection.
+   ACCEPTED: leg 93 is a PERSISTENCE check of the candidate, not confirmation of a mechanism. Pooled recipe
+   rates (Astra): trio 30.9 (82-85) / 33.7 (86-88) / 32.8 (89-92); lv8mix 27.7 / 25.7 / 28.8. Leg 92 vs the
+   82-85 plateau: unadjusted two-proportion p ~ 0.008 (trio), ~ 0.07 (lv8mix); exploratory only. The leg 92
+   note's "interval does not overlap the lower half" line is withdrawn (not a criterion). Isolating the cause
+   would need same-parent continuations with a fixed pool and old/new reward settings (a 9950X-class job).
+7. [P2, interpretation] A grappled bot not moving is not evidence it chose not to retreat. ACCEPTED: the scout
+   reviews will say "uncertain" for forced-animation deaths; the rubric gets a line (scout_rubric.md). A real
+   retreat measurement needs frame-aligned requested actions + validated stun/grab state (queued; the event
+   log is the first half of that instrument).
+Other: AB is still P2-candidate vs P1-champion (seat balance queued); run manifests / core hashes / pool
+chronology queued; setup_9950x.sh parity text aligned to n=200 + two-proportion (done); the top "Live" block
+is being kept to one paragraph.
 
 ## REWARD LEVERS (Sep 26 2026 5:43 pm EDT; Blake: "if it's flat, cancel this run and adjust the rewards")
 
@@ -1331,15 +1379,15 @@ unchanged since Sep 27 6:26 am). FIRST LEG WHERE THE TARGETED BEHAVIOR MOVED, an
 lv8-context loss share fell within the leg 62.6 -> 57.7% (leg mean 60.3 vs the 62.9 baseline and 64.4 / 63.7 / 62.5
 for legs 89-91); stones lost per training round 2.26 in q4 (2.4 flat for six legs); win share 40.0 -> 43.8 (highest
 quarter in the series); three-COM 36.8 in q4; lv8 episode length 512 (482 -> 512 over five legs, +6%). Evals: trio
-37.0 (33-41) = OBSERVED BEST (prev 35.8, leg 86; the interval clears the plateau mean 30.9 and does not overlap leg
-91's 27-35 lower half); lv8mix 31.8 (28-36) = HELD-OUT BEST (prev 31.2), and this time the seen-state and held-out
+37.0 (33-41) = OBSERVED BEST (prev 35.8, leg 86; vs the legs 82-85 plateau, unadjusted two-proportion p ~ 0.008,
+exploratory; Astra review 3 withdrew my earlier "does not overlap the lower half" line as not a criterion); lv8mix 31.8 (28-36) = HELD-OUT BEST (prev 31.2), and this time the seen-state and held-out
 moved UP TOGETHER (leg 86's 35.8 came with a flat 25.8 held-out; leg 90's 31.2 came with a flat 30.4 trio); stones
 lost per trio round 2.74 (3.06). lv3 97.2; AB 82-18. spec_pen -0.10 unchanged (the special term is still inert; the
 radius proposal stands). Timeouts 0.26% (kill switch 2%: clear). No hold. INTERPRETATION: the FLAT verdict after two
 legs was correct on the evidence then, but the death cost appears to have needed ~12M steps (three legs) before the
 policy shifted; a within-leg trend + two best-ever evals in the same leg is the strongest single-leg signal in the
 series. It is still ONE leg. UPDATED PROPOSAL (Blake decides): HOLD the 0.5 recipe through leg 93 (already booted
-5:43 am) and treat legs 92-93 as the confirmation pair; if leg 93 holds trio >= 34 and lv8mix >= 29 with loss share
+5:43 am) and treat leg 93 as a PERSISTENCE check of the candidate (Astra review 3: not confirmation of a mechanism); if leg 93 holds trio >= 34 and lv8mix >= 29 with loss share
 <= 61, the death cost at 0.5 is confirmed and 1.0 becomes optional rather than needed; the radius change (PS2_SPECIAL_R
 700 -> 1200) stays queued as its own read after. If leg 93 reverts to the plateau, back to the 1.0 proposal.
 

@@ -22,3 +22,5 @@ Each episode also has a <tag>_last12s_4fps.png strip: its final 12 s at 4 frames
 and attacker credit; prefer it over the 1 fps sheets for anything in the last seconds.
 4. ONE behavioral suggestion and ONE thing to verify by another measurement. No speculation about
 code or training. Compare with the previous leg's review file if it exists (one line).
+
+Sep 28 2026 (Astra review 3, finding 7): a bot that does not move while grabbed, in hit-stun, or knocked down is NOT evidence it chose not to retreat. Say "uncertain (forced animation)" for such deaths; only call "no back-off" when the bot visibly has control (walking/attacking) next to an opponent's special or transform in the seconds BEFORE contact.

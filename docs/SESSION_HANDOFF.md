@@ -22,7 +22,7 @@ It is written so a smaller model can run the relay without re-deriving anything.
 - Unattended permission allowlist: `.claude/settings.local.json` (git-ignored).
   Scheduled tasks run without prompts because of it.
 
-## 2. Live state (Sep 28 5:55 am EDT; leg 93 = fifth leg on death cost 0.5 + window, confirmation leg; leg 92 = trio 37.0 best / lv3 97.2 / AB 82-18 / lv8mix 31.8 held-out best, lv8 loss share fell to 57.7 in q4; proposal: hold 0.5 through leg 93; trainer = mixed)
+## 2. Live state (Sep 28 9:50 am EDT; leg 93 = persistence check on death cost 0.5 + window (legacy 20-decision clock), Blake: hold 0.5 through 93 then decide; Astra review 3 fixes landed (frame clock gated behind PS2_SPECIAL_WINDOW_CLOCK=frames, spec_net/lost_net telemetry, PS2_SPECIAL_EVENTS log, strict receipts); decisions at the leg 94 boot: 0.5 vs 1.0, clock flip, native rebuild hold; trainer = mixed)
 
 - **Standing override changed 16:00 EDT Sep 19 (Blake: "Stack")**: `league_optim.txt` =
   `PS2_LR=1e-4 PS2_TARGET_KL=0.03 PS2_BATCH_SIZE=256`, applies from leg 52 (leg 51 unchanged). Read over two legs vs the

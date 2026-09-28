@@ -9,8 +9,10 @@ os.environ.setdefault("PS2_OBS_V2", "1")
 from ffa_selfplay_env import FFASelfPlayEnv, SPECIAL_WINDOW, SPECIAL_DMG_W
 import ffa_selfplay_env as F
 
-def make_env(window_s):
+def make_env(window_s, clock="steps"):
     e = FFASelfPlayEnv.__new__(FFASelfPlayEnv)
+    e._spec_clock = clock; e._spec_win_frames = int(round(window_s * 60.0)); e._spec_last_frame = {}; e._spec_now_frame = None
+    e._pen_step = {}; e._ev = None
     e._present_seats = lambda: [0, 1, 2, 3]
     e._learner_idx = 1
     e._episode_slot = 30                      # lv8 P4 COM slot -> level 8
@@ -19,17 +21,20 @@ def make_env(window_s):
     e._spec_win = int(round(window_s * 60.0 / e.ACTION_FRAMES)); e._spec_last = {}; e._spec_t = 0
     return e
 
-def state(pstate, learner_pos=(0, 0, 0), caster_pos=(100, 0, 0)):
+def state(pstate, learner_pos=(0, 0, 0), caster_pos=(100, 0, 0), frame=0):
     pos = [(5000, 0, 5000), learner_pos, (-5000, 0, -5000), caster_pos]
-    return {"players": [{"pos": p, "gems": 0, "form": 0} for p in pos], "pstate": list(pstate)}
+    return {"players": [{"pos": p, "gems": 0, "form": 0} for p in pos], "pstate": list(pstate), "frame": frame}
 
-def run(window_s, hit_step, caster_special_steps=(1,), n=40, dmg=0.10):
-    e = make_env(window_s)
+def run(window_s, hit_step, caster_special_steps=(1,), n=40, dmg=0.10, clock="steps", frames_per_step=6):
+    """frames_per_step: int, or a function step -> frames advanced by that decision (6 = attack, 10 = movement)."""
+    e = make_env(window_s, clock)
     h = [1.0, 1.0, 1.0, 1.0]
     prev = state([0, 0, 0, 0])                # the special is SEEN as a stepped frame (t=1), like the real loop
+    frame = 0
     for t in range(1, n):
+        frame += frames_per_step(t) if callable(frames_per_step) else frames_per_step
         ps = [0, 0, 0, 26 if t in caster_special_steps else 0]
-        s = state(ps)
+        s = state(ps, frame=frame)
         nh = list(h)
         if t == hit_step:
             nh[1] = h[1] - dmg
@@ -75,5 +80,31 @@ e = make_env(2.0); e._spec_last = {3: 5}; e._spec_t = 7
 check("_in_special true inside the window", e._in_special(3, [0, 0, 0, 0]))
 e._spec_last = {}; e._spec_t = 0
 check("tracker cleared -> _in_special false", not e._in_special(3, [0, 0, 0, 0]))
+# ---- Sep 28 (Astra review 3, finding 1): the clock. Movement decisions run 10 frames, not 6.
+sp, win = run(2.0, hit_step=21, clock="steps", frames_per_step=10)
+check(f"LEGACY clock=steps, movement-only (10 f/step): hit 20 decisions = 200 frames = 3.33 s after -> penalty (documents the bug; spec_pen={sp:+.3f})", abs(sp + 0.10) < 1e-9)
+sp, win = run(2.0, hit_step=21, clock="frames", frames_per_step=10)
+check(f"clock=frames, movement-only: hit 200 frames (3.33 s) after -> NO penalty (spec_pen={sp:+.3f})", abs(sp) < 1e-9)
+sp, win = run(2.0, hit_step=13, clock="frames", frames_per_step=10)
+check(f"clock=frames, movement-only: hit 120 frames (2.0 s) after -> penalty (spec_pen={sp:+.3f})", abs(sp + 0.10) < 1e-9)
+sp, win = run(2.0, hit_step=14, clock="frames", frames_per_step=10)
+check(f"clock=frames, movement-only: hit 130 frames (2.17 s) after -> NO penalty (spec_pen={sp:+.3f})", abs(sp) < 1e-9)
+mixed = lambda t: 10 if t % 2 else 6            # alternating movement / attack: 8 frames per step on average
+sp, win = run(2.0, hit_step=16, clock="frames", frames_per_step=mixed)   # 15 steps after the special: 15*8 = 120 frames
+check(f"clock=frames, mixed 6/10: hit 120 frames after -> penalty (spec_pen={sp:+.3f})", abs(sp + 0.10) < 1e-9)
+sp, win = run(2.0, hit_step=17, clock="frames", frames_per_step=mixed)   # 16 steps: 128 frames
+check(f"clock=frames, mixed 6/10: hit 128 frames after -> NO penalty (spec_pen={sp:+.3f})", abs(sp) < 1e-9)
+sp, win = run(2.0, hit_step=25, clock="frames", frames_per_step=lambda t: 6 + (200 if t == 20 else 0))   # a transport stall adds 200 frames
+check(f"clock=frames, 200-frame stall inside the window -> NO penalty (spec_pen={sp:+.3f})", abs(sp) < 1e-9)
+# ---- finding 2: net telemetry = own - mean(others). Simultaneous hit: learner -0.1, seats 0 and 2 -0.2 each, caster (3) unhurt.
+e = make_env(2.0, "frames"); e._zs = {"raw": 0.0, "opp_mean": 0.0, "adj": 0.0, "dealt_nn": 0.0, "n": 0}
+pos = [(50, 0, 0), (0, 0, 0), (-50, 0, 0), (100, 0, 0)]
+def st(ps, frame): return {"players": [{"pos": p, "gems": 0, "form": 0} for p in pos], "pstate": list(ps), "frame": frame}
+h = [1.0] * 4
+prev = st([0, 0, 0, 0], 0); s = st([0, 0, 0, 26], 6); e._zero_sum_reward(prev, h, s, list(h), {}); prev = s
+s = st([0, 0, 0, 0], 12); nh = [0.8, 0.9, 0.8, 1.0]; e._zero_sum_reward(prev, h, s, nh, {})
+raw, net = e._zs.get("spec_pen", 0.0), e._zs.get("spec_net", 0.0)
+check(f"net telemetry: raw learner spec_pen {raw:+.3f}, net (own - mean others) {net:+.3f} -> net is POSITIVE when opponents are penalized more", abs(raw + 0.10) < 1e-9 and abs(net - (-0.10 - (-0.2 - 0.2 + 0.0) / 3)) < 1e-9)
+
 print(f"special window test: {fails} failures (window {SPECIAL_WINDOW:g}s)")
 sys.exit(1 if fails else 0)

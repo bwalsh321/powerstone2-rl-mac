@@ -121,7 +121,7 @@ class SelfPlayEnv(PowerStoneEnvLibretro):
             try:
                 opp_obs = self._obs_from_view(self._opp_synth, agent_player=1)
             finally:
-                self._legacy_proj = False
+                self._legacy_proj = getattr(self, "_legacy_proj_main", False)   # Sep 28: keep the main model's contract
             if dv < opp_obs.shape[0]:
                 opp_obs = opp_obs[:dv]                    # Sep 23: v2 opponent under an obs v3 env
             if kv > 1:                                   # Sep 22: stacked opponent model

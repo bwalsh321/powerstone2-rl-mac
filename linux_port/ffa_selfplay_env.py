@@ -76,6 +76,13 @@ LOST_EXTRA_W = float(os.environ.get("PS2_LOST_EXTRA_W", "0"))
 # special-damage term AFTER its state leaves 25/26. Legs 86-87 showed spec_pen ~ -0.09/round because
 # rockets / missiles / beams land after the caster's state clears (~1.6 s). 0 = state-only (legs 86-88).
 SPECIAL_WINDOW = float(os.environ.get("PS2_SPECIAL_WINDOW", "0"))
+# Sep 28 2026 (Astra review 3, finding 1): the window clock. "steps" = the legs 89-93 behavior (20 DECISIONS;
+# movement decisions run 10 frames, others 6, so the real span is 2.0-3.3 s). "frames" = emulator frames
+# from the state line (120 frames = a true 2.0 s). Changing the clock is a reward-contract change: Blake's call.
+SPECIAL_WINDOW_CLOCK = os.environ.get("PS2_SPECIAL_WINDOW_CLOCK", "steps")
+# Sep 28 (Astra review 3, finding 2): optional per-hit event log for the learner (frame, damage, caster
+# state / frames since special / distance, whether the term fired). Diagnostics only; 0/unset = off.
+SPECIAL_EVENTS = os.environ.get("PS2_SPECIAL_EVENTS", "")
 _SH = os.environ.get("PS2_START_HEALTH", "").strip()
 START_HEALTH = tuple(float(x) for x in _SH.split(",")) if _SH else None
 
@@ -183,14 +190,21 @@ class FFASelfPlayEnv(PowerStoneEnvLibretro):
         self._learner_idx = self.AGENT_PLAYER - 1
         self._zs_gem = {}          # per-seat cumulative gem reward this episode (cap mirror)
         self._zs = None            # per-episode zero-sum telemetry
-        self._spec_win = int(round(SPECIAL_WINDOW * 60.0 / self.ACTION_FRAMES))   # window in env steps
+        self._spec_win = int(round(SPECIAL_WINDOW * 60.0 / self.ACTION_FRAMES))   # window in env steps (clock=steps)
+        self._spec_win_frames = int(round(SPECIAL_WINDOW * 60.0))                 # window in emulator frames (clock=frames)
+        self._spec_clock = SPECIAL_WINDOW_CLOCK
         self._spec_last = {}       # seat -> env step index when last seen in state 25/26
+        self._spec_last_frame = {} # seat -> emulator frame when last seen in state 25/26
         self._spec_t = 0           # env step counter (reset per episode)
+        self._spec_now_frame = None
+        self._pen_step = {}        # seat -> [spec_pen, lost_pen] for the current step (net telemetry)
+        self._ev = open(SPECIAL_EVENTS, "a") if SPECIAL_EVENTS not in ("", "0") else None
         if ZERO_SUM:
             print("[config] zero_sum=1 (r = own - mean(others); nearest-attacker damage attribution)", flush=True)
             if SPECIAL_DMG_W > 0.0 or LOST_EXTRA_W > 0.0:
                 print(f"[config] reward2: special_dmg_w={SPECIAL_DMG_W} special_r={SPECIAL_R:.0f} lost_extra_w={LOST_EXTRA_W}"
-                      f" special_window={SPECIAL_WINDOW:g}s ({self._spec_win} steps) loss_scale_lv8={self.LOSS_SCALE_BY_LEVEL.get(8)}", flush=True)
+                      f" special_window={SPECIAL_WINDOW:g}s ({self._spec_win} steps | {self._spec_win_frames} frames, clock={self._spec_clock})"
+                      f" loss_scale_lv8={self.LOSS_SCALE_BY_LEVEL.get(8)}", flush=True)
         if START_HEALTH:
             print(f"[config] start_health=U{START_HEALTH} per seat (RAM write at reset)", flush=True)
 
@@ -206,6 +220,7 @@ class FFASelfPlayEnv(PowerStoneEnvLibretro):
         obs = super().reset()
         self._zs_gem = {}
         self._spec_last = {}
+        self._spec_last_frame = {}
         self._spec_t = 0
         self._zs = {"raw": 0.0, "opp_mean": 0.0, "adj": 0.0, "dealt_nn": 0.0, "n": 0}
         if START_HEALTH:
@@ -254,7 +269,7 @@ class FFASelfPlayEnv(PowerStoneEnvLibretro):
             try:
                 obs_v = self._obs_from_view(v)
             finally:
-                self._legacy_proj = False
+                self._legacy_proj = getattr(self, "_legacy_proj_main", False)   # Sep 28: keep the main model's contract
             if dv < obs_v.shape[0]:
                 obs_v = obs_v[:dv]              # Sep 23: v2 pool policy under an obs v3 env
             if kv > 1:                                   # stacked pool policy: keep its own history
@@ -276,6 +291,7 @@ class FFASelfPlayEnv(PowerStoneEnvLibretro):
                 print(f"[zs] raw={z['raw']:+.2f} opp_mean={z['opp_mean']:+.2f} adj={z['adj']:+.2f} "
                       f"dealt_nn={z['dealt_nn']:.2f} steps={z['n']}"
                       + (f" spec_pen={z.get('spec_pen', 0.0):+.2f} lost_pen={z.get('lost_pen', 0.0):+.2f}"
+                         f" spec_net={z.get('spec_net', 0.0):+.2f} lost_net={z.get('lost_net', 0.0):+.2f}"
                          if (SPECIAL_DMG_W > 0.0 or LOST_EXTRA_W > 0.0) else ""), flush=True)
         if done and info.get("timeout") and self.TIMEOUT_IS_LOSS and "result" not in info:
             level = self.SLOT_META.get(getattr(self, "_episode_slot", 0), (0, 2))[1]
@@ -326,6 +342,7 @@ class FFASelfPlayEnv(PowerStoneEnvLibretro):
                         if (px - pm[0]) ** 2 + (pz - pm[2]) ** 2 <= SPECIAL_R * SPECIAL_R:
                             pen = SPECIAL_DMG_W * own_delta            # own_delta < 0
                             rk += pen
+                            self._pen_step.setdefault(k, [0.0, 0.0])[0] += pen
                             if self._zs is not None and k == self._learner_idx:
                                 self._zs["spec_pen"] = self._zs.get("spec_pen", 0.0) + pen
                             break
@@ -334,6 +351,7 @@ class FFASelfPlayEnv(PowerStoneEnvLibretro):
             if d_ < 0 and not (nk.get("form") == 1 and pk.get("form") == 0) and pk.get("form") != 1:
                 pen = -LOST_EXTRA_W * (-d_)
                 rk += pen
+                self._pen_step.setdefault(k, [0.0, 0.0])[1] += pen
                 if self._zs is not None and k == self._learner_idx:
                     self._zs["lost_pen"] = self._zs.get("lost_pen", 0.0) + pen
         alive_p, alive_n = self._alive(prev_h[k]), self._alive(h[k])
@@ -366,14 +384,42 @@ class FFASelfPlayEnv(PowerStoneEnvLibretro):
                     best, bd = m, d
             if best is not None:
                 dealt[best] = dealt.get(best, 0.0) + drop
-        # Sep 27: special-window bookkeeping (state 25/26 seen this step -> stamp the seat)
+        # Sep 27: special-window bookkeeping (state 25/26 seen this step -> stamp the seat, in steps AND frames)
         pst = s.get("pstate")
+        self._spec_now_frame = s.get("frame")
         if pst is not None:
             for m in present:
                 if m < len(pst) and pst[m] in (25, 26):
                     self._spec_last[m] = self._spec_t
+                    if self._spec_now_frame is not None:
+                        self._spec_last_frame[m] = self._spec_now_frame
+        self._pen_step = {}
         rs = {k: self._seat_reward(k, prev_s, s, prev_h, h, dealt, present, level) for k in present}
         self._spec_t += 1
+        # Sep 28 (Astra review 3, finding 2): the learner's NET penalty contribution = own - mean(others)
+        z0 = self._zs
+        if z0 is not None and (SPECIAL_DMG_W > 0.0 or LOST_EXTRA_W > 0.0):
+            oth = [m for m in present if m != i]
+            for j, key in ((0, "spec_net"), (1, "lost_net")):
+                own = self._pen_step.get(i, [0.0, 0.0])[j]
+                om = (sum(self._pen_step.get(m, [0.0, 0.0])[j] for m in oth) / len(oth)) if oth else 0.0
+                z0[key] = z0.get(key, 0.0) + (own - om)
+        if self._ev is not None and h[i] < prev_h[i] and pst is not None:
+            # one line per learner damage event: frame dmg fired | per other seat: state, frames-since-special, dist
+            px, pz = prev_s["players"][i]["pos"][0], prev_s["players"][i]["pos"][2]
+            cols = []
+            for m in present:
+                if m == i or m >= len(pst):
+                    continue
+                pm = prev_s["players"][m]["pos"]
+                d_ = ((px - pm[0]) ** 2 + (pz - pm[2]) ** 2) ** 0.5
+                lf = self._spec_last_frame.get(m)
+                since = (self._spec_now_frame - lf) if (lf is not None and self._spec_now_frame is not None) else -1
+                cols.append(f"m{m}:st={pst[m]},since={since},dist={d_:.0f},alive={int(self._alive(prev_h[m]))}")
+            fired = self._pen_step.get(i, [0.0, 0.0])[0] != 0.0
+            self._ev.write(f"frame={self._spec_now_frame} dmg={prev_h[i]-h[i]:.3f} fired={int(fired)} slot={getattr(self, '_episode_slot', -1)} "
+                           + " ".join(cols) + "\n")
+            self._ev.flush()
         others = [rs[k] for k in present if k != i]
         opp_mean = sum(others) / len(others) if others else 0.0
         adj = rs[i] - opp_mean
@@ -396,6 +442,10 @@ class FFASelfPlayEnv(PowerStoneEnvLibretro):
             return True
         if self._spec_win <= 0:
             return False
+        if self._spec_clock == "frames":
+            f0 = self._spec_last_frame.get(m)
+            return (f0 is not None and self._spec_now_frame is not None
+                    and 0 <= (self._spec_now_frame - f0) <= self._spec_win_frames)
         t0 = self._spec_last.get(m)
         return t0 is not None and (self._spec_t - t0) <= self._spec_win
 

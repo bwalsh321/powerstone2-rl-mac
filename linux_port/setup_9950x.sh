@@ -97,8 +97,8 @@ cat <<TXT
   G3 headless probe:   xvfb-run -a python probe_ram.py --core \$PS2_CORE --game "../Power Stone 2 (USA).chd" --state states/slot3.state
   G4 unit tests:       PS2_OBS_V3=1 python test_obs_v3.py && python test_obs_context.py
   G5 PARITY (the gate): xvfb-run -a python eval_parity.py --core \$PS2_CORE --game "../Power Stone 2 (USA).chd" --slot 3 \\
-                          --model powerstone_v6_leg73_league.zip --episodes 100 --instance 12
-       PASS = its win% lies inside the Mac's n=500 Wilson interval for the same zip (leg 73: 29.2%, [25, 33]).
+                          --model powerstone_v6_leg73_league.zip --episodes 200 --instance 12
+       PASS = two-proportion z-test between the box's 200 and the Mac's 500 (leg 73: 146/500 = 29.2%) not significant at p < 0.05 AND the gap is under 6 points; record sha256 of the core in the receipt (see LINUX_BRINGUP.md G5).
        Repeat with --slot 2 (Mac: 97.2%, [94, 99]). Only after both pass does the league move (HANDOFF top block).
   Speed check:          time the G5 run; the Mac does 50 lv8 episodes per shard in ~15 min with 10 shards.
 TXT

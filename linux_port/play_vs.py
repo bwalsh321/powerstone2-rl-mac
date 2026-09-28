@@ -86,6 +86,7 @@ def main():
     if args.mode == "1v1":
         env = PowerStoneEnvLibretro(core_path=args.core, game_path=args.game, states_dir="./states",
                                     state_slots=[1], instance_id=args.instance, bridge_dir=bridge_dir)
+        env._legacy_proj_main = env._legacy_proj = (_d == 122)      # Sep 28 (Astra 3): main-model contract
     else:
         from ffa_selfplay_env import FFASelfPlayEnv
         states_dir = "./states" if args.mode == "ffa" else "./states_mixed"
@@ -94,6 +95,7 @@ def main():
                              state_slots=[0], instance_id=args.instance, bridge_dir=bridge_dir,
                              pool_dir="./pool_league", seats=seats, sampling="uniform",
                              opp_deterministic=not args.stochastic)
+        env._legacy_proj_main = env._legacy_proj = (_d == 122)      # Sep 28 (Astra 3): main-model contract
         if args.opps == "same":
             def _same():
                 env._pool.last_path = args.model

@@ -102,6 +102,7 @@ class StateLineSynth:
         self.frame = 0
         self._spin_prev = None          # spin words from the previous sweep
         self._proj_hist = {}            # slot -> (cls, x, y, z, frame)
+        self._proj_hist_v2 = {}         # Sep 28 (Astra 3): the OLD reader's own history (only whole-word-live slots)
         self._stone_cache = "0.00,0.00,0.00," * (A.STONE_REPORT - 1) + "0.00,0.00,0.00"
         self._chest_frag = self.ZERO_CHEST
         self._proj_cache = []
@@ -267,6 +268,7 @@ class StateLineSynth:
             x, y, z = float(xs[k]), float(ys[k]), float(zs[k])
             if not (_fin(x) and _fin(z)):
                 self._proj_hist.pop(int(k), None)
+                self._proj_hist_v2.pop(int(k), None)
                 continue
             h = self._proj_hist.get(int(k))
             sp, vx, vz, spxz = None, 0.0, 0.0, 0.0
@@ -278,12 +280,27 @@ class StateLineSynth:
                     vx, vz = dx / dt, dz / dt
                     spxz = (dx*dx + dz*dz) ** 0.5 / dt
             self._proj_hist[int(k)] = (c, x, y, z, self.frame)
+            # Sep 28 (Astra 3, finding 3a): the v2 rule's speed comes from a history the OLD reader
+            # could have built (whole-word-live slots only), so a slot that just flipped 0x90001 -> 1
+            # has no v2 speed yet, exactly as under the original reader.
+            sp2, vx2, vz2 = None, 0.0, 0.0
+            if OBS_V3 and live_v2[k]:
+                h2 = self._proj_hist_v2.get(int(k))
+                if h2 and h2[0] == c and self.frame > h2[4]:
+                    dt2 = (self.frame - h2[4]) / 60.0
+                    if 0 < dt2 < 1.0:
+                        dx2, dz2, dy2 = x - h2[1], z - h2[3], y - h2[2]
+                        sp2 = (dx2*dx2 + dz2*dz2 + dy2*dy2) ** 0.5 / dt2
+                        vx2, vz2 = dx2 / dt2, dz2 / dt2
+                self._proj_hist_v2[int(k)] = (c, x, y, z, self.frame)
+            elif OBS_V3:
+                self._proj_hist_v2.pop(int(k), None)
             known = c in A.PROJ_CLASSES
             banded = any(lo <= c < hi for lo, hi in A.PROJ_EXCLUDE_BANDS)
-            if OBS_V3 and live_v2[k] and (known or (sp and sp >= A.PROJ_SPEED_MIN and counts_v2.get(c) == 1
+            if OBS_V3 and live_v2[k] and (known or (sp2 and sp2 >= A.PROJ_SPEED_MIN and counts_v2.get(c) == 1
                                                      and c not in A.PROJ_EXCLUDE and not banded)):
-                if c not in seen_v2:                # the v2 rule, verbatim
-                    seen_v2.add(c); out_v2.append((x, y, z, vx, vz))
+                if c not in seen_v2:                # the v2 rule, verbatim, on the v2 history
+                    seen_v2.add(c); out_v2.append((x, y, z, vx2, vz2))
             if OBS_V3 and (c in A.PROJ_EXCLUDE_V3 or any(lo <= c < hi for lo, hi in A.PROJ_EXCLUDE_BANDS_V3)):
                 continue
             # v3 (Sep 24 12:10 am): NO horizontal-speed requirement any more. It was added to kill

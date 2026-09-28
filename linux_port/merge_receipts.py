@@ -52,10 +52,25 @@ def slot_shard(path, model, slot, per_shard, slots=None):
         ms = re.search(r"slots=([0-9,]+)", t)
         if not ms or ms.group(1) != slots:
             return None, f"{path}: slots={ms.group(1) if ms else None}, expected {slots}"
-        for s_, w_, n_ in re.findall(r"slot(\d+)=(\d+)W/(\d+)", t):
+        found = re.findall(r"slot(\d+)=(\d+)W/(\d+)", t)
+        for s_, w_, n_ in found:
             per_slot[int(s_)] = (int(w_), int(n_))
-        if sorted(per_slot) != sorted(int(x) for x in slots.split(",")):
+        want = sorted(int(x) for x in slots.split(","))
+        if len(found) != len(per_slot):
+            return None, f"{path}: duplicate per-slot entries"
+        if sorted(per_slot) != want:
             return None, f"{path}: per-slot counts missing for {slots}"
+        # Sep 28 (Astra review 3, finding 4): the counts must be POSSIBLE and BALANCED
+        each = per_shard // len(want)
+        if each * len(want) != per_shard:
+            return None, f"{path}: n={per_shard} not divisible across {len(want)} lineups"
+        for s_, (w_, n_) in per_slot.items():
+            if w_ < 0 or n_ < 0 or w_ > n_:
+                return None, f"{path}: impossible per-slot count slot{s_}={w_}W/{n_}"
+            if n_ != each:
+                return None, f"{path}: unbalanced slot{s_}: {n_} episodes, expected {each}"
+        if sum(n_ for _, n_ in per_slot.values()) != per_shard:
+            return None, f"{path}: per-slot episodes sum to {sum(n_ for _, n_ in per_slot.values())}, expected {per_shard}"
     if m.group(1) != os.path.basename(model):
         return None, f"{path}: summary is for {m.group(1)}"
     if int(m.group(2)) != slot:
@@ -71,6 +86,8 @@ def slot_shard(path, model, slot, per_shard, slots=None):
     W, L, T = (int(x) for x in w.groups())
     if W + L + T != per_shard:
         return None, f"{path}: W+L+T={W+L+T}, expected {per_shard}"
+    if per_slot and sum(w_ for w_, _ in per_slot.values()) != W:
+        return None, f"{path}: per-slot wins sum to {sum(w_ for w_, _ in per_slot.values())}, expected {W}"
     return dict(W=W, L=L, T=T, picks=float(p.group(1)), forms=float(f.group(1)),
                 uniq=int(u.group(1)) if u else 0, n=per_shard, per_slot=per_slot), None
 
