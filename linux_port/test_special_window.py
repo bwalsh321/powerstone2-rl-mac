@@ -106,5 +106,41 @@ s = st([0, 0, 0, 0], 12); nh = [0.8, 0.9, 0.8, 1.0]; e._zero_sum_reward(prev, h,
 raw, net = e._zs.get("spec_pen", 0.0), e._zs.get("spec_net", 0.0)
 check(f"net telemetry: raw learner spec_pen {raw:+.3f}, net (own - mean others) {net:+.3f} -> net is POSITIVE when opponents are penalized more", abs(raw + 0.10) < 1e-9 and abs(net - (-0.10 - (-0.2 - 0.2 + 0.0) / 3)) < 1e-9)
 
+# ---- Sep 29 (Blake: learner-only attribution fix): the decode and the reward branch
+import ps2_addr as A
+def own(phys): return FFASelfPlayEnv._owner_of(phys)
+b0 = (A.PLAYER_MAT[0] - 0x490) & 0x0FFFFFFF
+check("owner_of: P1 object start -> seat 0", own(b0) == 0)
+check("owner_of: P1 object last byte -> seat 0", own(b0 + 0x3937) == 0)
+check("owner_of: one past P1 = P2 start -> seat 1", own(b0 + 0x3938) == 1)
+check("owner_of: P4 PLAYER_MAT itself -> seat 3", own(A.PLAYER_MAT[3] & 0x0FFFFFFF) == 3)
+check("owner_of: a projectile object (0x0c50d194) -> None", own(0x0C50D194) is None)
+check("owner_of: null -> None", own(0) is None)
+# reward branch under attrib: monkeypatch the RAM reader
+F.SPECIAL_ATTRIB = True
+try:
+    e = make_env(2.0, "frames"); e._zs = {"raw": 0.0, "opp_mean": 0.0, "adj": 0.0, "dealt_nn": 0.0, "n": 0}
+    pos = [(50, 0, 0), (0, 0, 0), (-50, 0, 0), (5000, 0, 0)]          # caster (seat 3) is FAR: the radius rule would never fire
+    def st2(ps, frame): return {"players": [{"pos": p, "gems": 0, "form": 0} for p in pos], "pstate": list(ps), "frame": frame}
+    h = [1.0] * 4
+    prev = st2([0, 0, 0, 0], 0); s = st2([0, 0, 0, 26], 6); e._zero_sum_reward(prev, h, s, list(h), {}); prev = s
+    e._hit_attacker = lambda k: 3                                       # the game says seat 3 hit the learner
+    s = st2([0, 0, 0, 0], 60); nh = [0.8, 0.9, 0.8, 1.0]; e._zero_sum_reward(prev, h, s, nh, {})
+    check(f"attrib: far caster (5000 u) in window, game attributes the hit -> learner penalized (spec_pen={e._zs.get('spec_pen',0):+.3f})", abs(e._zs.get("spec_pen", 0.0) + 0.10) < 1e-9)
+    check(f"attrib: opponents get NO special term -> spec_net == spec_pen ({e._zs.get('spec_net',0):+.3f})", abs(e._zs.get("spec_net", 0.0) - e._zs.get("spec_pen", 0.0)) < 1e-9)
+    check(f"attrib: spec_dmg accumulates the attributed damage ({e._zs.get('spec_dmg',0):.2f})", abs(e._zs.get("spec_dmg", 0.0) - 0.10) < 1e-9)
+    e2 = make_env(2.0, "frames"); e2._zs = {"raw": 0.0, "opp_mean": 0.0, "adj": 0.0, "dealt_nn": 0.0, "n": 0}
+    prev = st2([0, 0, 0, 0], 0); s = st2([0, 0, 0, 26], 6); e2._zero_sum_reward(prev, h, s, list(h), {}); prev = s
+    e2._hit_attacker = lambda k: 0                                      # hit by seat 0, who is NOT in a special
+    s = st2([0, 0, 0, 0], 60); e2._zero_sum_reward(prev, h, s, [0.8, 0.9, 0.8, 1.0], {})
+    check(f"attrib: hit by a non-casting seat while another seat casts -> NO penalty (spec_pen={e2._zs.get('spec_pen',0):+.3f}); attr counted", abs(e2._zs.get("spec_pen", 0.0)) < 1e-9 and e2._zs.get("attr_p", 0) == 1)
+    e3 = make_env(2.0, "frames"); e3._zs = {"raw": 0.0, "opp_mean": 0.0, "adj": 0.0, "dealt_nn": 0.0, "n": 0}
+    prev = st2([0, 0, 0, 0], 0); s = st2([0, 0, 0, 26], 6); e3._zero_sum_reward(prev, h, s, list(h), {}); prev = s
+    e3._hit_attacker = lambda k: None                                   # unowned hazard
+    s = st2([0, 0, 0, 0], 60); e3._zero_sum_reward(prev, h, s, [0.8, 0.9, 0.8, 1.0], {})
+    check(f"attrib: unowned source -> NO penalty, attr_n counted ({e3._zs.get('attr_n',0)})", abs(e3._zs.get("spec_pen", 0.0)) < 1e-9 and e3._zs.get("attr_n", 0) == 1)
+finally:
+    F.SPECIAL_ATTRIB = False
+
 print(f"special window test: {fails} failures (window {SPECIAL_WINDOW:g}s)")
 sys.exit(1 if fails else 0)

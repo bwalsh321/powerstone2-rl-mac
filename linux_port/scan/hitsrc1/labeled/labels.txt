@@ -1,0 +1,24 @@
+frame 115  VICTIM P1 (1000->983)  RAM: hit by P3 DIRECT (melee/throw)   states P1:32 P2:5 P3:7 P4:1
+frame 136  VICTIM P1 (983->968)  RAM: hit by P3 DIRECT (melee/throw)   states P1:32 P2:5 P3:7 P4:5
+frame 150  VICTIM P1 (968->942)  RAM: hit by P3 DIRECT (melee/throw)   states P1:32 P2:5 P3:7 P4:5
+frame 209  VICTIM P2 (1000->964)  RAM: hit by P4 DIRECT (melee/throw)   states P1:16 P2:32 P3:7 P4:7
+frame 230  VICTIM P2 (964->928)  RAM: hit by P4 DIRECT (melee/throw)   states P1:16 P2:32 P3:7 P4:7
+frame 253  VICTIM P2 (928->882)  RAM: hit by P4 DIRECT (melee/throw)   states P1:5 P2:32 P3:2 P4:7
+frame 302  VICTIM P2 (1000->964)  RAM: hit by P4 DIRECT (melee/throw)   states P1:1 P2:32 P3:1 P4:7
+frame 323  VICTIM P2 (964->928)  RAM: hit by P4 DIRECT (melee/throw)   states P1:5 P2:32 P3:1 P4:7
+frame 346  VICTIM P2 (928->882)  RAM: hit by P4 DIRECT (melee/throw)   states P1:5 P2:32 P3:1 P4:7
+frame 463  VICTIM P2 (882->857)  RAM: hit by P4 via OBJECT 0xc50eee4 (projectile/item owner)   states P1:1 P2:32 P3:5 P4:7
+frame 465  VICTIM P2 (857->833)  RAM: hit by P4 via OBJECT 0xc50eee4 (projectile/item owner)   states P1:7 P2:32 P3:5 P4:7
+frame 469  VICTIM P2 (833->808)  RAM: hit by P4 via OBJECT 0xc50ffa4 (projectile/item owner)   states P1:7 P2:32 P3:5 P4:7
+frame 472  VICTIM P3 (1000->981)  RAM: hit by P1 DIRECT (melee/throw)   states P1:7 P2:32 P3:32 P4:7
+frame 473  VICTIM P2 (808->781)  RAM: hit by P4 via OBJECT 0xc510804 (projectile/item owner)   states P1:7 P2:32 P3:32 P4:7
+frame 658  VICTIM P2 (1000->968)  RAM: hit by P1 DIRECT (melee/throw)   states P1:7 P2:32 P3:10 P4:9
+frame 676  VICTIM P4 (1000->971)  RAM: hit by P1 DIRECT (melee/throw)   states P1:7 P2:34 P3:10 P4:32
+frame 677  VICTIM P2 (968->900)  RAM: hit by P1 DIRECT (melee/throw)   states P1:7 P2:32 P3:10 P4:32
+frame 864  VICTIM P3 (1000->990)  RAM: hit by P4 DIRECT (melee/throw)   states P1:1 P2:0 P3:32 P4:7
+frame 891  VICTIM P3 (990->981)  RAM: hit by P4 via OBJECT 0xc50b874 (projectile/item owner)   states P1:1 P2:5 P3:32 P4:7
+frame 892  VICTIM P3 (981->962)  RAM: hit by P4 via OBJECT 0xc50b874 (projectile/item owner)   states P1:1 P2:5 P3:32 P4:7
+frame 1022  VICTIM P4 (1000->946)  RAM: hit by P2 DIRECT (melee/throw)   states P1:26 P2:0 P3:32 P4:32
+frame 1103  VICTIM P4 (946->924)  RAM: hit by P1 DIRECT (melee/throw)   states P1:26 P2:0 P3:1 P4:32
+frame 1142  VICTIM P4 (924->913)  RAM: hit by P1 DIRECT (melee/throw)   states P1:26 P2:5 P3:25 P4:32
+frame 1161  VICTIM P4 (913->853)  RAM: hit by P1 DIRECT (melee/throw)   states P1:26 P2:5 P3:25 P4:32

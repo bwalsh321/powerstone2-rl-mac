@@ -121,6 +121,50 @@ ground items: 2 nearest with pos + category (item dictionary from the pool class
 agreement test, two-leg read vs the 16-24 band. Chests/weapons: visibility only, NO item reward (Blake's
 economy point; the bot learned cactus-throwing blind, wins will teach value).
 
+## ATTRIBUTION FIX (Sep 29 2026; Blake: "learner-only attribution fix next as a two-leg read")
+
+Blake's ruling (Sep 29 ~7:00 am): death cost stays at 1.0 ("didn't seem to do too much and I don't want to change 2
+things at once"); the learner-only attribution fix is the next two-leg read; recurrent policy when the 9950X lands;
+native rebuild hold still open (not decided).
+
+THE FIELD (confirmed Sep 29 7:00-7:30 am, offline against 416 hits in scan/run2_slot3, run1, val1_slot3 + a new
+90 s capture scan/hitsrc1 with `ram_scan.py capture --hitsrc`): each player object holds a 32-bit PHYSICAL pointer
+to the object that last hit it at PLAYER_MAT[k] + 0x32E4 (window offset +0x36e4 in the scan dumps; the u16 note in
+BETTER EYES was the low half). Written on the hit frame (75% lag 0; the rest = the same source hitting again).
+ - 36% of hits point straight into another PLAYER object (object = [PLAYER_MAT - 0x490, +0x3938)): that seat is the
+   attacker; it was in an attack / special state (7-12, 25, 26) within 10 frames in 98% of cases; NEVER the victim.
+ - 64% point at a NON-PLAYER object at 0x8C50xxxx-0x8C51xxxx (projectiles, thrown items, hazards). Inside that
+   object, +0x10 holds the OWNER pointer: a player object in 37 of 55 snapshots, always another seat than the
+   victim, and that seat was in an attack / special state within 3 s in 37 of 37. The remaining 18 = null pointer
+   (4) or ownerless objects (stage hazards / items) = environmental damage, no attacker.
+ - Decode = `_hit_attacker(k)` in ffa_selfplay_env.py (reads RAM directly, no state-line / obs change):
+   src = u32 at PLAYER_MAT[k]+0x32E4 & 0x0FFFFFFF; if src in a player window -> that seat; elif src != 0 -> owner
+   = u32 at (src|0x80000000)+0x10; if in a player window -> that seat; else None. Visual check: 24 hit frames from
+   the capture labeled with the decode (scan/hitsrc1/labeled/, review.md by a Sonnet reviewer).
+ - Note: the old nearest-attacker damage-dealt heuristic is UNCHANGED for this read (one thing at a time); the
+   field makes exact damage credit possible later.
+
+THE CHANGE (`PS2_SPECIAL_ATTRIB=1`, whitelisted; off = legs 86-98 behavior):
+ - The special-damage cost applies to the LEARNER ONLY: when the learner loses health and the game says seat A hit
+   it, and A is in state 25/26 now or within the special window (frame clock), cost = SPECIAL_DMG_W x health lost.
+   No radius. Opponent seats get NO special term at all -> the two-sided bonus that dominated spec_net (+0.08) is
+   gone; spec_net == spec_pen by construction. Unowned / null sources: no cost (counted).
+ - Telemetry on [zs]: `attr=P/N` (learner hits attributed to a player / not), `spec_dmg=` (bars of learner health
+   lost to attributed specials per round = the BEHAVIORAL TARGET; it should fall if avoidance is learned).
+ - Tests: test_special_window.py +11 (owner_of boundaries incl. one-past-P1 = P2, projectile pointer -> None; far
+   caster attributed -> penalized; non-casting attacker -> no penalty; unowned -> no penalty) = 30/30. Smoke
+   (leg 97 policy, 4 lv8 episodes): spec_pen -0.12 / -0.23 / -0.47 / -0.16 per round (pure cost; was ~-0.10 two-sided),
+   attr 6/3, 14/3, 21/1, 3/4, spec_dmg 0.12-0.47 bars.
+
+PRE-REGISTERED READ (legs 99-100, first leg to boot after league_env.txt carries PS2_SPECIAL_ATTRIB=1):
+ - Kill switch (either leg): timeout share > 2%, or lv3 < 85, or training win share below 33% for two consecutive
+   quarters -> revert candidate (remove PS2_SPECIAL_ATTRIB from league_env.txt; Blake decides).
+ - PRIMARY = spec_dmg per round (learner health lost to attributed specials), baseline = leg 99 q1. SUCCESS = leg
+   100 spec_dmg at least 20% below the leg 99 q1 baseline with the fire share (attr P with a casting attacker)
+   also down; FLAT otherwise. Secondary: lv8-context loss share (1.0 record 62.0 / 61.4 / 63.0), trio vs 30.4 /
+   33.4 / 33.6 (the trio SIGNAL: a leg 99 trio below 30.4 = fourth drop), lv8mix vs 32.2 / 30.4 / 30.0, AB vs 86-14.
+ - Expected: spec_pen per round -0.2 to -0.5 (pure cost), spec_net == spec_pen, no win-share dip beyond 2 points.
+
 ## ASTRA REVIEW 3 (Sep 28 2026, HEAD 9e54fb3; Blake: "Hold 0.5 through leg 93, then decide")
 
 Astra reconciled 520 shards / 52 merged results (legs 80-92): every reported number holds; lv8mix is genuinely

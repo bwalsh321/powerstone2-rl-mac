@@ -83,6 +83,17 @@ SPECIAL_WINDOW_CLOCK = os.environ.get("PS2_SPECIAL_WINDOW_CLOCK", "steps")
 # Sep 28 (Astra review 3, finding 2): optional per-hit event log for the learner (frame, damage, caster
 # state / frames since special / distance, whether the term fired). Diagnostics only; 0/unset = off.
 SPECIAL_EVENTS = os.environ.get("PS2_SPECIAL_EVENTS", "")
+# Sep 29 2026 (Blake: "learner-only attribution fix next as a two-leg read"): PS2_SPECIAL_ATTRIB=1 replaces the
+# radius heuristic with the game's own attribution and applies the special-damage cost to the LEARNER ONLY.
+# RAM: each player object carries a 32-bit physical pointer to the object that last hit it at PLAYER_MAT+0x32E4
+# (scan Sep 29: written on the hit frame; 36% of hits point straight at another player's object, that seat was in
+# an attack/special state in 98% of those, never the victim; 64% point at a projectile / item object whose OWNER
+# pointer sits at +0x10, naming a seat that was in an attack/special state in 100% of the resolvable cases).
+# Under attrib, opponent seats get NO special term (the two-sided bonus side is removed).
+SPECIAL_ATTRIB = os.environ.get("PS2_SPECIAL_ATTRIB", "0") == "1"
+HITSRC_OFF = 0x32E4            # PLAYER_MAT[k] + HITSRC_OFF: u32 physical pointer to the last hit source
+HITSRC_OWNER_OFF = 0x10        # inside a non-player source object: u32 physical pointer to the owning player object
+PLAYER_OBJ_LEAD, PLAYER_OBJ_LEN = 0x490, 0x3938
 _SH = os.environ.get("PS2_START_HEALTH", "").strip()
 START_HEALTH = tuple(float(x) for x in _SH.split(",")) if _SH else None
 
@@ -204,7 +215,8 @@ class FFASelfPlayEnv(PowerStoneEnvLibretro):
             if SPECIAL_DMG_W > 0.0 or LOST_EXTRA_W > 0.0:
                 print(f"[config] reward2: special_dmg_w={SPECIAL_DMG_W} special_r={SPECIAL_R:.0f} lost_extra_w={LOST_EXTRA_W}"
                       f" special_window={SPECIAL_WINDOW:g}s ({self._spec_win} steps | {self._spec_win_frames} frames, clock={self._spec_clock})"
-                      f" loss_scale_lv8={self.LOSS_SCALE_BY_LEVEL.get(8)}", flush=True)
+                      f" loss_scale_lv8={self.LOSS_SCALE_BY_LEVEL.get(8)}"
+                      + (" special_attrib=1 (learner-only; +0x32e4 hit source, owner +0x10)" if SPECIAL_ATTRIB else ""), flush=True)
         if START_HEALTH:
             print(f"[config] start_health=U{START_HEALTH} per seat (RAM write at reset)", flush=True)
 
@@ -292,7 +304,8 @@ class FFASelfPlayEnv(PowerStoneEnvLibretro):
                       f"dealt_nn={z['dealt_nn']:.2f} steps={z['n']}"
                       + (f" spec_pen={z.get('spec_pen', 0.0):+.2f} lost_pen={z.get('lost_pen', 0.0):+.2f}"
                          f" spec_net={z.get('spec_net', 0.0):+.2f} lost_net={z.get('lost_net', 0.0):+.2f}"
-                         if (SPECIAL_DMG_W > 0.0 or LOST_EXTRA_W > 0.0) else ""), flush=True)
+                         if (SPECIAL_DMG_W > 0.0 or LOST_EXTRA_W > 0.0) else "")
+                      + (f" attr={z.get('attr_p', 0)}/{z.get('attr_n', 0)} spec_dmg={z.get('spec_dmg', 0.0):.2f}" if SPECIAL_ATTRIB else ""), flush=True)
         if done and info.get("timeout") and self.TIMEOUT_IS_LOSS and "result" not in info:
             level = self.SLOT_META.get(getattr(self, "_episode_slot", 0), (0, 2))[1]
             r -= self.LOSS_PENALTY * self.LOSS_SCALE_BY_LEVEL.get(level, 1.0)
@@ -332,7 +345,22 @@ class FFASelfPlayEnv(PowerStoneEnvLibretro):
               + self.DAMAGE_TAKEN_W * min(0.0, own_delta)
               + gem - self.TIME_PENALTY)
         # Sep 26 reward levers (see module flags): special-death cost and stone-retention cost
-        if SPECIAL_DMG_W > 0.0 and own_delta < 0.0:
+        if SPECIAL_DMG_W > 0.0 and own_delta < 0.0 and SPECIAL_ATTRIB:
+            # Sep 29: learner-only, game-attributed. Opponent seats: no special term.
+            if k == self._learner_idx:
+                pst = s.get("pstate")
+                att = self._hit_attacker(k)
+                z = self._zs
+                if z is not None:
+                    z["attr_p" if att is not None else "attr_n"] = z.get("attr_p" if att is not None else "attr_n", 0) + 1
+                if att is not None and pst is not None and att < len(pst) and self._in_special(att, pst):
+                    pen = SPECIAL_DMG_W * own_delta
+                    rk += pen
+                    self._pen_step.setdefault(k, [0.0, 0.0])[0] += pen
+                    if z is not None:
+                        z["spec_pen"] = z.get("spec_pen", 0.0) + pen
+                        z["spec_dmg"] = z.get("spec_dmg", 0.0) + (-own_delta)
+        elif SPECIAL_DMG_W > 0.0 and own_delta < 0.0:
             pst = s.get("pstate")
             if pst is not None:
                 px, pz = pk["pos"][0], pk["pos"][2]
@@ -434,6 +462,37 @@ class FFASelfPlayEnv(PowerStoneEnvLibretro):
             z["dealt_nn"] += dealt.get(i, 0.0); z["n"] += 1
         info["r_raw"], info["r_opp_mean"] = rs[i], opp_mean
         return adj
+
+    def _hit_attacker(self, k):
+        """Seat index that last hit seat k per the game's own bookkeeping, or None (null / unowned hazard).
+        Reads RAM directly (no state-line change): PLAYER_MAT[k]+0x32E4 -> source object; if the source is
+        another player object that seat is the attacker; otherwise the source's +0x10 owner pointer."""
+        import struct
+        ram = self._lr_bridge.ram
+        base = A.RAM_BASE + A.RAM_DELTA
+        try:
+            src = struct.unpack_from("<I", ram, A.PLAYER_MAT[k] + HITSRC_OFF - base)[0] & 0x0FFFFFFF
+        except Exception:
+            return None
+        att = self._owner_of(src)
+        if att is not None:
+            return None if att == k else att
+        if src == 0:
+            return None
+        try:
+            own = struct.unpack_from("<I", ram, (src | 0x80000000) + HITSRC_OWNER_OFF - base)[0] & 0x0FFFFFFF
+        except Exception:
+            return None
+        att = self._owner_of(own)
+        return None if (att is None or att == k) else att
+
+    @staticmethod
+    def _owner_of(phys):
+        for j, pm in enumerate(A.PLAYER_MAT):
+            b = (pm - PLAYER_OBJ_LEAD) & 0x0FFFFFFF
+            if b <= phys < b + PLAYER_OBJ_LEN:
+                return j
+        return None
 
     def _in_special(self, m, pst):
         """Seat m counts as 'in a special' when its state is 25/26 now, or was within the

@@ -152,6 +152,10 @@ def capture(a):
     script = script[:F]
     prev_mask = 0
     prev_h = hp.copy()
+    HITSRC_OFF, HITSRC_LEN = 0x36e4, 0x400          # window offset of the hit-source pointer; bytes to keep per source object
+    hs_bases = [(b - 0x490) & 0x0FFFFFFF for b in A.PLAYER_MAT]   # player objects start 0x490 before PLAYER_MAT (physical)
+    hs_prev = [None] * 4
+    hs_rows = []
     t0 = time.time()
     for f in range(F):
         m = script[f]
@@ -171,6 +175,17 @@ def capture(a):
         hh = health()
         hlth[f] = hh
         mask[f] = m
+        if a.hitsrc:
+            for k in range(4):
+                o = obj_off[k]
+                ptr = int(struct.unpack_from("<I", ram, o + HITSRC_OFF)[0])
+                if ptr != hs_prev[k]:
+                    hs_prev[k] = ptr
+                    phys = ptr & 0x0FFFFFFF
+                    ro = (phys | 0x80000000) - A.RAM_BASE - A.RAM_DELTA
+                    owner = next((j for j in range(4) if hs_bases[j] <= phys < hs_bases[j] + OBJ_LEN), -1)
+                    blob = ram[ro:ro + HITSRC_LEN].copy() if (owner < 0 and 0 <= ro and ro + HITSRC_LEN <= len(ram)) else None
+                    hs_rows.append((f, k, ptr, owner, blob))
         if dict_off is not None:
             for k in range(4):
                 v = int(snaps[f, k, dict_off])
@@ -234,6 +249,16 @@ def capture(a):
     csv.close()
     np.savez_compressed(os.path.join(a.out, "snaps.npz"), snaps=snaps, health=hlth, pos=pos, mask=mask,
                         pool_act=pact, pool_cls=pcls, pool_pos=ppos)
+    if a.hitsrc:
+        blobs = np.zeros((len(hs_rows), HITSRC_LEN), np.uint8); has = np.zeros(len(hs_rows), bool)
+        for i, (_, _, _, _, b) in enumerate(hs_rows):
+            if b is not None:
+                blobs[i, :len(b)] = b; has[i] = True
+        np.savez_compressed(os.path.join(a.out, "hitsrc.npz"),
+                            frame=np.array([r[0] for r in hs_rows], np.int32), victim=np.array([r[1] for r in hs_rows], np.int8),
+                            ptr=np.array([r[2] for r in hs_rows], np.uint32), owner=np.array([r[3] for r in hs_rows], np.int8),
+                            blob=blobs, has_blob=has, player_mat=np.array(A.PLAYER_MAT, np.uint32))
+        print(f"[scan] hitsrc: {len(hs_rows)} pointer changes, {int(has.sum())} non-player source snapshots", flush=True)
     with open(os.path.join(a.out, "events.json"), "w") as fh:
         json.dump({"events": events, "slot": a.slot, "frames": F, "obj_pre": OBJ_PRE,
                    "obj_len": OBJ_LEN, "player_mat": [hex(x) for x in A.PLAYER_MAT]}, fh)
@@ -402,6 +427,7 @@ def main():
     c.add_argument("--core", required=True); c.add_argument("--game", required=True)
     c.add_argument("--states", default="states"); c.add_argument("--slot", type=int, default=2)
     c.add_argument("--instance", type=int, default=12); c.add_argument("--frames", type=int, default=3600)
+    c.add_argument("--hitsrc", action="store_true", help="Sep 29: snapshot the object each seat's hit-source pointer (+0x36e4 u32, physical) points at, on every change; writes hitsrc.npz")
     c.add_argument("--preroll", type=int, default=300); c.add_argument("--refill", type=int, default=300)
     c.add_argument("--idle", type=int, default=50); c.add_argument("--hold", type=int, default=6)
     c.add_argument("--shots", type=int, default=24); c.add_argument("--out", required=True)
