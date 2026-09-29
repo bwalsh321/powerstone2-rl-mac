@@ -21,7 +21,7 @@ lines are misreads (rubric now carries a data dictionary). The battery now enfor
 thresholds itself (`hold_gate.py`, marker `claude_bridge/hold_leg<N>.txt`), verifies the pool copy
 before advancing state, and takes a per-leg lock dir `claude_bridge/battery_leg<N>.lock`.
 
-**Live:** leg 96 = DEATH COST 1.0 + FRAME CLOCK leg 2 (completes the read; launched 8:52 pm EDT Sep 28, done ~1:40 am Sep 29; wake `ps2-leg96-end-wake` 2:07 am), state `96 ./powerstone_v6_leg95_league.zip`, trainer = mixed. Leg 95 (read leg 1): trio 33.6 / lv3 96.4 / AB 83-17 / lv8mix 30.0; training lv8-context loss share 62.0 (baseline 62.6, target <= 60: NOT MET), no win-share dip, kill switch clear. Verdict after leg 96 must include the NET death-cost estimate (zero-sum may cancel a symmetric death penalty). NET TELEMETRY: spec_net POSITIVE (+0.08), lost_net 13% of raw. Open for Blake: native rebuild hold; learner-only attribution fix. Revert file claude_bridge/league_env_pre_leg95_deathcost1.txt.
+**Live:** leg 96 = DEATH COST 1.0 + FRAME CLOCK leg 2 (completes the read; launched 8:52 pm EDT Sep 28, done ~1:40 am Sep 29; wake `ps2-leg96-end-wake` 2:07 am), state `96 ./powerstone_v6_leg95_league.zip`, trainer = mixed. Leg 95 (read leg 1): trio 33.6 / lv3 96.4 / AB 83-17 / lv8mix 30.0; training lv8-context loss share 62.0 (baseline 62.6, target <= 60: NOT MET), no win-share dip, kill switch clear. Verdict after leg 96: "too short" vs "deaths not under the policy's control" (the relative step does NOT cancel the learner's own -10; see the leg 94/95 notes, corrected 9:10 pm). NET TELEMETRY: spec_net POSITIVE (+0.08) = the special term is two-sided and its bonus side (landing specials) dominates. Open for Blake: native rebuild hold; learner-only attribution fix. Revert file claude_bridge/league_env_pre_leg95_deathcost1.txt.
 state `71 ./powerstone_v6_leg70_league.zip`, `league_trainer.txt` = mixed, battery chains leg 72.
 Leg 70's scouting run (tmux scout70) was still encoding at compaction: when `claude_bridge/
 scout_leg70_done.txt` appears, spawn the Sonnet reviewer on `videos/review_leg70/` (rubric
@@ -1430,11 +1430,14 @@ penalty five times larger (-10 vs -2 two reads ago) with no visible re-weighting
 33.8 / 32.6 / 30.0) but the first below 31, so "robust to the change" is not yet claimed; AB 83-17 (no caution cost
 either); stones lost per trio round 2.97. Special term under the frame clock: fires in 41% of rounds (42% before, as
 the diagnostic predicted), spec_net still +0.08 (a net BONUS), lost_net 13% of raw. READING SO FAR: doubling the death
-cost changed nothing measurable in one leg. Two explanations to separate after leg 96: (a) the zero-sum step is
-cancelling most of it (opponents also die; a -10 on every seat's death is relative, like the stone term) -> check by
-computing the NET death term from the [zs] raw/opp_mean split; (b) 4M steps is too short for a magnitude change to
-show, as happened with 0.5 (moved in leg 4). Leg 96 (booted 8:52 pm, same line) completes the read; the verdict
-must include the net death-cost estimate. Open for Blake: native rebuild hold; learner-only attribution fix.
+cost changed nothing measurable in one leg. Two explanations to separate after leg 96 (corrected 9:10 pm; see the leg 94 note): (a) the death penalty is
+two-sided under relative reward (own death -10, each opponent death +10/3), so its NET average is near zero on lv8
+contexts (~ +10 in wins, -10 to -3.3 in losses), but the learner's own -10 incentive is intact: "cancelled" is NOT
+an available explanation; (b) 4M steps is too short for a magnitude change to show (0.5 moved in its leg 4);
+(c) deaths at lv8 are not yet under the policy's control (it cannot escape a 3-COM dogpile whatever the price), in
+which case no death cost will move the loss share and the lever is skill (recurrent policy, 9950X). Leg 96 (booted
+8:52 pm, same line) completes the read; the verdict should report the net death term for the record and weigh (b)
+against (c). Open for Blake: native rebuild hold; learner-only attribution fix.
 
 Leg 94 note (Sep 28 4:00 pm EDT): sixth and last leg on death cost 0.5 (20-decision clock); first leg with the NET
 penalty telemetry. Evals: trio 35.4 (31-40), up from 33.4 (drop count reset to 0); lv8mix 32.6 (29-37) = the third
@@ -1445,11 +1448,15 @@ is 62.6 (64.4 / 63.7 / 62.5 / 60.3 / 63.1 / 61.4); lv8 episode length 504; stone
 win share 33-34 in every quarter (steadiest yet). NET TELEMETRY (the point of Astra review 3 finding 2): spec_net =
 +0.08/round, POSITIVE in 67% of rounds, net/raw = -0.80 -> after the opponent subtraction the special term is a BONUS
 for landing specials on nearby opponents (they are penalized more than the learner), not a cost for eating them; it
-never taught avoidance and could not have. lost_net = -0.34/round vs raw -2.39 (14% survives): opponents lose stones
-at nearly the same rate, so the stone-retention lever is 86% cancelled by the zero-sum step. CONSEQUENCE for the
-attribution fix (NEXT MOVES): a special-damage cost that is meant to teach avoidance must be applied to the LEARNER
-ONLY (or credited by the actual attacker via +0x36e4 and not mirrored on the opponents), otherwise the relative
-reward cancels or inverts it; same for the stone term. Blake decides; nothing changed. LEG 95 BOOTED 3:51 pm = DEATH
+never taught avoidance and could not have. lost_net = -0.34/round vs raw -2.39 (14% survives).
+CORRECTION (Sep 28 9:10 pm, after thinking it through): the zero-sum subtraction removes the MEAN of the opponents'
+penalties, which is mostly a baseline shift and does NOT remove the learner's own incentive (its own stone loss still
+costs it -1, its own death still -10). What the net numbers DO show: each term is two-sided under relative reward, a
+cost when the learner eats it and a BONUS when the learner inflicts it on a nearby opponent (special landed, stone
+knocked off, opponent killed = +10/3). For the special term the bonus side dominates on average (+0.08), so the
+policy is pushed toward landing specials, not away from eating them; that, not cancellation, is why avoidance never
+appeared. A learner-only cost (or attacker-attributed credit via +0x36e4) removes the bonus side if avoidance is the
+goal; Blake decides; nothing changed. LEG 95 BOOTED 3:51 pm = DEATH
 COST 1.0 + FRAME CLOCK leg 1 on Blake's ruling: [config] reward2 line verbatim "special_dmg_w=1.0 special_r=700
 lost_extra_w=1.0 special_window=2s (20 steps | 120 frames, clock=frames) loss_scale_lv8=1.0"; 10 actors; warm leg 94.
 Read legs 95-96 (REWARD LEVERS Sep 28 11:40 am): primary = lv8-context loss share vs 62.6 (success <= 60 both legs).
