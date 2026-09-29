@@ -21,7 +21,7 @@ lines are misreads (rubric now carries a data dictionary). The battery now enfor
 thresholds itself (`hold_gate.py`, marker `claude_bridge/hold_leg<N>.txt`), verifies the pool copy
 before advancing state, and takes a per-leg lock dir `claude_bridge/battery_leg<N>.lock`.
 
-**Live:** leg 99 = ATTRIBUTION leg 1 (PS2_SPECIAL_ATTRIB=1 on top of death cost 1.0 + frame clock; launched 11:51 am EDT Sep 29, done ~4:45 pm; wake `ps2-leg99-end-wake` 5:06 pm), state `99 ./powerstone_v6_leg98_league.zip`, trainer = mixed. Read legs 99-100 (ATTRIBUTION FIX): primary = spec_dmg per round (learner health lost to attributed specials), baseline leg 99 q1, success = leg 100 >= 20% below; kill switch timeouts > 2% / lv3 < 85 / win share < 33% two quarters. Leg 98 (last pre-attribution leg): trio 34.4 (signal cleared) / lv3 96.4 / AB **94-6** (series best) / lv8mix 28.4 (held-out drifting: watch). Death cost 1.0 four-leg record 62.2 vs 62.6 = FLAT, Blake keeps 1.0. Open: native rebuild hold. Revert files: claude_bridge/league_env_pre_leg99_attrib.txt, league_env_pre_leg95_deathcost1.txt.
+**Live:** leg 99 = ATTRIBUTION PREVIEW on death cost 1.0 (launched 11:51 am EDT Sep 29, done ~4:45 pm; wake `ps2-leg99-end-wake` 5:06 pm), state `99 ./powerstone_v6_leg98_league.zip`, trainer = mixed. BLAKE 12:40 pm: death cost back to 0.5 -> league_env.txt now `PS2_LOSS_SCALE_LV8=0.5 ... PS2_SPECIAL_WINDOW_CLOCK=frames PS2_SPECIAL_ATTRIB=1`, lands at LEG 100; ATTRIBUTION READ RE-REGISTERED AS LEGS 100-101 (primary spec_dmg per round, baseline leg 100 q1). Leg 98: trio 34.4 / lv3 96.4 / AB 94-6 (best) / lv8mix 28.4 (held-out drift on 1.0 = the reason for the revert). Open: native rebuild hold. Revert files: claude_bridge/league_env_pre_leg100_deathcost05.txt (this change), league_env_pre_leg99_attrib.txt (attribution).
 state `71 ./powerstone_v6_leg70_league.zip`, `league_trainer.txt` = mixed, battery chains leg 72.
 Leg 70's scouting run (tmux scout70) was still encoding at compaction: when `claude_bridge/
 scout_leg70_done.txt` appears, spawn the Sonnet reviewer on `videos/review_leg70/` (rubric
@@ -168,7 +168,19 @@ Expected [config]: `reward2: special_dmg_w=1.0 special_r=700 lost_extra_w=1.0 sp
 clock=frames) loss_scale_lv8=1.0 special_attrib=1 (learner-only; +0x32e4 hit source, owner +0x10)`; [zs] lines gain
 `attr=P/N spec_dmg=X`.
 
-PRE-REGISTERED READ (legs 99-100):
+### Sep 29 12:45 pm: BLAKE -> death cost back to 0.5 ("moving fairly consistently in the wrong direction")
+
+Applied 12:45 pm: `PS2_LOSS_SCALE_LV8=0.5` in league_env.txt (pre-change copy claude_bridge/league_env_pre_leg100_deathcost05.txt);
+frame clock and PS2_SPECIAL_ATTRIB=1 unchanged. Basis: held-out lv8mix on the 1.0 legs 30.0 / 30.4 / 32.2 / 28.4 vs
+31.8 / 33.8 / 32.6 on 0.5, and the 1.0 record bought nothing on deaths (62.2 vs 62.6). Leg 99 (attribution + 1.0,
+running since 11:51 am) is left to finish; the change lands at LEG 100's boot (~5:50 pm). To keep the attribution read
+clean (Blake: one change at a time), THE READ IS RE-REGISTERED AS LEGS 100-101 (both on 0.5 + attribution); leg 99 is a
+one-leg attribution PREVIEW on 1.0 whose numbers are reported but do not count toward the verdict. Expected leg 100
+[config]: `... special_window=2s (20 steps | 120 frames, clock=frames) loss_scale_lv8=0.5 special_attrib=1 (learner-only;
++0x32e4 hit source, owner +0x10)`. Primary measure unchanged: spec_dmg per round, baseline = leg 100 q1; success = leg 101
+at least 20% below it with the fire share down; kill switch unchanged.
+
+PRE-REGISTERED READ (originally legs 99-100; now legs 100-101, see above):
  - Kill switch (either leg): timeout share > 2%, or lv3 < 85, or training win share below 33% for two consecutive
    quarters -> revert candidate (remove PS2_SPECIAL_ATTRIB from league_env.txt; Blake decides).
  - PRIMARY = spec_dmg per round (learner health lost to attributed specials), baseline = leg 99 q1. SUCCESS = leg
