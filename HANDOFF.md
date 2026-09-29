@@ -21,7 +21,7 @@ lines are misreads (rubric now carries a data dictionary). The battery now enfor
 thresholds itself (`hold_gate.py`, marker `claude_bridge/hold_leg<N>.txt`), verifies the pool copy
 before advancing state, and takes a per-leg lock dir `claude_bridge/battery_leg<N>.lock`.
 
-**Live:** leg 98 = fourth leg on death cost 1.0 + frame clock, continuation, AWAITING BLAKE'S RULING (launched 6:47 am EDT Sep 29, done ~11:40 am; wake `ps2-leg98-end-wake` 12:02 pm), state `98 ./powerstone_v6_leg97_league.zip`, trainer = mixed. TRIO SIGNAL (Blake's rule): 35.4 -> 33.6 -> 33.4 -> 30.4 = three consecutive drops during the 1.0 legs (held-out lv8mix disagrees: 30.0 / 30.4 / 32.2). Read legs 95-96 = FLAT; loss share on 1.0 = 62.0 / 61.4 / 63.0 vs 62.6. PROPOSED (updated): REVERT to the 0.5 recipe (claude_bridge/league_env_pre_leg95_deathcost1.txt) keeping leg 97's weights, unless Blake wants a fourth 1.0 leg; stop tuning the death cost; learner-only attribution fix next; recurrent policy on the 9950X. Open: native rebuild hold. Leg 97: trio 30.4 / lv3 98.4 / AB 86-14 / lv8mix 32.2.
+**Live:** leg 98 = fourth leg on death cost 1.0 + frame clock, LAST leg without attribution (launched 6:47 am EDT Sep 29, done ~11:40 am; wake `ps2-leg98-end-wake` 12:02 pm), state `98 ./powerstone_v6_leg97_league.zip`, trainer = mixed. BLAKE RULING Sep 29 ~7:00 am: death cost stays 1.0; ATTRIBUTION FIX next (two-leg read); recurrent policy on the 9950X; native rebuild hold still open. DONE 7:50 am: `PS2_SPECIAL_ATTRIB=1` in league_env.txt (see ATTRIBUTION FIX: +0x32E4 hit-source pointer + owner +0x10, validated 416 hits offline + 18/24 visual agree, 1 stale) -> LEG 99 = ATTRIBUTION leg 1, read legs 99-100 (primary = spec_dmg per round, learner health lost to attributed specials). TRIO SIGNAL still open: 35.4 -> 33.6 -> 33.4 -> 30.4 (held-out 32.2 disagrees). Leg 97: trio 30.4 / lv3 98.4 / AB 86-14 / lv8mix 32.2. Revert files: claude_bridge/league_env_pre_leg99_attrib.txt (attrib), league_env_pre_leg95_deathcost1.txt (death cost).
 state `71 ./powerstone_v6_leg70_league.zip`, `league_trainer.txt` = mixed, battery chains leg 72.
 Leg 70's scouting run (tmux scout70) was still encoding at compaction: when `claude_bridge/
 scout_leg70_done.txt` appears, spawn the Sonnet reviewer on `videos/review_leg70/` (rubric
@@ -156,7 +156,19 @@ THE CHANGE (`PS2_SPECIAL_ATTRIB=1`, whitelisted; off = legs 86-98 behavior):
    (leg 97 policy, 4 lv8 episodes): spec_pen -0.12 / -0.23 / -0.47 / -0.16 per round (pure cost; was ~-0.10 two-sided),
    attr 6/3, 14/3, 21/1, 3/4, spec_dmg 0.12-0.47 bars.
 
-PRE-REGISTERED READ (legs 99-100, first leg to boot after league_env.txt carries PS2_SPECIAL_ATTRIB=1):
+VISUAL CHECK (Sonnet reviewer, scan/hitsrc1/labeled/review.md, Sep 29 7:45 am): AGREE 18 / DISAGREE 1 / UNCLEAR 5 of
+24 hit frames. The one disagreement (frame 1022): the field still named an earlier hitter (P2, idle and far away)
+while P1's special visibly landed -> the pointer does not rewrite on every hit type (offline: ~18% of drops showed no
+pointer change, most of them same-source repeats). Expect a few percent of attributed hits to name a stale attacker;
+acceptable for a reward signal, noted as a known limit. The 5 UNCLEAR are occlusion / off-screen, not contradictions.
+
+APPLIED (Sep 29 7:50 am, Blake's go): league_env.txt now ends with `PS2_SPECIAL_ATTRIB=1` (pre-change copy:
+claude_bridge/league_env_pre_leg99_attrib.txt). Leg 98 (running, no attrib) is untouched; LEG 99 = ATTRIBUTION leg 1.
+Expected [config]: `reward2: special_dmg_w=1.0 special_r=700 lost_extra_w=1.0 special_window=2s (20 steps | 120 frames,
+clock=frames) loss_scale_lv8=1.0 special_attrib=1 (learner-only; +0x32e4 hit source, owner +0x10)`; [zs] lines gain
+`attr=P/N spec_dmg=X`.
+
+PRE-REGISTERED READ (legs 99-100):
  - Kill switch (either leg): timeout share > 2%, or lv3 < 85, or training win share below 33% for two consecutive
    quarters -> revert candidate (remove PS2_SPECIAL_ATTRIB from league_env.txt; Blake decides).
  - PRIMARY = spec_dmg per round (learner health lost to attributed specials), baseline = leg 99 q1. SUCCESS = leg
