@@ -22,7 +22,7 @@ It is written so a smaller model can run the relay without re-deriving anything.
 - Unattended permission allowlist: `.claude/settings.local.json` (git-ignored).
   Scheduled tasks run without prompts because of it.
 
-## 2. Live state (Sep 28 9:00 pm EDT; leg 96 = DEATH COST 1.0 + FRAME CLOCK leg 2, launched 8:52 pm, completes the read; leg 95 trio 33.6 / lv3 96.4 / AB 83-17 / lv8mix 30.0, lv8 loss share 62.0 (target <= 60 not met), kill switch clear; open: native rebuild hold, learner-only attribution fix; trainer = mixed)
+## 2. Live state (Sep 29 2:00 am EDT; leg 97 = continuation on death cost 1.0 + frame clock, awaiting Blake's ruling; read legs 95-96 = FLAT (loss share 62.0 / 61.4 vs 62.6; evals held: leg 96 trio 33.4 / lv3 98.4 / AB 86-14 / lv8mix 30.4); trio two consecutive drops = WATCH; proposed: stop tuning death cost, learner-only attribution fix next, then recurrent policy; open: native rebuild hold; trainer = mixed)
 
 - **Standing override changed 16:00 EDT Sep 19 (Blake: "Stack")**: `league_optim.txt` =
   `PS2_LR=1e-4 PS2_TARGET_KL=0.03 PS2_BATCH_SIZE=256`, applies from leg 52 (leg 51 unchanged). Read over two legs vs the
