@@ -21,7 +21,7 @@ lines are misreads (rubric now carries a data dictionary). The battery now enfor
 thresholds itself (`hold_gate.py`, marker `claude_bridge/hold_leg<N>.txt`), verifies the pool copy
 before advancing state, and takes a per-leg lock dir `claude_bridge/battery_leg<N>.lock`.
 
-**Live:** leg 103 = continuation on the standing recipe (0.5 + frame clock + learner-only attribution), AWAITING BLAKE'S RULING on the FLAT attribution verdict (launched 7:45 am EDT Sep 30, done ~12:40 pm; wake `ps2-leg103-end-wake` 1:00 pm), state `103 ./powerstone_v6_leg102_league.zip`, trainer = mixed. Leg 102: trio **37.0** (ties the observed best) / lv3 97.6 / AB 82-18 / lv8mix 31.6; stones lost per trio round 2.77 (best since leg 86). Attribution read (legs 100-101) = FLAT; PROPOSED: keep attribution, stop adding reward terms on the laptop, recurrent policy on the 9950X next; native rebuild hold open. Revert files: claude_bridge/league_env_pre_leg100_deathcost05.txt, league_env_pre_leg99_attrib.txt.
+**Live:** leg 103 = LAST M4 TRAINING LEG (standing recipe: 0.5 + frame clock + learner-only attribution; launched 7:45 am EDT Sep 30, done ~12:40 pm; wake `ps2-leg103-end-wake` 1:00 pm), state `103 ./powerstone_v6_leg102_league.zip`, trainer = **hold** (Blake Sep 30 ~8:15 am: 9950X arrives today, no further runs until it is up). The leg 103 battery runs its evals and scout, then writes leg104_LAUNCH_HELD.txt; handover checkpoint = powerstone_v6_leg103_league.zip. See 9950X HANDOVER (split-battery design: Ryzen trains, M4 evaluates). Leg 102: trio 37.0 (ties best) / lv3 97.6 / AB 82-18 / lv8mix 31.6. Attribution read FLAT; keep attribution, no more reward terms, recurrent policy next.
 state `71 ./powerstone_v6_leg70_league.zip`, `league_trainer.txt` = mixed, battery chains leg 72.
 Leg 70's scouting run (tmux scout70) was still encoding at compaction: when `claude_bridge/
 scout_leg70_done.txt` appears, spawn the Sonnet reviewer on `videos/review_leg70/` (rubric
@@ -120,6 +120,33 @@ ground items: 2 nearest with pos + category (item dictionary from the pool class
 ~40 new dims -> input 162 (x7 stack = 1,134); warm start by surgery with zero columns on the new inputs,
 agreement test, two-leg read vs the 16-24 band. Chests/weapons: visibility only, NO item reward (Blake's
 economy point; the bot learned cactus-throwing blind, wins will teach value).
+
+## 9950X HANDOVER (Sep 30 2026; Blake: "the 9950x is getting delivered today, no further runs until that machine is up")
+
+RULING (Sep 30 ~8:15 am): no further laptop legs after leg 103. league_trainer.txt = `hold` (pre-change copy
+claude_bridge/league_trainer_pre_hold_sep30.txt), so the leg 103 battery runs its four evals, scout, pool copy and
+state advance, then writes claude_bridge/leg104_LAUNCH_HELD.txt instead of launching. Leg 103 (running, done ~12:40 pm)
+is the last M4 training leg; its zip powerstone_v6_leg103_league.zip is the handover checkpoint (state file will read
+"104 ./powerstone_v6_leg103_league.zip"). Nothing else changes; the attribution verdict (FLAT) and the standing proposal
+(keep attribution; stop adding reward terms; recurrent policy next) carry over.
+
+BLAKE'S QUESTION: can the M4 run the batteries while the Ryzen trains? ASSESSMENT = yes, and it is the better design:
+ - Today the battery gates the next launch (~55 min of dead training time per leg on one machine). Split: the Ryzen
+   trains continuously (leg N+1 warm-starts from leg N the moment N completes: persist pool copy, advance state,
+   launch), and rsyncs each leg's zip + training log to the M4; the M4 runs the four-eval battery + scout + review on
+   the Mac build (keeps the 100-leg eval series on ONE emulator build = comparable numbers; the Linux parity gate then
+   only has to cover training, not the benchmark), and reports.
+ - Cost: the hold gate becomes RETROACTIVE ("stop + revert to leg N-1" instead of "do not launch N+1"); a 30-line
+   pull script on the M4 (poll or ssh trigger), receipts rsynced back; the relay's wake prompts split into a Ryzen
+   half (launch guards) and a Mac half (collection). ~half a day of scripting after bring-up; test on leg 103's zip.
+ - Bonus: the M4 has the headroom to run n=1000 evals (tighter intervals, which Astra asked for) and the RAM scans /
+   diagnostics without touching training; the Ryzen keeps all 16 cores for actors (the recurrent-policy job).
+ - Risk to name: two machines = two clocks and two file trees; the notebook must say which machine produced each
+   artifact (receipts carry model= and the Mac build; add a `host=` line to the battery summary).
+BRING-UP ORDER (LINUX_BRINGUP.md + setup_9950x.sh): OS + deps -> flycast core sha256 pinned -> 2-port and 4-port
+harness builds (the native getState fix is in source: this is where it finally ships) -> persistent Xvfb :99 -> the
+three unit tests + smoke_ffa_v3 -> G5 PARITY on powerstone_v6_leg73_league.zip (n=200, two-proportion vs the Mac's
+146/500) -> first Ryzen leg = leg 104 from leg 103's zip, standing recipe, actor count scaled to the box.
 
 ## ATTRIBUTION FIX (Sep 29 2026; Blake: "learner-only attribution fix next as a two-leg read")
 
