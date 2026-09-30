@@ -22,7 +22,7 @@ It is written so a smaller model can run the relay without re-deriving anything.
 - Unattended permission allowlist: `.claude/settings.local.json` (git-ignored).
   Scheduled tasks run without prompts because of it.
 
-## 2. Live state (Sep 30 2:55 am EDT; leg 102 = continuation on 0.5 + frame clock + attribution, awaiting Blake; attribution read legs 100-101 = FLAT (spec_dmg 0.111 vs 0.103); leg 101 trio 34.4 / lv3 95.2 / AB 84-16 / lv8mix 28.2; proposed: keep attribution, stop reward tuning on the laptop, recurrent policy on the 9950X next; open: native rebuild hold; trainer = mixed)
+## 2. Live state (Sep 30 7:50 am EDT; leg 103 = continuation on 0.5 + frame clock + attribution, awaiting Blake; leg 102 trio 37.0 (ties best) / lv3 97.6 / AB 82-18 / lv8mix 31.6; attribution read FLAT; proposed: keep attribution, stop reward tuning on the laptop, recurrent policy on the 9950X next; open: native rebuild hold; trainer = mixed)
 
 - **Standing override changed 16:00 EDT Sep 19 (Blake: "Stack")**: `league_optim.txt` =
   `PS2_LR=1e-4 PS2_TARGET_KL=0.03 PS2_BATCH_SIZE=256`, applies from leg 52 (leg 51 unchanged). Read over two legs vs the

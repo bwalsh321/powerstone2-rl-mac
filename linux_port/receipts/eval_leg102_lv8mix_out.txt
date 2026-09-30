@@ -1,0 +1,8 @@
+
+================ EVAL SUMMARY ================
+model=powerstone_v6_leg102_league.zip  slot=90  n=500  mode=deterministic  distinct-outcome-tuples~451  shards=10x50  slots=90,91,92,93,94
+win% :  31.6   (158W/342L/0T)   95% Wilson [28-36]
+picks:  7.44 /ep
+forms:  1.78 /ep
+per-slot: slot90=29W/100  slot91=42W/100  slot92=24W/100  slot93=22W/100  slot94=41W/100
+shard files: eval_leg102_lv8mix_s0_out.txt eval_leg102_lv8mix_s1_out.txt eval_leg102_lv8mix_s2_out.txt eval_leg102_lv8mix_s3_out.txt eval_leg102_lv8mix_s4_out.txt eval_leg102_lv8mix_s5_out.txt eval_leg102_lv8mix_s6_out.txt eval_leg102_lv8mix_s7_out.txt eval_leg102_lv8mix_s8_out.txt eval_leg102_lv8mix_s9_out.txt
