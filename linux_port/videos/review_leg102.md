@@ -1,0 +1,20 @@
+# Scouting report — league leg 102 (Desert Area, trio of level-8 COMs)
+
+**WIN (win_ep01, 0-103s).** forms=4/1, picked 12 lost 1, dmg +6.00/-0.55, dmgF=4.07, chests=19(1). Pride (1P) is X'd out by sheet005 t00:59, leaving a bot-vs-Ryoma(3P)-vs-Accel(4P) scrum for the rest of the round. The decisive, unambiguous transform is the "2P"-tagged missile-swarm at sheet009 t01:42 (also last12s t11.0-11.25): it lands with both 3P and 4P bars X'ing out in the same frame — likely-bot double-KO, not "uncertain," since no other attacker's swarm is adjacent. forms=4/1 means the bot out-transformed the trio 4-to-1; the other three bot transforms aren't individually confirmable at 1 fps, but the round's outcome tracks the transform count exactly as in leg100/101.
+
+**LOSS (loss_ep02, 103-198s).** forms=2/2, picked 8 lost 3, dmg +4.19/-1.00, dmgF=2.63, chests=17(0). Sheet009 duplicates win_ep01's result screen (same byte size); real play starts at sheet010 t01:48 "ACTION!". Pride (1P) is X'd out again almost immediately (sheet011 t02:00-01), leaving the same three-way for nearly the whole round. A winged opponent-transform appears sheet013 t02:26-29 right as the bot's own bar goes rainbow (a bot transform in the same window) — forms=2/2, an even trade, unlike the win's 4/1. The bot dies in a beam-driven juggle: last12s t01.5-11.0 (~9.5s, ≈ sheet016 t03:05 - sheet017 t03:17) is continuous airborne hit-stun with no HELP/knockdown break — "uncertain (forced animation)," not "no back-off," per rubric.
+
+**Opponent-special avoidance (strict rule).** One frame stands out: last12s t00.0-01.25 (≈ ep t03:05-06), the bot stands idle beside the cactus with no forced-animation overlay while a vertical beam visibly telegraphs and then lands at t01.5 — the closest thing to a visible-control "no back-off" moment across legs 100-102, though the ring effect under the bot can't be confirmed as free-idle vs. a locked charge/guard state at 4 fps, so it stays a candidate, not a confirmed case. Everything after t01.5 is forced-animation to death.
+
+**Stones.** Win: picked 12 lost 1 (net +11) — the best pickup/loss retention in the series per the leg log. Loss: picked 8 lost 3 (net +5) vs opp 9(-4) (net +5), an even trade but three times the losses of the win. Checkpoint also ties the project's best trio score (37%) and posts the series' lowest stones-lost-per-round since leg 86, consistent with this win's 1-lost figure.
+
+**Patterns.** Chests stay low-touch both rounds (19(1) win, 17(0) loss) despite intact chests visible on-screen repeatedly (sheet003 t00:25, sheet010 t01:51, sheet013 t02:27) — same ignore-nearby-chests pattern as leg101. The loss's fatal beam-juggle chain (~9.5s) mirrors leg101's ~20s "HELP" chain in kind, not length — a second instance of forced-animation deaths dominating losses rather than clean neutral defeats.
+
+**Suggest / verify.** Suggestion: reward-shape a repositioning nudge for when an opponent special's telegraph (the ring/beam-warmup cue) is on-screen and the bot is not already in hit-stun, since the loss shows one idle-and-eat-it instance before the fatal juggle. Verify: whether the pre-beam "ring" at loss last12s t00.0-01.25 is a bot-controllable idle state or a locked animation — not resolvable from these sheets.
+
+**Vs leg101.** Both legs keep the out-transform-tracks-outcome pattern (leg102: 4/1 win vs 2/2 loss; leg101: 3/1 win vs 1/3 loss) and both losses resolve to forced-animation death chains rather than confirmed no-back-off failures; leg102 adds the series' first plausible (still unconfirmed) pre-contact idle moment, where leg101's two-leg read stayed fully null.
+
+THREE-LINE SUMMARY:
+Win (forms 4/1): bot's own "2P" missile swarm double-KOs Ryoma and Accel at once (sheet009 t01:42); stones held best in the series (12 picked, 1 lost).
+Loss (forms 2/2): an even transform trade this time, but the bot dies to a ~9.5s beam-juggle chain (last12s t01.5-11.0) — forced animation, not a clear no-back-off.
+One frame right before that beam (last12s t00.0-01.25) is the first plausible no-back-off candidate across three legs, still unconfirmed; chest-ignoring persists unchanged.
