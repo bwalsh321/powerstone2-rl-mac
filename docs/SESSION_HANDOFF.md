@@ -22,7 +22,7 @@ It is written so a smaller model can run the relay without re-deriving anything.
 - Unattended permission allowlist: `.claude/settings.local.json` (git-ignored).
   Scheduled tasks run without prompts because of it.
 
-## 2. Live state (Sep 29 5:00 pm EDT; leg 100 = ATTRIBUTION READ leg 1 on death cost 0.5, launched 4:52 pm, read legs 100-101 primary spec_dmg (baseline leg 100 q1); leg 99 preview: trio 32.0 / lv3 98.4 / AB 84-16 / lv8mix 26.4, spec_dmg flat 0.11; open: native rebuild hold; trainer = mixed)
+## 2. Live state (Sep 29 9:55 pm EDT; leg 101 = ATTRIBUTION READ leg 2 on 0.5, launched 9:49 pm, completes the read (success = spec_dmg <= 0.082/round); leg 100: trio 34.0 / lv3 98.4 / AB 88-12 / lv8mix 33.8 = held-out recovered, no rollback; open: native rebuild hold; trainer = mixed)
 
 - **Standing override changed 16:00 EDT Sep 19 (Blake: "Stack")**: `league_optim.txt` =
   `PS2_LR=1e-4 PS2_TARGET_KL=0.03 PS2_BATCH_SIZE=256`, applies from leg 52 (leg 51 unchanged). Read over two legs vs the
