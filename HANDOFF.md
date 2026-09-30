@@ -21,7 +21,7 @@ lines are misreads (rubric now carries a data dictionary). The battery now enfor
 thresholds itself (`hold_gate.py`, marker `claude_bridge/hold_leg<N>.txt`), verifies the pool copy
 before advancing state, and takes a per-leg lock dir `claude_bridge/battery_leg<N>.lock`.
 
-**Live:** leg 100 = ATTRIBUTION READ leg 1 on death cost 0.5 (PS2_SPECIAL_ATTRIB=1 + frame clock + PS2_LOSS_SCALE_LV8=0.5; launched 4:52 pm EDT Sep 29, done ~9:45 pm; wake `ps2-leg100-end-wake` 10:07 pm), state `100 ./powerstone_v6_leg99_league.zip`, trainer = mixed. Read legs 100-101 (ATTRIBUTION FIX + its Sep 29 12:45 pm addendum): primary spec_dmg per round, baseline leg 100 q1 (~0.11 expected), success = leg 101 >= 20% below; secondary = held-out recovery on 0.5. Leg 99 (preview on 1.0): trio 32.0 / lv3 98.4 / AB 84-16 / lv8mix 26.4 (1.0-era held-out 30.0 / 30.4 / 32.2 / 28.4 / 26.4 = the drift Blake reverted on); spec_dmg flat 0.11, pure cost confirmed. Open: native rebuild hold. Revert files: claude_bridge/league_env_pre_leg100_deathcost05.txt, league_env_pre_leg99_attrib.txt.
+**Live:** leg 100 = ATTRIBUTION READ leg 1 on death cost 0.5 (PS2_SPECIAL_ATTRIB=1 + frame clock + PS2_LOSS_SCALE_LV8=0.5; launched 4:52 pm EDT Sep 29, done ~9:45 pm; wake `ps2-leg100-end-wake` 10:07 pm), state `100 ./powerstone_v6_leg99_league.zip`, trainer = mixed. Read legs 100-101 (ATTRIBUTION FIX + its Sep 29 12:45 pm addendum): primary spec_dmg per round, baseline leg 100 q1 (~0.11 expected), success = leg 101 >= 20% below; secondary = held-out recovery on 0.5. Leg 99 (preview on 1.0): trio 32.0 / lv3 98.4 / AB 84-16 / lv8mix 26.4 (1.0-era held-out 30.0 / 30.4 / 32.2 / 28.4 / 26.4 = the drift Blake reverted on); spec_dmg flat 0.11, pure cost confirmed. Open: native rebuild hold. Revert files: claude_bridge/league_env_pre_leg100_deathcost05.txt, league_env_pre_leg99_attrib.txt. ROLLBACK RULE (ATTRIBUTION FIX, Sep 29 5:30 pm): lv8mix >= 30 at leg 100 or 101 -> no rollback; <= 28 at both -> roll weights back to leg 94 (Blake decides).
 state `71 ./powerstone_v6_leg70_league.zip`, `league_trainer.txt` = mixed, battery chains leg 72.
 Leg 70's scouting run (tmux scout70) was still encoding at compaction: when `claude_bridge/
 scout_leg70_done.txt` appears, spawn the Sonnet reviewer on `videos/review_leg70/` (rubric
@@ -179,6 +179,24 @@ one-leg attribution PREVIEW on 1.0 whose numbers are reported but do not count t
 [config]: `... special_window=2s (20 steps | 120 frames, clock=frames) loss_scale_lv8=0.5 special_attrib=1 (learner-only;
 +0x32e4 hit source, owner +0x10)`. Primary measure unchanged: spec_dmg per round, baseline = leg 100 q1; success = leg 101
 at least 20% below it with the fire share down; kill switch unchanged.
+
+### Sep 29 5:30 pm: ROLLBACK OPTION (Blake asked; no action taken)
+
+Question: roll the WEIGHTS back to the last 0.5-era checkpoint (powerstone_v6_leg94_league.zip; the 1.0 death cost ran
+legs 95-99) and continue 0.5 + attribution from there, i.e. redo legs 95+? Evidence for: pooled held-out lv8mix 32.7%
+on the 0.5 legs 92-94 (491/1500) vs 29.5% on the 1.0 legs 95-99 (737/2500), ~2 SE, suggestive; leg 97 sat inside
+the old range mid-drift. Against: AB hit its series best (94-6, leg 98) on the 1.0 weights, the trio moved less, a
+rollback costs 5 legs (~25 h) and restarts the attribution read, and legs 100-101 already run the rollback recipe (0.5 +
+attribution) from leg 99's weights = a free test of whether the weights recover.
+DECISION RULE (recommended to Blake, his call, open through leg 101 ~3:00 am Sep 30):
+ - lv8mix at or above 30 at leg 100 or leg 101 -> the drift was the price term; NO rollback.
+ - lv8mix at or below 28 at BOTH legs 100 and 101 -> ROLL BACK: set league_state.txt to warm-start
+   powerstone_v6_leg94_league.zip for the next leg (keep league_env.txt as is: 0.5 + frame clock + attribution), restart
+   the attribution read from there; this also yields the same-parent comparison Astra review 3 asked for (leg 94 ->
+   0.5+attrib vs leg 94 -> 1.0 legs 95-99 -> 0.5+attrib).
+ - In between (28-30) -> report both readings and let Blake decide; default = no rollback.
+Mechanics of a rollback if ordered: after a battery, before the next launch, edit league_state.txt's zip path (Blake's
+go recorded in the notebook first); the pool keeps the leg 95-99 snapshots as opponents (fine).
 
 PRE-REGISTERED READ (originally legs 99-100; now legs 100-101, see above):
  - Kill switch (either leg): timeout share > 2%, or lv3 < 85, or training win share below 33% for two consecutive
