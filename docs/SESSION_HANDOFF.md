@@ -22,7 +22,7 @@ It is written so a smaller model can run the relay without re-deriving anything.
 - Unattended permission allowlist: `.claude/settings.local.json` (git-ignored).
   Scheduled tasks run without prompts because of it.
 
-## 2. Live state (Sep 30 8:15 am EDT; leg 103 = LAST M4 training leg (done ~12:40 pm), league_trainer.txt = hold -> the battery writes leg104_LAUNCH_HELD.txt; 9950X arrives today, no further runs until it is up; handover checkpoint powerstone_v6_leg103_league.zip; see HANDOFF 9950X HANDOVER for the split-battery design)
+## 2. Live state (Sep 30 12:50 pm EDT; RELAY PAUSED for the 9950X handover: last M4 leg = 103, state 104 held, trainer = hold, no wakes armed; handover zip powerstone_v6_leg103_league.zip sha256 5b83263e...; leg 103 trio 31.6 / lv3 96.4 / AB 80-20 / lv8mix 28.2; next = Ryzen bring-up per HANDOFF 9950X HANDOVER)
 
 - **Standing override changed 16:00 EDT Sep 19 (Blake: "Stack")**: `league_optim.txt` =
   `PS2_LR=1e-4 PS2_TARGET_KL=0.03 PS2_BATCH_SIZE=256`, applies from leg 52 (leg 51 unchanged). Read over two legs vs the
