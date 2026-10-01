@@ -21,7 +21,7 @@ lines are misreads (rubric now carries a data dictionary). The battery now enfor
 thresholds itself (`hold_gate.py`, marker `claude_bridge/hold_leg<N>.txt`), verifies the pool copy
 before advancing state, and takes a per-leg lock dir `claude_bridge/battery_leg<N>.lock`.
 
-**Live:** RELAY PAUSED FOR THE 9950X HANDOVER (Sep 30 12:46 pm EDT). Last M4 training leg = 103 (348M steps, 103 legs); league_state.txt = `104 ./powerstone_v6_leg103_league.zip`, league_trainer.txt = `hold`, leg104_LAUNCH_HELD.txt present, no trainer alive. Handover checkpoint powerstone_v6_leg103_league.zip (8,601,638 bytes, sha256 5b83263e4f11e572...). Leg 103: trio 31.6 / lv3 96.4 / AB 80-20 / lv8mix 28.2. Best observed on the M4: trio 37.0, lv8mix 33.8, lv3 98.8, AB 94-6. Recipe at handover = league_env.txt as committed (0.5 death cost, frame clock, learner-only attribution, levers). NEXT: 9950X bring-up per the 9950X HANDOVER section (deps -> pinned core -> both harness builds incl. the native getState fix -> Xvfb -> tests + smoke -> parity gate on the leg 73 zip -> leg 104 on the Ryzen); the M4 becomes the eval box. No scheduled wakes are armed.
+**Live:** RELAY PAUSED FOR THE 9950X HANDOVER (Sep 30 12:46 pm EDT). Last M4 training leg = 103 (348M steps, 103 legs); league_state.txt = `104 ./powerstone_v6_leg103_league.zip`, league_trainer.txt = `hold`, leg104_LAUNCH_HELD.txt present, no trainer alive. Handover checkpoint powerstone_v6_leg103_league.zip (8,601,638 bytes, sha256 5b83263e4f11e572...). Leg 103: trio 31.6 / lv3 96.4 / AB 80-20 / lv8mix 28.2. Best observed on the M4: trio 37.0, lv8mix 33.8, lv3 98.8, AB 94-6. Recipe at handover = league_env.txt as committed (0.5 death cost, frame clock, learner-only attribution, levers). NEXT: 9950X bring-up per the 9950X HANDOVER section (deps -> pinned core -> both harness builds incl. the native getState fix -> Xvfb -> tests + smoke -> parity gate on the leg 73 zip -> leg 104 on the Ryzen); the M4 becomes the eval box. No scheduled wakes are armed. OCT 1 2:30 pm: 9950X UP (Linux session): harnesses built with the getState fix, 3090 rendering via offscreen EGL (supersedes Xvfb), parity PASSED on leg 103 (31.0 vs 31.6; 94.4 vs 96.4), smoke passed, throughput sweep running; two trees diverging until Blake pushes the Mac commits (see 9950X HANDOVER, Oct 1).
 state `71 ./powerstone_v6_leg70_league.zip`, `league_trainer.txt` = mixed, battery chains leg 72.
 Leg 70's scouting run (tmux scout70) was still encoding at compaction: when `claude_bridge/
 scout_leg70_done.txt` appears, spawn the Sonnet reviewer on `videos/review_leg70/` (rubric
@@ -129,6 +129,30 @@ state advance, then writes claude_bridge/leg104_LAUNCH_HELD.txt instead of launc
 is the last M4 training leg; its zip powerstone_v6_leg103_league.zip is the handover checkpoint (state file will read
 "104 ./powerstone_v6_leg103_league.zip"). Nothing else changes; the attribution verdict (FLAT) and the standing proposal
 (keep attribution; stop adding reward terms; recurrent policy next) carry over.
+
+### Oct 1 2026: 9950X BRING-UP STATUS (from the Linux-side Claude session's transcript, relayed by Blake 2:30 pm)
+
+Box: Ubuntu 24.04, Python 3.12 (not 3.11), venv ~/ps2rl with torch 2.13 CPU; repo cloned from GitHub (= leg 70 state,
+Sep 23) at ~/powerstone2-rl-mac, then linux_port/ rsynced from the Mac (states, pool, leg 71-103 zips, receipts,
+league_*.txt incl. trainer = hold); HANDOFF.md + docs/ rsynced after. Harnesses: 2-port and 4-port built; the native
+getState fix was RE-APPLIED on the Linux copy (its clone predates the Mac commit) and both harnesses REBUILT with it;
+save/load verified through flycast_bridge (36 MB state, atomic). 3090: driver 590.48 was blocked by Secure Boot, fixed
+by enrolling the DKMS MOK key; nvidia-smi OK. RENDER: offscreen EGL on the 3090 (SDL_VIDEODRIVER=offscreen, vendor
+pinned via __EGL_VENDOR_LIBRARY_FILENAMES) in a new linux_port/linux_gpu_env.sh sourced by the four relay scripts;
+this SUPERSEDES the Xvfb :99 plan in LINUX_BRINGUP.md / setup_9950x.sh (Xvfb = CPU rendering, ~4.5x the CPU per frame;
+PS2_RENDER=xvfb keeps it as a fallback). Benchmark: 16 emulators x 3,600 frames in 14.6 s on the 3090 vs 35.8 s on the
+9950X iGPU. GATES: G1 imports PASS; G3 slot3 boot + live health PASS; G4 unit tests PASS (special-window test needs its
+env flags); G5 PARITY on leg 103's zip, 20 shards on the 3090: slot 3 31.0% vs Mac 31.6% (p=0.88), slot 2 94.4% vs
+96.4% (p=0.29) = PASS; smoke_ffa_v3 PASS (400 steps, v3 live, pool views OK). Throughput sweep (NENVS fixed at 10 to
+keep the PPO recipe; actor count varied; hardlinked pool copy) RUNNING at the time of the transcript.
+COORDINATION RISK (open): two diverging trees. The Mac holds ~79 unpushed commits (legs 71-103, all reward work, the
+Astra fixes, the attribution scan); the Linux clone is at leg 70 + an rsync overlay of linux_port + its own edits
+(linux_gpu_env.sh, launcher patches, retroemulator.cpp re-fix). RESOLUTION (needs Blake, who pushes): push the Mac's
+main; on the Linux box commit its edits on a branch, fetch, rebase onto main, then the Mac pulls. Until then the Mac
+notebook is the source of truth for legs 71-103 and the Linux box for linux_gpu_env.sh. RELAY OWNERSHIP from here:
+the Ryzen session owns training launches (leg 104+ from powerstone_v6_leg103_league.zip); the Mac session keeps the
+notebook and, if Blake takes the split-battery design, runs the batteries. No Mac wakes are armed; league_trainer.txt
+= hold on both machines until Blake says launch.
 
 BLAKE'S QUESTION: can the M4 run the batteries while the Ryzen trains? ASSESSMENT = yes, and it is the better design:
  - Today the battery gates the next launch (~55 min of dead training time per leg on one machine). Split: the Ryzen
