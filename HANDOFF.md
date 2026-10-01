@@ -21,7 +21,7 @@ lines are misreads (rubric now carries a data dictionary). The battery now enfor
 thresholds itself (`hold_gate.py`, marker `claude_bridge/hold_leg<N>.txt`), verifies the pool copy
 before advancing state, and takes a per-leg lock dir `claude_bridge/battery_leg<N>.lock`.
 
-**Live:** RELAY PAUSED FOR THE 9950X HANDOVER (Sep 30 12:46 pm EDT). Last M4 training leg = 103 (348M steps, 103 legs); league_state.txt = `104 ./powerstone_v6_leg103_league.zip`, league_trainer.txt = `hold`, leg104_LAUNCH_HELD.txt present, no trainer alive. Handover checkpoint powerstone_v6_leg103_league.zip (8,601,638 bytes, sha256 5b83263e4f11e572...). Leg 103: trio 31.6 / lv3 96.4 / AB 80-20 / lv8mix 28.2. Best observed on the M4: trio 37.0, lv8mix 33.8, lv3 98.8, AB 94-6. Recipe at handover = league_env.txt as committed (0.5 death cost, frame clock, learner-only attribution, levers). NEXT: 9950X bring-up per the 9950X HANDOVER section (deps -> pinned core -> both harness builds incl. the native getState fix -> Xvfb -> tests + smoke -> parity gate on the leg 73 zip -> leg 104 on the Ryzen); the M4 becomes the eval box. No scheduled wakes are armed. OCT 1 2:30 pm: 9950X UP (Linux session): harnesses built with the getState fix, 3090 rendering via offscreen EGL (supersedes Xvfb), parity PASSED on leg 103 (31.0 vs 31.6; 94.4 vs 96.4), smoke passed, throughput sweep running; two trees diverging until Blake pushes the Mac commits (see 9950X HANDOVER, Oct 1).
+**Live:** RELAY PAUSED FOR THE 9950X HANDOVER (Sep 30 12:46 pm EDT). Last M4 training leg = 103 (348M steps, 103 legs); league_state.txt = `104 ./powerstone_v6_leg103_league.zip`, league_trainer.txt = `hold`, leg104_LAUNCH_HELD.txt present, no trainer alive. Handover checkpoint powerstone_v6_leg103_league.zip (8,601,638 bytes, sha256 5b83263e4f11e572...). Leg 103: trio 31.6 / lv3 96.4 / AB 80-20 / lv8mix 28.2. Best observed on the M4: trio 37.0, lv8mix 33.8, lv3 98.8, AB 94-6. Recipe at handover = league_env.txt as committed (0.5 death cost, frame clock, learner-only attribution, levers). NEXT: 9950X bring-up per the 9950X HANDOVER section (deps -> pinned core -> both harness builds incl. the native getState fix -> Xvfb -> tests + smoke -> parity gate on the leg 73 zip -> leg 104 on the Ryzen); the M4 becomes the eval box. No scheduled wakes are armed. OCT 1 2:30 pm: 9950X UP (Linux session): harnesses built with the getState fix, 3090 rendering via offscreen EGL (supersedes Xvfb), parity PASSED on leg 103 (31.0 vs 31.6; 94.4 vs 96.4), smoke passed, throughput sweep running; two trees diverging until Blake pushes the Mac commits (see 9950X HANDOVER, Oct 1). OCT 1 3:00 pm: lazy-readback harness fix on the Ryzen (+25-57% throughput; identical pixels + RAM), 16 actors = 355 steps/s; branch ryzen-bringup awaits a pull (Mac could not reach the box: no route); division of labor accepted (Ryzen runs the relay, Mac owns HANDOFF.md + research); Blake to decide leg 104 actor count (Mac view: 16) and flip the Ryzen trainer file to mixed.
 state `71 ./powerstone_v6_leg70_league.zip`, `league_trainer.txt` = mixed, battery chains leg 72.
 Leg 70's scouting run (tmux scout70) was still encoding at compaction: when `claude_bridge/
 scout_leg70_done.txt` appears, spawn the Sonnet reviewer on `videos/review_leg70/` (rubric
@@ -153,6 +153,44 @@ notebook is the source of truth for legs 71-103 and the Linux box for linux_gpu_
 the Ryzen session owns training launches (leg 104+ from powerstone_v6_leg103_league.zip); the Mac session keeps the
 notebook and, if Blake takes the split-battery design, runs the batteries. No Mac wakes are armed; league_trainer.txt
 = hold on both machines until Blake says launch.
+
+### Oct 1 2026, afternoon: RYZEN THROUGHPUT WORK + DIVISION OF LABOR (from the Linux session's transcript via Blake)
+
+Branch `ryzen-bringup` on the Ryzen box (commit 74c6b4b at the time of the transcript; the box has no GitHub
+credentials, so the Mac must pull it over SSH: `git pull superserver@192.168.0.105:powerstone2-rl-mac ryzen-bringup`,
+then Blake pushes). It holds: linux_gpu_env.sh + the one-line source in the four relay scripts; LINUX_BRINGUP.md
+update; parity receipts + parity/sweep scripts; leg_modes.txt rows 88-103 (the Mac has now committed its own copy,
+expect an identical-content merge); and the LAZY READBACK harness fix below. Blake pushed the Mac's main (80 commits,
+legs 71-103) on Oct 1; origin/main = 7553d6a + this commit.
+
+LAZY READBACK (sdlarch.cpp; SDLARCH_EAGER_READBACK=1 restores the old path): the harness was doing a full glReadPixels
+GPU->CPU copy EVERY frame although training reads RAM, not pixels; the copy stalled the GPU and the NVIDIA driver
+spin-waited, which is why 22+ emulators showed 100% CPU with the box 30% idle. Now the frame is copied only when
+asked for (video / overlays). Verified identical pixels AND identical 16 MB RAM at 12 checkpoints over 600 scripted
+frames; raw emulator fps +17% single, +42% at 16, +57% at 32 instances; trainer 16 actors 355 steps/s (was 285; the
+M4 did ~220 at 10). A pre-existing BOOT RACE was found while benchmarking (1 of 24 instances silently fails to emulate
+when all start at once; the trainer and evals already stagger starts, so no exposure; the bench now staggers too).
+Driver yield (__GL_YIELD=USLEEP) = noise. Splitting instances between the 3090 and the iGPU = worse. 24/30-actor
+trainer numbers and the parity RE-RUN on the new harness were still pending in the transcript. Learner fix: cap
+torch threads at 4 so 22+ actors stop starving the learner (updates were 40-75 s, now ~1 s).
+
+SWEEP (NENVS fixed at 10 so the PPO batch is unchanged; actors varied): 10 actors 219 steps/s, lag 1.0, ~5.1 h/leg;
+16 actors 285 -> 355 with lazy readback, lag ~1.6, ~3.1 h/leg; 22-28 actors plateau ~300 (hyperthreading past 16
+physical cores). Per-core speed of the 9950X ~= the M4, so 10 actors = the same throughput as the laptop; the gain is
+core COUNT (and now the render fix).
+
+DIVISION OF LABOR (proposed by the Ryzen session; ACCEPTED on the Mac side): the RYZEN session runs the relay (leg
+launches, batteries, scouting, hold gate, render/harness work) and commits runtime records (leg rows, receipts, zips)
+on its branch; the MAC session owns HANDOFF.md (SOLE WRITER) and the research (recurrent policy, RAM work, per-leg
+reviews, extra n=1000 evals on the idle M4); the Mac pulls from the box over SSH and Blake pushes to GitHub. The
+Ryzen brings each leg's numbers; the Mac records them.
+
+DECISIONS PENDING FOR BLAKE (leg 104): (1) actor count: the Ryzen session proposed 10 for a clean machine-move read
+then 16 at leg 105; the Mac's view = parity already covered the machine move, so 16 at leg 104 is one recipe change
+(policy lag 1.0 -> ~1.6), record it as such; (2) league_trainer.txt back to `mixed` ON THE RYZEN (the Mac stays
+`hold`: the M4 no longer trains). SUGGESTION: give the Ryzen box a GitHub fine-grained token or deploy key so it can
+push its own branch; the Mac was unreachable from the box's LAN at 3:00 pm (no route to 192.168.0.105 from the Mac),
+and the relay should not depend on the Mac being on the same network.
 
 BLAKE'S QUESTION: can the M4 run the batteries while the Ryzen trains? ASSESSMENT = yes, and it is the better design:
  - Today the battery gates the next launch (~55 min of dead training time per leg on one machine). Split: the Ryzen
