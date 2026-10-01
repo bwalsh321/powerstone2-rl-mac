@@ -21,7 +21,7 @@ lines are misreads (rubric now carries a data dictionary). The battery now enfor
 thresholds itself (`hold_gate.py`, marker `claude_bridge/hold_leg<N>.txt`), verifies the pool copy
 before advancing state, and takes a per-leg lock dir `claude_bridge/battery_leg<N>.lock`.
 
-**Live:** RELAY PAUSED FOR THE 9950X HANDOVER (Sep 30 12:46 pm EDT). Last M4 training leg = 103 (348M steps, 103 legs); league_state.txt = `104 ./powerstone_v6_leg103_league.zip`, league_trainer.txt = `hold`, leg104_LAUNCH_HELD.txt present, no trainer alive. Handover checkpoint powerstone_v6_leg103_league.zip (8,601,638 bytes, sha256 5b83263e4f11e572...). Leg 103: trio 31.6 / lv3 96.4 / AB 80-20 / lv8mix 28.2. Best observed on the M4: trio 37.0, lv8mix 33.8, lv3 98.8, AB 94-6. Recipe at handover = league_env.txt as committed (0.5 death cost, frame clock, learner-only attribution, levers). NEXT: 9950X bring-up per the 9950X HANDOVER section (deps -> pinned core -> both harness builds incl. the native getState fix -> Xvfb -> tests + smoke -> parity gate on the leg 73 zip -> leg 104 on the Ryzen); the M4 becomes the eval box. No scheduled wakes are armed. OCT 1 2:30 pm: 9950X UP (Linux session): harnesses built with the getState fix, 3090 rendering via offscreen EGL (supersedes Xvfb), parity PASSED on leg 103 (31.0 vs 31.6; 94.4 vs 96.4), smoke passed, throughput sweep running; two trees diverging until Blake pushes the Mac commits (see 9950X HANDOVER, Oct 1). OCT 1 3:00 pm: lazy-readback harness fix on the Ryzen (+25-57% throughput; identical pixels + RAM), 16 actors = 355 steps/s; branch ryzen-bringup awaits a pull (Mac could not reach the box: no route); division of labor accepted (Ryzen runs the relay, Mac owns HANDOFF.md + research); Blake to decide leg 104 actor count (Mac view: 16) and flip the Ryzen trainer file to mixed.
+**Live:** RELAY PAUSED FOR THE 9950X HANDOVER (Sep 30 12:46 pm EDT). Last M4 training leg = 103 (348M steps, 103 legs); league_state.txt = `104 ./powerstone_v6_leg103_league.zip`, league_trainer.txt = `hold`, leg104_LAUNCH_HELD.txt present, no trainer alive. Handover checkpoint powerstone_v6_leg103_league.zip (8,601,638 bytes, sha256 5b83263e4f11e572...). Leg 103: trio 31.6 / lv3 96.4 / AB 80-20 / lv8mix 28.2. Best observed on the M4: trio 37.0, lv8mix 33.8, lv3 98.8, AB 94-6. Recipe at handover = league_env.txt as committed (0.5 death cost, frame clock, learner-only attribution, levers). NEXT: 9950X bring-up per the 9950X HANDOVER section (deps -> pinned core -> both harness builds incl. the native getState fix -> Xvfb -> tests + smoke -> parity gate on the leg 73 zip -> leg 104 on the Ryzen); the M4 becomes the eval box. No scheduled wakes are armed. OCT 1 2:30 pm: 9950X UP (Linux session): harnesses built with the getState fix, 3090 rendering via offscreen EGL (supersedes Xvfb), parity PASSED on leg 103 (31.0 vs 31.6; 94.4 vs 96.4), smoke passed, throughput sweep running; two trees diverging until Blake pushes the Mac commits (see 9950X HANDOVER, Oct 1). OCT 1 3:00 pm: lazy-readback harness fix on the Ryzen (+25-57% throughput; identical pixels + RAM), 16 actors = 355 steps/s; branch ryzen-bringup awaits a pull (Mac could not reach the box: no route); division of labor accepted (Ryzen runs the relay, Mac owns HANDOFF.md + research); Blake to decide leg 104 actor count (Mac view: 16) and flip the Ryzen trainer file to mixed. 7:30 pm: Ryzen READY (16 actors ~365 steps/s, ~3 h/leg; parity re-passed on the lazy-readback harness; launcher defaults set); leg 104 launches on the Ryzen on Blake's go; Mac pull of ryzen-bringup needs --no-rebase.
 state `71 ./powerstone_v6_leg70_league.zip`, `league_trainer.txt` = mixed, battery chains leg 72.
 Leg 70's scouting run (tmux scout70) was still encoding at compaction: when `claude_bridge/
 scout_leg70_done.txt` appears, spawn the Sonnet reviewer on `videos/review_leg70/` (rubric
@@ -191,6 +191,31 @@ then 16 at leg 105; the Mac's view = parity already covered the machine move, so
 `hold`: the M4 no longer trains). SUGGESTION: give the Ryzen box a GitHub fine-grained token or deploy key so it can
 push its own branch; the Mac was unreachable from the box's LAN at 3:00 pm (no route to 192.168.0.105 from the Mac),
 and the relay should not depend on the Mac being on the same network.
+
+### Oct 1 2026, 7:30 pm: RYZEN READY FOR LEG 104 (from the Linux session's transcript via Blake)
+
+Final throughput (steps/s, 4M-step leg): M4 10 actors ~220 (~5 h); Ryzen 10 actors 219 (~5.1 h); Ryzen 16 actors ~365
+(~3 h, RECOMMENDED by both sessions); 24 actors ~390 (~2.8 h, policy lag higher). Measured machine ceiling: pure
+emulation across all cores tops out ~6,700 fps = ~480 steps/s with zero Python overhead; the trainer at 16 actors is
+~80% of that. Render settings (alpha sorting modes, 320x240) made NO difference, nor did the iGPU split or driver
+yield: the GPU is not the limit after the lazy-readback fix; emulation CPU is. The Linux session's earlier "2x"
+estimate was wrong (it compared one emulator's raw speed, not the machine's). Only large lever left = fewer emulated
+frames per decision (ACTION_FRAMES), which changes the game and is NOT a speed fix.
+Committed on ryzen-bringup (d91648b + launcher commit): lazy readback (parity RE-RUN on the new harness PASSED: slot 3
+28.0% vs Mac 31.6%, p=0.35; slot 2 95.2% vs 96.4%, p=0.50); learner torch threads capped at 4; RAM reader sweep shared
+between pool-seat readers + per-class check caching + numpy unique counts (+3%; twin test vs the archived reader: 0
+mismatches over 6,000 steps / 4,724-4,954 projectile entries; unit tests pass); Linux launcher defaults = 16 actors on
+instances 20-35 (never colliding with eval shards 0-9 or the scout on 11), 3 s boot stagger (a boot race was found when
+all emulators start at once), system/dolphin-N seeded per actor; the Mac code path is unchanged. Batteries run on the
+Ryzen after each leg (Blake's choice for now; the split-battery design stays available).
+MAC PULL: Blake's first pull failed on divergent branches; the command is
+`git pull --no-rebase superserver@192.168.0.105:powerstone2-rl-mac ryzen-bringup && git push origin main` (if
+leg_modes.txt conflicts, both sides added identical rows 88-103: keep them).
+LEG 104 = FIRST RYZEN LEG: recipe = the leg 103 handover recipe (league_env.txt unchanged) + NEW MACHINE + 16 ACTORS
+(policy lag ~1.6 vs 1.0) = ONE recorded recipe change (parity covered the machine); warm start
+powerstone_v6_leg103_league.zip; league_trainer.txt -> mixed ON THE RYZEN on Blake's go (the Mac stays hold). The
+first two Ryzen legs are read against the M4 series (trio 32-37 band, lv8mix 28-34, lv3 95-98, AB 80-94); a trio
+below 29 or an lv3 below 85 in either = flag the actor count / lag before anything else.
 
 BLAKE'S QUESTION: can the M4 run the batteries while the Ryzen trains? ASSESSMENT = yes, and it is the better design:
  - Today the battery gates the next launch (~55 min of dead training time per leg on one machine). Split: the Ryzen
