@@ -76,6 +76,11 @@ class FlycastBridge:
 
     # ------------------------------------------------------------- agents
     def attach_synth(self, synth):
+        # Oct 1 2026: synths attached in lockstep (none has seen a frame yet) share one pool sweep
+        # per frame (ps2_ram._SweepHistory); a late joiner keeps its own. Outputs are unchanged.
+        for s in self._synths:
+            if type(s) is type(synth) and hasattr(synth, "share_sweep_with") and synth.share_sweep_with(s):
+                break
         self._synths.append(synth)
 
     # -------------------------------------------------------------- frames
