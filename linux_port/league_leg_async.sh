@@ -12,7 +12,7 @@
 cd "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 read N PREV < league_state.txt
 source ~/ps2rl/bin/activate
-[ "$(uname)" = "Darwin" ] || export DISPLAY="${DISPLAY:-:99}"   # Sep 25: Linux relay uses a persistent Xvfb :99
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/linux_gpu_env.sh"   # Oct 1: GPU EGL on Linux (was Xvfb :99)
 export SDL_AUDIODRIVER=dummy PYTHONPATH=../sdlarch-rl:. PYTHONUNBUFFERED=1
 if [ -z "$PS2_CORE" ]; then
   if [ "$(uname)" = "Darwin" ]; then
