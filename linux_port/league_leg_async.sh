@@ -23,6 +23,16 @@ if [ -z "$PS2_CORE" ]; then
 fi
 export PS2_WARM=$PREV PS2_FRESH=1 PS2_POOL=./pool_league
 export PS2_OUT=./powerstone_v6_leg${N}_league
+# Oct 1 2026 (9950X): Linux defaults from the throughput sweep (receipts/parity_9950x/sweep3-4):
+# 16 actors (~365 steps/s vs 219 at 10; policy lag 1.6 vs 1.0 = a RECIPE CHANGE, noted per leg),
+# NENVS stays 10 (rollout size unchanged), actors on instances 20.. so they never collide with the
+# battery's eval shards (0-9) or the scout (11), 3 s boot stagger (the Metal race is macOS-only; a
+# small stagger avoids the simultaneous-boot freeze), learner torch threads capped at 4 (uncapped it
+# fought the actors: 40-75 s updates at 22 actors).
+if [ "$(uname)" != "Darwin" ]; then
+  export PS2_NACTORS=${PS2_NACTORS:-16} PS2_INSTANCE_BASE=${PS2_INSTANCE_BASE:-20} PS2_STAGGER=${PS2_STAGGER:-3}
+  export OMP_NUM_THREADS=${OMP_NUM_THREADS:-4} MKL_NUM_THREADS=${MKL_NUM_THREADS:-4}
+fi
 export PS2_NACTORS=${PS2_NACTORS:-10} PS2_NENVS=${PS2_NENVS:-10} PS2_STAGGER=${PS2_STAGGER:-20}
 export PS2_TOTAL_STEPS=${PS2_TOTAL_STEPS:-4000000} PS2_INSTANCE_BASE=${PS2_INSTANCE_BASE:-0}
 # Sep 13 (Blake, after the leg-23 validation): actors refresh weights mid-chunk
