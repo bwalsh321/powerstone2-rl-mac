@@ -121,8 +121,7 @@ class PFSPPool(OpponentPool):
         if pick not in self._cache:
             if len(self._cache) > 20:
                 self._cache.pop(next(iter(self._cache)))
-            from recurrent_policy import load_model
-            self._cache[pick] = load_model(pick)   # Oct 2: PPO or RecurrentPPO
+            self._cache[pick] = self._PPO.load(pick, device="cpu")
         return self._cache[pick]
 
     def credit(self, path, won):
@@ -146,7 +145,6 @@ class SeatView:
         self.g_int = 0
         self.form_timer = 0
         self.stack = None          # Sep 22: FrameStack for a K-frame opponent model (None = single-frame)
-        self.runner = None         # Oct 2: per-episode stateful runner (recurrent pool policies keep LSTM state)
 
 
 def ffa_slot_meta(state_slots, base_meta=None):
@@ -292,10 +290,7 @@ class FFASelfPlayEnv(PowerStoneEnvLibretro):
                     v.stack = FrameStack(kv, obs_v.shape[0]); obs_v = v.stack.reset(obs_v)
                 else:
                     obs_v = v.stack.push(obs_v)
-            if v.runner is None or v.runner.model is not v.model:
-                from recurrent_policy import PolicyRunner
-                v.runner = PolicyRunner(v.model)
-            a = v.runner.act(obs_v, deterministic=self._opp_det)
+            a, _ = v.model.predict(obs_v, deterministic=self._opp_det)
             v.last_action = int(a)
             self._apply_action_for(int(a), player_port=v.player, run=False)
         # 2) learner acts; frames run inside

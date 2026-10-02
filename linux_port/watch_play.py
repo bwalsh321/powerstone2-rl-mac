@@ -64,7 +64,9 @@ def main():
         core_path=args.core, game_path=args.game, states_dir=args.states,
         state_slots=[args.slot], instance_id=args.instance,
         bridge_dir=os.path.abspath(f"./bridge_watch_{args.instance}"))
-    model = PPO.load(args.model.removesuffix(".zip"), device="cpu")
+    from recurrent_policy import load_model, PolicyRunner   # Oct 2: PPO or RecurrentPPO
+    model = load_model(args.model)
+    runner = PolicyRunner(model)
     from obs_stack import k_for, FrameStack            # Sep 22: stacked policies
     from obs_stack import kd_for
     _k, _d = kd_for(model); _fs = FrameStack(_k, _d) if _k > 1 else None   # Sep 23: v3 models are 160/frame
@@ -217,10 +219,10 @@ def main():
     try:
         while args.episodes == 0 or ep < args.episodes:
             obs = _sl(env.reset()); obs = _fs.reset(obs) if _fs else obs
+            runner.reset()                                   # Oct 2: fresh LSTM state every episode
             done, info = False, {}
             while not done:
-                action, _ = model.predict(
-                    obs, deterministic=not args.stochastic)
+                action = runner.act(obs, deterministic=not args.stochastic)
                 obs, r, done, info = env.step(action)
                 obs = _sl(obs); obs = _fs.push(obs) if _fs else obs
             if args.record and args.tail_frames > 0:

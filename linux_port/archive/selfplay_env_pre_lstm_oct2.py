@@ -77,8 +77,7 @@ class OpponentPool:
         if pick not in self._cache:
             if len(self._cache) > 20:      # LRU-ish: don't hold 250 models
                 self._cache.pop(next(iter(self._cache)))
-            from recurrent_policy import load_model
-            self._cache[pick] = load_model(pick)   # Oct 2: PPO or RecurrentPPO
+            self._cache[pick] = self._PPO.load(pick, device="cpu")
         return self._cache[pick]
 
 
@@ -110,7 +109,6 @@ class SelfPlayEnv(PowerStoneEnvLibretro):
         self._view_last.clear()
         self._view_ctr.clear()
         self._opp_stack = None
-        self._opp_runner = None        # Oct 2: per-episode stateful runner (recurrent opponents)
         return super().reset()
 
     def step(self, action):
@@ -134,10 +132,8 @@ class SelfPlayEnv(PowerStoneEnvLibretro):
                     opp_obs = st.reset(opp_obs)
                 else:
                     opp_obs = st.push(opp_obs)
-            if self._opp_runner is None or self._opp_runner.model is not self._opp_model:
-                from recurrent_policy import PolicyRunner
-                self._opp_runner = PolicyRunner(self._opp_model)
-            opp_action = self._opp_runner.act(opp_obs, deterministic=self._opp_det)
+            opp_action, _ = self._opp_model.predict(
+                opp_obs, deterministic=self._opp_det)
             self._view_last[1] = int(opp_action)
             self._apply_action_for(int(opp_action), player_port=0,
                                    run=False)   # set mask only, no frames

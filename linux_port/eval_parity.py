@@ -99,7 +99,9 @@ def main():
         core_path=args.core, game_path=args.game, states_dir=args.states,
         state_slots=_slots, instance_id=args.instance,
         bridge_dir=os.path.abspath(bridge))
-    model = PPO.load(args.model.removesuffix(".zip"), device="cpu")
+    from recurrent_policy import load_model, PolicyRunner   # Oct 2: PPO or RecurrentPPO
+    model = load_model(args.model)
+    runner = PolicyRunner(model)
     from obs_stack import k_for, FrameStack            # Sep 22: stacked policies
     from obs_stack import kd_for
     _k, _d = kd_for(model); _fs = FrameStack(_k, _d) if _k > 1 else None   # Sep 23: v3 models are 160/frame
@@ -111,9 +113,10 @@ def main():
         if args.slots:                                   # Sep 25 (Astra): balanced, deterministic
             env.STATE_SLOTS = [_slots[ep % len(_slots)]]  # round-robin over the held-out set
         obs = _sl(env.reset()); obs = _fs.reset(obs) if _fs else obs
+        runner.reset()                                   # Oct 2: fresh LSTM state every episode
         done, info = False, {}
         while not done:
-            action, _ = model.predict(obs, deterministic=not args.stochastic)
+            action = runner.act(obs, deterministic=not args.stochastic)
             obs, r, done, info = env.step(action)
             obs = _sl(obs); obs = _fs.push(obs) if _fs else obs
         eps.append(dict(env._ep, result=info.get("result", "timeout"), slot=int(getattr(env, "_episode_slot", args.slot))))
