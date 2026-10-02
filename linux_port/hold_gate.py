@@ -4,6 +4,9 @@ lv3 (slot2) < 70%, champion AB wins < 35 of 100, lv8 (slot3) < 4.0%. An unparsea
 receipt also holds: the chain must never launch on evidence it cannot read."""
 import os, re, sys
 
+LV8MIX_FLOOR = float(os.environ.get("PS2_LV8MIX_FLOOR", "20"))
+
+
 def wins(path):
     try:
         t = open(path).read()
@@ -33,6 +36,14 @@ def main(n, root="receipts"):
             why.append(f"champion AB {ab} < 35")
         if lv8 < 4.0:
             why.append(f"lv8 {lv8:.1f} < 4.0 (n={n8})")
+    # Oct 2 2026 (Blake: lv8mix is the number that matters): floor on the held-out set. Applies when its receipt
+    # exists (the battery runs it unless PS2_LV8MIX=0); 20% at n=1000 only trips on a collapse (series low 26.4).
+    mix, nm = wins(f"{root}/eval_leg{n}_lv8mix_out.txt")
+    if os.path.exists(f"{root}/eval_leg{n}_lv8mix_out.txt"):
+        if mix is None:
+            why.append("unparseable lv8mix receipt")
+        elif mix < LV8MIX_FLOOR:
+            why.append(f"lv8mix {mix:.1f} < {LV8MIX_FLOOR:g} (n={nm})")
     return "; ".join(why)
 
 if __name__ == "__main__":
