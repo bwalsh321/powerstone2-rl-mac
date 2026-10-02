@@ -22,7 +22,7 @@ It is written so a smaller model can run the relay without re-deriving anything.
 - Unattended permission allowlist: `.claude/settings.local.json` (git-ignored).
   Scheduled tasks run without prompts because of it.
 
-## 2. Live state (Oct 1 10:30 pm EDT; relay on the 9950X: leg 105 running (launched 7:49 pm, 16 actors, first leg under the new eval contract); leg 104 = trio 30.6 / lv3 96.0 / AB 91-9 / lv8mix 37.0 held-out best; Mac = HANDOFF sole writer + research, key SSH to the box; Ryzen branch needs a rebase onto the scrubbed main)
+## 2. Live state (Oct 2 1:10 am EDT; relay on the 9950X: leg 106 running since 11:57 pm Oct 1; leg 105 = trio 27.2 (two drops = WATCH) / AB 79-21 / lv8mix 31.4 n=1000; Mac lv8mix reference for leg 103 = 28.5% n=1000; two Mac bug fixes await the Ryzen pull at the leg 107 boundary; Mac = HANDOFF sole writer)
 
 - **Standing override changed 16:00 EDT Sep 19 (Blake: "Stack")**: `league_optim.txt` =
   `PS2_LR=1e-4 PS2_TARGET_KL=0.03 PS2_BATCH_SIZE=256`, applies from leg 52 (leg 51 unchanged). Read over two legs vs the
