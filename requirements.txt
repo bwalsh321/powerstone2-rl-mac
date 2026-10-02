@@ -15,3 +15,6 @@ imageio-ffmpeg>=0.5      # watch_play --record, battery clips, scouting
 
 # Optional — live audio in watch_play.py (warns and runs silent without it):
 # sounddevice
+
+# Recurrent policy (Oct 2 2026): sb3-contrib RecurrentPPO
+sb3-contrib==2.9.0

@@ -103,9 +103,20 @@ def actor_main(actor_id, instance_id, chunk_len, weights_conn, chunk_q, cfg):
     if cfg.get("obs_stack", 1) > 1:                     # Sep 22: K-frame stacked learner input
         from obs_stack import StackedEnv
         env = StackedEnv(env, cfg["obs_stack"])
-    policy = PPO.load(cfg["warm_zip"], device="cpu",
-                      custom_objects=CUSTOM_OBJECTS).policy
+    # Oct 2 2026 (recurrent policy): load_model returns PPO or RecurrentPPO; a recurrent policy carries its
+    # LSTM state step to step and records the state that ENTERED each step (sb3-contrib's buffer contract).
+    from recurrent_policy import load_model
+    policy = load_model(cfg["warm_zip"]).policy
     policy.set_training_mode(False)
+    recurrent = hasattr(policy, "lstm_actor")
+    if recurrent:
+        from sb3_contrib.common.recurrent.type_aliases import RNNStates
+        L, H = policy.lstm_actor.num_layers, policy.lstm_actor.hidden_size
+
+        def zero_states():
+            z = lambda: th.zeros((L, 1, H))
+            return RNNStates((z(), z()), (z(), z()))
+        lstm = zero_states()
     version = -1
 
     def pull_weights(block):
@@ -131,13 +142,21 @@ def actor_main(actor_id, instance_id, chunk_len, weights_conn, chunk_q, cfg):
         c_val = np.zeros(T, dtype=np.float32)
         c_logp = np.zeros(T, dtype=np.float32)
         c_ver = np.zeros(T, dtype=np.int64)
+        if recurrent:
+            c_hs = {k: np.zeros((T, L, H), dtype=np.float32) for k in ("h_pi", "c_pi", "h_vf", "c_vf")}
         chunk_version = version
         for t in range(T):
             if cfg["pull_every"] and t and t % cfg["pull_every"] == 0:
                 pull_weights(block=False)      # mid-chunk refresh (opt-in)
             c_ver[t] = version
             with th.no_grad():
-                a, v, lp = policy(th.as_tensor(obs[None]))
+                if recurrent:
+                    c_hs["h_pi"][t], c_hs["c_pi"][t] = lstm.pi[0][:, 0].numpy(), lstm.pi[1][:, 0].numpy()
+                    c_hs["h_vf"][t], c_hs["c_vf"][t] = lstm.vf[0][:, 0].numpy(), lstm.vf[1][:, 0].numpy()
+                    a, v, lp, lstm = policy(th.as_tensor(obs[None]), lstm,
+                                            th.tensor([float(ep_start)], dtype=th.float32))
+                else:
+                    a, v, lp = policy(th.as_tensor(obs[None]))
             a_int = int(a.item())
             c_obs[t] = obs
             c_act[t] = a_int
@@ -151,11 +170,18 @@ def actor_main(actor_id, instance_id, chunk_len, weights_conn, chunk_q, cfg):
             ep_start = bool(done)
             obs = np.asarray(obs2, dtype=np.float32)
         with th.no_grad():
-            last_value = float(policy.predict_values(th.as_tensor(obs[None])).item())
-        chunk_q.put(dict(actor=actor_id, version=chunk_version, versions=c_ver,
-                         obs=c_obs, actions=c_act, rewards=c_rew,
-                         episode_starts=c_start, values=c_val, log_probs=c_logp,
-                         last_value=last_value, last_done=ep_start))
+            if recurrent:
+                last_value = float(policy.predict_values(th.as_tensor(obs[None]), lstm.vf,
+                                   th.tensor([float(ep_start)], dtype=th.float32)).item())
+            else:
+                last_value = float(policy.predict_values(th.as_tensor(obs[None])).item())
+        chunk = dict(actor=actor_id, version=chunk_version, versions=c_ver,
+                     obs=c_obs, actions=c_act, rewards=c_rew,
+                     episode_starts=c_start, values=c_val, log_probs=c_logp,
+                     last_value=last_value, last_done=ep_start)
+        if recurrent:
+            chunk.update(c_hs)
+        chunk_q.put(chunk)
         pull_weights(block=False)                  # newest weights, if any
 
 
@@ -196,6 +222,11 @@ def fill_buffer_from_chunks(buf, chunks):
         buf.episode_starts[:, i] = c["episode_starts"]
         buf.values[:, i] = c["values"]
         buf.log_probs[:, i] = c["log_probs"]
+        if hasattr(buf, "hidden_states_pi"):          # Oct 2: RecurrentRolloutBuffer, (T, layers, n_envs, H)
+            buf.hidden_states_pi[:, :, i] = c["h_pi"]
+            buf.cell_states_pi[:, :, i] = c["c_pi"]
+            buf.hidden_states_vf[:, :, i] = c["h_vf"]
+            buf.cell_states_vf[:, :, i] = c["c_vf"]
     buf.pos = T
     buf.full = True
     last_values = th.as_tensor([c["last_value"] for c in chunks], dtype=th.float32)
@@ -218,7 +249,9 @@ def main():
 
     # 1) spaces from the zip, 2) space-only vec env with N_ENVS columns,
     # 3) real load against it so _setup_model sizes the buffer (n_steps x N_ENVS)
-    probe = PPO.load(warm_zip, device="cpu", custom_objects=CUSTOM_OBJECTS)
+    from recurrent_policy import is_recurrent_zip, load_model
+    RECURRENT = is_recurrent_zip(warm_zip)
+    probe = load_model(warm_zip)
     obs_space, act_space = probe.observation_space, probe.action_space
     del probe
     # Sep 22 (frame stacking): PS2_OBS_STACK=K must match the warm zip's input (122*K).
@@ -233,7 +266,11 @@ def main():
     class SpaceEnv(_SpaceOnlyEnv, gymnasium.Env):
         pass
     dummy = DummyVecEnv([lambda: SpaceEnv(obs_space, act_space) for _ in range(N_ENVS)])
-    model = PPO.load(warm_zip, env=dummy, device="cpu", custom_objects=CUSTOM_OBJECTS)
+    model = load_model(warm_zip, env=dummy)
+    if RECURRENT:
+        lstm_mod = model.policy.lstm_actor
+        print(f"[config] recurrent=SkipLSTM hidden={lstm_mod.hidden_size} layers={lstm_mod.num_layers} "
+              f"lstm_input={lstm_mod.input_size} (newest frame) skip=[features,lstm]", flush=True)
     model.verbose = 1            # SB3 prints "Early stopping ... max kl" notices + its table
     # Sep 16 (entropy trigger fired at leg 38): optional entropy-coefficient override.
     # Unset = the zip's stored value (0.01 for this lineage). Blake decides per leg.
@@ -331,7 +368,16 @@ def main():
             with th.no_grad():
                 o = th.as_tensor(np.concatenate([c["obs"] for c in chunks])[mask])
                 a = th.as_tensor(np.concatenate([c["actions"] for c in chunks])[mask])
-                v_re, lp_re, _ = model.policy.evaluate_actions(o, a)
+                if RECURRENT:
+                    from sb3_contrib.common.recurrent.type_aliases import RNNStates
+                    def hs(key):
+                        x = np.concatenate([c[key] for c in chunks])[mask]          # (B, L, H)
+                        return th.as_tensor(np.ascontiguousarray(x.transpose(1, 0, 2)))
+                    st = RNNStates((hs("h_pi"), hs("c_pi")), (hs("h_vf"), hs("c_vf")))
+                    es = th.as_tensor(np.concatenate([c["episode_starts"] for c in chunks])[mask])
+                    v_re, lp_re, _ = model.policy.evaluate_actions(o, a, st, es)
+                else:
+                    v_re, lp_re, _ = model.policy.evaluate_actions(o, a)
             lp_rec = np.concatenate([c["log_probs"] for c in chunks])[mask]
             v_rec = np.concatenate([c["values"] for c in chunks])[mask]
             check = (f"[check] update {n_updates + 1} lag0_steps={int(mask.sum())}/{mask.size} "
