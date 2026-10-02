@@ -77,6 +77,25 @@ for kv in $OPTIM; do case "$kv" in PS2_LR=*|PS2_BATCH_SIZE=*|PS2_TARGET_KL=*) ex
 # contract is unchanged.
 ARENA="$(tr -s '[:space:]' ' ' < league_env.txt 2>/dev/null | sed 's/^ //;s/ $//')"
 for kv in $ARENA; do case "$kv" in PS2_ZERO_SUM=*|PS2_START_HEALTH=*|PS2_STATE_SLOTS=*|PS2_OBS_STACK=*|PS2_OBS_CTX_FIX=*|PS2_ZS_TIME=*|PS2_OBS_V3=*|PS2_SPECIAL_DMG_W=*|PS2_SPECIAL_R=*|PS2_LOST_EXTRA_W=*|PS2_LOSS_SCALE_LV8=*|PS2_SPECIAL_WINDOW=*|PS2_SPECIAL_WINDOW_CLOCK=*|PS2_SPECIAL_EVENTS=*|PS2_SPECIAL_ATTRIB=*) export "$kv" ;; *) echo "[wrapper-async] ignoring unknown arena flag $kv" >> wrapper_league.log ;; esac; done
+# Oct 2 2026 (Blake: "you have a go for leg 110"): RECURRENT POLICY switch-on. league_surgery.txt = "<from_leg> lstm128"
+# -> for leg N >= from_leg whose warm zip is still a feedforward PPO zip, run surgery_lstm.py on it (exact warm start:
+# SkipLSTM hidden 128, lstm columns zero) and train from the result. Once a leg's zip is recurrent the hook is inert.
+# Revert = delete league_surgery.txt and point league_state.txt at a feedforward zip. Recorded in leg_modes.txt.
+SURG="$(cat league_surgery.txt 2>/dev/null)"
+read SURG_FROM SURG_KIND <<< "$SURG"
+if [ -n "$SURG_FROM" ] && [ "$N" -ge "$SURG_FROM" ] && [ "$SURG_KIND" = "lstm128" ]; then
+  if ! python -c "import sys; from recurrent_policy import is_recurrent_zip; sys.exit(0 if is_recurrent_zip('${PREV}') else 1)" 2>/dev/null; then
+    REC="./powerstone_v6_leg$((N-1))_lstm128.zip"
+    echo "[wrapper-async] leg $N: surgery ${PREV} -> ${REC} (lstm128) $(date)" >> wrapper_league.log
+    if python surgery_lstm.py "$PREV" "$REC" --hidden 128 >> wrapper_league.log 2>&1 && [ -s "$REC" ]; then
+      PREV="$REC"; export PS2_WARM="$REC"
+    else
+      echo "[wrapper-async] leg $N REFUSED: lstm surgery failed; nothing launched $(date)" | tee -a wrapper_league.log >&2
+      exit 2
+    fi
+  fi
+  ARENA="${ARENA:+$ARENA }RECURRENT=lstm128"
+fi
 echo "$N ${MODE:-async} ${ENTC:-0.01} ${OPTIM:--} ${ARENA:--}" >> leg_modes.txt
 if [ "$MODE" = "ffa" ] || [ "$MODE" = "mixed" ]; then
   export PYTHONPATH=../sdlarch-rl/p4:$PYTHONPATH
