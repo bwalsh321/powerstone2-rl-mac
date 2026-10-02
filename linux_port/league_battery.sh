@@ -70,7 +70,9 @@ FAILED=()
 # AB vs the leg1 champion 10x10 = 100 eps. The AB vs the parent was dropped
 # (Blake, Sep 13: it always wins; a fixed reference is the informative test).
 # A failed shard is rerun once on its own before the receipt is declared bad.
-SHARDS=${PS2_EVAL_SHARDS:-10}
+# Oct 2 2026 (Blake: "use the cores", again): training is stopped during the battery, so on the 16-core 9950X
+# the evals run on 20 emulators (Mac stays 10). Per-episode play is independent of the shard count.
+if [ "$(uname)" = "Darwin" ]; then SHARDS=${PS2_EVAL_SHARDS:-10}; else SHARDS=${PS2_EVAL_SHARDS:-20}; fi
 EVAL_BASE=${PS2_EVAL_INSTANCE_BASE:-0}     # instance ids EVAL_BASE..EVAL_BASE+SHARDS-1
 S3_PER=${PS2_SLOT3_PER_SHARD:-50}
 S2_PER=${PS2_SLOT2_PER_SHARD:-25}
@@ -114,8 +116,12 @@ sharded_eval() {
   return 1
 }
 
-sharded_eval slot3 slot "$S3_PER" --model "$M" --slot 3 -- \
-  python eval_parity.py --core "$CORE" --game "$GAME" --slot 3 --model "$M"
+# Oct 2 2026 (Blake: grade what drives decisions; run old comparisons on demand from the saved zips): the fixed
+# trio (slot3) and the champion AB are OFF by default; PS2_SLOT3=1 / PS2_AB=1 restore them. lv8mix is the per-leg grade.
+if [ "${PS2_SLOT3:-0}" = "1" ]; then
+  sharded_eval slot3 slot "$((500 / SHARDS))" --model "$M" --slot 3 -- \
+    python eval_parity.py --core "$CORE" --game "$GAME" --slot 3 --model "$M"
+fi
 # Oct 1 2026 (Blake: "drop level 3, it's been noise and providing 0 value for like 80 legs"): the lv3 (slot2)
 # eval is OFF by default from leg 105's battery; PS2_SLOT2=1 restores it. hold_gate.py skips the lv3
 # threshold when no slot2 receipt exists.
@@ -123,15 +129,17 @@ if [ "${PS2_SLOT2:-0}" = "1" ]; then
   sharded_eval slot2 slot "$S2_PER" --model "$M" --slot 2 -- \
     python eval_parity.py --core "$CORE" --game "$GAME" --slot 2 --model "$M"
 fi
-sharded_eval ab_vs_leg1 ab "$AB_PER" --model "$M" --opp "$LEG1" -- \
-  python -u ab_selfplay_probe.py --model "$M" --opp "$LEG1"
+if [ "${PS2_AB:-0}" = "1" ]; then
+  sharded_eval ab_vs_leg1 ab "$((100 / SHARDS))" --model "$M" --opp "$LEG1" -- \
+    python -u ab_selfplay_probe.py --model "$M" --opp "$LEG1"
+fi
 # Sep 25 2026 (Blake: "it has to be a test"): 4th eval = five HELD-OUT three-lv8-COM lineups (states/slot90-94,
 # never trained on), n = SHARDS x S3_PER over the set, uniformly sampled per episode. Not part of the hold rule.
 # PS2_LV8MIX=0 disables.
 if [ "${PS2_LV8MIX:-1}" = "1" ]; then
   echo "battery leg $N: lv8mix held-out set (slots 90-94)"
-  # Oct 1 2026 (Blake: lv8mix is the number that matters): n = 10 x 100 = 1000 (200 per lineup), was 10 x 50.
-  sharded_eval lv8mix slot "${PS2_LV8MIX_PER_SHARD:-100}" --model "$M" --slot 90 --slots 90,91,92,93,94 -- \
+  # Oct 1 2026 (Blake: lv8mix is the number that matters): n = 1000 (200 per lineup) = SHARDS x (1000/SHARDS).
+  sharded_eval lv8mix slot "${PS2_LV8MIX_PER_SHARD:-$((1000 / SHARDS))}" --model "$M" --slot 90 --slots 90,91,92,93,94 -- \
     python eval_parity.py --core "$CORE" --game "$GAME" --slots 90,91,92,93,94 --model "$M"
 fi
 

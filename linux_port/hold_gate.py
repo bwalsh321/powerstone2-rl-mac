@@ -27,18 +27,24 @@ def main(n, root="receipts"):
         pass
     # Oct 1 2026 (Blake dropped the lv3 eval): the lv3 threshold applies only when a slot2 receipt exists.
     has_lv3 = os.path.exists(f"{root}/eval_leg{n}_slot2_out.txt")
-    if lv8 is None or (has_lv3 and lv3 is None) or ab is None:
+    # Oct 2 2026 (Blake dropped the per-leg trio and champion AB): each threshold applies only when its receipt
+    # exists; the lv8mix floor below is the standing per-leg gate.
+    has_lv8 = os.path.exists(f"{root}/eval_leg{n}_slot3_out.txt")
+    has_ab = os.path.exists(f"{root}/eval_leg{n}_ab_vs_leg1_out.txt")
+    if (has_lv8 and lv8 is None) or (has_lv3 and lv3 is None) or (has_ab and ab is None):
         why.append(f"unparseable receipt (lv8={lv8} lv3={lv3} ab={ab})")
     else:
         if has_lv3 and lv3 < 70.0:
             why.append(f"lv3 {lv3:.1f} < 70 (n={n3})")
-        if ab < 35:
+        if has_ab and ab < 35:
             why.append(f"champion AB {ab} < 35")
-        if lv8 < 4.0:
+        if has_lv8 and lv8 < 4.0:
             why.append(f"lv8 {lv8:.1f} < 4.0 (n={n8})")
     # Oct 2 2026 (Blake: lv8mix is the number that matters): floor on the held-out set. Applies when its receipt
     # exists (the battery runs it unless PS2_LV8MIX=0); 20% at n=1000 only trips on a collapse (series low 26.4).
     mix, nm = wins(f"{root}/eval_leg{n}_lv8mix_out.txt")
+    if not os.path.exists(f"{root}/eval_leg{n}_lv8mix_out.txt") and os.environ.get("PS2_LV8MIX", "1") == "1":
+        why.append("missing lv8mix receipt (the per-leg grade)")
     if os.path.exists(f"{root}/eval_leg{n}_lv8mix_out.txt"):
         if mix is None:
             why.append("unparseable lv8mix receipt")
