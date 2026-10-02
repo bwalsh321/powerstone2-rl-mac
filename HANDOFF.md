@@ -21,7 +21,7 @@ lines are misreads (rubric now carries a data dictionary). The battery now enfor
 thresholds itself (`hold_gate.py`, marker `claude_bridge/hold_leg<N>.txt`), verifies the pool copy
 before advancing state, and takes a per-leg lock dir `claude_bridge/battery_leg<N>.lock`.
 
-**Live:** RELAY PAUSED FOR THE 9950X HANDOVER (Sep 30 12:46 pm EDT). Last M4 training leg = 103 (348M steps, 103 legs); league_state.txt = `104 ./powerstone_v6_leg103_league.zip`, league_trainer.txt = `hold`, leg104_LAUNCH_HELD.txt present, no trainer alive. Handover checkpoint powerstone_v6_leg103_league.zip (8,601,638 bytes, sha256 5b83263e4f11e572...). Leg 103: trio 31.6 / lv3 96.4 / AB 80-20 / lv8mix 28.2. Best observed on the M4: trio 37.0, lv8mix 33.8, lv3 98.8, AB 94-6. Recipe at handover = league_env.txt as committed (0.5 death cost, frame clock, learner-only attribution, levers). NEXT: 9950X bring-up per the 9950X HANDOVER section (deps -> pinned core -> both harness builds incl. the native getState fix -> Xvfb -> tests + smoke -> parity gate on the leg 73 zip -> leg 104 on the Ryzen); the M4 becomes the eval box. No scheduled wakes are armed. OCT 1 2:30 pm: 9950X UP (Linux session): harnesses built with the getState fix, 3090 rendering via offscreen EGL (supersedes Xvfb), parity PASSED on leg 103 (31.0 vs 31.6; 94.4 vs 96.4), smoke passed, throughput sweep running; two trees diverging until Blake pushes the Mac commits (see 9950X HANDOVER, Oct 1). OCT 1 3:00 pm: lazy-readback harness fix on the Ryzen (+25-57% throughput; identical pixels + RAM), 16 actors = 355 steps/s; branch ryzen-bringup awaits a pull (Mac could not reach the box: no route); division of labor accepted (Ryzen runs the relay, Mac owns HANDOFF.md + research); Blake to decide leg 104 actor count (Mac view: 16) and flip the Ryzen trainer file to mixed. 7:30 pm: Ryzen READY (16 actors ~365 steps/s, ~3 h/leg; parity re-passed on the lazy-readback harness; launcher defaults set); leg 104 launches on the Ryzen on Blake's go; Mac pull of ryzen-bringup needs --no-rebase.
+**Live:** RELAY RUNNING ON THE 9950X. Leg 104 = first Ryzen leg (launched 3:56 pm EDT Oct 1; 16 actors; leg 103 recipe; warm powerstone_v6_leg103_league.zip; ~3 h/leg; the Ryzen session chains leg -> battery via relay_watch_linux.sh and owns launches, batteries, scouting and the hold gate). The Mac session owns HANDOFF.md (sole writer) + research; the M4 trains nothing (league_trainer.txt = hold on the Mac) and has no wakes armed. EVAL CONTRACT FROM LEG 105: lv3 eval dropped (series ends at leg 104), lv8mix n=1000, hold rule = AB < 35 or trio < 4.0. Last M4 leg = 103 (348M steps): trio 31.6 / lv3 96.4 / AB 80-20 / lv8mix 28.2; M4 bests trio 37.0, lv8mix 33.8, lv3 98.8, AB 94-6. See 9950X HANDOVER for the bring-up record (EGL on the 3090, lazy readback, parity passed twice on leg 103).
 state `71 ./powerstone_v6_leg70_league.zip`, `league_trainer.txt` = mixed, battery chains leg 72.
 Leg 70's scouting run (tmux scout70) was still encoding at compaction: when `claude_bridge/
 scout_leg70_done.txt` appears, spawn the Sonnet reviewer on `videos/review_leg70/` (rubric
@@ -216,6 +216,32 @@ LEG 104 = FIRST RYZEN LEG: recipe = the leg 103 handover recipe (league_env.txt 
 powerstone_v6_leg103_league.zip; league_trainer.txt -> mixed ON THE RYZEN on Blake's go (the Mac stays hold). The
 first two Ryzen legs are read against the M4 series (trio 32-37 band, lv8mix 28-34, lv3 95-98, AB 80-94); a trio
 below 29 or an lv3 below 85 in either = flag the actor count / lag before anything else.
+
+### Oct 1 2026, evening: LEG 104 RUNNING ON THE RYZEN; EVAL CONTRACT CHANGE FROM LEG 105 (recorded from the merged commits)
+
+LEG 104 LAUNCHED on the 9950X at 7:56 pm UTC = 3:56 pm EDT (commit 82ed9db): hold released on the Ryzen, 16 actors on
+instances 20-35, warm start powerstone_v6_leg103_league.zip, the leg 103 recipe otherwise unchanged;
+relay_watch_linux.sh chains leg -> battery there. First Ryzen leg = NEW MACHINE + 16 ACTORS (policy lag ~1.6 vs 1.0) =
+one recorded recipe change. Leg 104's review sheets were NOT produced (the imageio-ffmpeg build has no drawtext filter
+on Linux; the scout now prefers the system ffmpeg, commit a12201c).
+EVAL CONTRACT CHANGE (Blake to the Ryzen session, Oct 1 after leg 104: "drop level 3, it's been noise and providing 0
+value for like 80 legs"; "lv8mix is the number that matters"), commit a12201c, APPLIES FROM LEG 105's BATTERY:
+ - the lv3 (slot 2, n=250) eval is OFF by default (PS2_SLOT2=1 restores it). The lv3 series ENDS at leg 104; its
+   last readings were 95-98 for 20 legs. hold_gate.py applies the lv3 < 70 threshold only when a slot2 receipt
+   exists, so the HOLD RULE is now: champion AB < 35 of 100, or lv8 trio < 4.0% (n=500), or an unreadable receipt.
+   NOTE: the lv3 floor was also the reward-change KILL SWITCH's second leg (lv3 < 85); from leg 105 the kill switch
+   is timeouts > 2% and the win-share floor only, unless a read re-enables PS2_SLOT2=1 for its two legs.
+ - lv8mix = 10 shards x 100 = n=1000 (200 per held-out lineup; was 10 x 50 = 500; PS2_LV8MIX_PER_SHARD overrides).
+   Wilson half-width shrinks from about +-4 to about +-3 points; the per-lineup numbers become n=200 each. Legs
+   104 and earlier are n=500: compare rates, not counts.
+ - Battery wall time: the lv3 shards (~10 min) go away, the lv8mix shards double (~15 -> ~30 min); net ~+10 min.
+The trio (slot 3, n=500, seen-state) and the fixed-view AB (n=100) are unchanged.
+HISTORY SCRUB (Oct 1 ~9 pm): the Mac's merge commit title carried the Ryzen's LAN address; amended locally to
+"Merge branch 'ryzen-bringup' from the Ryzen box (...)" and the three HANDOFF.md mentions replaced with <ryzen>.
+Blake force-pushes (`git push --force-with-lease origin main`); the Ryzen then re-points its main
+(`git fetch origin && git branch -f main origin/main`, or reset if main is checked out). Two older commits still
+mention the address inside HANDOFF.md's text; a private 192.168 address is not reachable from outside, so that was
+left alone rather than rewriting history further.
 
 BLAKE'S QUESTION: can the M4 run the batteries while the Ryzen trains? ASSESSMENT = yes, and it is the better design:
  - Today the battery gates the next launch (~55 min of dead training time per leg on one machine). Split: the Ryzen
