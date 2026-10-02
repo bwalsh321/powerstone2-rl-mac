@@ -4,6 +4,14 @@
 # never blind-retries a mid-leg crash.
 cd "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 read N PREV < league_state.txt
+# Oct 1 2026 (GPT review P1): launch permission is HOST-LOCAL. Only a machine whose untracked
+# linux_port/host_role.txt reads "train" may start a leg; league_trainer.txt is tracked in git, so a pull
+# must never grant another machine permission to train.
+ROLE="$(tr -d '[:space:]' < host_role.txt 2>/dev/null)"
+if [ "$ROLE" != "train" ]; then
+  echo "[wrapper] REFUSED: host_role.txt='${ROLE}' (not the training host); nothing launched $(date)" | tee -a wrapper_league.log >&2
+  exit 2
+fi
 source ~/ps2rl/bin/activate
 export SDL_AUDIODRIVER=dummy PYTHONPATH=../sdlarch-rl:. PYTHONUNBUFFERED=1
 if [ -z "$PS2_CORE" ]; then

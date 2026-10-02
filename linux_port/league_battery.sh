@@ -199,6 +199,11 @@ if [ "${PS2_LEG_VIDEO:-1}" = "1" ]; then
   tmux new -s "scout${N}" -d "bash $(pwd)/scout_leg.sh $N > videos/scout_leg${N}.log 2>&1" && echo "battery leg $N: scouting clip started in tmux scout${N}"
 fi
 LAUNCH_MODE="$(tr -d '[:space:]' < league_trainer.txt 2>/dev/null || echo lockstep)"
+# Oct 1 2026 (GPT review P1): the battery may evaluate anywhere, but only the training host launches.
+if [ "$(tr -d '[:space:]' < host_role.txt 2>/dev/null)" != "train" ]; then
+  echo "battery leg $N: host_role.txt is not 'train' on this machine; next leg NOT launched" | tee "claude_bridge/leg$((N+1))_LAUNCH_HELD.txt"
+  exit 0
+fi
 LEG_SCRIPT=league_leg.sh
 case "$LAUNCH_MODE" in
   async|ffa|mixed) LEG_SCRIPT=league_leg_async.sh ;;   # ffa/mixed: the async wrapper reads the mode itself
