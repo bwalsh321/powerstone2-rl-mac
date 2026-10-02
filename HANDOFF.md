@@ -157,7 +157,7 @@ notebook and, if Blake takes the split-battery design, runs the batteries. No Ma
 ### Oct 1 2026, afternoon: RYZEN THROUGHPUT WORK + DIVISION OF LABOR (from the Linux session's transcript via Blake)
 
 Branch `ryzen-bringup` on the Ryzen box (commit 74c6b4b at the time of the transcript; the box has no GitHub
-credentials, so the Mac must pull it over SSH: `git pull superserver@192.168.0.105:powerstone2-rl-mac ryzen-bringup`,
+credentials, so the Mac must pull it over SSH: `git pull superserver@<ryzen>:powerstone2-rl-mac ryzen-bringup`,
 then Blake pushes). It holds: linux_gpu_env.sh + the one-line source in the four relay scripts; LINUX_BRINGUP.md
 update; parity receipts + parity/sweep scripts; leg_modes.txt rows 88-103 (the Mac has now committed its own copy,
 expect an identical-content merge); and the LAZY READBACK harness fix below. Blake pushed the Mac's main (80 commits,
@@ -189,7 +189,7 @@ DECISIONS PENDING FOR BLAKE (leg 104): (1) actor count: the Ryzen session propos
 then 16 at leg 105; the Mac's view = parity already covered the machine move, so 16 at leg 104 is one recipe change
 (policy lag 1.0 -> ~1.6), record it as such; (2) league_trainer.txt back to `mixed` ON THE RYZEN (the Mac stays
 `hold`: the M4 no longer trains). SUGGESTION: give the Ryzen box a GitHub fine-grained token or deploy key so it can
-push its own branch; the Mac was unreachable from the box's LAN at 3:00 pm (no route to 192.168.0.105 from the Mac),
+push its own branch; the Mac was unreachable from the box's LAN at 3:00 pm (no route to the Ryzen from the Mac),
 and the relay should not depend on the Mac being on the same network.
 
 ### Oct 1 2026, 7:30 pm: RYZEN READY FOR LEG 104 (from the Linux session's transcript via Blake)
@@ -209,7 +209,7 @@ instances 20-35 (never colliding with eval shards 0-9 or the scout on 11), 3 s b
 all emulators start at once), system/dolphin-N seeded per actor; the Mac code path is unchanged. Batteries run on the
 Ryzen after each leg (Blake's choice for now; the split-battery design stays available).
 MAC PULL: Blake's first pull failed on divergent branches; the command is
-`git pull --no-rebase superserver@192.168.0.105:powerstone2-rl-mac ryzen-bringup && git push origin main` (if
+`git pull --no-rebase superserver@<ryzen>:powerstone2-rl-mac ryzen-bringup && git push origin main` (if
 leg_modes.txt conflicts, both sides added identical rows 88-103: keep them).
 LEG 104 = FIRST RYZEN LEG: recipe = the leg 103 handover recipe (league_env.txt unchanged) + NEW MACHINE + 16 ACTORS
 (policy lag ~1.6 vs 1.0) = ONE recorded recipe change (parity covered the machine); warm start
