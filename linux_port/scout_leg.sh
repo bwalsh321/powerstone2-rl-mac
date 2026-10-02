@@ -13,7 +13,7 @@ export SDL_AUDIODRIVER=dummy PYTHONPATH=../sdlarch-rl/p4:../sdlarch-rl:. PYTHONU
 N=$1; M=./powerstone_v6_leg${N}_league.zip
 # Sep 24 2026 (obs v3; must come AFTER N is set): tmux does not pass the battery's environment; read the leg's own contract.
 if awk -v n="$N" '$1==n' leg_modes.txt 2>/dev/null | grep -q "PS2_OBS_V3=1"; then export PS2_OBS_V3=1; fi
-CORE="$HOME/Library/Application Support/RetroArch/cores/flycast_libretro.dylib"; GAME="../Power Stone 2 (USA).chd"
+if [ "$(uname)" = "Darwin" ]; then CORE="$HOME/Library/Application Support/RetroArch/cores/flycast_libretro.dylib"; else CORE="${PS2_CORE:-$HOME/cores/flycast_libretro.so}"; fi; GAME="../Power Stone 2 (USA).chd"
 mkdir -p videos claude_bridge
 echo "scout leg $N start $(date)"
 python -u watch_play.py --core "$CORE" --game "$GAME" --slot 3 --model "$M" --episodes 14 --stop-after-win \
@@ -24,7 +24,7 @@ python - "$N" <<'PY'
 import re, shutil, os, subprocess, sys, imageio_ffmpeg
 N=sys.argv[1]; log=open(f'videos/leg{N}_scout_rec.log').read()
 eps=re.findall(r'\[ep\] slot3 opps=3\s+(\w+) len=\s*(\d+)', log)
-ff=imageio_ffmpeg.get_ffmpeg_exe()
+ff=shutil.which('ffmpeg') or imageio_ffmpeg.get_ffmpeg_exe()   # Oct 1: system ffmpeg first (the imageio build lacks drawtext on Linux)
 info=subprocess.run([ff,'-i',f'videos/leg{N}_scout_raw.mp4'],capture_output=True,text=True).stderr
 h,m,s=re.search(r'Duration: (\d+):(\d+):([\d.]+)',info).groups(); dur=int(h)*3600+int(m)*60+float(s)
 play=sum(int(L) for _,L in eps)*0.1; over=(dur-play)/max(len(eps),1)
