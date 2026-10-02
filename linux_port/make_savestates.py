@@ -27,6 +27,7 @@ import os
 
 import numpy as np
 import pygame
+from sig_guard import keep_native_fault_handlers
 
 import _retro
 
@@ -94,7 +95,8 @@ def main():
     for _ in range(60):
         emu.run()
     h, w = emu.get_shape()
-    pygame.init()
+    with keep_native_fault_handlers():   # Oct 1: pygame's parachute kills flycast's dynarec on Linux
+        pygame.init()
     pygame.joystick.init()
     joy = None
     if pygame.joystick.get_count() > 0:

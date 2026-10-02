@@ -116,8 +116,13 @@ sharded_eval() {
 
 sharded_eval slot3 slot "$S3_PER" --model "$M" --slot 3 -- \
   python eval_parity.py --core "$CORE" --game "$GAME" --slot 3 --model "$M"
-sharded_eval slot2 slot "$S2_PER" --model "$M" --slot 2 -- \
-  python eval_parity.py --core "$CORE" --game "$GAME" --slot 2 --model "$M"
+# Oct 1 2026 (Blake: "drop level 3, it's been noise and providing 0 value for like 80 legs"): the lv3 (slot2)
+# eval is OFF by default from leg 105's battery; PS2_SLOT2=1 restores it. hold_gate.py skips the lv3
+# threshold when no slot2 receipt exists.
+if [ "${PS2_SLOT2:-0}" = "1" ]; then
+  sharded_eval slot2 slot "$S2_PER" --model "$M" --slot 2 -- \
+    python eval_parity.py --core "$CORE" --game "$GAME" --slot 2 --model "$M"
+fi
 sharded_eval ab_vs_leg1 ab "$AB_PER" --model "$M" --opp "$LEG1" -- \
   python -u ab_selfplay_probe.py --model "$M" --opp "$LEG1"
 # Sep 25 2026 (Blake: "it has to be a test"): 4th eval = five HELD-OUT three-lv8-COM lineups (states/slot90-94,
@@ -125,7 +130,8 @@ sharded_eval ab_vs_leg1 ab "$AB_PER" --model "$M" --opp "$LEG1" -- \
 # PS2_LV8MIX=0 disables.
 if [ "${PS2_LV8MIX:-1}" = "1" ]; then
   echo "battery leg $N: lv8mix held-out set (slots 90-94)"
-  sharded_eval lv8mix slot "$S3_PER" --model "$M" --slot 90 --slots 90,91,92,93,94 -- \
+  # Oct 1 2026 (Blake: lv8mix is the number that matters): n = 10 x 100 = 1000 (200 per lineup), was 10 x 50.
+  sharded_eval lv8mix slot "${PS2_LV8MIX_PER_SHARD:-100}" --model "$M" --slot 90 --slots 90,91,92,93,94 -- \
     python eval_parity.py --core "$CORE" --game "$GAME" --slots 90,91,92,93,94 --model "$M"
 fi
 

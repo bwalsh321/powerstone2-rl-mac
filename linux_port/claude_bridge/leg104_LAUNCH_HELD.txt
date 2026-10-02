@@ -1,1 +1,0 @@
-battery leg 103 complete and state advanced to leg 104; launch HELD (league_trainer.txt = hold at launch time)

@@ -26,6 +26,7 @@ import os
 
 import numpy as np
 import pygame
+from sig_guard import keep_native_fault_handlers
 
 from stable_baselines3 import PPO
 
@@ -73,7 +74,14 @@ def main():
     br = env._lr_bridge
     emu = br.emu
     h, w = emu.get_shape()
-    pygame.init()
+    # Oct 1 2026 (9950X): pygame bundles its own SDL, which also reads SDL_VIDEODRIVER. Under the EGL
+    # "offscreen" driver its set_mode creates a second EGL context and the harness then crashes in the
+    # dynarec. --hidden never shows the window, so give pygame's SDL the software "dummy" driver; the
+    # harness's SDL read the variable at emulator boot (above) and keeps its GL context.
+    if args.hidden and os.uname().sysname == "Linux":
+        os.environ["SDL_VIDEODRIVER"] = "dummy"
+    with keep_native_fault_handlers():   # Oct 1: pygame's parachute kills flycast's dynarec on Linux
+        pygame.init()
     screen = pygame.display.set_mode((w * args.scale, h * args.scale),
                                      pygame.HIDDEN if args.hidden else 0)
     pygame.display.set_caption("Power Stone 2 — legG spectator")
