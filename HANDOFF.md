@@ -21,7 +21,7 @@ lines are misreads (rubric now carries a data dictionary). The battery now enfor
 thresholds itself (`hold_gate.py`, marker `claude_bridge/hold_leg<N>.txt`), verifies the pool copy
 before advancing state, and takes a per-leg lock dir `claude_bridge/battery_leg<N>.lock`.
 
-**Live:** RELAY RUNNING ON THE 9950X. Leg 105 = second Ryzen leg and the FIRST under the new eval contract (no lv3, lv8mix n=1000; hold = AB < 35 or trio < 4.0); launched 7:49 pm EDT Oct 1, 16 actors, leg 103 recipe, ~3 h/leg; the Ryzen session owns launches, batteries, scouting and the hold gate (relay_watch_linux.sh). The Mac session owns HANDOFF.md (sole writer) + research; the M4 trains nothing and has no wakes; the Mac now has key-based SSH to the box (pull its branch, scp logs). Leg 104 (first Ryzen leg): trio 30.6 / lv3 96.0 (last) / AB 91-9 / **lv8mix 37.0 = held-out best**; stream unchanged by the machine move. M4 era closed at leg 103 (348M steps). Pending for the Ryzen session: rebase ryzen-bringup onto the scrubbed origin/main.
+**Live:** RELAY RUNNING ON THE 9950X. Leg 105 = second Ryzen leg and the FIRST under the new eval contract (no lv3, lv8mix n=1000; hold = AB < 35 or trio < 4.0); launched 7:49 pm EDT Oct 1, 16 actors, leg 103 recipe, ~3 h/leg; the Ryzen session owns launches, batteries, scouting and the hold gate (relay_watch_linux.sh). The Mac session owns HANDOFF.md (sole writer) + research; the M4 trains nothing and has no wakes; the Mac now has key-based SSH to the box (pull its branch, scp logs). Leg 104 (first Ryzen leg): trio 30.6 / lv3 96.0 (last) / AB 91-9 / **lv8mix 37.0 = held-out best**; stream unchanged by the machine move. M4 era closed at leg 103 (348M steps). Pending for the Ryzen session: rebase ryzen-bringup onto the scrubbed origin/main. Oct 2 12:15 am: two Mac-authored bugs fixed on the Mac (v2 projectile history not cleared on loadstate; unchecked RAM offset in the hit-source read) for the Ryzen to take at a leg boundary; Mac n=1000 lv8mix reference on leg 103 running (tmux macparity103); open for Blake: lv8mix hold floor (20%?), Linux lv8mix parity timing.
 state `71 ./powerstone_v6_leg70_league.zip`, `league_trainer.txt` = mixed, battery chains leg 72.
 Leg 70's scouting run (tmux scout70) was still encoding at compaction: when `claude_bridge/
 scout_leg70_done.txt` appears, spawn the Sonnet reviewer on `videos/review_leg70/` (rubric
@@ -242,6 +242,31 @@ Blake force-pushes (`git push --force-with-lease origin main`); the Ryzen then r
 (`git fetch origin && git branch -f main origin/main`, or reset if main is checked out). Two older commits still
 mention the address inside HANDOFF.md's text; a private 192.168 address is not reachable from outside, so that was
 left alone rather than rewriting history further.
+
+### Oct 1 2026, late: LINUX-SIDE CODE REVIEW (five findings; relayed from the Opus Linux session via Blake)
+
+Fixed ON THE RYZEN, committed 702a43b (tooling, no training effect): (P1) a leg launch now requires an untracked
+host-local `host_role.txt` = `train` (exists only on the Ryzen; a git pull can never give the Mac permission to train)
+and the launcher refuses `hold` / unknown modes before writing logs (it had trained on `hold` once); (P2) the
+measurement scripts refuse to run while any league / eval / scout process is alive, so their broad pkill cannot hit
+production; (P2) the twin test exits nonzero on mismatch, and the parity scripts require every shard's full episode
+count (exit codes are not usable: the harness teardown segfaults after writing results). The Mac gets the launch guard
+on its next pull; until then do not run the leg scripts on the Mac (the Mac trains nothing anyway).
+Fixed ON THE MAC (Oct 2 12:15 am, both are Mac-authored bugs; tests added to test_special_window.py, 38/38):
+ - Finding 3: `StateLineSynth.on_loadstate` cleared `_proj_hist` but not `_proj_hist_v2` (added Sep 28), so pool
+   opponents on older policies could see one false projectile speed right after each reset. Now clears both. Predates
+   the Ryzen; the twin test could not catch it because the archived reader had the same bug.
+ - Finding 4: `_hit_attacker` passed an unchecked offset to struct.unpack_from; a garbage source pointer below RAM_BASE
+   made a NEGATIVE offset, which Python reads from the END of RAM, so a bad pointer could blame a real player for a
+   hit (touches the attributed special cost). Now `_ram_u32()` bounds-checks like ps2_ram's `_off()` and returns None.
+ Both change training behavior marginally -> they land at a LEG BOUNDARY on the Ryzen (pull + rebuild nothing; Python
+ only), recorded as one noted change in that leg's row.
+OPEN FOR BLAKE: (a) an lv8mix floor in the hold gate now that lv3 is gone: the Linux session suggests hold if lv8mix <
+20% at n=1000 (series low 26.4); (b) lv8mix parity on Linux: tonight's parity covered slots 3 and 2 only; the Ryzen
+can run leg 103's zip on slots 90-94 at n=1000 (now, slowing leg 105 by 30-45 min, or after a battery); the MAC
+REFERENCE at n=1000 is RUNNING (Oct 2 12:12 am, tmux macparity103, instances 0-9, receipts/parity/mac_leg103_lv8mix_*).
+Caveat confirmed by the review and kept here: the hit attribution is an approximation PER DECISION (one RAM read per
+env step of 6 frames), not per hit; multiple hits inside one decision share the last pointer.
 
 BLAKE'S QUESTION: can the M4 run the batteries while the Ryzen trains? ASSESSMENT = yes, and it is the better design:
  - Today the battery gates the next launch (~55 min of dead training time per leg on one machine). Split: the Ryzen
@@ -519,6 +544,25 @@ Still open (Astra, agreed): run manifests per checkpoint, mtime-free pool chrono
 `pkill`, evaluate both AB seat assignments, a recent-parent AB opponent, the legacy prose about "byte-identical".
 
 ## NEXT MOVES (Sep 25 2026 ~11:30 am EDT; Blake: "update the handoff with the next moves", "train on the eval shape
+READING (Oct 1 2026, Blake's sidebar): drubinstein.github.io/pokerl (Pokemon Red beaten end to end by a ~5M-parameter PPO
+policy; PyBoy + PufferLib, 4 x 14900K/4090 machines, ~10k steps/s). What transfers to us:
+ - They chose a SMALL LSTM (hidden 128 after a 512 linear) over frame stacking: stacks "linearly increase with the size of
+   the stack"; an LSTM "can only remember on the order of 1000 steps", which was enough. That is our item 4 (recurrent
+   policy) with a concrete starting size, replacing the 7-frame stack.
+ - Reward lessons match our legs 86-101: they removed terms that "provided little gain and slowed down training
+   tremendously"; "reward shaping is super important"; exploration bonuses "super powerful, but hard to tune"; their map-ID
+   boosting "puts the game on rails" = our state-slot curriculum by another name.
+ - Metrics first: "without metrics, we never would have made any logical improvements, we'd only be guessing"; every reward
+   hack was caught by counters and a live heatmap, not by watching 288 agents' video. Keep the scouts short, the numbers primary.
+ - RAM: even with a full disassembly + symbol table they injected hooks at code labels for state with no memory flag; our
+   scan-and-correlate path (hit-source pointer, state bytes) is the equivalent without a disassembly.
+ - Their principle "the observation can not contain any in-game knowledge a human player would not have access to": most of
+   our 160 features are on-screen quantities; the stun timer and the hit-source pointer are the borderline ones. Deliberate
+   choice for a COM-fighting bot; stated here so it is not an accident.
+ - Not transferable: the swarm (every env loads the save state of whoever hit a milestone) solves open-world divergence; our
+   arena resets per round. Their throughput is a Game Boy at 24 ticks/action on four GPU boxes, not a Dreamcast frame class.
+   Their results page has no hours / seeds / variance: a demonstration, not a benchmark.
+
 ## should be the first variable to change", memory = "the biggest lift but also the biggest lever")
 
 WHY, in one table (leg 79 lv8 eval, 500 rounds): bot transforms 0 -> 21%% of rounds, 0%% won; 1 -> 30%%, 1%%; 2 -> 24%%,

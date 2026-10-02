@@ -467,24 +467,34 @@ class FFASelfPlayEnv(PowerStoneEnvLibretro):
         """Seat index that last hit seat k per the game's own bookkeeping, or None (null / unowned hazard).
         Reads RAM directly (no state-line change): PLAYER_MAT[k]+0x32E4 -> source object; if the source is
         another player object that seat is the attacker; otherwise the source's +0x10 owner pointer."""
-        import struct
         ram = self._lr_bridge.ram
-        base = A.RAM_BASE + A.RAM_DELTA
-        try:
-            src = struct.unpack_from("<I", ram, A.PLAYER_MAT[k] + HITSRC_OFF - base)[0] & 0x0FFFFFFF
-        except Exception:
+        src = self._ram_u32(ram, A.PLAYER_MAT[k] + HITSRC_OFF)
+        if src is None:
             return None
+        src &= 0x0FFFFFFF
         att = self._owner_of(src)
         if att is not None:
             return None if att == k else att
         if src == 0:
             return None
-        try:
-            own = struct.unpack_from("<I", ram, (src | 0x80000000) + HITSRC_OWNER_OFF - base)[0] & 0x0FFFFFFF
-        except Exception:
+        own = self._ram_u32(ram, (src | 0x80000000) + HITSRC_OWNER_OFF)
+        if own is None:
             return None
-        att = self._owner_of(own)
+        att = self._owner_of(own & 0x0FFFFFFF)
         return None if (att is None or att == k) else att
+
+    @staticmethod
+    def _ram_u32(ram, addr):
+        """u32 at guest address addr, or None when the address is outside system RAM.
+        Oct 1 2026 (Linux review, finding 4): the old code passed an unchecked offset to
+        struct.unpack_from; a bad source pointer below RAM_BASE produced a NEGATIVE offset,
+        which Python reads from the END of the buffer, so a garbage pointer could blame a
+        real player. Bounds-checked here like ps2_ram's _off()."""
+        import struct
+        off = addr - (A.RAM_BASE + A.RAM_DELTA)
+        if off < 0 or off + 4 > len(ram):
+            return None
+        return struct.unpack_from("<I", ram, off)[0]
 
     @staticmethod
     def _owner_of(phys):

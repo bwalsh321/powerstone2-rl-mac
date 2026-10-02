@@ -202,6 +202,7 @@ class StateLineSynth:
         """Reset sweep history (pool slots are re-randomized by a loadstate)."""
         self._spin_prev = None
         self._proj_hist.clear()
+        self._proj_hist_v2.clear()      # Oct 1 (Linux review, finding 3): the v2 history must reset too
         # frame counter keeps monotonically increasing on purpose: the env
         # only ever checks frame ADVANCE, and lua's counter also never reset.
 

@@ -142,5 +142,32 @@ try:
 finally:
     F.SPECIAL_ATTRIB = False
 
+# ---- Oct 1 (Linux review findings 3 and 4): bounds-checked hit-source reads; v2 history cleared on loadstate
+ram = bytearray(16 * 1024 * 1024)
+base = A.RAM_BASE + A.RAM_DELTA
+def put32(addr, v):
+    import struct; struct.pack_into("<I", ram, addr - base, v & 0xFFFFFFFF)
+check("ram_u32: address below RAM_BASE -> None (no negative-offset wrap)", FFASelfPlayEnv._ram_u32(ram, A.RAM_BASE - 16) is None)
+check("ram_u32: last two bytes of RAM -> None", FFASelfPlayEnv._ram_u32(ram, A.RAM_BASE + len(ram) - 2) is None)
+put32(A.RAM_BASE + 0x1000, 0xDEADBEEF)
+check("ram_u32: in-range read works", FFASelfPlayEnv._ram_u32(ram, A.RAM_BASE + 0x1000) == 0xDEADBEEF)
+class _B: pass
+e = make_env(0.0); e._lr_bridge = _B(); e._lr_bridge.ram = ram
+P4 = (A.PLAYER_MAT[3] - 0x490 + 0x100) & 0x0FFFFFFF
+put32(A.PLAYER_MAT[1] + 0x32E4, P4)
+check("hit_attacker: source inside P4's object -> seat 3", e._hit_attacker(1) == 3)
+put32(A.PLAYER_MAT[1] + 0x32E4, 0x00000008)           # garbage pointer: owner read would be at 0x80000018 - base < 0
+check("hit_attacker: garbage source pointer below RAM -> None (was a wrapped read from the END of RAM)", e._hit_attacker(1) is None)
+obj = A.RAM_BASE + 0x00500000                          # a plausible non-player object inside RAM
+put32(A.PLAYER_MAT[1] + 0x32E4, obj & 0x0FFFFFFF); put32(obj + 0x10, (A.PLAYER_MAT[0] - 0x490 + 0x20) & 0x0FFFFFFF)
+check("hit_attacker: non-player source with owner pointer into P1 -> seat 0", e._hit_attacker(1) == 0)
+put32(A.PLAYER_MAT[1] + 0x32E4, 0)
+check("hit_attacker: null source -> None", e._hit_attacker(1) is None)
+import ps2_ram as R
+syn = R.StateLineSynth.__new__(R.StateLineSynth); syn._hist = R._SweepHistory()
+syn._hist.proj_hist[3] = (1, 0.0, 0.0, 0.0, 10); syn._hist.proj_hist_v2[3] = (1, 0.0, 0.0, 0.0, 10)
+syn.on_loadstate()
+check("on_loadstate clears BOTH projectile histories (finding 3)", not syn._hist.proj_hist and not syn._hist.proj_hist_v2)
+
 print(f"special window test: {fails} failures (window {SPECIAL_WINDOW:g}s)")
 sys.exit(1 if fails else 0)
