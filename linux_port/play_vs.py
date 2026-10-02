@@ -38,6 +38,7 @@ os.environ.setdefault("PS2_FFA_MAX_STEPS", "1000000000")
 
 import numpy as np
 import pygame
+from sig_guard import keep_native_fault_handlers
 from stable_baselines3 import PPO
 
 from powerstone_env_libretro import PowerStoneEnvLibretro
@@ -106,7 +107,8 @@ def main():
     br = env._lr_bridge
     emu = br.emu
     h, w = emu.get_shape()
-    pygame.init()
+    with keep_native_fault_handlers():   # Oct 1: pygame's parachute kills flycast's dynarec on Linux
+        pygame.init()
     pygame.joystick.init()
     pad = None
     if pygame.joystick.get_count() > 0:
