@@ -602,6 +602,9 @@ static bool video_set_pixel_format(unsigned format) {
 }
 
 
+static bool s_frame_pending = false;   // a frame was rendered into g_video.fbo_id since the last run()
+static const bool s_eager_readback = [] { const char* e = getenv("SDLARCH_EAGER_READBACK"); return e && e[0] == '1'; }();
+
 static void video_refresh(const void *data, unsigned width, unsigned height, size_t pitch) {
     if( width != 0 && height != 0) {
         SDLArch::g_retro.width = width;
@@ -625,16 +628,23 @@ static void video_refresh(const void *data, unsigned width, unsigned height, siz
         glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
     }
 
+    // Oct 1 2026 (9950X render study): LAZY readback. The frame stays in g_video.fbo_id and is
+    // copied to the CPU only when get_frame() asks for it. The old per-frame glReadPixels stalled
+    // the GPU pipeline on every emulated frame although training never reads pixels; callers of
+    // get_frame (watch_play, menu_drive, play_vs, ram_scan) see identical bytes.
+    // SDLARCH_EAGER_READBACK=1 restores the old per-frame copy.
     if (width > 0 && height > 0) {
-        size_t buffer_size = width * height * 3;
-        if (SDLArch::g_last_frame_buffer.size() != buffer_size) {
-            SDLArch::g_last_frame_buffer.resize(buffer_size);
-            SDLArch::g_last_frame_width = width;
-            SDLArch::g_last_frame_height = height;
+        SDLArch::g_last_frame_width = width;
+        SDLArch::g_last_frame_height = height;
+        s_frame_pending = true;
+        if (s_eager_readback) {
+            size_t buffer_size = width * height * 3;
+            if (SDLArch::g_last_frame_buffer.size() != buffer_size)
+                SDLArch::g_last_frame_buffer.resize(buffer_size);
+            glBindFramebuffer(GL_READ_FRAMEBUFFER, g_video.fbo_id);
+            glReadBuffer(GL_COLOR_ATTACHMENT0);
+            glReadPixels(0, 0, width, height, GL_RGB, GL_UNSIGNED_BYTE, SDLArch::g_last_frame_buffer.data());
         }
-        glBindFramebuffer(GL_READ_FRAMEBUFFER, g_video.fbo_id);
-        glReadBuffer(GL_COLOR_ATTACHMENT0);
-        glReadPixels(0, 0, width, height, GL_RGB, GL_UNSIGNED_BYTE, SDLArch::g_last_frame_buffer.data());
     }
 
     glBindFramebuffer(GL_READ_FRAMEBUFFER, g_video.fbo_id);
@@ -1187,13 +1197,20 @@ bool is_hardware_rendering() {
 }
 
 void SDLArch::get_frame(uint8_t* buffer, int width, int height) {
-    if (!SDLArch::g_last_frame_buffer.empty() && width == SDLArch::g_last_frame_width && height == SDLArch::g_last_frame_height) {
+    if (!s_frame_pending || width != SDLArch::g_last_frame_width || height != SDLArch::g_last_frame_height)
+        return;
+    if (s_eager_readback) {
         memcpy(buffer, SDLArch::g_last_frame_buffer.data(), SDLArch::g_last_frame_buffer.size());
+        return;
     }
+    glBindFramebuffer(GL_READ_FRAMEBUFFER, g_video.fbo_id);
+    glReadBuffer(GL_COLOR_ATTACHMENT0);
+    glReadPixels(0, 0, width, height, GL_RGB, GL_UNSIGNED_BYTE, buffer);
 }
 
 void SDLArch::run() {
     SDLArch::g_last_frame_buffer.clear();
+    s_frame_pending = false;
     
     SDLArch::audioData.clear();
     SDLArch::g_retro.retro_run();
@@ -1216,6 +1233,7 @@ void SDLArch::reset() {
     
     // clear framebuffer
     SDLArch::g_last_frame_buffer.clear();
+    s_frame_pending = false;
     
 }
 
@@ -1320,6 +1338,7 @@ void SDLArch::closeEnv() {
     SDL_Quit();
     SDLArch::audioData.clear();
     SDLArch::g_last_frame_buffer.clear();
+    s_frame_pending = false;
 }
 
 // #ifdef __cplusplus

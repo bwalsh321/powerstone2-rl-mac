@@ -22,6 +22,16 @@ From the Mac: the game `Power Stone 2 (USA).chd` (repo root), `linux_port/states
 Model zips are tracked in git. The script prints the rsync lines (section 7) and checks presence.
 
 ## 3. Headless rule
+**Oct 1 2026, as run on the 9950X: GPU EGL, no X server.** Every relay script sources
+`linux_gpu_env.sh`, which sets `SDL_VIDEODRIVER=offscreen` (SDL's EGL driver: a real GL context, no window,
+no DISPLAY) and points glvnd at the NVIDIA EGL vendor (`10_nvidia.json`, the RTX 3090). Measured: 16 parallel
+instances x 3600 frames = 14.6 s on the 3090 vs 35.8 s on the Radeon iGPU (EGL); one instance under Xvfb burned
+~45 CPU-s per 3600 frames vs ~10 with a GPU (llvmpipe). Prerequisite: the NVIDIA driver must load, which under
+Secure Boot means the DKMS signing key is enrolled (`sudo mokutil --import /var/lib/shim-signed/mok/MOK.der`,
+reboot, MOK Manager -> Enroll). `PS2_RENDER=xvfb` restores the Xvfb path below (expects :99).
+Python: the box runs Ubuntu 24.04's python3.12 venv (not 3.11); every pinned wheel installed and parity passed.
+
+Superseded plan (kept for the fallback):
 One PERSISTENT X server for the whole relay (Astra Sep 25: the launchers and battery shards call python
 directly and spawn tmux sessions, so a per-command `xvfb-run` does not cover them):
 ```bash

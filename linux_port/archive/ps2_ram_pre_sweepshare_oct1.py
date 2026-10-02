@@ -82,40 +82,6 @@ class PS2Ram:
                                 field_off)
 
 
-# Oct 1 2026 (9950X actor profile): the projectile class tests below depend only on the class word,
-# yet ran ~1.5M any() genexprs per 600 actor steps. Memoized per class; results are identical.
-_CLS_FLAGS = {}
-
-
-def _cls_flags(c):
-    f = _CLS_FLAGS.get(c)
-    if f is None:
-        f = (c in A.PROJ_CLASSES,
-             any(lo <= c < hi for lo, hi in A.PROJ_EXCLUDE_BANDS),
-             c in A.PROJ_EXCLUDE_V3 or any(lo <= c < hi for lo, hi in A.PROJ_EXCLUDE_BANDS_V3))
-        _CLS_FLAGS[c] = f
-    return f
-
-
-class _SweepHistory:
-    """Sweep state that StateLineSynths on one bridge can share (Oct 1 2026, 9950X actor profile).
-    Synths attached to a bridge before its first emulated frame tick in lockstep from the same
-    initial state, so their pool sweeps are identical up to the per-seat nearest-first sort; they
-    share one history and one sweep result per frame. A synth that joins later (e.g. the learner's,
-    which boots first) keeps its own. PS2_SWEEP_SHARE=0 disables sharing."""
-
-    def __init__(self):
-        self.spin_prev = None          # spin words from the previous sweep
-        self.proj_hist = {}            # slot -> (cls, x, y, z, frame)
-        self.proj_hist_v2 = {}         # Sep 28 (Astra 3): the OLD reader's own history (only whole-word-live slots)
-        self.members = 1
-        self.frame = None              # synth frame of the cached sweep
-        self.result = None
-
-
-SWEEP_SHARE = os.environ.get("PS2_SWEEP_SHARE", "1") != "0"
-
-
 def _fin(x, lo=-100000.0, hi=100000.0):
     return x == x and lo < x < hi
 
@@ -134,7 +100,9 @@ class StateLineSynth:
         self.r = PS2Ram(ram)
         self.bot = bot_player - 1
         self.frame = 0
-        self._hist = _SweepHistory()
+        self._spin_prev = None          # spin words from the previous sweep
+        self._proj_hist = {}            # slot -> (cls, x, y, z, frame)
+        self._proj_hist_v2 = {}         # Sep 28 (Astra 3): the OLD reader's own history (only whole-word-live slots)
         self._stone_cache = "0.00,0.00,0.00," * (A.STONE_REPORT - 1) + "0.00,0.00,0.00"
         self._chest_frag = self.ZERO_CHEST
         self._proj_cache = []
@@ -153,33 +121,6 @@ class StateLineSynth:
         if self.frame - self._scan_last >= A.STONE_SCAN_EVERY:
             self._scan_last = self.frame
             self._sweep_pool()
-
-    # sweep state lives in self._hist (shareable, see _SweepHistory)
-    @property
-    def _spin_prev(self):
-        return self._hist.spin_prev
-
-    @_spin_prev.setter
-    def _spin_prev(self, v):
-        self._hist.spin_prev = v
-
-    @property
-    def _proj_hist(self):
-        return self._hist.proj_hist
-
-    @property
-    def _proj_hist_v2(self):
-        return self._hist.proj_hist_v2
-
-    def share_sweep_with(self, other):
-        """Join other's sweep history. Only valid while both are pristine (no frame emulated)."""
-        if not SWEEP_SHARE:
-            return False
-        if self.frame != 0 or other.frame != 0 or self._scan_last != other._scan_last:
-            return False
-        self._hist = other._hist
-        self._hist.members += 1
-        return True
 
     @property
     def line(self):
@@ -270,15 +211,6 @@ class StateLineSynth:
 
     # ------------------------------------------------------------- sweep
     def _sweep_pool(self):
-        h = self._hist
-        if h.members > 1 and h.frame == self.frame:
-            res = h.result                  # a lockstep sibling already swept this frame
-        else:
-            res = self._sweep_core()
-            h.frame, h.result = self.frame, res
-        self._sweep_finish(*res)
-
-    def _sweep_core(self):
         r = self.r
         act = r.pool_words(A.POOL_ACTIVE)
         cls = r.pool_words(A.POOL_CLASS)
@@ -290,6 +222,7 @@ class StateLineSynth:
         # (Pride's 0x0C7EE3A0 etc.) carry a counter in the upper bytes (0x00090001...), so the
         # whole-word test hid every rocket in a swarm. v2 keeps the old mask (eval contract).
         live = ((act & 0xFF) == 1) if OBS_V3 else (act == 1)
+        bx, bz = self._bot_xz()
 
         # ---- stones + chests -------------------------------------------
         chests, fall = [], 0
@@ -304,27 +237,35 @@ class StateLineSynth:
         else:
             stones = self._legacy_stones(live, cls, spin, xs, ys, zs)
 
+        if bx is not None:
+            stones.sort(key=lambda s: (s[0]-bx)**2 + (s[1]-bz)**2)
+            chests.sort(key=lambda c: (c[0]-bx)**2 + (c[1]-bz)**2)
+        n_chests = len(chests)                 # count BEFORE the 2-slot cut
+        stones = stones[:A.STONE_REPORT]
+        parts = [f"{x:.2f},{z:.2f},{y:.2f}" for x, z, y in stones]
+        parts += ["0.00,0.00,0.00"] * (A.STONE_REPORT - len(parts))
+        self._stone_cache = ",".join(parts)
+        cparts = [f"{c[0]:.2f},{c[1]:.2f},{c[2]:.2f}" for c in chests[:2]]
+        cparts += ["0.00,0.00,0.00"] * (2 - len(cparts))
+        self._chest_frag = f"{n_chests},{fall},{cparts[0]},{cparts[1]}"
 
         # ---- projectiles (class whitelist + velocity fallback) ----------
-        # Oct 1 2026: per-class counts via np.unique, and the slot loop below walks Python lists
-        # (tolist) instead of indexing numpy scalars; same integers, same float64 values.
-        def _class_counts(mask):
-            u, n = np.unique(cls[mask], return_counts=True)
-            return dict(zip(u.tolist(), n.tolist()))
-        counts = _class_counts(live)
+        counts = {}
+        for k in np.nonzero(live)[0]:
+            c = int(cls[k]); counts[c] = counts.get(c, 0) + 1
         # Sep 25 2026 (Astra: contract per policy generation): under v3 also compute the projectile list
         # by the OLD v2 rule (whole-word active flag, exactly one instance of the class, no v3 bands,
         # one entry per class, 2 slots) so v2 policies (pool seats, the AB champion) can be fed the
         # prefix they were trained on. Speeds come from the same per-slot history, computed once.
         live_v2 = (act == 1) if OBS_V3 else live
-        counts_v2 = _class_counts(live_v2)
+        counts_v2 = {}
+        for k in np.nonzero(live_v2)[0]:
+            c = int(cls[k]); counts_v2[c] = counts_v2.get(c, 0) + 1
         out_v2, seen_v2 = [], set()
         out, seen = [], set()
-        cls_l, xs_l, ys_l, zs_l = cls.tolist(), xs.tolist(), ys.tolist(), zs.tolist()
-        live_v2_l = live_v2.tolist()
-        for k in np.nonzero(live)[0].tolist():
-            c = cls_l[k]
-            x, y, z = xs_l[k], ys_l[k], zs_l[k]
+        for k in np.nonzero(live)[0]:
+            c = int(cls[k])
+            x, y, z = float(xs[k]), float(ys[k]), float(zs[k])
             if not (_fin(x) and _fin(z)):
                 self._proj_hist.pop(int(k), None)
                 self._proj_hist_v2.pop(int(k), None)
@@ -343,7 +284,7 @@ class StateLineSynth:
             # could have built (whole-word-live slots only), so a slot that just flipped 0x90001 -> 1
             # has no v2 speed yet, exactly as under the original reader.
             sp2, vx2, vz2 = None, 0.0, 0.0
-            if OBS_V3 and live_v2_l[k]:
+            if OBS_V3 and live_v2[k]:
                 h2 = self._proj_hist_v2.get(int(k))
                 if h2 and h2[0] == c and self.frame > h2[4]:
                     dt2 = (self.frame - h2[4]) / 60.0
@@ -354,12 +295,13 @@ class StateLineSynth:
                 self._proj_hist_v2[int(k)] = (c, x, y, z, self.frame)
             elif OBS_V3:
                 self._proj_hist_v2.pop(int(k), None)
-            known, banded, excl_v3 = _cls_flags(c)
-            if OBS_V3 and live_v2_l[k] and (known or (sp2 and sp2 >= A.PROJ_SPEED_MIN and counts_v2.get(c) == 1
+            known = c in A.PROJ_CLASSES
+            banded = any(lo <= c < hi for lo, hi in A.PROJ_EXCLUDE_BANDS)
+            if OBS_V3 and live_v2[k] and (known or (sp2 and sp2 >= A.PROJ_SPEED_MIN and counts_v2.get(c) == 1
                                                      and c not in A.PROJ_EXCLUDE and not banded)):
                 if c not in seen_v2:                # the v2 rule, verbatim, on the v2 history
                     seen_v2.add(c); out_v2.append((x, y, z, vx2, vz2))
-            if OBS_V3 and excl_v3:
+            if OBS_V3 and (c in A.PROJ_EXCLUDE_V3 or any(lo <= c < hi for lo, hi in A.PROJ_EXCLUDE_BANDS_V3)):
                 continue
             # v3 (Sep 24 12:10 am): NO horizontal-speed requirement any more. It was added to kill
             # vertical-only stage effects, but those are now excluded by band (0x0C54Dxxx, 0x0C5A-0x0C5D),
@@ -369,26 +311,8 @@ class StateLineSynth:
                 if OBS_V3 or c not in seen:        # v3: every volley member is a projectile
                     seen.add(c)
                     out.append((x, y, z, vx, vz, c))
-        return stones, chests, fall, out, out_v2
-
-    def _sweep_finish(self, stones, chests, fall, out, out_v2):
-        """Per-seat part of the sweep: nearest-first sort by THIS synth's bot, cuts, caches.
-        Works on copies (sorted()), so a shared result is never mutated."""
-        bx, bz = self._bot_xz()
         if bx is not None:
-            stones = sorted(stones, key=lambda s: (s[0]-bx)**2 + (s[1]-bz)**2)
-            chests = sorted(chests, key=lambda c: (c[0]-bx)**2 + (c[1]-bz)**2)
-        n_chests = len(chests)                 # count BEFORE the 2-slot cut
-        stones = stones[:A.STONE_REPORT]
-        parts = [f"{x:.2f},{z:.2f},{y:.2f}" for x, z, y in stones]
-        parts += ["0.00,0.00,0.00"] * (A.STONE_REPORT - len(parts))
-        self._stone_cache = ",".join(parts)
-        cparts = [f"{c[0]:.2f},{c[1]:.2f},{c[2]:.2f}" for c in chests[:2]]
-        cparts += ["0.00,0.00,0.00"] * (2 - len(cparts))
-        self._chest_frag = f"{n_chests},{fall},{cparts[0]},{cparts[1]}"
-
-        if bx is not None:
-            out = sorted(out, key=lambda p: (p[0]-bx)**2 + (p[2]-bz)**2)
+            out.sort(key=lambda p: (p[0]-bx)**2 + (p[2]-bz)**2)
         if OBS_V3:                                  # v3: one entry per distinct position (a
             dd = []                                 # multi-part visual is ONE object)
             for p in out:
@@ -400,7 +324,7 @@ class StateLineSynth:
         self._proj_cache = [p[:5] for p in out[:n_rep]]
         if OBS_V3:
             if bx is not None:
-                out_v2 = sorted(out_v2, key=lambda p: (p[0]-bx)**2 + (p[2]-bz)**2)
+                out_v2.sort(key=lambda p: (p[0]-bx)**2 + (p[2]-bz)**2)
             self._proj_cache_v2 = out_v2[:A.PROJ_REPORT]
 
     # ----------------------------------------------------------- compose

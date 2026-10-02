@@ -1,0 +1,37 @@
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+Set variable override: flycast_hle_bios = enabled
+Set variable override: reicast_hle_bios = enabled
+Set variable override: flycast_device_port1_slot1 = VMU
+Set variable override: flycast_device_port2_slot1 = VMU
+Set variable override: flycast_threaded_rendering = disabled
+Set variable override: reicast_threaded_rendering = disabled
+[env] bridge alive (frame 8, line=v7 obs_dim=160 actions=10)
+[ep] slot3 opps=3    loss len= 611  dmg +4.83/-1.00  stones: picked=7 lost=2 opp=11(-7) forms=2/2  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=24(3) stonev=317 dmgF=3.25
+[ep] slot3 opps=3     win len= 788  dmg +6.11/-0.95  stones: picked=13 lost=2 opp=12(-12) forms=4/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=24(2) stonev=414 dmgF=3.41
+[ep] slot3 opps=3    loss len= 647  dmg +5.36/-1.00  stones: picked=10 lost=5 opp=15(-7) forms=2/2  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=25(2) stonev=389 dmgF=2.69
+[ep] slot3 opps=3    loss len= 432  dmg +2.27/-1.00  stones: picked=5 lost=3 opp=9(-6) forms=1/1  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=17(3) stonev=281 dmgF=0.23
+[ep] slot3 opps=3    loss len= 719  dmg +4.78/-1.00  stones: picked=8 lost=3 opp=18(-11) forms=2/3  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=23(4) stonev=298 dmgF=2.41
+[ep] slot3 opps=3    loss len= 539  dmg +4.18/-1.00  stones: picked=4 lost=2 opp=11(-3) forms=1/3  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=22(2) stonev=164 dmgF=0.48
+[ep] slot3 opps=3    loss len= 204  dmg +1.13/-1.00  stones: picked=2 lost=3 opp=4(-3) forms=0/1  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=8(0) stonev=77 dmgF=0.00
+[ep] slot3 opps=3    loss len= 480  dmg +3.19/-1.00  stones: picked=7 lost=5 opp=10(-7) forms=1/2  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=17(2) stonev=263 dmgF=1.65
+[ep] slot3 opps=3     win len= 649  dmg +6.00/-0.66  stones: picked=12 lost=1 opp=14(-9) forms=4/2  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=21(4) stonev=432 dmgF=4.49
+[ep] slot3 opps=3    loss len= 559  dmg +3.30/-1.00  stones: picked=6 lost=4 opp=15(-11) forms=1/2  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=19(4) stonev=257 dmgF=0.00
+[ep] slot3 opps=3    loss len= 550  dmg +5.70/-1.00  stones: picked=7 lost=2 opp=9(-10) forms=2/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=14(0) stonev=344 dmgF=3.10
+[ep] slot3 opps=3    loss len= 719  dmg +4.78/-1.00  stones: picked=8 lost=3 opp=18(-11) forms=2/3  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=23(4) stonev=298 dmgF=2.41
+[ep] slot3 opps=3    loss len= 395  dmg +2.24/-1.00  stones: picked=7 lost=8 opp=12(-10) forms=0/2  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=17(2) stonev=270 dmgF=0.00
+[ep] slot3 opps=3    loss len= 613  dmg +5.18/-1.00  stones: picked=4 lost=2 opp=13(-10) forms=1/2  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=20(0) stonev=259 dmgF=2.16
+[ep] slot3 opps=3    loss len= 652  dmg +5.99/-1.00  stones: picked=10 lost=3 opp=13(-8) forms=3/2  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=27(5) stonev=462 dmgF=3.20
+[ep] slot3 opps=3     win len= 528  dmg +6.34/-0.55  stones: picked=10 lost=2 opp=9(-3) forms=3/2  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=19(4) stonev=260 dmgF=4.04
+[ep] slot3 opps=3    loss len=1037  dmg +5.22/-1.00  stones: picked=5 lost=3 opp=10(-6) forms=1/1  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=21(1) stonev=206 dmgF=1.82
+[ep] slot3 opps=3     win len= 504  dmg +6.00/-0.56  stones: picked=9 lost=1 opp=12(-9) forms=3/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=22(1) stonev=287 dmgF=4.39
+[ep] slot3 opps=3     win len= 450  dmg +6.00/-0.76  stones: picked=11 lost=4 opp=9(-5) forms=2/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=16(2) stonev=328 dmgF=4.53
+[ep] slot3 opps=3     win len= 543  dmg +6.00/-0.98  stones: picked=9 lost=1 opp=14(-9) forms=3/2  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=24(4) stonev=202 dmgF=3.61
+
+================ EVAL SUMMARY ================
+model=powerstone_v6_leg103_league.zip  slot=3  n=20  mode=deterministic  distinct-outcome-tuples~18
+win% :  30.0   (6W/14L/0T)   95% Wilson [15-52]
+picks:  7.70 /ep
+forms:  1.90 /ep
