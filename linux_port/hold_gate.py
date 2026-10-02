@@ -2,7 +2,7 @@
 right before it advances state. Prints the hold reason (empty = no hold). Thresholds:
 lv3 (slot2) < 70%, champion AB wins < 35 of 100, lv8 (slot3) < 4.0%. An unparseable
 receipt also holds: the chain must never launch on evidence it cannot read."""
-import re, sys
+import os, re, sys
 
 def wins(path):
     try:
@@ -22,10 +22,12 @@ def main(n, root="receipts"):
         ab = int(m.group(1)) if m else None
     except OSError:
         pass
-    if lv8 is None or lv3 is None or ab is None:
+    # Oct 1 2026 (Blake dropped the lv3 eval): the lv3 threshold applies only when a slot2 receipt exists.
+    has_lv3 = os.path.exists(f"{root}/eval_leg{n}_slot2_out.txt")
+    if lv8 is None or (has_lv3 and lv3 is None) or ab is None:
         why.append(f"unparseable receipt (lv8={lv8} lv3={lv3} ab={ab})")
     else:
-        if lv3 < 70.0:
+        if has_lv3 and lv3 < 70.0:
             why.append(f"lv3 {lv3:.1f} < 70 (n={n3})")
         if ab < 35:
             why.append(f"champion AB {ab} < 35")

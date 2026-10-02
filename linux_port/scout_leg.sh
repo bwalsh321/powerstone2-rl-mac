@@ -24,7 +24,7 @@ python - "$N" <<'PY'
 import re, shutil, os, subprocess, sys, imageio_ffmpeg
 N=sys.argv[1]; log=open(f'videos/leg{N}_scout_rec.log').read()
 eps=re.findall(r'\[ep\] slot3 opps=3\s+(\w+) len=\s*(\d+)', log)
-ff=imageio_ffmpeg.get_ffmpeg_exe()
+ff=shutil.which('ffmpeg') or imageio_ffmpeg.get_ffmpeg_exe()   # Oct 1: system ffmpeg first (the imageio build lacks drawtext on Linux)
 info=subprocess.run([ff,'-i',f'videos/leg{N}_scout_raw.mp4'],capture_output=True,text=True).stderr
 h,m,s=re.search(r'Duration: (\d+):(\d+):([\d.]+)',info).groups(); dur=int(h)*3600+int(m)*60+float(s)
 play=sum(int(L) for _,L in eps)*0.1; over=(dur-play)/max(len(eps),1)
