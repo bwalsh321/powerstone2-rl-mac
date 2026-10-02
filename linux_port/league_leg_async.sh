@@ -43,6 +43,21 @@ export PS2_PULL_EVERY=${PS2_PULL_EVERY:-64}
 # (ffa_selfplay_env.py on the 4-port harness, obs v2, slot 0 state, PFSP pool
 # sampling). Anything else = the 2-seat SelfPlayEnv on slot 1 (obs v1).
 MODE="$(tr -d '[:space:]' < league_trainer.txt 2>/dev/null)"
+# Oct 1 2026 (GPT review P1): launch permission is HOST-LOCAL. Only a machine whose untracked
+# linux_port/host_role.txt reads "train" may start a leg; league_trainer.txt is tracked in git, so a pull
+# must never grant another machine permission to train.
+ROLE="$(tr -d '[:space:]' < host_role.txt 2>/dev/null)"
+if [ "$ROLE" != "train" ]; then
+  echo "[wrapper] REFUSED: host_role.txt='${ROLE}' (not the training host); nothing launched $(date)" | tee -a wrapper_league.log >&2
+  exit 2
+fi
+# Oct 1 2026 (GPT review P1): this wrapper used to train on ANY mode word, including "hold" (only the
+# battery's chain honoured it). Refuse anything but a known async mode, before any log or Python.
+case "$MODE" in
+  async|ffa|mixed) ;;
+  *) echo "[wrapper-async] leg $N REFUSED: league_trainer.txt='${MODE}' (hold or unknown mode); nothing launched $(date)" | tee -a wrapper_league.log >&2
+     exit 2 ;;
+esac
 # Sep 16: optional entropy coefficient for this leg, one number in league_entcoef.txt
 # (absent/empty = the zip's 0.01). Recorded in leg_modes.txt as a third column.
 ENTC="$(tr -d '[:space:]' < league_entcoef.txt 2>/dev/null)"

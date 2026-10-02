@@ -45,3 +45,4 @@ with th.no_grad():
         if done: eps += 1; obs = env.reset()
 print(f"[twin] {n+1} steps, {eps} episodes, projectile entries compared {nproj}, mismatches {bad}")
 print("PASS" if bad == 0 else "FAIL")
+sys.exit(0 if bad == 0 else 1)   # Oct 1 (GPT review P2): fail loudly

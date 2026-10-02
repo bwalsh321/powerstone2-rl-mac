@@ -92,3 +92,6 @@ cores/
 linux_port/videos/*.wav
 # Upstream example savestates/rewards for other games (480 MB) — not part of this project
 sdlarch-rl/sdlarch_rl/roms/
+
+# Host-local launch permission (Oct 1 2026): "train" only on the training machine; never commit
+linux_port/host_role.txt

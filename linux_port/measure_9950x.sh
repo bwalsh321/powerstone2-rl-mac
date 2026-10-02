@@ -3,6 +3,11 @@
 # (mixed, league_optim.txt + league_env.txt), NENVS=10 fixed (rollout size = recipe), actor count varied.
 # Writes only *_meas9950x_* outputs and the hardlinked pool_smoke_9950x/; never touches relay state.
 cd "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# Oct 1 2026 (GPT review P2): this diagnostic ends each trial with a broad pkill of spawn_main, which
+# would also kill a live league's actors. Refuse to run unless the machine is quiet.
+if tmux has-session -t ps2train 2>/dev/null || [ "$(pgrep -fc 'train_selfplay_asyn[c]|eval_parit[y]|ab_selfplay_prob[e]|watch_pla[y]')" -gt 0 ]; then
+  echo "REFUSED: a league leg, eval or scout is running; measure only on an idle machine" >&2; exit 2
+fi
 source ./linux_gpu_env.sh; source ~/ps2rl/bin/activate
 export SDL_AUDIODRIVER=dummy PYTHONPATH=../sdlarch-rl/p4:../sdlarch-rl:. PYTHONUNBUFFERED=1
 export PS2_CORE=$HOME/cores/flycast_libretro.so PS2_WARM=./powerstone_v6_leg103_league.zip PS2_FRESH=1 PS2_POOL=./pool_smoke_9950x
