@@ -10,6 +10,9 @@ cd "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source ~/ps2rl/bin/activate
 source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/linux_gpu_env.sh"   # Oct 1: GPU EGL on Linux (was Xvfb :99)
 export SDL_AUDIODRIVER=dummy PYTHONPATH=../sdlarch-rl/p4:../sdlarch-rl:. PYTHONUNBUFFERED=1 PS2_OBS_V2=1
+# Oct 2 2026: one torch thread per eval process. The recurrent (LSTM) policy otherwise spawns a thread per core in
+# every one of the 20 shards (load ~196 on 32 threads; leg 110's first battery ran ~4x slow).
+export OMP_NUM_THREADS=1 MKL_NUM_THREADS=1
 N=$1; M=./powerstone_v6_leg${N}_league.zip
 # Sep 24 2026 (obs v3; must come AFTER N is set): tmux does not pass the battery's environment; read the leg's own contract.
 if awk -v n="$N" '$1==n' leg_modes.txt 2>/dev/null | grep -q "PS2_OBS_V3=1"; then export PS2_OBS_V3=1; fi

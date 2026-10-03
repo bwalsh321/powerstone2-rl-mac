@@ -25,6 +25,9 @@ fi
 source ~/ps2rl/bin/activate
 source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/linux_gpu_env.sh"   # Oct 1: GPU EGL on Linux (was Xvfb :99)
 export SDL_AUDIODRIVER=dummy PYTHONPATH=../sdlarch-rl:. PYTHONUNBUFFERED=1
+# Oct 2 2026: one torch thread per eval process. The recurrent (LSTM) policy otherwise spawns a thread per core in
+# every one of the 20 shards (load ~196 on 32 threads; leg 110's first battery ran ~4x slow).
+export OMP_NUM_THREADS=1 MKL_NUM_THREADS=1
 if [ "$(uname)" = "Darwin" ]; then
   CORE="${PS2_CORE:-$HOME/Library/Application Support/RetroArch/cores/flycast_libretro.dylib}"
   KEEPAWAKE="caffeinate -is"
