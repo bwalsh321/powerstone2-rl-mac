@@ -75,9 +75,21 @@ def load_model(path, **kwargs):
     kw.update(kwargs)
     if is_recurrent_zip(p):
         from sb3_contrib import RecurrentPPO
-        return RecurrentPPO.load(p, **kw)
-    from stable_baselines3 import PPO
-    return PPO.load(p, **kw)
+        m = RecurrentPPO.load(p, **kw)
+    else:
+        from stable_baselines3 import PPO
+        m = PPO.load(p, **kw)
+    # Oct 3 2026 BUG FIX: SB3's load() re-seeds python/numpy/torch from the zip's stored seed. surgery_lstm.py saved
+    # seed=0, so every process loading a recurrent zip (all 20 eval shards, all 16 actors) started from the SAME random
+    # state: the shards replayed identical rounds (legs 110-111 lv8mix = 50 distinct rounds x 20) and the actors drew
+    # correlated episodes. Drop the stored seed and re-seed every generator from fresh entropy.
+    if getattr(m, "seed", None) is not None:
+        import random as _random
+        m.seed = None
+        _random.seed()
+        np.random.seed(None)
+        th.seed()
+    return m
 
 
 class PolicyRunner:
