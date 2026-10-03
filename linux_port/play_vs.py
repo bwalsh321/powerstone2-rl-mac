@@ -104,6 +104,7 @@ def main():
                 env._pool.last_path = args.model
                 return model
             env._pool.sample = _same
+    env.set_action_mode(int(model.action_space.n))   # Oct 3 2026: 10 legacy / 63 joint (action_space.py)
     env.MAX_STEPS = args.max_steps if args.max_steps > 0 else 10 ** 9
 
     br = env._lr_bridge

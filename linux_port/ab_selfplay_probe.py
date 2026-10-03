@@ -50,6 +50,7 @@ def main():
     from recurrent_policy import load_model, PolicyRunner   # Oct 2: PPO or RecurrentPPO
     model = load_model(args.model)
     runner = PolicyRunner(model)
+    env.set_action_mode(int(model.action_space.n))   # Oct 3 2026: 10 legacy / 63 joint (action_space.py)
     from obs_stack import k_for, FrameStack            # Sep 22: stacked policies
     from obs_stack import kd_for
     _k, _d = kd_for(model); _fs = FrameStack(_k, _d) if _k > 1 else None   # Sep 23: v3 models are 160/frame

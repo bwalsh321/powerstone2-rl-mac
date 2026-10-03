@@ -108,6 +108,7 @@ def actor_main(actor_id, instance_id, chunk_len, weights_conn, chunk_q, cfg):
     from recurrent_policy import load_model
     policy = load_model(cfg["warm_zip"]).policy
     policy.set_training_mode(False)
+    env.set_action_mode(int(policy.action_space.n))   # Oct 3 2026: 10 legacy / 63 joint (action_space.py)
     recurrent = hasattr(policy, "lstm_actor")
     if recurrent:
         from sb3_contrib.common.recurrent.type_aliases import RNNStates
@@ -267,6 +268,7 @@ def main():
         pass
     dummy = DummyVecEnv([lambda: SpaceEnv(obs_space, act_space) for _ in range(N_ENVS)])
     model = load_model(warm_zip, env=dummy)
+    print(f"[config] actions={int(model.action_space.n)} ({'joint direction x button' if int(model.action_space.n) == 63 else 'legacy single inputs'})", flush=True)
     if RECURRENT:
         lstm_mod = model.policy.lstm_actor
         print(f"[config] recurrent=SkipLSTM hidden={lstm_mod.hidden_size} layers={lstm_mod.num_layers} "

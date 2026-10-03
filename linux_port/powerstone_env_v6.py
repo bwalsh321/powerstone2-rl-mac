@@ -606,6 +606,10 @@ class PowerStoneEnvV6(gym.Env):
             self.STATE_SLOTS = list(state_slots)
         os.makedirs(self._bridge_dir, exist_ok=True)
         self.action_space = spaces.Discrete(len(self.ACTIONS))
+        self.N_ACT = len(self.ACTIONS)        # Oct 3: 10 legacy or 63 joint (action_space.py); see set_action_mode
+        self._last_n = None                   # action-set size of whoever's last_action the obs encodes (None = N_ACT)
+        if os.environ.get("PS2_ACTIONS", "legacy") == "joint63":
+            self.set_action_mode(63)
         self.observation_space = spaces.Box(
             low=-5.0, high=5.0, shape=(self.OBS_DIM,), dtype=np.float32)
 
@@ -972,7 +976,10 @@ class PowerStoneEnvV6(gym.Env):
         self.baseline = [max(h, 1000.0) for h in s["h"]]
         self.prev = s
         self.prev_health = self._frac(s["h"])
-        self.last_action = 0
+        # Oct 3 2026: the reset-time last action is legacy 0 ("up"); in joint mode use its exact joint equivalent
+        # so a joint policy's first observation of an episode matches the legacy contract bit for bit.
+        from action_space import LEGACY_TO_JOINT
+        self.last_action = 0 if self.N_ACT == len(self.ACTIONS) else LEGACY_TO_JOINT[0]
         self._form_timer = 0
         self._ep = self._fresh_ep()
         self._stone_tracks = []
@@ -982,14 +989,32 @@ class PowerStoneEnvV6(gym.Env):
         self._dealt_cd = 0
         return self._observe(s, s)
 
+    def set_action_mode(self, n):
+        """Oct 3 2026: 10 = legacy single inputs, 63 = joint direction x button (action_space.py)."""
+        from action_space import JOINT_N, LEGACY_N
+        assert n in (LEGACY_N, JOINT_N), n
+        self.N_ACT = int(n)
+        self.action_space = spaces.Discrete(self.N_ACT)
+
     def step(self, action):
-        name, kind, val = self.ACTIONS[action]
+        from action_space import JOINT_TO_LEGACY, execution
+        action = int(action)
+        legacy = action if self.N_ACT == len(self.ACTIONS) else JOINT_TO_LEGACY.get(action)
         start = self._read_state()
-        if kind == "axis":
+        if legacy is None:
+            # Oct 3 2026: a joint combo (diagonal / move+button / noop): every part in one mask.
+            dmask, axis, frames = execution(action, self.N_ACT, self.ACTION_FRAMES)
+            self._send(f"combo {dmask} {axis or 0} {frames}")
+            kind = "combo"
+        else:
+            name, kind, val = self.ACTIONS[legacy]
+        if kind == "combo":
+            pass
+        elif kind == "axis":
             # Analog trigger. The lua releases any held button mask first, so
             # one action = one physical input and the two never compound.
             self._send(f"axis {val} {self.AXIS_VALUE:.2f} {self.ACTION_FRAMES}")
-        elif action < 4:
+        elif legacy < 4:
             # MOVEMENT (Aug 13, "make the bot just walk"): direction presses
             # OVERLAP the next decision (frames > ACTION_FRAMES), so repeated
             # same-direction actions merge into a continuous hold instead of
@@ -1402,7 +1427,9 @@ class PowerStoneEnvV6(gym.Env):
             stage_dim, level = meta
             obs[self._STG0 + stage_dim] = 1.0
             obs[self.DIFF_DIM] = level / 8.0   # COM difficulty (curriculum)
-        obs[self._ACT0 + self.last_action] = 1.0
+        from action_space import last_action_slots          # Oct 3: one-hot (legacy) / multi-hot (joint)
+        for _sl in last_action_slots(self.last_action, self._last_n or self.N_ACT):
+            obs[self._ACT0 + _sl] = 1.0
         # ---- obs v3 [122..153]: self + 3 nearest opponents' stun and state class
         if self.OBS_V3:
             pst, psn = s.get("pstate"), s.get("pstun")

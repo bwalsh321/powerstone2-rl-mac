@@ -117,6 +117,21 @@ class FlycastBridge:
         self.emu.set_button_mask(m, player)
         self.run_frames(frames)
 
+    def combo(self, dc_mask, axis_id, frames, player=None):
+        """Oct 3 2026 (joint actions): direction + button + trigger in ONE mask. combo(m, None) == press(m);
+        combo(0, a) == axis(a, value>0)."""
+        player = self._default_player if player is None else player
+        m = np.zeros(N_BUTTONS, np.uint8)
+        for bit, rid in DC_TO_RETRO.items():
+            if dc_mask & bit:
+                m[rid] = 1
+        rid = AXIS_TO_RETRO.get(axis_id) if axis_id else None
+        if rid is not None:
+            m[rid] = 1
+        self._held[player] = m
+        self.emu.set_button_mask(m, player)
+        self.run_frames(frames)
+
     def clear_inputs(self):
         z = np.zeros(N_BUTTONS, np.uint8)
         for p in list(self._held) or [0, 1]:
@@ -167,6 +182,8 @@ class FlycastBridge:
             self.press(int(parts[1]), int(parts[2]))
         elif parts[0] == "axis":
             self.axis(int(parts[1]), float(parts[2]), int(parts[3]))
+        elif parts[0] == "combo":                    # combo <dc_mask> <axis_id or 0> <frames>
+            self.combo(int(parts[1]), int(parts[2]), int(parts[3]))
         elif parts[0] == "loadstate":
             self.loadstate(int(parts[1]))
         elif parts[0] == "player":

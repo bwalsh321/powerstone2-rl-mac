@@ -111,6 +111,7 @@ class SelfPlayEnv(PowerStoneEnvLibretro):
         self._view_ctr.clear()
         self._opp_stack = None
         self._opp_runner = None        # Oct 2: per-episode stateful runner (recurrent opponents)
+        self._view_last_n = 10         # Oct 3: the view's reset-time last action (0) is a legacy index
         return super().reset()
 
     def step(self, action):
@@ -139,14 +140,24 @@ class SelfPlayEnv(PowerStoneEnvLibretro):
                 self._opp_runner = PolicyRunner(self._opp_model)
             opp_action = self._opp_runner.act(opp_obs, deterministic=self._opp_det)
             self._view_last[1] = int(opp_action)
+            self._view_last_n = int(self._opp_model.action_space.n)    # Oct 3: 10 legacy / 63 joint
             self._apply_action_for(int(opp_action), player_port=0,
-                                   run=False)   # set mask only, no frames
+                                   run=False, n_act=self._view_last_n)   # set mask only, no frames
         # 2) learner acts; frames run inside (both masks held during them)
         return super().step(action)
 
     # ------------------------------------------------------------ helpers
-    def _apply_action_for(self, action, player_port, run):
-        name, kind, val = self.ACTIONS[action]
+    def _apply_action_for(self, action, player_port, run, n_act=10):
+        # Oct 3 2026: n_act = the acting model's action-set size (10 legacy / 63 joint, action_space.py).
+        from action_space import JOINT_TO_LEGACY
+        a = int(action)
+        legacy = a if n_act == len(self.ACTIONS) else JOINT_TO_LEGACY.get(a)
+        if legacy is None:
+            from action_space import execution
+            dmask, axis, _frames = execution(a, n_act, self.ACTION_FRAMES)
+            self._lr_bridge.combo(dmask, axis, 0 if not run else self.ACTION_FRAMES, player=player_port)
+            return
+        name, kind, val = self.ACTIONS[legacy]
         if kind == "btn":
             self._lr_bridge.press(val, 0 if not run else self.ACTION_FRAMES,
                                   player=player_port)
@@ -198,6 +209,7 @@ class SelfPlayEnv(PowerStoneEnvLibretro):
         saved_agent = self.AGENT_PLAYER
         saved_active = self._active_opp
         saved_last = self.last_action
+        saved_last_n = self._last_n
         saved_ctr = (self._form_timer, self._my_g_int)
         try:
             type(self).AGENT_PLAYER = agent_player
@@ -207,6 +219,7 @@ class SelfPlayEnv(PowerStoneEnvLibretro):
             # the learner's (obs[_ACT0+..] reads self.last_action — combo/
             # timing state; feeding the enemy's action corrupts it)
             self.last_action = self._view_last.get(agent_player, 0)
+            self._last_n = getattr(self, "_view_last_n", 10) if agent_player == 1 else self.N_ACT
             s = self._parse_line(line)
             if s is None:
                 return np.zeros(self.OBS_DIM, dtype=np.float32)
@@ -231,6 +244,7 @@ class SelfPlayEnv(PowerStoneEnvLibretro):
             type(self).AGENT_PLAYER = saved_agent
             self._active_opp = saved_active
             self.last_action = saved_last
+            self._last_n = saved_last_n
             self._form_timer, self._my_g_int = saved_ctr
 
 

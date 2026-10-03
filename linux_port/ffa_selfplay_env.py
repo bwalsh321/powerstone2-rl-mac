@@ -143,6 +143,7 @@ class SeatView:
     def reset(self):
         self.prev = None
         self.last_action = 0
+        self.n_act = 10            # Oct 3: action-set size of this seat's model (10 legacy / 63 joint)
         self.g_int = 0
         self.form_timer = 0
         self.stack = None          # Sep 22: FrameStack for a K-frame opponent model (None = single-frame)
@@ -297,7 +298,8 @@ class FFASelfPlayEnv(PowerStoneEnvLibretro):
                 v.runner = PolicyRunner(v.model)
             a = v.runner.act(obs_v, deterministic=self._opp_det)
             v.last_action = int(a)
-            self._apply_action_for(int(a), player_port=v.player, run=False)
+            v.n_act = int(v.model.action_space.n)
+            self._apply_action_for(int(a), player_port=v.player, run=False, n_act=v.n_act)
         # 2) learner acts; frames run inside
         prev_s, prev_h = self.prev, list(self.prev_health)
         obs, r, done, info = super().step(action)
@@ -524,8 +526,17 @@ class FFASelfPlayEnv(PowerStoneEnvLibretro):
         return t0 is not None and (self._spec_t - t0) <= self._spec_win
 
     # ------------------------------------------------------------------ helpers
-    def _apply_action_for(self, action, player_port, run):
-        name, kind, val = self.ACTIONS[action]
+    def _apply_action_for(self, action, player_port, run, n_act=10):
+        # Oct 3 2026: n_act = the acting model's action-set size (10 legacy / 63 joint, action_space.py).
+        from action_space import JOINT_TO_LEGACY
+        a = int(action)
+        legacy = a if n_act == len(self.ACTIONS) else JOINT_TO_LEGACY.get(a)
+        if legacy is None:
+            from action_space import execution
+            dmask, axis, _frames = execution(a, n_act, self.ACTION_FRAMES)
+            self._lr_bridge.combo(dmask, axis, 0 if not run else self.ACTION_FRAMES, player=player_port)
+            return
+        name, kind, val = self.ACTIONS[legacy]
         if kind == "btn":
             self._lr_bridge.press(val, 0 if not run else self.ACTION_FRAMES,
                                   player=player_port)
@@ -562,17 +573,18 @@ class FFASelfPlayEnv(PowerStoneEnvLibretro):
             return np.zeros(self.OBS_DIM, dtype=np.float32)
         self._update_view_counters(v, s)
         saved = (self.AGENT_PLAYER, self._active_opp, self.last_action,
-                 self._my_g_int, self._form_timer)
+                 self._my_g_int, self._form_timer, self._last_n)
         try:
             type(self).AGENT_PLAYER = v.player + 1
             self._active_opp = self._view_opponents(v.player)
             self.last_action = v.last_action
+            self._last_n = v.n_act
             self._my_g_int = v.g_int
             self._form_timer = v.form_timer
             prev = v.prev if v.prev is not None else s
             obs = self._observe(s, prev)
         finally:
             (type(self).AGENT_PLAYER, self._active_opp, self.last_action,
-             self._my_g_int, self._form_timer) = saved
+             self._my_g_int, self._form_timer, self._last_n) = saved
         v.prev = s
         return obs
