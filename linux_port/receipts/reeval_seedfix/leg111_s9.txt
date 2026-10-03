@@ -1,0 +1,118 @@
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+Set variable override: flycast_hle_bios = enabled
+Set variable override: reicast_hle_bios = enabled
+Set variable override: flycast_device_port1_slot1 = VMU
+Set variable override: flycast_device_port2_slot1 = VMU
+Set variable override: flycast_threaded_rendering = disabled
+Set variable override: reicast_threaded_rendering = disabled
+[env] bridge alive (frame 8, line=v7 obs_dim=160 actions=10)
+[ep] slot90 opps=3     win len=1155  dmg +6.32/-0.98  stones: picked=7 lost=2 opp=11(-10) forms=2/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=30(5) stonev=311 dmgF=3.12
+[ep] slot91 opps=3     win len= 540  dmg +6.04/-0.34  stones: picked=13 lost=2 opp=13(-9) forms=4/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=20(5) stonev=304 dmgF=5.24
+[ep] slot92 opps=3    loss len= 836  dmg +3.47/-1.00  stones: picked=9 lost=4 opp=14(-8) forms=2/2  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=18(2) stonev=293 dmgF=0.79
+[ep] slot93 opps=3    loss len= 628  dmg +3.09/-1.10  stones: picked=5 lost=6 opp=12(-7) forms=0/2  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=17(4) stonev=317 dmgF=0.00
+[ep] slot94 opps=3    loss len= 581  dmg +4.38/-1.00  stones: picked=8 lost=3 opp=11(-10) forms=2/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=18(3) stonev=241 dmgF=3.27
+[ep] slot90 opps=3    loss len= 598  dmg +5.79/-1.00  stones: picked=7 lost=2 opp=15(-12) forms=2/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=15(2) stonev=261 dmgF=3.60
+[ep] slot91 opps=3     win len=1006  dmg +6.00/-0.98  stones: picked=12 lost=4 opp=21(-18) forms=3/3  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=37(3) stonev=481 dmgF=3.23
+[ep] slot92 opps=3    loss len= 404  dmg +1.94/-1.00  stones: picked=4 lost=5 opp=11(-8) forms=0/3  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=14(0) stonev=227 dmgF=0.00
+[ep] slot93 opps=3    loss len= 669  dmg +5.35/-1.00  stones: picked=7 lost=5 opp=9(-6) forms=1/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=19(2) stonev=189 dmgF=2.04
+[ep] slot94 opps=3     win len= 585  dmg +6.00/-0.30  stones: picked=9 lost=1 opp=8(-3) forms=3/2  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=22(6) stonev=278 dmgF=5.07
+[ep] slot90 opps=3    loss len=1051  dmg +5.73/-1.00  stones: picked=11 lost=6 opp=5(-5) forms=2/0  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=26(1) stonev=216 dmgF=3.74
+[ep] slot91 opps=3    loss len= 876  dmg +5.51/-1.00  stones: picked=13 lost=5 opp=16(-12) forms=3/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=24(1) stonev=487 dmgF=3.70
+[ep] slot92 opps=3     win len= 545  dmg +6.00/-0.59  stones: picked=10 lost=2 opp=9(-8) forms=3/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=15(2) stonev=233 dmgF=4.41
+[ep] slot93 opps=3    loss len= 595  dmg +2.14/-1.00  stones: picked=2 lost=3 opp=9(-4) forms=0/1  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=20(1) stonev=237 dmgF=0.00
+[ep] slot94 opps=3    loss len= 602  dmg +5.83/-1.00  stones: picked=10 lost=2 opp=12(-6) forms=3/2  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=16(3) stonev=276 dmgF=4.19
+[ep] slot90 opps=3    loss len= 973  dmg +5.72/-1.00  stones: picked=12 lost=7 opp=13(-10) forms=2/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=30(1) stonev=257 dmgF=2.78
+[ep] slot91 opps=3    loss len= 451  dmg +2.20/-1.00  stones: picked=5 lost=3 opp=9(-9) forms=1/1  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=12(2) stonev=142 dmgF=0.11
+[ep] slot92 opps=3    loss len= 508  dmg +4.16/-1.00  stones: picked=7 lost=5 opp=12(-8) forms=1/2  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=19(4) stonev=205 dmgF=2.04
+[ep] slot93 opps=3    loss len= 754  dmg +5.08/-1.00  stones: picked=8 lost=6 opp=16(-11) forms=1/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=24(2) stonev=268 dmgF=1.54
+[ep] slot94 opps=3     win len= 581  dmg +6.00/-0.41  stones: picked=8 lost=3 opp=11(-9) forms=2/0  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=19(1) stonev=291 dmgF=3.81
+[ep] slot90 opps=3    loss len= 349  dmg +3.48/-1.00  stones: picked=5 lost=3 opp=6(-4) forms=1/1  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=8(0) stonev=101 dmgF=2.14
+[ep] slot91 opps=3     win len= 616  dmg +6.00/-0.86  stones: picked=9 lost=4 opp=9(-11) forms=2/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=23(3) stonev=302 dmgF=4.14
+[ep] slot92 opps=3    loss len= 547  dmg +3.54/-1.00  stones: picked=10 lost=8 opp=10(-9) forms=1/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=18(1) stonev=373 dmgF=2.18
+[ep] slot93 opps=3     win len= 730  dmg +6.00/-0.86  stones: picked=9 lost=1 opp=10(-5) forms=3/2  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=24(2) stonev=446 dmgF=4.43
+[ep] slot94 opps=3    loss len= 913  dmg +5.32/-1.08  stones: picked=8 lost=3 opp=19(-11) forms=2/4  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=29(4) stonev=406 dmgF=1.84
+[ep] slot90 opps=3    loss len=1052  dmg +5.73/-1.00  stones: picked=11 lost=6 opp=5(-5) forms=2/0  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=26(1) stonev=216 dmgF=3.74
+[ep] slot91 opps=3     win len=1007  dmg +6.00/-0.98  stones: picked=12 lost=4 opp=21(-18) forms=3/3  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=37(3) stonev=481 dmgF=3.23
+[ep] slot92 opps=3     win len= 871  dmg +6.00/-0.98  stones: picked=13 lost=5 opp=16(-13) forms=3/3  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=24(1) stonev=328 dmgF=3.91
+[ep] slot93 opps=3    loss len= 502  dmg +1.60/-1.00  stones: picked=4 lost=5 opp=9(-6) forms=0/1  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=15(0) stonev=227 dmgF=0.00
+[ep] slot94 opps=3    loss len= 418  dmg +2.03/-1.00  stones: picked=1 lost=2 opp=10(-9) forms=0/1  gem_rew=+3.00 shape=+0.00 appr=+0.00  chests=7(2) stonev=151 dmgF=0.00
+[ep] slot90 opps=3    loss len= 358  dmg +2.41/-1.00  stones: picked=1 lost=1 opp=6(-6) forms=0/2  gem_rew=+3.00 shape=+0.00 appr=+0.00  chests=10(0) stonev=133 dmgF=0.00
+[ep] slot91 opps=3    loss len= 630  dmg +3.72/-1.00  stones: picked=4 lost=2 opp=17(-5) forms=1/5  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=21(2) stonev=321 dmgF=1.31
+[ep] slot92 opps=3    loss len= 553  dmg +3.61/-1.00  stones: picked=6 lost=4 opp=10(-7) forms=1/2  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=14(0) stonev=236 dmgF=1.34
+[ep] slot93 opps=3    loss len= 559  dmg +3.61/-1.00  stones: picked=7 lost=5 opp=9(-6) forms=1/3  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=17(2) stonev=239 dmgF=1.27
+[ep] slot94 opps=3    loss len= 893  dmg +5.60/-1.00  stones: picked=5 lost=3 opp=21(-9) forms=1/4  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=26(1) stonev=290 dmgF=1.86
+[ep] slot90 opps=3    loss len= 792  dmg +4.73/-1.00  stones: picked=6 lost=1 opp=17(-12) forms=2/2  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=29(2) stonev=296 dmgF=3.08
+[ep] slot91 opps=3    loss len= 668  dmg +4.69/-1.00  stones: picked=6 lost=1 opp=14(-8) forms=2/2  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=25(4) stonev=371 dmgF=3.36
+[ep] slot92 opps=3     win len= 741  dmg +6.00/-0.61  stones: picked=6 lost=1 opp=12(-9) forms=2/1  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=24(0) stonev=285 dmgF=2.71
+[ep] slot93 opps=3     win len=1011  dmg +6.66/-0.64  stones: picked=11 lost=0 opp=13(-9) forms=4/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=26(4) stonev=352 dmgF=3.45
+[ep] slot94 opps=3     win len= 468  dmg +6.00/-0.21  stones: picked=9 lost=1 opp=6(-4) forms=3/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=13(1) stonev=235 dmgF=4.66
+[ep] slot90 opps=3    loss len= 501  dmg +5.50/-1.00  stones: picked=8 lost=4 opp=10(-9) forms=2/0  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=7(2) stonev=213 dmgF=3.51
+[ep] slot91 opps=3    loss len= 431  dmg +1.60/-1.00  stones: picked=2 lost=3 opp=9(-7) forms=0/2  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=13(1) stonev=194 dmgF=0.00
+[ep] slot92 opps=3     win len= 391  dmg +6.00/-0.38  stones: picked=6 lost=1 opp=3(-5) forms=2/0  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=6(0) stonev=158 dmgF=5.10
+[ep] slot93 opps=3     win len= 878  dmg +6.33/-0.86  stones: picked=8 lost=0 opp=11(-6) forms=3/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=28(3) stonev=344 dmgF=4.66
+[ep] slot94 opps=3    loss len= 658  dmg +5.46/-1.00  stones: picked=9 lost=2 opp=16(-16) forms=2/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=18(0) stonev=305 dmgF=3.39
+[ep] slot90 opps=3    loss len= 287  dmg +1.15/-1.00  stones: picked=2 lost=3 opp=6(-6) forms=0/1  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=10(1) stonev=160 dmgF=0.00
+[ep] slot91 opps=3    loss len= 467  dmg +1.62/-1.00  stones: picked=1 lost=2 opp=6(-4) forms=0/1  gem_rew=+3.00 shape=+0.00 appr=+0.00  chests=9(0) stonev=177 dmgF=0.00
+[ep] slot92 opps=3    loss len= 608  dmg +5.57/-1.00  stones: picked=8 lost=3 opp=8(-7) forms=2/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=19(4) stonev=219 dmgF=4.11
+[ep] slot93 opps=3    loss len= 842  dmg +4.77/-1.00  stones: picked=6 lost=1 opp=10(-8) forms=2/1  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=27(0) stonev=225 dmgF=2.73
+[ep] slot94 opps=3     win len= 537  dmg +6.00/-0.57  stones: picked=8 lost=0 opp=8(-4) forms=3/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=15(1) stonev=231 dmgF=5.18
+[ep] slot90 opps=3     win len= 812  dmg +6.19/-0.96  stones: picked=11 lost=3 opp=15(-12) forms=3/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=24(2) stonev=396 dmgF=3.61
+[ep] slot91 opps=3     win len= 809  dmg +6.00/-0.77  stones: picked=10 lost=2 opp=19(-14) forms=3/4  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=24(2) stonev=353 dmgF=3.51
+[ep] slot92 opps=3    loss len= 542  dmg +4.46/-1.00  stones: picked=6 lost=4 opp=9(-7) forms=1/1  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=16(1) stonev=206 dmgF=2.16
+[ep] slot93 opps=3    loss len= 643  dmg +5.44/-1.00  stones: picked=12 lost=7 opp=14(-11) forms=2/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=19(3) stonev=394 dmgF=4.36
+[ep] slot94 opps=3     win len= 535  dmg +6.00/-0.89  stones: picked=8 lost=3 opp=10(-4) forms=2/2  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=23(3) stonev=220 dmgF=3.21
+[ep] slot90 opps=3    loss len= 949  dmg +5.38/-1.00  stones: picked=6 lost=4 opp=12(-7) forms=1/1  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=19(1) stonev=178 dmgF=1.67
+[ep] slot91 opps=3    loss len= 510  dmg +2.19/-1.00  stones: picked=4 lost=5 opp=10(-6) forms=0/2  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=17(2) stonev=231 dmgF=0.00
+[ep] slot92 opps=3    loss len= 608  dmg +5.88/-1.00  stones: picked=7 lost=1 opp=8(-6) forms=2/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=13(2) stonev=148 dmgF=4.50
+[ep] slot93 opps=3     win len= 915  dmg +6.09/-0.83  stones: picked=12 lost=4 opp=15(-11) forms=3/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=22(2) stonev=373 dmgF=4.83
+[ep] slot94 opps=3     win len= 575  dmg +6.00/-0.41  stones: picked=8 lost=3 opp=11(-9) forms=2/0  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=19(1) stonev=291 dmgF=3.81
+[ep] slot90 opps=3    loss len= 656  dmg +5.65/-1.00  stones: picked=10 lost=2 opp=10(-6) forms=3/2  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=23(4) stonev=351 dmgF=4.65
+[ep] slot91 opps=3    loss len= 637  dmg +5.63/-1.00  stones: picked=7 lost=2 opp=16(-12) forms=2/3  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=24(3) stonev=339 dmgF=4.27
+[ep] slot92 opps=3    loss len= 544  dmg +4.46/-1.00  stones: picked=6 lost=4 opp=9(-7) forms=1/1  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=16(1) stonev=206 dmgF=2.16
+[ep] slot93 opps=3    loss len=1069  dmg +5.58/-1.00  stones: picked=6 lost=2 opp=14(-12) forms=1/2  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=35(2) stonev=320 dmgF=2.10
+[ep] slot94 opps=3    loss len= 646  dmg +5.67/-1.00  stones: picked=11 lost=5 opp=13(-9) forms=2/2  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=20(1) stonev=442 dmgF=2.98
+[ep] slot90 opps=3    loss len= 344  dmg +1.05/-1.00  stones: picked=1 lost=2 opp=10(-5) forms=0/2  gem_rew=+3.00 shape=+0.00 appr=+0.00  chests=11(0) stonev=102 dmgF=0.00
+[ep] slot91 opps=3    loss len= 593  dmg +3.92/-1.00  stones: picked=9 lost=4 opp=11(-9) forms=2/2  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=20(1) stonev=228 dmgF=1.66
+[ep] slot92 opps=3    loss len= 735  dmg +5.63/-1.00  stones: picked=14 lost=9 opp=11(-7) forms=2/2  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=19(0) stonev=341 dmgF=2.73
+[ep] slot93 opps=3     win len= 689  dmg +6.00/-0.45  stones: picked=8 lost=0 opp=10(-8) forms=3/0  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=22(1) stonev=239 dmgF=3.83
+[ep] slot94 opps=3     win len= 550  dmg +6.00/-0.42  stones: picked=10 lost=2 opp=9(-9) forms=3/0  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=14(0) stonev=313 dmgF=4.24
+[ep] slot90 opps=3    loss len= 879  dmg +5.38/-1.00  stones: picked=12 lost=4 opp=6(-4) forms=3/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=20(2) stonev=291 dmgF=3.47
+[ep] slot91 opps=3    loss len= 695  dmg +3.13/-1.00  stones: picked=7 lost=5 opp=19(-17) forms=1/2  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=22(1) stonev=267 dmgF=1.15
+[ep] slot92 opps=3    loss len= 643  dmg +4.88/-1.00  stones: picked=5 lost=3 opp=15(-11) forms=1/3  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=22(1) stonev=243 dmgF=1.20
+[ep] slot93 opps=3    loss len= 827  dmg +4.04/-1.00  stones: picked=6 lost=4 opp=8(-6) forms=1/2  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=21(1) stonev=162 dmgF=1.85
+[ep] slot94 opps=3     win len= 527  dmg +6.00/-0.58  stones: picked=11 lost=3 opp=8(-6) forms=3/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=14(2) stonev=271 dmgF=4.43
+[ep] slot90 opps=3    loss len= 584  dmg +4.96/-1.00  stones: picked=8 lost=3 opp=9(-9) forms=2/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=15(1) stonev=236 dmgF=3.30
+[ep] slot91 opps=3    loss len= 713  dmg +4.10/-1.00  stones: picked=5 lost=3 opp=10(-7) forms=1/2  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=22(1) stonev=138 dmgF=2.77
+[ep] slot92 opps=3     win len= 804  dmg +6.00/-0.98  stones: picked=10 lost=2 opp=13(-15) forms=3/3  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=24(1) stonev=383 dmgF=4.07
+[ep] slot93 opps=3    loss len= 472  dmg +3.73/-1.00  stones: picked=5 lost=3 opp=10(-10) forms=1/1  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=18(2) stonev=160 dmgF=1.86
+[ep] slot94 opps=3     win len= 627  dmg +6.16/-0.15  stones: picked=8 lost=0 opp=13(-10) forms=3/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=22(2) stonev=252 dmgF=4.30
+[ep] slot90 opps=3     win len= 744  dmg +6.11/-0.57  stones: picked=12 lost=1 opp=11(-6) forms=4/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=27(1) stonev=362 dmgF=4.44
+[ep] slot91 opps=3    loss len= 480  dmg +3.59/-1.00  stones: picked=4 lost=2 opp=9(-6) forms=1/1  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=12(1) stonev=254 dmgF=1.73
+[ep] slot92 opps=3    loss len= 532  dmg +2.86/-1.00  stones: picked=2 lost=3 opp=7(-3) forms=0/2  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=17(0) stonev=88 dmgF=0.00
+[ep] slot93 opps=3    loss len= 604  dmg +2.68/-1.00  stones: picked=5 lost=5 opp=9(-7) forms=0/1  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=21(2) stonev=200 dmgF=0.00
+[ep] slot94 opps=3    loss len= 533  dmg +5.70/-1.00  stones: picked=9 lost=5 opp=8(-6) forms=2/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=16(1) stonev=257 dmgF=3.35
+[ep] slot90 opps=3    loss len= 368  dmg +1.35/-1.00  stones: picked=1 lost=2 opp=9(-7) forms=0/1  gem_rew=+3.00 shape=+0.00 appr=+0.00  chests=9(2) stonev=217 dmgF=0.00
+[ep] slot91 opps=3    loss len= 870  dmg +5.51/-1.00  stones: picked=13 lost=5 opp=16(-12) forms=3/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=24(1) stonev=487 dmgF=3.70
+[ep] slot92 opps=3    loss len= 621  dmg +5.80/-1.00  stones: picked=8 lost=3 opp=8(-5) forms=2/2  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=20(1) stonev=353 dmgF=4.03
+[ep] slot93 opps=3    loss len= 737  dmg +3.71/-1.00  stones: picked=9 lost=7 opp=11(-8) forms=1/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=19(2) stonev=230 dmgF=1.11
+[ep] slot94 opps=3     win len= 567  dmg +6.00/-0.58  stones: picked=9 lost=2 opp=10(-5) forms=2/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=17(2) stonev=301 dmgF=5.37
+[ep] slot90 opps=3    loss len= 612  dmg +5.40/-1.00  stones: picked=8 lost=6 opp=10(-10) forms=1/2  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=15(2) stonev=257 dmgF=2.68
+[ep] slot91 opps=3     win len= 763  dmg +6.00/-0.91  stones: picked=8 lost=2 opp=18(-15) forms=2/3  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=24(3) stonev=402 dmgF=3.71
+[ep] slot92 opps=3     win len= 478  dmg +6.11/-0.25  stones: picked=8 lost=0 opp=4(-4) forms=3/0  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=14(1) stonev=196 dmgF=5.21
+[ep] slot93 opps=3    loss len= 768  dmg +3.72/-1.00  stones: picked=7 lost=5 opp=14(-13) forms=1/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=22(3) stonev=350 dmgF=1.85
+[ep] slot94 opps=3    loss len= 264  dmg +1.59/-1.00  stones: picked=3 lost=4 opp=7(-6) forms=0/1  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=7(0) stonev=124 dmgF=0.00
+[ep] slot90 opps=3     win len= 389  dmg +6.00/-0.30  stones: picked=9 lost=1 opp=5(-3) forms=3/0  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=15(3) stonev=223 dmgF=5.62
+[ep] slot91 opps=3    loss len= 642  dmg +3.72/-1.00  stones: picked=6 lost=4 opp=14(-5) forms=1/4  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=18(0) stonev=278 dmgF=1.69
+[ep] slot92 opps=3    loss len=1042  dmg +5.08/-1.00  stones: picked=9 lost=2 opp=18(-15) forms=2/4  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=32(2) stonev=427 dmgF=2.04
+[ep] slot93 opps=3     win len= 879  dmg +6.33/-0.86  stones: picked=8 lost=0 opp=11(-6) forms=3/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=28(3) stonev=344 dmgF=4.66
+[ep] slot94 opps=3     win len= 762  dmg +6.00/-0.96  stones: picked=12 lost=4 opp=6(-4) forms=3/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=18(1) stonev=390 dmgF=3.85
+
+================ EVAL SUMMARY ================
+model=powerstone_v6_leg111_league.zip  slot=90  n=100  mode=deterministic  distinct-outcome-tuples~83  slots=90,91,92,93,94
+win% :  33.0   (33W/67L/0T)   95% Wilson [25-43]
+picks:  7.61 /ep
+forms:  1.78 /ep
+per-slot: slot90=4W/20  slot91=6W/20  slot92=6W/20  slot93=6W/20  slot94=11W/20
