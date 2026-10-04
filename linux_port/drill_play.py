@@ -10,7 +10,9 @@ during a decision window is latched and used at the next decision, the direction
 Controls (keyboard): arrows = move (two at once = diagonal)  Z = jump(A)  X = action(B)  C = attack(X)
                      V = discard(Y)  A = L (Power Fusion 1)  S = R (Power Fusion 2)
                      P = pause   N = skip this drill (not saved)   ESC / close = quit (progress is kept)
-Gamepad: first pygame joystick; hat/left stick = move, buttons as in play_vs.py (--pad-map to remap).
+Gamepad: first pygame joystick; hat / d-pad buttons / left stick = move. Xbox-style pads are detected (A jump,
+B action, X attack, Y discard, LB/LT = L, RB/RT = R); others use play_vs.py's defaults, --pad-map to remap
+(names: jump grab attack throw L R up down left right).
 
   python drill_play.py --drills drills/leg116 --core "$CORE" --game "../Power Stone 2 (USA).chd"
 Writes drills/<tag>/rec_<drill>.npz (obs [T, D], actions [T] in 0..62, rewards, result) and appends to
@@ -86,6 +88,9 @@ def main():
 
     if args.hidden and os.uname().sysname == "Linux":
         os.environ["SDL_VIDEODRIVER"] = "dummy"
+    # Oct 4 2026: keep reading the controller even when the game window is not focused (macOS drops joystick
+    # events for background windows otherwise).
+    os.environ.setdefault("SDL_JOYSTICK_ALLOW_BACKGROUND_EVENTS", "1")
     with keep_native_fault_handlers():
         pygame.init()
     pygame.joystick.init()
@@ -93,8 +98,18 @@ def main():
     if pad:
         pad.init()
     padmap = dict(PAD_DEFAULT)
+    # Oct 4 2026 (Blake's Xbox Series X on the M4): SDL reports these pads with the d-pad as BUTTONS 11-14
+    # (up, down, left, right), bumpers 9/10 and analog triggers on axes 4/5. Face buttons line up with the
+    # Dreamcast's positions: A = jump, B = action, X = attack, Y = discard.
+    xbox_like = bool(pad) and any(k in pad.get_name().lower() for k in ("xbox", "xinput"))
+    if xbox_like:
+        padmap.update(jump=0, grab=1, attack=2, throw=3, L=9, R=10, up=11, down=12, left=13, right=14)
     for kv in filter(None, args.pad_map.split(",")):
         k, v = kv.split("="); padmap[k.strip()] = int(v)
+    if pad:
+        print(f"[drill] controller: {pad.get_name()} ({pad.get_numbuttons()} buttons, {pad.get_numhats()} hats, "
+              f"{pad.get_numaxes()} axes) map={padmap}" + (" + triggers on axes 4/5" if xbox_like else ""), flush=True)
+    DPAD = {"up": R_UP, "down": R_DOWN, "left": R_LEFT, "right": R_RIGHT}
     screen = pygame.display.set_mode((w * args.scale, h * args.scale), pygame.HIDDEN if args.hidden else 0)
     clock = pygame.time.Clock()
     buf = np.zeros((h, w, 3), np.uint8)
@@ -115,8 +130,14 @@ def main():
                 ax, ay = pad.get_axis(0), pad.get_axis(1)
                 m[R_RIGHT] |= ax > 0.5; m[R_LEFT] |= ax < -0.5; m[R_DOWN] |= ay > 0.5; m[R_UP] |= ay < -0.5
             for nm, bid in padmap.items():
-                if nm in PAD_TO_RETRO and bid < pad.get_numbuttons() and pad.get_button(bid):
+                if bid >= pad.get_numbuttons() or not pad.get_button(bid):
+                    continue
+                if nm in PAD_TO_RETRO:
                     m[PAD_TO_RETRO[nm]] = 1
+                elif nm in DPAD:                          # d-pad reported as buttons
+                    m[DPAD[nm]] = 1
+            if xbox_like and pad.get_numaxes() >= 6:      # analog triggers: LT -> L, RT -> R
+                m[R_L] |= pad.get_axis(4) > 0.5; m[R_R] |= pad.get_axis(5) > 0.5
         return m
 
     def pump():
