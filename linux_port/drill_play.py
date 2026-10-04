@@ -184,7 +184,16 @@ def main():
         pygame.display.set_caption(f"DRILL {i + 1}/{len(todo)}  {dm['drill']}  slot{dm['slot']}  "
                                    f"KO was {dm['seconds_before_ko']}s away  — you are P2 (the bot)  N=skip ESC=quit")
         br.run_frames = orig_run
-        o = np.asarray(env.reset(), np.float32)[:d]
+        # Oct 4 2026: env.reset() waits for a "match ready" state, which requires the bot above 100/1000 health.
+        # Many drills are the bot's last seconds at LOW health (exactly the moments worth correcting), so the
+        # reset reloaded them forever (drill_004 froze the Mac). While loading a drill: alive is enough.
+        _ai = env.AGENT_PLAYER - 1
+        env._match_ready = lambda s, provisional=False: s["h"][_ai] > 0 and any(
+            h > 0 for j, h in enumerate(s["h"]) if j != _ai)
+        try:
+            o = np.asarray(env.reset(), np.float32)[:d]
+        finally:
+            del env._match_ready                          # back to the class's check for the round itself
         fs = FrameStack(K, d); obs = fs.reset(o)
         br.run_frames = run_frames_paced
         rec_obs, rec_act, rec_rew = [], [], []
