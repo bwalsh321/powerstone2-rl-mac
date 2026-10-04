@@ -63,6 +63,7 @@ def main():
     ap.add_argument("--pad-map", default="")
     ap.add_argument("--hidden", action="store_true", help="no window (smoke tests)")
     ap.add_argument("--script", default="", help="smoke test: fixed joint action instead of the keyboard")
+    ap.add_argument("--hold", action="store_true", help="old button semantics (held until the next decision); default = taps")
     args = ap.parse_args()
 
     from obs_stack import FrameStack
@@ -81,6 +82,8 @@ def main():
                                 state_slots=[todo[0]["slot"]], instance_id=args.instance,
                                 bridge_dir=os.path.abspath(f"./bridge_drill_{args.instance}"))
     env.set_action_mode(JOINT_N)
+    env.BUTTON_TAP = not args.hold        # Oct 4 2026: buttons are taps, so double jumps and rocket volleys work
+    print(f"[drill] buttons: {'held until the next decision (old)' if args.hold else 'taps (double jump / repeated attacks work)'}", flush=True)
     env.MAX_STEPS = 10 ** 9
     K, d = 7, env.OBS_DIM                             # the current bot's input: strided 7-frame stack
     br, emu = env._lr_bridge, env._lr_bridge.emu
@@ -220,8 +223,9 @@ def main():
             br.run_frames = orig_run
         np.savez_compressed(os.path.join(args.drills, f"rec_{dm['drill']}.npz"), obs=np.asarray(rec_obs, np.float32),
                             actions=np.asarray(rec_act, np.int64), rewards=np.asarray(rec_rew, np.float32),
-                            result=result)
+                            result=result, button_tap=np.bool_(env.BUTTON_TAP))
         rec = dict(drill=dm["drill"], steps=len(rec_act), result=result, seconds=round(time.time() - t0, 1),
+                   button_tap=bool(env.BUTTON_TAP),
                    combos=int(sum(1 for x in rec_act if x not in (7, 14, 21, 28, 1, 2, 3, 4, 5, 6))),
                    top=action_name(max(set(rec_act), key=rec_act.count)) if rec_act else "")
         out.write(json.dumps(rec) + "\n"); out.flush()

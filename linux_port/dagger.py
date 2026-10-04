@@ -22,11 +22,17 @@ import torch as th
 
 
 class DemoSet:
-    def __init__(self, dirs, obs_dim, n_actions):
-        self.seqs, self.skipped = [], 0
+    def __init__(self, dirs, obs_dim, n_actions, button_tap=False):
+        # Oct 4 2026: recordings carry the button semantics they were made under (drill_play.py: taps by default;
+        # recordings without the field predate taps = held). Only recordings matching the trainer's semantics load.
+        self.seqs, self.skipped, self.other_semantics = [], 0, 0
         for d in [x for x in dirs.split(",") if x.strip()]:
             for f in sorted(glob.glob(os.path.join(d.strip(), "rec_*.npz"))):
                 z = np.load(f)
+                tap = bool(z["button_tap"]) if "button_tap" in z.files else False
+                if tap != bool(button_tap):
+                    self.other_semantics += 1
+                    continue
                 o, a = z["obs"].astype(np.float32), z["actions"].astype(np.int64)
                 if o.ndim != 2 or o.shape[1] != obs_dim or len(a) != len(o) or len(a) < 2 or a.max() >= n_actions:
                     self.skipped += 1
@@ -78,9 +84,11 @@ def from_env(model):
     dirs = os.environ.get("PS2_DEMOS", "").strip()
     if not dirs:
         return None
-    demos = DemoSet(dirs, int(model.observation_space.shape[0]), int(model.action_space.n))
+    tap = os.environ.get("PS2_BUTTON_TAP", "0") == "1"
+    demos = DemoSet(dirs, int(model.observation_space.shape[0]), int(model.action_space.n), button_tap=tap)
     cfg = dict(coef=float(os.environ.get("PS2_BC_COEF", "0.5")), steps=int(os.environ.get("PS2_BC_STEPS", "1")),
                seqs=int(os.environ.get("PS2_BC_SEQS", "16")))
     print(f"[config] dagger demos={dirs} sequences={len(demos)} decisions={demos.n_steps} skipped={demos.skipped} "
-          f"bc_coef={cfg['coef']} bc_steps={cfg['steps']} bc_seqs={cfg['seqs']}", flush=True)
+          f"bc_coef={cfg['coef']} bc_steps={cfg['steps']} bc_seqs={cfg['seqs']} button_tap={int(tap)} "
+          f"(other-semantics recordings ignored: {demos.other_semantics})", flush=True)
     return (demos, cfg) if len(demos) else None

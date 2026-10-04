@@ -607,6 +607,8 @@ class PowerStoneEnvV6(gym.Env):
         os.makedirs(self._bridge_dir, exist_ok=True)
         self.action_space = spaces.Discrete(len(self.ACTIONS))
         self.N_ACT = len(self.ACTIONS)        # Oct 3: 10 legacy or 63 joint (action_space.py); see set_action_mode
+        self.BUTTON_TAP = os.environ.get("PS2_BUTTON_TAP", "0") == "1"   # Oct 4: buttons as taps (see step)
+        self.TAP_RELEASE = int(os.environ.get("PS2_TAP_RELEASE", "1"))
         self._last_n = None                   # action-set size of whoever's last_action the obs encodes (None = N_ACT)
         if os.environ.get("PS2_ACTIONS", "legacy") == "joint63":
             self.set_action_mode(63)
@@ -1001,7 +1003,24 @@ class PowerStoneEnvV6(gym.Env):
         action = int(action)
         legacy = action if self.N_ACT == len(self.ACTIONS) else JOINT_TO_LEGACY.get(action)
         start = self._read_state()
-        if legacy is None:
+        # Oct 4 2026 (Blake: "couldn't double jump", "only 1 rocket"): the harness HOLDS a mask until the next
+        # decision, so the same button on consecutive decisions is ONE long press (no release edge): no double jump,
+        # one rocket. BUTTON_TAP presses the button part for ACTION_FRAMES-TAP_RELEASE frames and releases it (direction
+        # kept) for TAP_RELEASE frames, so repeats are real re-presses. Emulator check: tap,release,tap = 421 height
+        # (double jump) vs held = 334 (single); jump height is identical for a 6-frame tap and a 30-frame hold.
+        from action_space import execution as _exec, DC_A, DC_B, DC_X, DC_Y
+        tapped = False
+        if self.BUTTON_TAP:
+            dm, ax, fr = _exec(action, self.N_ACT, self.ACTION_FRAMES)
+            btn_bits = dm & (DC_A | DC_B | DC_X | DC_Y)
+            if btn_bits or ax:
+                dir_bits = dm & ~btn_bits
+                self._send(f"combo {dm} {ax or 0} {self.ACTION_FRAMES - self.TAP_RELEASE}")
+                self._send(f"combo {dir_bits} 0 {self.TAP_RELEASE}")
+                tapped = True
+        if tapped:
+            kind = "combo"
+        elif legacy is None:
             # Oct 3 2026: a joint combo (diagonal / move+button / noop): every part in one mask.
             dmask, axis, frames = execution(action, self.N_ACT, self.ACTION_FRAMES)
             self._send(f"combo {dmask} {axis or 0} {frames}")
