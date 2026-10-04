@@ -95,3 +95,6 @@ sdlarch-rl/sdlarch_rl/roms/
 
 # Host-local launch permission (Oct 1 2026): "train" only on the training machine; never commit
 linux_port/host_role.txt
+
+# DAgger drills (Oct 3 2026): emulator snapshots (~8 MB each) + recordings; game-derived, keep out of git
+linux_port/drills/
