@@ -294,6 +294,9 @@ def main():
     if os.environ.get("PS2_TARGET_KL"):
         model.target_kl = float(os.environ["PS2_TARGET_KL"])
         print(f"[config] target_kl override -> {model.target_kl}", flush=True)
+    import dagger
+    DAGGER = dagger.from_env(model)                 # Oct 3 2026: None unless PS2_DEMOS is set
+    _bc_rng = np.random.default_rng()
     T = model.n_steps
     buf = model.rollout_buffer
     assert buf.buffer_size == T and buf.n_envs == N_ENVS, (buf.buffer_size, buf.n_envs)
@@ -391,6 +394,11 @@ def main():
         model._update_current_progress_remaining(model.num_timesteps, total_steps)
         t_train = time.time()
         model.train()
+        if DAGGER is not None:                      # Oct 3 2026: imitation term on Blake's drill recordings
+            from dagger import bc_step
+            for _ in range(DAGGER[1]["steps"]):
+                bc_loss, bc_acc = bc_step(model, DAGGER[0], DAGGER[1]["coef"], DAGGER[1]["seqs"], _bc_rng)
+            print(f"[bc] update {n_updates + 1} nll={bc_loss:.4f} agree={100 * bc_acc:.1f}%", flush=True)
         train_s = time.time() - t_train
         n_updates += 1
         version += 1
