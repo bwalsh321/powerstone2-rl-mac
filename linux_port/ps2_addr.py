@@ -70,6 +70,11 @@ OBJ_GRID_ANCHOR = 0x8C500030             # confirmed grid base (mod 0x430)
 OBJ_GRID_STRIDE = 0x430
 OBJ_GRID_LO = OBJ_GRID_ANCHOR - 16 * OBJ_GRID_STRIDE     # 0x8C4FBD30
 OBJ_GRID_N = 110                         # ..0x8C5189C0, margin both ends
+# Oct 5 2026 (obs v4 RE, re/items_ground/GROUND.md finding 6): the arena runs idx 0..207 (idx 208 = arena manager);
+# 110 misses ~6.5% of chest and ~8.6% of stone sightings. PS2_OBJ_GRID_N=208 is a per-leg contract (leg_modes row),
+# so legs trained with 110 are still graded with 110.
+import os as _os
+OBJ_GRID_N = int(_os.environ.get("PS2_OBJ_GRID_N", OBJ_GRID_N))
 OBJ_HDR_OFF = 0x04           # low byte == 0x09 marks a live slot
 OBJ_VT_OFF = 0x08            # vtable word, live range [0x0C000000,0x0C200000)
 OBJ_POS = (0x2C, 0x30, 0x34)             # x, y, z floats

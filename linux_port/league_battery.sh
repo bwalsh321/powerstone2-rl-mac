@@ -59,6 +59,9 @@ if awk -v n="$N" '$1==n' leg_modes.txt 2>/dev/null | grep -q "PS2_BUTTON_TAP=1";
   export PS2_BUTTON_TAP=1
   echo "battery leg $N: buttons-as-taps eval contract (PS2_BUTTON_TAP=1)"
 fi
+# Oct 5 2026: the object-grid width a leg trained with (PS2_OBJ_GRID_N=208 in its row) is its eval contract too.
+GRID_N="$(awk -v n="$N" '$1==n' leg_modes.txt 2>/dev/null | grep -o "PS2_OBJ_GRID_N=[0-9]*" | head -1)"
+if [ -n "$GRID_N" ]; then export "$GRID_N"; echo "battery leg $N: object-grid eval contract ($GRID_N)"; fi
 GAME="../Power Stone 2 (USA).chd"
 M=./powerstone_v6_leg${N}_league.zip
 LEG1=./powerstone_v6_ppo.zip
