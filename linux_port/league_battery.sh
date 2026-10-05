@@ -53,6 +53,12 @@ if awk -v n="$N" '$1==n' leg_modes.txt 2>/dev/null | grep -q "PS2_OBS_V3=1"; the
   export PS2_OBS_V3=1
   echo "battery leg $N: obs v3 eval contract (PS2_OBS_V3=1)"
 fi
+# Oct 5 2026: a leg trained with buttons-as-taps (PS2_BUTTON_TAP=1 in its leg_modes row) is evaluated with taps;
+# the eval env reads PS2_BUTTON_TAP at construction. Legs without it keep the held-button contract.
+if awk -v n="$N" '$1==n' leg_modes.txt 2>/dev/null | grep -q "PS2_BUTTON_TAP=1"; then
+  export PS2_BUTTON_TAP=1
+  echo "battery leg $N: buttons-as-taps eval contract (PS2_BUTTON_TAP=1)"
+fi
 GAME="../Power Stone 2 (USA).chd"
 M=./powerstone_v6_leg${N}_league.zip
 LEG1=./powerstone_v6_ppo.zip

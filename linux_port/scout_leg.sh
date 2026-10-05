@@ -16,6 +16,8 @@ export OMP_NUM_THREADS=1 MKL_NUM_THREADS=1
 N=$1; M=./powerstone_v6_leg${N}_league.zip
 # Sep 24 2026 (obs v3; must come AFTER N is set): tmux does not pass the battery's environment; read the leg's own contract.
 if awk -v n="$N" '$1==n' leg_modes.txt 2>/dev/null | grep -q "PS2_OBS_V3=1"; then export PS2_OBS_V3=1; fi
+# Oct 5 2026: a leg trained with buttons-as-taps is recorded and scouted with taps
+if awk -v n="$N" '$1==n' leg_modes.txt 2>/dev/null | grep -q "PS2_BUTTON_TAP=1"; then export PS2_BUTTON_TAP=1; fi
 if [ "$(uname)" = "Darwin" ]; then CORE="$HOME/Library/Application Support/RetroArch/cores/flycast_libretro.dylib"; else CORE="${PS2_CORE:-$HOME/cores/flycast_libretro.so}"; fi; GAME="../Power Stone 2 (USA).chd"
 mkdir -p videos claude_bridge
 echo "scout leg $N start $(date)"
