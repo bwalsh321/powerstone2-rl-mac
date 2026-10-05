@@ -1,0 +1,26 @@
+f=60 captured id=0xc3 vt=0xc0f1688
+f=60 captured id=0xc3 vt=0xc0f1688
+f=60 captured id=0xc3 vt=0xc0f1688
+f=60 captured id=0xc3 vt=0xc0f1688
+f=60 captured id=0xc3 vt=0xc0f1688
+f=60 captured id=0xc8 vt=0xc0f18d4
+f=426 forced chest 0x8c50bca0 content -> 0x4f
+f=480 captured id=0xc2 vt=0xc0cc7a8
+f=480 captured id=0xc1 vt=0xc0cbcb0
+f=486 forced chest 0x8c50cd60 content -> 0x58
+f=546 forced chest 0x8c50b440 content -> 0x59
+f=606 forced chest 0x8c50d190 content -> 0x5a
+f=666 forced chest 0x8c50b010 content -> 0x5b
+f=726 forced chest 0x8c50d9f0 content -> 0x5c
+f=1080 captured id=0x4f vt=0xc0c9810
+f=1740 captured id=0x58 vt=0xc0ca5d8
+f=1766 forced chest 0x8c515360 content -> 0x5d
+f=1862 forced chest 0x8c515bc0 content -> 0x5e
+f=15498 forced chest 0x8c50b010 content -> 0x5f
+f=15558 forced chest 0x8c50c930 content -> 0x60
+f=15618 forced chest 0x8c50bca0 content -> 0x61
+f=15678 forced chest 0x8c50e250 content -> 0x62
+f=15738 forced chest 0x8c50f310 content -> 0x63
+f=15798 forced chest 0x8c50de20 content -> 0x64
+captured: {'0xc0c9810/0x4f': 1, '0xc0ca5d8/0x58': 1, '0xc0cbcb0/0xc1': 1, '0xc0cc7a8/0xc2': 1, '0xc0f1688/0xc3': 5, '0xc0f18d4/0xc8': 1}
+libc++abi: terminating due to uncaught exception of type std::__1::system_error: mutex lock failed: Invalid argument

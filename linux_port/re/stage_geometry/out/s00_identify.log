@@ -1,0 +1,36 @@
+Set variable override: flycast_hle_bios = enabled
+Set variable override: reicast_hle_bios = enabled
+Set variable override: flycast_device_port1_slot1 = VMU
+Set variable override: flycast_device_port2_slot1 = VMU
+Set variable override: flycast_threaded_rendering = disabled
+Set variable override: reicast_threaded_rendering = disabled
+2026-10-04 20:34:03.463 Python[45177:5234719] ApplePersistenceIgnoreState: Existing state will not be touched. New state will be written to /var/folders/gz/b_ggdqsj0s9_8mxs_fyvdkym0000gn/T/org.python.python.savedState
+pygame 2.6.1 (SDL 2.28.4, Python 3.11.16)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+slot1
+  P1 mat=[263.8, 149.5, 888.7] log=[250.0, 0.0, 900.0] st=0
+  P2 mat=[-413.8, 149.5, -888.7] log=[-400.0, 0.0, -900.0] st=0
+  P3 mat=[0.0, 0.0, 0.0] log=[-200.0, 190.0, 200.0] st=0
+  P4 mat=[0.0, 0.0, 0.0] log=[200.0, 190.0, -200.0] st=0
+slot2
+  P1 mat=[250.3, 129.1, 885.3] log=[250.0, 0.0, 900.0] st=0
+  P2 mat=[-136.3, 141.3, 892.2] log=[-150.0, 0.0, 900.0] st=0
+  P3 mat=[-400.0, 96.0, -890.9] log=[-400.0, 0.0, -900.0] st=0
+  P4 mat=[-14.1, 142.4, -900.5] log=[-13.8, 0.0, -900.0] st=19
+slot3
+  P1 mat=[261.0, 147.9, 880.5] log=[250.0, 0.0, 900.0] st=0
+  P2 mat=[-133.4, 141.0, 896.2] log=[-150.0, 0.0, 900.0] st=0
+  P3 mat=[-375.4, 107.6, -885.8] log=[-400.0, 0.0, -900.0] st=0
+  P4 mat=[-10.3, 156.9, -905.4] log=[-13.8, 0.0, -900.0] st=0
+menu_stage
+  P1 mat=[0.0, 0.0, 0.0] log=[0.0, 0.0, 0.0] st=0
+  P2 mat=[0.0, 0.0, 0.0] log=[0.0, 0.0, 0.0] st=0
+  P3 mat=[0.0, 0.0, 0.0] log=[0.0, 0.0, 0.0] st=0
+  P4 mat=[0.0, 0.0, 0.0] log=[0.0, 0.0, 0.0] st=0
+menu_match
+  P1 mat=[263.8, 149.5, 888.7] log=[250.0, 0.0, 900.0] st=0
+  P2 mat=[-413.8, 149.5, -888.7] log=[-400.0, 0.0, -900.0] st=0
+  P3 mat=[0.0, 0.0, 0.0] log=[-200.0, 190.0, 200.0] st=0
+  P4 mat=[0.0, 0.0, 0.0] log=[200.0, 190.0, -200.0] st=0
+DONE
+libc++abi: terminating due to uncaught exception of type std::__1::system_error: mutex lock failed: Invalid argument

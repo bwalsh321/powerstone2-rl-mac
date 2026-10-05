@@ -1,0 +1,34 @@
+Set variable override: flycast_hle_bios = enabled
+Set variable override: reicast_hle_bios = enabled
+Set variable override: flycast_device_port1_slot1 = VMU
+Set variable override: flycast_device_port2_slot1 = VMU
+Set variable override: flycast_threaded_rendering = disabled
+Set variable override: reicast_threaded_rendering = disabled
+2026-10-04 20:46:05.889 Python[50014:5261875] ApplePersistenceIgnoreState: Existing state will not be touched. New state will be written to /var/folders/gz/b_ggdqsj0s9_8mxs_fyvdkym0000gn/T/org.python.python.savedState
+at (    0,    0) up        v/frame=( -5.09, -5.09) speed= 7.20 angle(atan2 z,x)= -135.0
+at (    0,    0) down      v/frame=(  5.07,  5.07) speed= 7.17 angle(atan2 z,x)=   45.0
+at (    0,    0) left      v/frame=( -5.09,  5.09) speed= 7.20 angle(atan2 z,x)=  135.0
+at (    0,    0) right     v/frame=(  5.07, -5.07) speed= 7.17 angle(atan2 z,x)=  -45.0
+at (    0,    0) up+right  v/frame=( -0.04, -7.17) speed= 7.17 angle(atan2 z,x)=  -90.3
+at (  800,  800) up        v/frame=( -5.09, -5.09) speed= 7.20 angle(atan2 z,x)= -135.0
+at (  800,  800) down      v/frame=(  5.07,  5.07) speed= 7.17 angle(atan2 z,x)=   45.0
+at (  800,  800) left      v/frame=( -5.09,  5.09) speed= 7.20 angle(atan2 z,x)=  135.0
+at (  800,  800) right     v/frame=(  5.07, -5.07) speed= 7.17 angle(atan2 z,x)=  -45.0
+at (  800,  800) up+right  v/frame=( -0.04, -7.17) speed= 7.17 angle(atan2 z,x)=  -90.3
+at ( -800, -800) up        v/frame=( -3.67, -3.67) speed= 5.19 angle(atan2 z,x)= -135.0
+at ( -800, -800) down      v/frame=(  5.07,  5.07) speed= 7.17 angle(atan2 z,x)=   45.0
+at ( -800, -800) left      v/frame=( -5.09,  5.09) speed= 7.20 angle(atan2 z,x)=  135.0
+at ( -800, -800) right     v/frame=(  5.07, -5.07) speed= 7.17 angle(atan2 z,x)=  -45.0
+at ( -800, -800) up+right  v/frame=( -0.04, -7.17) speed= 7.17 angle(atan2 z,x)=  -90.3
+at (  800, -800) up        v/frame=( -5.09, -5.09) speed= 7.20 angle(atan2 z,x)= -135.0
+at (  800, -800) down      v/frame=(  5.07,  5.07) speed= 7.17 angle(atan2 z,x)=   45.0
+at (  800, -800) left      v/frame=( -5.09,  5.09) speed= 7.20 angle(atan2 z,x)=  135.0
+at (  800, -800) right     v/frame=(  4.89, -5.19) speed= 7.13 angle(atan2 z,x)=  -46.7
+at (  800, -800) up+right  v/frame=( -0.04, -7.17) speed= 7.17 angle(atan2 z,x)=  -90.3
+at ( -500,  500) up        v/frame=( -5.09, -5.09) speed= 7.20 angle(atan2 z,x)= -135.0
+at ( -500,  500) down      v/frame=(  5.07,  5.07) speed= 7.17 angle(atan2 z,x)=   45.0
+at ( -500,  500) left      v/frame=( -5.09,  5.09) speed= 7.20 angle(atan2 z,x)=  135.0
+at ( -500,  500) right     v/frame=(  5.07, -5.07) speed= 7.17 angle(atan2 z,x)=  -45.0
+at ( -500,  500) up+right  v/frame=( -0.04, -7.17) speed= 7.17 angle(atan2 z,x)=  -90.3
+DONE
+libc++abi: terminating due to uncaught exception of type std::__1::system_error: mutex lock failed: Invalid argument

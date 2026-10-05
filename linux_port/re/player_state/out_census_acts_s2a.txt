@@ -1,0 +1,115 @@
+0000 n= 2939 item%=  0 partner%=  0 air%=  0 states={0: 600, 1: 2327, 16: 5, 32: 4, 26: 3} seats={1: 1617, 2: 1124, 3: 96, 4: 102}
+0004 n=  793 item%=  0 partner%= 12 air%=  0 states={1: 790, 32: 2, 26: 1} seats={1: 161, 2: 448, 3: 68, 4: 116}
+0005 n= 1383 item%=  0 partner%= 58 air%=  0 states={1: 1382, 32: 1} seats={3: 413, 4: 970}
+0006 n=  421 item%=  0 partner%=  6 air%=  0 states={2: 421} seats={1: 144, 2: 240, 3: 5, 4: 32}
+0007 n=   32 item%=  0 partner%=  0 air%=  0 states={4: 32} seats={1: 4, 2: 20, 4: 8}
+0008 n=  607 item%=  0 partner%= 17 air%= 95 states={5: 555, 30: 52} seats={1: 126, 2: 146, 3: 108, 4: 227}
+0009 n=   33 item%=  0 partner%=  0 air%= 93 states={5: 33} seats={2: 33}
+000a n=   40 item%=  0 partner%=  0 air%=  0 states={6: 40} seats={1: 12, 2: 24, 4: 4}
+000b n=  585 item%=  0 partner%= 18 air%= 95 states={5: 584, 32: 1} seats={1: 147, 2: 172, 3: 108, 4: 158}
+0014 n=    3 item%=  0 partner%=  0 air%=100 states={5: 3} seats={1: 3}
+0015 n=   55 item%=  0 partner%=  0 air%= 98 states={5: 55} seats={1: 55}
+0100 n=  683 item%=  0 partner%=  4 air%=  0 states={7: 556, 32: 127} seats={1: 26, 2: 627, 4: 30}
+0101 n=   52 item%=  0 partner%= 51 air%=  0 states={7: 52} seats={2: 25, 3: 27}
+0102 n=   28 item%=  0 partner%=  0 air%=  0 states={7: 28} seats={2: 28}
+0106 n=  930 item%=  0 partner%=  0 air%=  0 states={7: 926, 32: 4} seats={2: 930}
+0108 n=  106 item%=  0 partner%=  0 air%=  0 states={7: 106} seats={2: 106}
+0109 n=   67 item%=  0 partner%=100 air%=  0 states={7: 67} seats={4: 67}
+010a n=   36 item%=  0 partner%=  0 air%= 97 states={7: 36} seats={4: 36}
+010e n=  284 item%=  0 partner%=  0 air%=  0 states={26: 284} seats={1: 284}
+0115 n=   93 item%=  0 partner%=  0 air%= 96 states={7: 93} seats={2: 93}
+011b n=   33 item%=  0 partner%=  0 air%= 96 states={7: 33} seats={1: 33}
+0202 n=  144 item%= 31 partner%= 50 air%=  0 states={8: 108, 12: 36} seats={1: 36, 3: 36, 4: 72}
+0203 n=   90 item%=  0 partner%=  0 air%= 77 states={7: 90} seats={2: 90}
+0204 n=   55 item%=  0 partner%=  0 air%= 89 states={7: 55} seats={2: 55}
+0207 n=   90 item%=  0 partner%=  0 air%=  0 states={7: 90} seats={2: 90}
+020a n=   17 item%=  0 partner%=  0 air%= 23 states={7: 17} seats={4: 17}
+020d n=   33 item%=  0 partner%=  0 air%=  0 states={7: 33} seats={4: 33}
+020e n=   65 item%=  0 partner%=  0 air%=  0 states={7: 65} seats={2: 20, 4: 45}
+0210 n=  132 item%= 81 partner%=  0 air%=  0 states={10: 108, 7: 24} seats={1: 72, 2: 42, 3: 18}
+0211 n=   19 item%= 94 partner%= 10 air%=  0 states={0: 19} seats={1: 10, 2: 1, 3: 6, 4: 2}
+0213 n=    1 item%=100 partner%=  0 air%=  0 states={4: 1} seats={1: 1}
+0214 n=  351 item%= 99 partner%=  0 air%= 96 states={5: 351} seats={1: 187, 2: 26, 3: 138}
+0215 n=    4 item%=  0 partner%=100 air%=  0 states={6: 4} seats={4: 4}
+0216 n=   33 item%= 39 partner%=  0 air%= 96 states={8: 33} seats={1: 33}
+0217 n=   19 item%=100 partner%=100 air%=  0 states={10: 19} seats={4: 19}
+0218 n=  192 item%= 95 partner%=  8 air%=  0 states={1: 192} seats={1: 106, 2: 8, 3: 62, 4: 16}
+0219 n= 8199 item%= 97 partner%= 60 air%=  0 states={1: 8024, 32: 175} seats={1: 1924, 2: 287, 3: 3497, 4: 2491}
+021a n=  239 item%= 99 partner%=  0 air%=  0 states={2: 239} seats={1: 136, 3: 102, 4: 1}
+0300 n=   42 item%=100 partner%=  2 air%=  0 states={0: 42} seats={1: 1, 2: 40, 4: 1}
+0301 n=  125 item%=100 partner%= 20 air%=  0 states={10: 125} seats={1: 25, 2: 75, 4: 25}
+0303 n=   27 item%=100 partner%=  0 air%=  0 states={8: 27} seats={2: 27}
+0308 n=   66 item%=100 partner%= 24 air%=  0 states={1: 66} seats={1: 8, 2: 42, 4: 16}
+030a n=   42 item%=100 partner%=  2 air%=  0 states={2: 42} seats={2: 41, 4: 1}
+030c n=   36 item%= 27 partner%=  0 air%=  0 states={8: 36} seats={1: 36}
+0311 n=   14 item%=100 partner%=  0 air%=  0 states={1: 14} seats={4: 14}
+0312 n=    3 item%=100 partner%=  0 air%=  0 states={1: 3} seats={4: 3}
+0316 n=   50 item%=100 partner%= 50 air%=  0 states={10: 50} seats={1: 25, 3: 25}
+0317 n=    3 item%=100 partner%= 66 air%=  0 states={0: 3} seats={1: 1, 3: 2}
+0320 n=   16 item%=100 partner%= 50 air%=  0 states={1: 16} seats={1: 8, 3: 8}
+0323 n=   60 item%=100 partner%= 33 air%=  0 states={10: 60} seats={2: 40, 3: 20}
+0324 n=    4 item%=100 partner%= 50 air%=  0 states={0: 4} seats={2: 2, 3: 2}
+0327 n=   29 item%= 96 partner%=  0 air%= 96 states={5: 29} seats={2: 29}
+0329 n=   36 item%=100 partner%=100 air%=  0 states={8: 36} seats={3: 36}
+032b n=   48 item%=100 partner%= 50 air%=  0 states={1: 48} seats={2: 24, 3: 24}
+032d n=   19 item%=100 partner%=  5 air%=  0 states={2: 19} seats={2: 18, 3: 1}
+032e n=   26 item%=100 partner%=  0 air%=  0 states={10: 26} seats={1: 26}
+032f n=    2 item%=100 partner%=  0 air%=  0 states={0: 2} seats={1: 2}
+0334 n=   24 item%=100 partner%=  0 air%=  0 states={1: 24} seats={1: 24}
+0336 n=   31 item%=100 partner%=  0 air%=  0 states={2: 31} seats={1: 31}
+0349 n=   72 item%=100 partner%= 33 air%=  0 states={10: 72} seats={2: 24, 3: 48}
+034a n=   12 item%=100 partner%= 66 air%=  0 states={0: 12} seats={2: 1, 3: 11}
+034c n=    4 item%=100 partner%=  0 air%=  0 states={4: 4} seats={3: 4}
+034d n=   70 item%=100 partner%=  0 air%= 95 states={5: 70} seats={3: 70}
+034f n=  226 item%=100 partner%= 77 air%=  0 states={8: 226} seats={3: 226}
+0350 n=  152 item%=100 partner%= 75 air%=  0 states={8: 152} seats={3: 152}
+0353 n=   83 item%= 98 partner%= 77 air%=  0 states={1: 83} seats={2: 8, 3: 75}
+0355 n=  100 item%=100 partner%=100 air%=  0 states={2: 100} seats={3: 100}
+039b n=    2 item%=100 partner%=  0 air%=  0 states={0: 2} seats={2: 1, 4: 1}
+039c n=  138 item%=100 partner%=  0 air%=  0 states={1: 138} seats={2: 6, 4: 132}
+039e n=    8 item%=100 partner%=  0 air%=  0 states={4: 8} seats={4: 8}
+039f n=  315 item%=100 partner%=  0 air%= 95 states={5: 303, 7: 12} seats={2: 21, 4: 294}
+03a0 n=   37 item%=100 partner%=  0 air%=  0 states={6: 19, 7: 18} seats={2: 18, 4: 19}
+03a1 n=    4 item%=100 partner%=  0 air%=  0 states={2: 4} seats={4: 4}
+03a2 n=  198 item%= 36 partner%=  0 air%=  0 states={1: 72, 32: 126} seats={2: 8, 4: 190}
+03a3 n=   14 item%=100 partner%= 64 air%=  0 states={0: 14} seats={2: 5, 4: 9}
+03a4 n=   50 item%=100 partner%= 50 air%=  0 states={10: 50} seats={2: 25, 4: 25}
+03a7 n=  104 item%=100 partner%=100 air%= 96 states={5: 104} seats={4: 104}
+03a9 n=  114 item%=100 partner%= 68 air%=  0 states={1: 114} seats={2: 36, 4: 78}
+03ab n=   98 item%=100 partner%= 77 air%=  0 states={2: 98} seats={2: 22, 4: 76}
+03ac n=  252 item%=100 partner%= 44 air%=  0 states={8: 252} seats={2: 140, 4: 112}
+03b2 n=   54 item%=100 partner%=  0 air%=  0 states={7: 54} seats={2: 54}
+0400 n=   10 item%=  0 partner%= 60 air%=  0 states={32: 10} seats={2: 4, 4: 6}
+0401 n=   26 item%=  0 partner%=100 air%=  0 states={32: 26} seats={4: 26}
+0402 n=   11 item%=  0 partner%=100 air%=  0 states={32: 11} seats={4: 11}
+041b n=   10 item%=  0 partner%=  0 air%=  0 states={32: 10} seats={1: 9, 2: 1}
+041c n=   17 item%=  0 partner%=  0 air%=  0 states={32: 17} seats={1: 12, 2: 5}
+041d n=   31 item%=  0 partner%=  0 air%=  0 states={32: 31} seats={1: 20, 2: 11}
+0421 n=    6 item%=  0 partner%=  0 air%=  0 states={32: 6} seats={2: 6}
+0427 n=   71 item%=  0 partner%= 42 air%=100 states={32: 71} seats={1: 14, 2: 27, 3: 30}
+0428 n=   33 item%=  0 partner%= 42 air%=100 states={32: 33} seats={2: 19, 3: 14}
+0429 n=   76 item%=  0 partner%= 52 air%= 94 states={32: 76} seats={2: 36, 3: 40}
+042a n=  174 item%=  0 partner%=100 air%=  0 states={32: 174} seats={3: 174}
+042d n=  294 item%=  0 partner%=  0 air%= 99 states={32: 294} seats={1: 8, 2: 235, 4: 51}
+042e n=   26 item%=  0 partner%=  0 air%= 84 states={32: 26} seats={4: 26}
+042f n=   16 item%=  0 partner%=  0 air%=  0 states={32: 16} seats={1: 4, 4: 12}
+0430 n=   58 item%=  0 partner%=  0 air%= 98 states={32: 58} seats={1: 56, 4: 2}
+0431 n=   23 item%=  0 partner%=  0 air%=100 states={32: 23} seats={4: 23}
+0432 n=   23 item%=  0 partner%=  0 air%=100 states={32: 23} seats={4: 23}
+0433 n=   53 item%=  0 partner%=  0 air%= 92 states={32: 53} seats={4: 53}
+0434 n=   96 item%=  0 partner%=  0 air%= 22 states={32: 96} seats={1: 26, 4: 70}
+0435 n=  137 item%=  0 partner%= 14 air%=  0 states={14: 66, 32: 71} seats={1: 106, 3: 20, 4: 11}
+0436 n=   31 item%=  0 partner%=  0 air%=  0 states={14: 31} seats={1: 9, 4: 22}
+0437 n=   11 item%=  0 partner%=  0 air%=  0 states={15: 11} seats={1: 11}
+0439 n=  120 item%=  0 partner%= 20 air%=  0 states={15: 120} seats={1: 36, 2: 24, 3: 24, 4: 36}
+043a n=  107 item%=  0 partner%= 29 air%= 95 states={32: 107} seats={1: 75, 3: 32}
+043b n=  120 item%=  0 partner%= 33 air%=  0 states={32: 120} seats={1: 80, 3: 40}
+043c n=  220 item%=  0 partner%=  0 air%= 99 states={16: 220} seats={2: 220}
+043d n=  147 item%=  0 partner%= 10 air%=  0 states={15: 147} seats={1: 69, 2: 44, 3: 16, 4: 18}
+043e n=   52 item%=  0 partner%=  0 air%=  0 states={15: 52} seats={1: 26, 2: 26}
+0452 n=   76 item%=  0 partner%=  0 air%=  0 states={32: 75, 16: 1} seats={1: 76}
+0521 n=   96 item%=  0 partner%=100 air%= 57 states={34: 57, 32: 39} seats={3: 96}
+052b n=   46 item%=  0 partner%=100 air%= 97 states={11: 26, 5: 20} seats={4: 46}
+052c n=   26 item%=  0 partner%=100 air%=100 states={34: 26} seats={3: 26}
+0601 n=    2 item%=  0 partner%=  0 air%=  0 states={19: 2} seats={4: 2}
+0607 n=   59 item%=  0 partner%=  0 air%=  0 states={25: 59} seats={1: 59}

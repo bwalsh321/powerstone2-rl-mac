@@ -1,0 +1,12 @@
+s2a P+134&0x400==0     agrees with (y>2): 0.998  P(flag|y>2)=1.000 P(flag|y<=2)=0.002
+s2a P+404==0           agrees with (y>2): 0.988  P(flag|y>2)=0.927 P(flag|y<=2)=0.002
+s2a P+5C(accel y)!=0   agrees with (y>2): 0.966  P(flag|y>2)=0.997 P(flag|y<=2)=0.039
+s2a ground-y spread: y<=2 frames y min/max -7.7996826 1.6915131
+s3a P+134&0x400==0     agrees with (y>2): 0.989  P(flag|y>2)=1.000 P(flag|y<=2)=0.016
+s3a P+404==0           agrees with (y>2): 0.970  P(flag|y>2)=0.929 P(flag|y<=2)=0.013
+s3a P+5C(accel y)!=0   agrees with (y>2): 0.938  P(flag|y>2)=0.923 P(flag|y<=2)=0.056
+s3a ground-y spread: y<=2 frames y min/max -8.9995575 1.6803818
+s2b P+134&0x400==0     agrees with (y>2): 0.989  P(flag|y>2)=1.000 P(flag|y<=2)=0.015
+s2b P+404==0           agrees with (y>2): 0.967  P(flag|y>2)=0.901 P(flag|y<=2)=0.013
+s2b P+5C(accel y)!=0   agrees with (y>2): 0.926  P(flag|y>2)=0.954 P(flag|y<=2)=0.082
+s2b ground-y spread: y<=2 frames y min/max -0.00048065186 1.6803665

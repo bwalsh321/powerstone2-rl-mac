@@ -1,0 +1,13 @@
+Set variable override: flycast_hle_bios = enabled
+Set variable override: reicast_hle_bios = enabled
+Set variable override: flycast_device_port1_slot1 = VMU
+Set variable override: flycast_device_port2_slot1 = VMU
+Set variable override: flycast_threaded_rendering = disabled
+Set variable override: reicast_threaded_rendering = disabled
+2026-10-04 20:47:44.138 Python[50830:5266256] ApplePersistenceIgnoreState: Existing state will not be touched. New state will be written to /var/folders/gz/b_ggdqsj0s9_8mxs_fyvdkym0000gn/T/org.python.python.savedState
+pygame 2.6.1 (SDL 2.28.4, Python 3.11.16)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+slot1: counter toggles (start/stop) at frames [174]  final=1093
+slot2: counter toggles (start/stop) at frames [367]  final=533
+slot3: counter toggles (start/stop) at frames [295]  final=605
+DONE

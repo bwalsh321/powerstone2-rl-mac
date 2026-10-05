@@ -1,0 +1,5 @@
+2026-10-04 21:12:52.838 Python[59950:5314915] ApplePersistenceIgnoreState: Existing state will not be touched. New state will be written to /var/folders/gz/b_ggdqsj0s9_8mxs_fyvdkym0000gn/T/org.python.python.savedState
+1000 [(57, 'Ice Rod', 'ranged', 'ranged_long', False, 5, 1.0), None, None, None]
+2100 [(6, 'Power Sword', 'melee', 'melee_short', False, 397, 0.6616666666666666), None, (29, 'Toy Hammer', 'melee', 'melee_short', False, 509, 0.8483333333333334), None]
+4800 [None, None, (12, 'Machine Gun', 'ranged', 'ranged_long', False, 25, 1.0), None]
+9000 [None, None, (4, 'Hammer', 'melee', 'melee_short', False, 351, 0.585), None]

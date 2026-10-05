@@ -1,0 +1,35 @@
+Set variable override: flycast_hle_bios = enabled
+Set variable override: reicast_hle_bios = enabled
+Set variable override: flycast_device_port1_slot1 = VMU
+Set variable override: flycast_device_port2_slot1 = VMU
+Set variable override: flycast_threaded_rendering = disabled
+Set variable override: reicast_threaded_rendering = disabled
+2026-10-04 20:45:04.145 Python[49488:5259473] ApplePersistenceIgnoreState: Existing state will not be touched. New state will be written to /var/folders/gz/b_ggdqsj0s9_8mxs_fyvdkym0000gn/T/org.python.python.savedState
+== slot1
+  # 24 8C5021B0 hdr=0000FF09 vt=0C0F1688 pos=(  -500.0,  100.0,  1000.0)
+  # 25 8C5025E0 hdr=0001FF09 vt=0C0F1688 pos=(   100.0,  100.0,  -900.0)
+  # 26 8C502A10 hdr=0002FF09 vt=0C0F1688 pos=(   300.0,  100.0, -1100.0)
+  # 27 8C502E40 hdr=0003FF09 vt=0C0F1688 pos=(  -850.0,  100.0,  1000.0)
+  # 28 8C503270 hdr=0004FF09 vt=0C0F1688 pos=(  -650.0,  100.0,  1050.0)
+  # 29 8C5036A0 hdr=0005FF09 vt=0C0F1688 pos=( -1000.0,  100.0,  -100.0)
+  # 30 8C503AD0 hdr=0006FF09 vt=0C0F1688 pos=(  -900.0,  100.0,   100.0)
+  # 31 8C503F00 hdr=0007FF09 vt=0C0F1688 pos=( -1100.0,  100.0,   300.0)
+  # 32 8C504330 hdr=0000FF09 vt=0C0F18D4 pos=( -1000.0,    0.0, -1000.0)
+  # 33 8C504760 hdr=0101FF09 vt=0C0F18D4 pos=(   950.0,    0.0,  -850.0)
+  # 34 8C504B90 hdr=0202FF09 vt=0C0F18D4 pos=(   100.0,    0.0,  1000.0)
+  # 35 8C504FC0 hdr=0303FF09 vt=0C0F18D4 pos=( -1050.0,    0.0,   800.0)
+== slot3
+  # 26 8C502A10 hdr=0000FF09 vt=0C0F1688 pos=(  -500.0,  100.0,  1000.0)
+  # 27 8C502E40 hdr=0001FF09 vt=0C0F1688 pos=(   113.8,  100.0,  -900.0)
+  # 28 8C503270 hdr=0002FF09 vt=0C0F1688 pos=(   300.0,  100.0, -1100.0)
+  # 29 8C5036A0 hdr=0003FF09 vt=0C0F1688 pos=(  -850.0,  100.0,  1000.0)
+  # 30 8C503AD0 hdr=0004FF09 vt=0C0F1688 pos=(  -650.0,  100.0,  1050.0)
+  # 31 8C503F00 hdr=0005FF09 vt=0C0F1688 pos=( -1000.0,  100.0,  -100.0)
+  # 32 8C504330 hdr=0006FF09 vt=0C0F1688 pos=(  -900.0,  100.0,   100.0)
+  # 33 8C504760 hdr=0007FF09 vt=0C0F1688 pos=( -1100.0,  100.0,   300.0)
+  # 34 8C504B90 hdr=0000FF09 vt=0C0F18D4 pos=( -1000.0,    0.0, -1000.0)
+  # 35 8C504FC0 hdr=0101FF09 vt=0C0F18D4 pos=(   950.0,    0.0,  -850.0)
+  # 36 8C5053F0 hdr=0202FF09 vt=0C0F18D4 pos=(   100.0,    0.0,  1000.0)
+  # 37 8C505820 hdr=0303FF09 vt=0C0F18D4 pos=( -1050.0,    0.0,   800.0)
+DONE
+libc++abi: terminating due to uncaught exception of type std::__1::system_error: mutex lock failed: Invalid argument

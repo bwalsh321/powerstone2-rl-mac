@@ -1,0 +1,39 @@
+slot3: chests seen 58  t=43s
+total chest events with snapshot: 55
+ev0 slot3 birthf=474 idx=64 natural_content=0x1d cond=ctl pred=0x1d opened@231 content_before_open=0x1d spawns=[(258, '0xc0c9810', '0x1d', 0)] -> MATCH
+ev0 slot3 birthf=474 idx=64 natural_content=0x1d cond=0xc1 pred=0xc1 opened@231 content_before_open=0xc1 spawns=[(258, '0xc0cbcb0', '0xc1', 0)] -> MATCH
+ev0 slot3 birthf=474 idx=64 natural_content=0x1d cond=0x2 pred=0x2 opened@231 content_before_open=0x2 spawns=[(258, '0xc0c9810', '0x2', 0)] -> MATCH
+ev0 slot3 birthf=474 idx=64 natural_content=0x1d cond=0x5 pred=0x5 opened@231 content_before_open=0x5 spawns=[(258, '0xc0c9810', '0x5', 0)] -> MATCH
+ev0 slot3 birthf=474 idx=64 natural_content=0x1d cond=0xc pred=0xc opened@231 content_before_open=0xc spawns=[(258, '0xc0c9810', '0xc', 0)] -> MATCH
+ev1 slot3 birthf=534 idx=63 natural_content=0x19 cond=ctl pred=0x19 opened@478 content_before_open=0x19 spawns=[(505, '0xc0c9810', '0x19', 0)] -> MATCH
+ev1 slot3 birthf=534 idx=63 natural_content=0x19 cond=0xc1 pred=0xc1 opened@478 content_before_open=0xc1 spawns=[(505, '0xc0cbcb0', '0xc1', 0), (588, '0xc0cc7a8', '0xc2', 2)] -> MATCH
+ev1 slot3 birthf=534 idx=63 natural_content=0x19 cond=0x2 pred=0x2 opened@478 content_before_open=0x2 spawns=[(505, '0xc0c9810', '0x2', 0)] -> MATCH
+ev1 slot3 birthf=534 idx=63 natural_content=0x19 cond=0x5 pred=0x5 opened@478 content_before_open=0x5 spawns=[(505, '0xc0c9810', '0x5', 0)] -> MATCH
+ev1 slot3 birthf=534 idx=63 natural_content=0x19 cond=0xc pred=0xc opened@478 content_before_open=0xc spawns=[(505, '0xc0c9810', '0xc', 0)] -> MATCH
+ev2 slot3 birthf=594 idx=62 natural_content=0x9 cond=ctl pred=0x9 opened@1531 content_before_open=0x9 spawns=[(1558, '0xc0ca928', '0x9', 0)] -> MATCH
+ev2 slot3 birthf=594 idx=62 natural_content=0x9 cond=0xc1 pred=0xc1 opened@1531 content_before_open=0xc1 spawns=[(1558, '0xc0cbcb0', '0xc1', 0)] -> MATCH
+ev2 slot3 birthf=594 idx=62 natural_content=0x9 cond=0x2 pred=0x2 opened@1531 content_before_open=0x2 spawns=[(1558, '0xc0c9810', '0x2', 0)] -> MATCH
+ev2 slot3 birthf=594 idx=62 natural_content=0x9 cond=0x5 pred=0x5 opened@1531 content_before_open=0x5 spawns=[(1558, '0xc0c9810', '0x5', 0)] -> MATCH
+ev2 slot3 birthf=594 idx=62 natural_content=0x9 cond=0xc pred=0xc opened@1531 content_before_open=0xc spawns=[(1558, '0xc0c9810', '0xc', 0)] -> MATCH
+ev3 slot3 birthf=654 idx=61 natural_content=0x46 cond=ctl pred=0x46 opened@217 content_before_open=0x46 spawns=[(244, '0xc0c9f50', '0x46', 0)] -> MATCH
+ev3 slot3 birthf=654 idx=61 natural_content=0x46 cond=0xc1 pred=0xc1 opened@217 content_before_open=0xc1 spawns=[(244, '0xc0cbcb0', '0xc1', 0)] -> MATCH
+ev3 slot3 birthf=654 idx=61 natural_content=0x46 cond=0x2 pred=0x2 opened@217 content_before_open=0x2 spawns=[(244, '0xc0c9810', '0x2', 0)] -> MATCH
+ev3 slot3 birthf=654 idx=61 natural_content=0x46 cond=0x5 pred=0x5 opened@217 content_before_open=0x5 spawns=[(244, '0xc0c9810', '0x5', 0)] -> MATCH
+ev3 slot3 birthf=654 idx=61 natural_content=0x46 cond=0xc pred=0xc opened@217 content_before_open=0xc spawns=[(244, '0xc0c9810', '0xc', 0)] -> MATCH
+ev4 slot3 birthf=714 idx=66 natural_content=0xe cond=ctl pred=0xe opened@133 content_before_open=0xe spawns=[(160, '0xc0c9810', '0xe', 0)] -> MATCH
+ev4 slot3 birthf=714 idx=66 natural_content=0xe cond=0xc1 pred=0xc1 opened@133 content_before_open=0xc1 spawns=[(160, '0xc0cbcb0', '0xc1', 0)] -> MATCH
+ev4 slot3 birthf=714 idx=66 natural_content=0xe cond=0x2 pred=0x2 opened@133 content_before_open=0x2 spawns=[(160, '0xc0c9810', '0x2', 0)] -> MATCH
+ev4 slot3 birthf=714 idx=66 natural_content=0xe cond=0x5 pred=0x5 opened@133 content_before_open=0x5 spawns=[(160, '0xc0c9810', '0x5', 0)] -> MATCH
+ev4 slot3 birthf=714 idx=66 natural_content=0xe cond=0xc pred=0xc opened@133 content_before_open=0xc spawns=[(160, '0xc0c9810', '0xc', 0)] -> MATCH
+ev5 slot3 birthf=774 idx=68 natural_content=0x10 cond=ctl pred=0x10 opened@3682 content_before_open=0x10 spawns=[(3709, '0xc0ca5d8', '0x10', 0)] -> MATCH
+ev5 slot3 birthf=774 idx=68 natural_content=0x10 cond=0xc1 pred=0xc1 opened@3682 content_before_open=0xc1 spawns=[(3709, '0xc0cbcb0', '0xc1', 0)] -> MATCH
+ev5 slot3 birthf=774 idx=68 natural_content=0x10 cond=0x2 pred=0x2 opened@3682 content_before_open=0x2 spawns=[(3709, '0xc0c9810', '0x2', 0)] -> MATCH
+ev5 slot3 birthf=774 idx=68 natural_content=0x10 cond=0x5 pred=0x5 opened@3682 content_before_open=0x5 spawns=[(3709, '0xc0c9810', '0x5', 0)] -> MATCH
+ev5 slot3 birthf=774 idx=68 natural_content=0x10 cond=0xc pred=0xc opened@3682 content_before_open=0xc spawns=[(3709, '0xc0c9810', '0xc', 0)] -> MATCH
+SUMMARY cond: trials, match, opened
+  ctl: [6, 6, 6]
+  0xc1: [6, 6, 6]
+  0x2: [6, 6, 6]
+  0x5: [6, 6, 6]
+  0xc: [6, 6, 6]
+time 155s

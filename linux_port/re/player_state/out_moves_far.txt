@@ -1,0 +1,30 @@
+== far_x
+P1 RLE: 0:s0/a0(y0,hp1000) 1:s7/a100(y0,hp1000) 29:s0/a0(y0,hp1000)
+== far_b
+P1 RLE: 0:s0/a0(y0,hp1000) 1:s7/a106(y0,hp1000) 49:s0/a0(y0,hp1000)
+== far_y
+P1 RLE: 0:s0/a0(y0,hp1000) 1:s7/a106(y0,hp1000) 49:s0/a0(y0,hp1000)
+== far_a
+./run.sh: line 7: 45627 Segmentation fault: 11  python -u "$@" > "$log" 2>&1
+retry 1
+P1 RLE: 0:s0/a0(y0,hp1000) 1:s4/a7(y0,hp1000) 3:s5/a8(y0,hp1000) 52:s6/aa(y0,hp1000) 56:s0/a0(y0,hp1000)
+== far_ab
+P1 RLE: 0:s0/a0(y0,hp1000) 1:s7/a106(y0,hp1000) 49:s0/a0(y0,hp1000)
+== far_xa
+./run.sh: line 7: 45664 Segmentation fault: 11  python -u "$@" > "$log" 2>&1
+retry 1
+./run.sh: line 7: 45667 Segmentation fault: 11  python -u "$@" > "$log" 2>&1
+retry 2
+P1 RLE: 0:s0/a0(y0,hp1000) 1:s7/a100(y0,hp1000) 29:s0/a0(y0,hp1000)
+== far_xb
+P1 RLE: 0:s0/a0(y0,hp1000) 1:s7/a106(y0,hp1000) 49:s0/a0(y0,hp1000)
+== air_x
+P1 RLE: 0:s0/a0(y0,hp1000) 1:s4/a7(y0,hp1000) 3:s5/a8(y0,hp1000) 11:s7/a115(y162,hp1000) 46:s5/a9(y134,hp1000) 53:s6/aa(y0,hp1000) 57:s0/a0(y0,hp1000)
+== air_b
+P1 RLE: 0:s0/a0(y0,hp1000) 1:s4/a7(y0,hp1000) 3:s5/a8(y0,hp1000) 11:s7/a203(y162,hp1000) 25:s7/a204(y187,hp1000) 34:s7/a207(y0,hp1000) 52:s0/a0(y0,hp1000)
+== run_x
+P1 RLE: 0:s0/a0(y0,hp1000) 1:s1/a4(y0,hp1000) 9:s1/a0(y0,hp1000) 21:s7/a100(y0,hp1000) 49:s0/a0(y0,hp1000)
+== run_b
+P1 RLE: 0:s0/a0(y0,hp1000) 1:s1/a4(y0,hp1000) 9:s1/a0(y0,hp1000) 21:s7/a106(y0,hp1000) 69:s0/a0(y0,hp1000)
+== run_a
+P1 RLE: 0:s0/a0(y0,hp1000) 1:s1/a4(y0,hp1000) 9:s1/a0(y0,hp1000) 21:s5/ab(y0,hp1000) 70:s6/aa(y0,hp1000) 74:s0/a0(y0,hp1000)

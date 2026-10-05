@@ -1,0 +1,48 @@
+Set variable override: flycast_hle_bios = enabled
+Set variable override: reicast_hle_bios = enabled
+Set variable override: flycast_device_port1_slot1 = VMU
+Set variable override: flycast_device_port2_slot1 = VMU
+Set variable override: flycast_threaded_rendering = disabled
+Set variable override: reicast_threaded_rendering = disabled
+2026-10-04 21:23:12.958 Python[63536:5333619] ApplePersistenceIgnoreState: Existing state will not be touched. New state will be written to /var/folders/gz/b_ggdqsj0s9_8mxs_fyvdkym0000gn/T/org.python.python.savedState
+== P1 [-400, 0, -400] P2 [400, 0, 400] mid [0.0, 0.0, 0.0]
+   8C541180:       0.00      -0.39       0.84      -0.39
+   8C541190:      -0.00       0.59       0.54       0.59
+   8C5411A0:       0.00     974.65     784.66     974.65
+   8C5411B0:       1.00       0.00     974.65     784.66
+   8C5411C0:     974.65     974.65     784.66     974.65
+   8C5411D0:     175.52      80.79     457.94       0.00
+   8C5411E0:       0.00       0.00     915.35     730.20
+   8C5411F0:     915.35     915.35     730.20     915.35
+   ...
+   8C00ECD0:       0.00       0.00       0.00      -0.00
+   8C00ECE0:    1885.02    1748.87     936.14     799.99
+   8C00ECF0: 1087152155007123456.00 24651942068224.00 254105360.00 24789316009984.00
+== P1 [-10, 0, 0] P2 [110, 0, 0] mid [50.0, 0.0, 0.0]
+   8C541180:       0.00      -0.35       0.87      -0.35
+   8C541190:      -0.00       0.61       0.50       0.61
+   8C5411A0:       0.00     734.47     622.88     663.38
+   8C5411B0:       1.00       0.00     734.47     622.88
+   8C5411C0:     663.38     734.47     622.88     663.38
+   8C5411D0:     175.52      80.79     457.94       0.00
+   8C5411E0:       0.00       0.00     673.27     572.80
+   8C5411F0:     602.17     673.27     572.80     602.17
+   ...
+   8C00ECD0:       0.00       0.00       0.00      -0.00
+   8C00ECE0:     532.95     407.75     459.51     334.31
+   8C00ECF0: 1087152155007123456.00 24651942068224.00 254105360.00 24789316009984.00
+== P1 [-1000, 0, 500] P2 [900, 0, 600] mid [-50.0, 0.0, 550.0]
+   8C541180:       0.00      -0.38       0.84      -0.38
+   8C541190:      -0.00       0.59       0.54       0.59
+   8C5411A0:       0.00    1182.24     812.86    1441.30
+   8C5411B0:       1.00       0.00    1182.24     812.86
+   8C5411C0:    1441.30    1182.24     812.86    1441.30
+   8C5411D0:     175.52      80.79     457.94       0.00
+   8C5411E0:       0.00       0.00    1122.90     758.48
+   8C5411F0:    1381.96    1122.90     758.48    1381.96
+   ...
+   8C00ECD0:       0.00       0.00       0.00      -0.00
+   8C00ECE0:    2295.88    2159.93    1109.05     973.10
+   8C00ECF0: 1087152155007123456.00 24651942068224.00 254105360.00 24789316009984.00
+DONE
+libc++abi: terminating due to uncaught exception of type std::__1::system_error: mutex lock failed: Invalid argument

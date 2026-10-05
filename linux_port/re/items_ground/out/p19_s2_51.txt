@@ -1,0 +1,8 @@
+f=1800 objs=20 free=19 legacy(stones=3,chests=4,fall=1) c1/2@(650,800) c2/2@(0,600) c2/2@(250,-600) c2/2@(-600,650) c2/2@(950,300) 0d/2@(-496,1029) c1/0@(-944,1028) c1/2@(-896,863)
+f=3600 objs=20 free=18 legacy(stones=1,chests=4,fall=2) c2/2@(950,300) c2/2@(650,800) c2/2@(250,-600) c2/2@(0,600) c1/2@(149,665) c1/2@(-1034,911)
+f=5400 objs=19 free=18 legacy(stones=2,chests=4,fall=0) c2/2@(650,800) c1/2@(413,233) c2/2@(-600,650) c2/2@(-650,180) c2/2@(950,300) c1/2@(-765,-483) c2/2@(0,600)
+f=7200 objs=18 free=16 legacy(stones=0,chests=4,fall=1) c2/2@(950,300) 43/2@(-650,180) c2/2@(250,-600) c2/2@(-600,650) c2/2@(0,600) c2/2@(650,800)
+grid-vs-list checks=266 mismatches=0
+legacy 'fall' (CHEST_FALL_VT) actually counted vt 0x0C0C9810 items by state: {'state0': 19, 'state2': 321, 'held': 212, 'state6': 31}
+chest/stone sightings the legacy OBJ_GRID_N=110 window misses: {'0xc0cbcb0': 34, '0xc0cc7a8': 86}
+scan_ground mean cost 217 us/call over 266 calls

@@ -1,0 +1,9 @@
+moved: 1384  model-blocked: 1503  agree: 0.9913
+moved but model free: 0    model blocked but not moved: 119
+pole (-1000,-1000): final dist from centre min/max 75.0/75.0
+pole (950,-850): final dist from centre min/max 75.0/75.0
+pole (100,1000): final dist from centre min/max 75.0/75.0
+pole (-1050,800): final dist from centre min/max 75.0/75.0
+cluster (-500,1000): displaced probes up to start-radius 128
+cluster (100,-900): displaced probes up to start-radius 113
+cluster (300,-1100): displaced probes up to start-radius 117

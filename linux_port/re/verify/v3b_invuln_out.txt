@@ -1,0 +1,62 @@
+== invulnerability timing (grab-throw, then tele-in punches at every delay)
+ delay  0: live-frame (frame, victim state before, mask before, mask after) = [(9, 14, 0, 0), (10, 15, 0, 0), (11, 15, 0, 0), (12, 15, 0, 0)] dmg_frame=None
+ delay  1: live-frame (frame, victim state before, mask before, mask after) = [(9, 15, 0, 0), (10, 15, 0, 0), (11, 15, 0, 0), (12, 15, 0, 0)] dmg_frame=None
+ delay  2: live-frame (frame, victim state before, mask before, mask after) = [(9, 15, 0, 0), (10, 15, 0, 0), (11, 15, 0, 0), (12, 15, 0, 0)] dmg_frame=None
+ delay  3: live-frame (frame, victim state before, mask before, mask after) = [(9, 15, 0, 0), (10, 15, 0, 0), (11, 15, 0, 0), (12, 15, 0, 0)] dmg_frame=None
+ delay  4: live-frame (frame, victim state before, mask before, mask after) = [(9, 15, 0, 0), (10, 15, 0, 0), (11, 15, 0, 0), (12, 15, 0, 0)] dmg_frame=None
+ delay  5: live-frame (frame, victim state before, mask before, mask after) = [(9, 15, 0, 0), (10, 15, 0, 0), (11, 15, 0, 0), (12, 15, 0, 0)] dmg_frame=None
+ delay  6: live-frame (frame, victim state before, mask before, mask after) = [(9, 15, 0, 0), (10, 15, 0, 0), (11, 15, 0, 0), (12, 15, 0, 0)] dmg_frame=None
+ delay  7: live-frame (frame, victim state before, mask before, mask after) = [(9, 15, 0, 0), (10, 15, 0, 0), (11, 15, 0, 0), (12, 15, 0, 0)] dmg_frame=None
+ delay  8: live-frame (frame, victim state before, mask before, mask after) = [(9, 15, 0, 0), (10, 15, 0, 0), (11, 15, 0, 0), (12, 15, 0, 0)] dmg_frame=None
+ delay  9: live-frame (frame, victim state before, mask before, mask after) = [(9, 15, 0, 0), (10, 15, 0, 0), (11, 15, 0, 0), (12, 15, 0, 0)] dmg_frame=None
+ delay 10: live-frame (frame, victim state before, mask before, mask after) = [(9, 15, 0, 0), (10, 15, 0, 0), (11, 15, 0, 0), (12, 15, 0, 0)] dmg_frame=None
+ delay 11: live-frame (frame, victim state before, mask before, mask after) = [(9, 15, 0, 0), (10, 15, 0, 0), (11, 15, 0, 0), (12, 15, 0, 0)] dmg_frame=None
+ delay 12: live-frame (frame, victim state before, mask before, mask after) = [(9, 15, 0, 0), (10, 15, 0, 0), (11, 15, 0, 0), (12, 15, 0, 0)] dmg_frame=None
+ delay 13: live-frame (frame, victim state before, mask before, mask after) = [(9, 15, 0, 0), (10, 15, 0, 0), (11, 15, 0, 0), (12, 15, 0, 0)] dmg_frame=None
+ delay 14: live-frame (frame, victim state before, mask before, mask after) = [(9, 15, 0, 0), (10, 15, 0, 0), (11, 15, 0, 0), (12, 15, 0, 0)] dmg_frame=None
+ delay 15: live-frame (frame, victim state before, mask before, mask after) = [(9, 15, 0, 0), (10, 15, 0, 0), (11, 15, 0, 0), (12, 15, 0, 0)] dmg_frame=None
+ delay 16: live-frame (frame, victim state before, mask before, mask after) = [(9, 15, 0, 0), (10, 15, 0, 0), (11, 15, 0, 0), (12, 15, 0, 0)] dmg_frame=None
+ delay 17: live-frame (frame, victim state before, mask before, mask after) = [(9, 15, 0, 0), (10, 15, 0, 0), (11, 15, 0, 0), (12, 15, 0, 0)] dmg_frame=None
+ delay 18: live-frame (frame, victim state before, mask before, mask after) = [(9, 15, 0, 0), (10, 15, 0, 0), (11, 15, 0, 0), (12, 15, 0, 0)] dmg_frame=None
+ delay 19: live-frame (frame, victim state before, mask before, mask after) = [(9, 15, 0, 0), (10, 15, 0, 0), (11, 15, 0, 0), (12, 15, 0, 0)] dmg_frame=None
+ delay 20: live-frame (frame, victim state before, mask before, mask after) = [(9, 15, 0, 0), (10, 15, 0, 0), (11, 15, 0, 0), (12, 15, 0, 0)] dmg_frame=None
+ delay 21: live-frame (frame, victim state before, mask before, mask after) = [(9, 15, 0, 0), (10, 15, 0, 0), (11, 15, 0, 0), (12, 15, 0, 0)] dmg_frame=None
+ delay 22: live-frame (frame, victim state before, mask before, mask after) = [(9, 15, 0, 0), (10, 15, 0, 0), (11, 15, 0, 0), (12, 15, 0, 0)] dmg_frame=None
+ delay 23: live-frame (frame, victim state before, mask before, mask after) = [(9, 15, 0, 0), (10, 15, 0, 0), (11, 15, 0, 0), (12, 15, 0, 0)] dmg_frame=None
+ delay 24: live-frame (frame, victim state before, mask before, mask after) = [(9, 15, 0, 0), (10, 15, 0, 0), (11, 15, 0, 0), (12, 15, 0, 0)] dmg_frame=None
+ delay 25: live-frame (frame, victim state before, mask before, mask after) = [(9, 15, 0, 0), (10, 15, 0, 0), (11, 15, 0, 0), (12, 15, 0, 0)] dmg_frame=None
+ delay 26: live-frame (frame, victim state before, mask before, mask after) = [(9, 15, 0, 0), (10, 15, 0, 0), (11, 15, 0, 0), (12, 15, 0, 0)] dmg_frame=None
+ delay 27: live-frame (frame, victim state before, mask before, mask after) = [(9, 15, 0, 0), (10, 15, 0, 0), (11, 15, 0, 0), (12, 15, 0, 0)] dmg_frame=None
+ delay 28: live-frame (frame, victim state before, mask before, mask after) = [(9, 15, 0, 0), (10, 15, 0, 0), (11, 15, 0, 0), (12, 0, 0, 65535)] dmg_frame=12
+ delay 29: live-frame (frame, victim state before, mask before, mask after) = [(9, 15, 0, 0), (10, 15, 0, 0), (11, 0, 0, 65535)] dmg_frame=11
+ delay 30: live-frame (frame, victim state before, mask before, mask after) = [(9, 15, 0, 0), (10, 0, 0, 65535)] dmg_frame=10
+ delay 31: live-frame (frame, victim state before, mask before, mask after) = [(9, 0, 0, 65535)] dmg_frame=9
+ delay 32: live-frame (frame, victim state before, mask before, mask after) = [(9, 0, 65535, 65535)] dmg_frame=9
+ delay 33: live-frame (frame, victim state before, mask before, mask after) = [(9, 0, 65535, 65535)] dmg_frame=9
+ delay 34: live-frame (frame, victim state before, mask before, mask after) = [(9, 0, 65535, 65535)] dmg_frame=9
+ delay 35: live-frame (frame, victim state before, mask before, mask after) = [(9, 0, 65535, 65535)] dmg_frame=9
+ delay 36: live-frame (frame, victim state before, mask before, mask after) = [(9, 0, 65535, 65535)] dmg_frame=9
+ delay 37: live-frame (frame, victim state before, mask before, mask after) = [(9, 0, 65535, 65535)] dmg_frame=9
+ delay 38: live-frame (frame, victim state before, mask before, mask after) = [(9, 0, 65535, 65535)] dmg_frame=9
+ delay 39: live-frame (frame, victim state before, mask before, mask after) = [(9, 0, 65535, 65535)] dmg_frame=9
+ delay 40: live-frame (frame, victim state before, mask before, mask after) = [(9, 0, 65535, 65535)] dmg_frame=9
+ delay 41: live-frame (frame, victim state before, mask before, mask after) = [(9, 0, 65535, 65535)] dmg_frame=9
+ delay 42: live-frame (frame, victim state before, mask before, mask after) = [(9, 0, 65535, 65535)] dmg_frame=9
+ delay 43: live-frame (frame, victim state before, mask before, mask after) = [(9, 0, 65535, 65535)] dmg_frame=9
+ delay 44: live-frame (frame, victim state before, mask before, mask after) = [(9, 0, 65535, 65535)] dmg_frame=9
+ delay 45: live-frame (frame, victim state before, mask before, mask after) = [(9, 0, 65535, 65535)] dmg_frame=9
+ delay 46: live-frame (frame, victim state before, mask before, mask after) = [(9, 0, 65535, 65535)] dmg_frame=9
+ delay 47: live-frame (frame, victim state before, mask before, mask after) = [(9, 0, 65535, 65535)] dmg_frame=9
+ delay 48: live-frame (frame, victim state before, mask before, mask after) = [(9, 0, 65535, 65535)] dmg_frame=9
+ delay 49: live-frame (frame, victim state before, mask before, mask after) = [(9, 0, 65535, 65535)] dmg_frame=9
+ delay 50: live-frame (frame, victim state before, mask before, mask after) = [(9, 0, 65535, 65535)] dmg_frame=9
+ delay 51: live-frame (frame, victim state before, mask before, mask after) = [(9, 0, 65535, 65535)] dmg_frame=9
+ delay 52: live-frame (frame, victim state before, mask before, mask after) = [(9, 0, 65535, 65535)] dmg_frame=9
+ delay 53: live-frame (frame, victim state before, mask before, mask after) = [(9, 0, 65535, 65535)] dmg_frame=9
+ delay 54: live-frame (frame, victim state before, mask before, mask after) = [(9, 0, 65535, 65535)] dmg_frame=9
+ delay 55: live-frame (frame, victim state before, mask before, mask after) = [(9, 0, 65535, 65535)] dmg_frame=9
+ delay 56: live-frame (frame, victim state before, mask before, mask after) = [(9, 0, 65535, 65535)] dmg_frame=9
+ delay 57: live-frame (frame, victim state before, mask before, mask after) = [(9, 0, 65535, 65535)] dmg_frame=9
+ delay 58: live-frame (frame, victim state before, mask before, mask after) = [(9, 0, 65535, 65535)] dmg_frame=9
+ delay 59: live-frame (frame, victim state before, mask before, mask after) = [(9, 0, 65535, 65535)] dmg_frame=9
+INVULN: per live-overlap frame, mask after frame vs hit on that frame: {'hit_mask0': 0, 'hit_maskF': 32, 'nohit_mask0': 118, 'nohit_maskF': 0}

@@ -1,0 +1,17 @@
+Set variable override: flycast_hle_bios = enabled
+Set variable override: reicast_hle_bios = enabled
+Set variable override: flycast_device_port1_slot1 = VMU
+Set variable override: flycast_device_port2_slot1 = VMU
+Set variable override: flycast_threaded_rendering = disabled
+Set variable override: reicast_threaded_rendering = disabled
+2026-10-04 21:23:30.044 Python[63612:5334108] ApplePersistenceIgnoreState: Existing state will not be touched. New state will be written to /var/folders/gz/b_ggdqsj0s9_8mxs_fyvdkym0000gn/T/org.python.python.savedState
+desert        back=(+0.593,+0.545,+0.593) -> up angle  -135.0  (dpad-measured  -135.0)  eye=(918,887,1410) mid=(-75,0)
+bluesky       back=(+0.000,+0.500,+0.866) -> up angle   -90.0  (dpad-measured   -90.0)  eye=(-28,628,1433) mid=(0,447)
+darkcastle    back=(+0.612,+0.500,+0.612) -> up angle  -135.0  (dpad-measured  -135.0)  eye=(-479,689,371) mid=(-1505,-442)
+tomb          back=(+0.508,+0.383,+0.772) -> up angle  -123.3  (dpad-measured  -123.3)  eye=(554,605,1458) mid=(-160,277)
+iceberg       back=(+0.539,+0.500,+0.678) -> up angle  -128.5  (dpad-measured  -128.5)  eye=(1851,703,1738) mid=(1175,676)
+spacestation  back=(+0.748,+0.383,+0.542) -> up angle  -144.1  (dpad-measured  -144.1)  eye=(597,482,437) mid=(-210,-137)
+pharaoh       back=(+0.700,+0.139,+0.700) -> up angle  -135.0  (dpad-measured  -135.0)  eye=(1270,580,1941) mid=(83,933)
+chaos         back=(+0.839,+0.545,+0.000) -> up angle  -180.0  (dpad-measured   180.0)  eye=(1531,1032,6750) mid=(47,7400)
+DONE
+libc++abi: terminating due to uncaught exception of type std::__1::system_error: mutex lock failed: Invalid argument

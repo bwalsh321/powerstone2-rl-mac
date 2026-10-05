@@ -1,0 +1,25 @@
+./run.sh: line 7: 63681 Abort trap: 6           python -u "$@" > "$log" 2>&1
+walk_desert: 60000 frames  x -1140..1140  z -1140..1140  y -0..721
+DONE
+./run.sh: line 7: 64502 Abort trap: 6           python -u "$@" > "$log" 2>&1
+walk_bluesky: 60000 frames  x -2070..1816  z -970..1898  y -5170..5500
+DONE
+./run.sh: line 7: 65408 Abort trap: 6           python -u "$@" > "$log" 2>&1
+walk_darkcastle: 60000 frames  x -2443..2040  z -1635..1390  y -251..6500
+DONE
+./run.sh: line 7: 66187 Abort trap: 6           python -u "$@" > "$log" 2>&1
+walk_tomb: 60000 frames  x -5062..7651  z -920..810  y -20055..1074
+DONE
+./run.sh: line 7: 66970 Abort trap: 6           python -u "$@" > "$log" 2>&1
+walk_iceberg: 60000 frames  x -790..1540  z -735..1440  y -308..1029
+DONE
+./run.sh: line 7: 67980 Abort trap: 6           python -u "$@" > "$log" 2>&1
+walk_spacestation: 60000 frames  x -1010..910  z -915..910  y -0..9424
+DONE
+./run.sh: line 7: 68877 Abort trap: 6           python -u "$@" > "$log" 2>&1
+walk_pharaoh: 60000 frames  x -2462..2032  z -1561..1146  y -227..6500
+DONE
+./run.sh: line 7: 69745 Abort trap: 6           python -u "$@" > "$log" 2>&1
+walk_chaos: 60000 frames  x -2206..534  z -1290..7660  y -249..5358
+DONE
+ALLDONE

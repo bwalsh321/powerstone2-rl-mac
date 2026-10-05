@@ -1,0 +1,264 @@
+{
+ "stone": [
+  [
+   8.7,
+   "1 loose stone(s)"
+  ],
+  [
+   18.7,
+   "2 loose stone(s)"
+  ],
+  [
+   28.7,
+   "2 loose stone(s)"
+  ],
+  [
+   38.7,
+   "4 loose stone(s)"
+  ],
+  [
+   48.7,
+   "3 loose stone(s)"
+  ],
+  [
+   58.7,
+   "3 loose stone(s)"
+  ],
+  [
+   68.7,
+   "2 loose stone(s)"
+  ]
+ ],
+ "stone_208_only": [
+  [
+   74.0,
+   "stone at ledger idx >= 110 (missed by v3)"
+  ]
+ ],
+ "own_bullet_excluded": [
+  [
+   29.0,
+   "P2's own item bullet vt 0xc162dac (grey, not in obs)"
+  ],
+  [
+   32.1,
+   "P2's own item bullet vt 0xc162dac (grey, not in obs)"
+  ],
+  [
+   35.1,
+   "P2's own item bullet vt 0xc162dac (grey, not in obs)"
+  ]
+ ],
+ "item_swing_contact": [
+  [
+   11.7,
+   "BOT swings its item"
+  ],
+  [
+   14.7,
+   "BOT swings its item"
+  ]
+ ],
+ "chest_open": [
+  [
+   9.5,
+   "Hammer"
+  ],
+  [
+   13.5,
+   "Fire-Bottle"
+  ],
+  [
+   19.1,
+   "Battlefield Axe"
+  ],
+  [
+   22.6,
+   "Ice Rod"
+  ],
+  [
+   28.4,
+   "Magic Stick"
+  ],
+  [
+   32.9,
+   "Small Bomb"
+  ]
+ ],
+ "held": [
+  [
+   7.8,
+   "P3 cactus"
+  ],
+  [
+   9.2,
+   "P4 cactus"
+  ],
+  [
+   16.9,
+   "P1 cactus"
+  ],
+  [
+   29.5,
+   "P1 Magic Stick"
+  ],
+  [
+   33.8,
+   "P4 Small Bomb"
+  ],
+  [
+   42.6,
+   "P1 Soap Bubble Gun"
+  ],
+  [
+   64.9,
+   "P4 Soap Bubble Gun"
+  ],
+  [
+   67.9,
+   "P3 Harisen"
+  ],
+  [
+   70.0,
+   "P1 Gun"
+  ]
+ ],
+ "bot_held": [
+  [
+   10.8,
+   "P2 Hammer"
+  ],
+  [
+   27.9,
+   "P2 Machine Gun"
+  ],
+  [
+   47.5,
+   "P2 cactus"
+  ]
+ ],
+ "projectile": [
+  [
+   8.0,
+   "projectile at 1235,-560 from P2"
+  ],
+  [
+   37.8,
+   "projectile at 581,368 from P2"
+  ],
+  [
+   54.4,
+   "projectile at -251,-57 from P2"
+  ],
+  [
+   59.4,
+   "projectile at -44,-92 from P2"
+  ]
+ ],
+ "thrown": [
+  [
+   20.4,
+   "thrown at 295,498 from P2"
+  ],
+  [
+   20.4,
+   "thrown at 364,383 from P2"
+  ],
+  [
+   20.5,
+   "thrown at 399,418 from P2"
+  ],
+  [
+   20.6,
+   "thrown at 402,421 from P2"
+  ],
+  [
+   20.6,
+   "thrown at 405,424 from P2"
+  ],
+  [
+   20.6,
+   "thrown at 407,428 from P2"
+  ],
+  [
+   20.6,
+   "thrown at 409,431 from P2"
+  ],
+  [
+   20.6,
+   "thrown at 411,434 from P2"
+  ],
+  [
+   20.6,
+   "thrown at 413,438 from P2"
+  ],
+  [
+   20.6,
+   "thrown at 415,441 from P2"
+  ],
+  [
+   24.0,
+   "thrown at 606,483 from P2"
+  ],
+  [
+   24.0,
+   "thrown at 634,495 from P2"
+  ]
+ ],
+ "hit": [
+  [
+   8.6,
+   "P2 -17 by P4"
+  ],
+  [
+   8.6,
+   "P2 -17 by P4"
+  ],
+  [
+   8.6,
+   "P2 -17 by P4"
+  ],
+  [
+   8.7,
+   "P2 -18 by P4"
+  ],
+  [
+   11.7,
+   "P1 -103 by P2"
+  ],
+  [
+   15.0,
+   "P2 -14 by P1"
+  ],
+  [
+   15.5,
+   "P2 -14 by P1"
+  ],
+  [
+   16.0,
+   "P2 -23 by P1"
+  ],
+  [
+   20.4,
+   "P1 -49 by P3"
+  ],
+  [
+   24.1,
+   "P4 -36 by P1"
+  ],
+  [
+   29.1,
+   "P3 -10 by P2"
+  ],
+  [
+   29.2,
+   "P3 -10 by P2"
+  ]
+ ],
+ "stone_chest_seen": [
+  [
+   26.5,
+   "chest at (-650,180)"
+  ]
+ ]
+}

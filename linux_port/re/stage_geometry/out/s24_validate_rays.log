@@ -1,0 +1,13 @@
+Set variable override: flycast_hle_bios = enabled
+Set variable override: reicast_hle_bios = enabled
+Set variable override: flycast_device_port1_slot1 = VMU
+Set variable override: flycast_device_port2_slot1 = VMU
+Set variable override: flycast_threaded_rendering = disabled
+Set variable override: reicast_threaded_rendering = disabled
+2026-10-04 22:01:06.047 Python[74654:5400167] ApplePersistenceIgnoreState: Existing state will not be touched. New state will be written to /var/folders/gz/b_ggdqsj0s9_8mxs_fyvdkym0000gn/T/org.python.python.savedState
+box      n= 74  stopped 1.00  |err| median    4.3  p90   11.2  mean err   -5.1
+pole     n= 19  stopped 0.95  |err| median   42.9  p90  413.5  mean err +164.9
+cluster  n= 45  stopped 0.91  |err| median   20.7  p90  347.3  mean err +115.1
+no blocker within 1000: n=90  stopped early 0.07  min travel 1002
+DONE
+libc++abi: terminating due to uncaught exception of type std::__1::system_error: mutex lock failed: Invalid argument

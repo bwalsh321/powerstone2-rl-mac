@@ -1,0 +1,27 @@
+Set variable override: flycast_hle_bios = enabled
+Set variable override: reicast_hle_bios = enabled
+Set variable override: flycast_device_port1_slot1 = VMU
+Set variable override: flycast_device_port2_slot1 = VMU
+Set variable override: flycast_threaded_rendering = disabled
+Set variable override: reicast_threaded_rendering = disabled
+2026-10-04 21:51:13.382 Python[72157:5383860] ApplePersistenceIgnoreState: Existing state will not be touched. New state will be written to /var/folders/gz/b_ggdqsj0s9_8mxs_fyvdkym0000gn/T/org.python.python.savedState
+== desert
+  t 0 P2 y=    0.0 st= 0  P1 y=   0.0  cells      0.0    900.0    250.0      0.0    900.0   -400.0      0.0   -900.0   -200.0    190.0    200.0    200.0
+  t 6 P2 y=    0.0 st= 0  P1 y=   0.0  cells      0.0    900.0    250.0      0.0    900.0   -400.0      0.0   -900.0   -200.0    190.0    200.0    200.0
+  t12 P2 y=    0.0 st= 0  P1 y=   0.0  cells      0.0    900.0    250.0      0.0    900.0   -400.0      0.0   -900.0   -200.0    190.0    200.0    200.0
+  t18 P2 y=    0.0 st= 0  P1 y=   0.0  cells      0.0    900.0    250.0      0.0    900.0   -400.0      0.0   -900.0   -200.0    190.0    200.0    200.0
+  t24 P2 y=    0.0 st= 0  P1 y=   0.0  cells      0.0    900.0    250.0      0.0    900.0   -400.0      0.0   -900.0   -200.0    190.0    200.0    200.0
+  t30 P2 y=    0.0 st= 0  P1 y=   0.0  cells      0.0    900.0    250.0      0.0    900.0   -400.0      0.0   -900.0   -200.0    190.0    200.0    200.0
+  t36 P2 y=    0.0 st= 0  P1 y=   0.0  cells      0.0    900.0    250.0      0.0    900.0   -400.0      0.0   -900.0   -200.0    190.0    200.0    200.0
+  t42 P2 y=    0.0 st= 0  P1 y=   0.0  cells      0.0    900.0    250.0      0.0    900.0   -400.0      0.0   -900.0   -200.0    190.0    200.0    200.0
+== bluesky
+  t 0 P2 y=    0.0 st= 0  P1 y=   0.0  cells      0.0    525.0   -300.0      0.0    525.0    300.0      0.0    368.2      0.0    990.0      0.0   -280.0
+  t 6 P2 y=   19.0 st= 5  P1 y=   0.0  cells      0.0    525.0   -300.0      0.0    525.0    300.0     28.0    368.2      0.0    990.0      0.0   -280.0
+  t12 P2 y=  161.8 st= 5  P1 y=   0.0  cells      0.0    525.0   -300.0      0.0    525.0    300.0    161.8    368.2      0.0    990.0      0.0   -280.0
+  t18 P2 y=  261.4 st= 5  P1 y=   0.0  cells      0.0    525.0   -300.0      0.0    525.0    300.0    261.4    368.2      0.0    990.0      0.0   -280.0
+  t24 P2 y=  317.8 st= 5  P1 y=   0.0  cells      0.0    525.0   -300.0      0.0    525.0    300.0    317.8    368.2      0.0    990.0      0.0   -280.0
+  t30 P2 y=  331.0 st= 5  P1 y=   0.0  cells      0.0    525.0   -300.0      0.0    525.0    300.0    331.0    368.2      0.0    990.0      0.0   -280.0
+  t36 P2 y=  301.0 st= 5  P1 y=   0.0  cells      0.0    525.0   -300.0      0.0    525.0    300.0    301.0    368.2      0.0    990.0      0.0   -280.0
+  t42 P2 y=  227.8 st= 5  P1 y=   0.0  cells      0.0    525.0   -300.0      0.0    525.0    300.0    227.8    368.2      0.0    990.0      0.0   -280.0
+DONE
+libc++abi: terminating due to uncaught exception of type std::__1::system_error: mutex lock failed: Invalid argument

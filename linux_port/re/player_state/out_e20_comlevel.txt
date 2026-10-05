@@ -1,0 +1,11 @@
+per-seat level copies in P struct (COM seats == 2 in slot2, == 7 in slot3): []
+global bytes (0x8C400000-0x8C560000) with 2 in slot2 and 7 in slot3: ['0x8c443837', '0x8c445a43', '0x8c44678f', '0x8c446d77', '0x8c446da3', '0x8c448989', '0x8c44898b', '0x8c46335e', '0x8c466e04', '0x8c472ad4', '0x8c5429ad', '0x8c5429c8']
+slot2 poke None: COM attack windows 6, damage dealt to idle P2 344  (level byte now 2)
+slot2 poke 0: COM attack windows 6, damage dealt to idle P2 344  (level byte now 0)
+slot2 poke 2: COM attack windows 6, damage dealt to idle P2 344  (level byte now 2)
+slot2 poke 7: COM attack windows 6, damage dealt to idle P2 344  (level byte now 7)
+slot3 poke None: COM attack windows 20, damage dealt to idle P2 850  (level byte now 7)
+slot3 poke 0: COM attack windows 20, damage dealt to idle P2 850  (level byte now 0)
+slot3 poke 2: COM attack windows 20, damage dealt to idle P2 850  (level byte now 2)
+slot3 poke 7: COM attack windows 20, damage dealt to idle P2 850  (level byte now 7)
+DONE

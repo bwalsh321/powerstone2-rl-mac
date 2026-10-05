@@ -1,0 +1,21 @@
+Set variable override: flycast_hle_bios = enabled
+Set variable override: reicast_hle_bios = enabled
+Set variable override: flycast_device_port1_slot1 = VMU
+Set variable override: flycast_device_port2_slot1 = VMU
+Set variable override: flycast_threaded_rendering = disabled
+Set variable override: reicast_threaded_rendering = disabled
+2026-10-04 21:34:33.832 Python[67085:5352899] ApplePersistenceIgnoreState: Existing state will not be touched. New state will be written to /var/folders/gz/b_ggdqsj0s9_8mxs_fyvdkym0000gn/T/org.python.python.savedState
+t220 P4 Accel s7 act 100 spheres 1 -> vs P2: dx 7 dy 51 dz -85 r 40 margin -15
+t241 P4 Accel s7 act 101 spheres 1 -> vs P2: dx -43 dy -69 dz -100 r 40 margin 9
+t286 P4 Accel s7 act 100 spheres 1 -> vs P2: dx -2 dy 51 dz -127 r 40 margin 27
+t953 P4 Accel s7 act 100 spheres 1 -> vs P3: dx -8 dy 51 dz -37 r 40 margin -62
+t974 P4 Accel s7 act 101 spheres 1 -> vs P3: dx 18 dy -69 dz -65 r 40 margin -33
+t996 P4 Accel s7 act 102 spheres 1 -> vs P3: dx 36 dy 122 dz -31 r 40 margin -3
+t1042 P3 Ryoma s7 act 100 spheres 2 -> vs P4: dx 9 dy 25 dz 23 r 30 margin -65
+t1056 P3 Ryoma s7 act 101 spheres 1 -> vs P4: dx -90 dy 28 dz -1 r 40 margin -10
+t1076 P3 Ryoma s7 act 102 spheres 2 -> vs P1: dx -232 dy 11 dz 21 r 30 margin 140
+t1076 P3 Ryoma s7 act 102 spheres 2 -> vs P4: dx -69 dy 15 dz 13 r 30 margin -20
+t1091 P3 Ryoma s7 act 103 spheres 2 -> vs P1: dx -168 dy -16 dz -5 r 30 margin 75
+t1091 P3 Ryoma s7 act 103 spheres 2 -> vs P4: dx -58 dy -12 dz 50 r 30 margin -13
+stage area 5
+DONE

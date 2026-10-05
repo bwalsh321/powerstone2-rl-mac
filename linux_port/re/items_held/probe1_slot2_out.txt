@@ -1,0 +1,37 @@
+2026-10-04 20:27:46.102 Python[41353:5215736] ApplePersistenceIgnoreState: Existing state will not be touched. New state will be written to /var/folders/gz/b_ggdqsj0s9_8mxs_fyvdkym0000gn/T/org.python.python.savedState
+pygame 2.6.1 (SDL 2.28.4, Python 3.11.16)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+NEWVT f=464 P3 ptr=0c503f04 slotres=0x4 vt=0c0f1688 bucket=198 shot=shots/slot2_vt0c0f1688_P3_f464.png
+   slot words: 00000000 00050209 0c0f1688 0c503ad4 0c504334 00000000 00000001 ff000000 0000ffff 00000000 00000450 42200000 c25c0000 00000000 00000000 00000000 00004000 3f800000 3f800000 3f800000 00000000 c0000000 00000000 00000000
+NEWVT f=692 P4 ptr=0c50e684 slotres=0x4 vt=0c0c9810 bucket=238 shot=shots/slot2_vt0c0c9810_P4_f692.png
+   slot words: 00000000 00000309 0c0c9810 0c50d9f4 0c50f744 00000000 00000000 00000000 00000000 00000000 000008f8 00000000 c1800000 41a00000 00004000 00000000 00000000 3f800000 3f800000 3f800000 00000000 c0000000 00000000 00000000
+SUMMARY ptr,vt,frames_held
+  0c502a14 vt=0c0f1688 bucket=193 n=749
+  0c502e44 vt=0c0f1688 bucket=194 n=161
+  0c503274 vt=0c0f1688 bucket=195 n=1207
+  0c503ad4 vt=0c0f1688 bucket=197 n=528
+  0c503f04 vt=0c0f1688 bucket=198 n=2967
+  0c504334 vt=0c0f1688 bucket=199 n=732
+  0c50b444 vt=0c0c9810 bucket=226 n=1607
+  0c50b874 vt=0c0c9810 bucket=227 n=602
+  0c50c0d4 vt=0c0c9810 bucket=229 n=601
+  0c50c504 vt=0c0c9810 bucket=230 n=317
+  0c50de24 vt=0c0c9810 bucket=236 n=1130
+  0c50e254 vt=0c0c9810 bucket=237 n=288
+  0c50e684 vt=0c0c9810 bucket=238 n=95
+  0c50eab4 vt=0c0c9810 bucket=239 n=420
+  0c50f744 vt=0c0c9810 bucket=242 n=134
+  0c5103d4 vt=0c0c9810 bucket=245 n=137
+  0c512984 vt=0c0c9810 bucket=254 n=603
+  0c5131e4 vt=0c0c9810 bucket=0 n=423
+  0c516424 vt=0c0c9810 bucket=12 n=366
+  0c5170b4 vt=0c0c9810 bucket=15 n=601
+  0c5174e4 vt=0c0c9810 bucket=16 n=133
+  0c517914 vt=0c0c9810 bucket=17 n=16
+Set variable override: flycast_hle_bios = enabled
+Set variable override: reicast_hle_bios = enabled
+Set variable override: flycast_device_port1_slot1 = VMU
+Set variable override: flycast_device_port2_slot1 = VMU
+Set variable override: flycast_threaded_rendering = disabled
+Set variable override: reicast_threaded_rendering = disabled
+libc++abi: terminating due to uncaught exception of type std::__1::system_error: mutex lock failed: Invalid argument

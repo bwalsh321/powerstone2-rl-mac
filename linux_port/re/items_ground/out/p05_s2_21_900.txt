@@ -1,0 +1,23 @@
+idx= 26 vt=0x0c0f1688 hdr=0x0000ff09 pos=(-500,100,1000)  not visible
+idx= 27 vt=0x0c0f1688 hdr=0x00010009 pos=(40,-55,0)  bbox=(512, 83, 587, 128) px=2692
+idx= 28 vt=0x0c0f1688 hdr=0x00020209 pos=(40,-55,0)  bbox=(514, 168, 566, 217) px=1893
+idx= 29 vt=0x0c0f1688 hdr=0x0003ff09 pos=(-850,100,1000)  not visible
+idx= 30 vt=0x0c0f1688 hdr=0x00040109 pos=(-650,100,1050)  not visible
+idx= 31 vt=0x0c0f1688 hdr=0x0005ff09 pos=(-1000,100,-100)  bbox=(170, 66, 215, 134) px=2292
+idx= 32 vt=0x0c0f1688 hdr=0x0006ff09 pos=(-900,100,100)  bbox=(133, 89, 183, 160) px=2726
+idx= 33 vt=0x0c0f1688 hdr=0x0007ff09 pos=(-1100,100,300)  bbox=(39, 89, 93, 161) px=2839
+idx= 34 vt=0x0c0f18d4 hdr=0x0000ff09 pos=(-1000,0,-1000)  bbox=(359, 0, 376, 70) px=800
+idx= 35 vt=0x0c0f18d4 hdr=0x0101ff09 pos=(950,0,-850)  not visible
+idx= 36 vt=0x0c0f18d4 hdr=0x0202ff09 pos=(100,0,1000)  not visible
+idx= 37 vt=0x0c0f18d4 hdr=0x0303ff09 pos=(-1050,0,800)  not visible
+idx= 61 vt=0x0c0cbcb0 hdr=0x00000009 pos=(-622,75,341)  bbox=(105, 159, 173, 230) px=2737
+idx= 63 vt=0x0c0c9810 hdr=0x00000009 pos=(250,110,-600)  bbox=(604, 139, 639, 215) px=976
+idx= 71 vt=0x0c0c9810 hdr=0x00000009 pos=(0,110,600)  bbox=(182, 302, 221, 407) px=1272
+idx= 72 vt=0x0c0cc7a8 hdr=0x0000ff09 pos=(-650,50,180)  bbox=(161, 163, 203, 194) px=819
+idx= 73 vt=0x0c0c9810 hdr=0x00000009 pos=(-600,70,650)  bbox=(0, 212, 46, 276) px=1353
+idx= 75 vt=0x0c0cc7a8 hdr=0x0000ff09 pos=(950,50,300)  not visible
+idx= 80 vt=0x0c0cc7a8 hdr=0x0000ff09 pos=(650,50,800)  not visible
+P1 xyz=(-29, 121, -654) held=0xc502e44
+P2 xyz=(-314, 141, 688) held=0x0
+P3 xyz=(168, 91, -253) held=0xc503274
+P4 xyz=(-260, 130, 425) held=0x0
