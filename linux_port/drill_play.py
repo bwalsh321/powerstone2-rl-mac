@@ -16,7 +16,8 @@ B action, X attack, Y discard, LB/LT = L, RB/RT = R); others use play_vs.py's de
 
   python drill_play.py --drills drills/leg116 --core "$CORE" --game "../Power Stone 2 (USA).chd"
 Writes drills/<tag>/rec_<drill>.npz (obs [T, D], actions [T] in 0..62, rewards, result) and appends to
-recordings.jsonl. Already-recorded drills are skipped, so you can stop and resume any time.
+recordings.jsonl. D = 7 x env.OBS_DIM: 7x160 by default; run with PS2_OBS_V4=1 (Oct 5 2026) to record 7x430 drills
+for an obs-v4 bot (dagger.py loads only recordings whose width matches the model and reports the rest). Already-recorded drills are skipped, so you can stop and resume any time.
 """
 import argparse, gzip, json, os, time
 

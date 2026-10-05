@@ -45,6 +45,7 @@ class DemoSet:
         # Oct 4 2026: recordings carry the button semantics they were made under (drill_play.py: taps by default;
         # recordings without the field predate taps = held). Only recordings matching the trainer's semantics load.
         self.seqs, self.names, self.skipped, self.other_semantics, self.filtered = [], [], 0, 0, 0
+        self.wrong_width = {}        # Oct 5 2026 (obs v4): recorded per-frame width -> recordings dropped for it
         for d in [x for x in dirs.split(",") if x.strip()]:
             for f in sorted(glob.glob(os.path.join(d.strip(), "rec_*.npz"))):
                 name = os.path.join(os.path.basename(d.strip().rstrip("/")), os.path.basename(f))
@@ -59,6 +60,8 @@ class DemoSet:
                     self.filtered += 1
                     continue
                 o, a = z["obs"].astype(np.float32), z["actions"].astype(np.int64)
+                if o.ndim == 2 and o.shape[1] != obs_dim:          # e.g. 7x160 drills under a 7x430 model
+                    self.wrong_width[int(o.shape[1])] = self.wrong_width.get(int(o.shape[1]), 0) + 1
                 if o.ndim != 2 or o.shape[1] != obs_dim or len(a) != len(o) or len(a) < 2 or a.max() >= n_actions:
                     self.skipped += 1
                     continue
@@ -142,7 +145,8 @@ class Dagger:
         print(f"[config] dagger demos={dirs} imitate={','.join(cfg['results'])} train={len(self.train)} drills/"
               f"{self.train.n_steps} decisions held_out={len(self.held)}/{self.held.n_steps} "
               f"(filtered out by result: {self.train.filtered + self.held.filtered}, other button semantics: "
-              f"{allrec.other_semantics}, bad shape: {allrec.skipped}) weight={cfg['coef']} x lr, fading to 0 over "
+              f"{allrec.other_semantics}, bad shape: {allrec.skipped}, of which wrong width (model {obs_dim}): "
+              f"{sum(allrec.wrong_width.values())}{' ' + str(allrec.wrong_width) if allrec.wrong_width else ''}) weight={cfg['coef']} x lr, fading to 0 over "
               f"{cfg['anneal']:.0%} of the leg, bc_steps={cfg['steps']} bc_seqs={cfg['seqs']} "
               f"eval every {cfg['eval']} updates, patience {cfg['patience']} button_tap={int(cfg['tap'])}", flush=True)
         if len(self.held):
