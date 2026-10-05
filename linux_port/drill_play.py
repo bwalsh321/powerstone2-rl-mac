@@ -56,7 +56,7 @@ def main():
     ap.add_argument("--drills", required=True, help="folder written by drill_capture.py")
     ap.add_argument("--core", required=True)
     ap.add_argument("--game", default="../Power Stone 2 (USA).chd")
-    ap.add_argument("--max-seconds", type=float, default=20.0, help="end a drill after this long if the round goes on")
+    ap.add_argument("--max-seconds", type=float, default=20.0, help="end a drill after this long if the round goes on (0 = play the round out)")
     ap.add_argument("--scale", type=int, default=3)
     ap.add_argument("--speed", type=float, default=1.0, help="1.0 = real time")
     ap.add_argument("--instance", type=int, default=12)
@@ -203,7 +203,7 @@ def main():
         latched[:] = 0
         result, t0 = "cut", time.time()
         try:
-            for _step in range(int(args.max_seconds / 0.1)):
+            for _step in range(int(args.max_seconds / 0.1) if args.max_seconds > 0 else 10 ** 6):
                 a = int(args.script) if args.script else mask_to_joint(human_mask(), latched)
                 latched[:] = 0
                 rec_obs.append(obs.copy()); rec_act.append(a)

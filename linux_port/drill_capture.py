@@ -22,6 +22,8 @@ ap.add_argument("--losses", type=int, default=40, help="stop after harvesting dr
 ap.add_argument("--max-episodes", type=int, default=200)
 ap.add_argument("--every", type=int, default=10, help="snapshot every N decisions (~1 s)")
 ap.add_argument("--lead", default="8,4", help="seconds before the KO to keep (comma list)")
+ap.add_argument("--health", default="", help="instead of --lead: snapshot the moment the bot's health first drops below each of these fractions (e.g. 0.5,0.25), kept if the round is lost (Blake, Oct 4)")
+ap.add_argument("--min-before", type=float, default=3.0, help="--health mode: drop a drill whose KO came less than this many seconds after the snapshot (one combo from the mark to dead = nothing to learn)")
 ap.add_argument("--instance", type=int, default=44)
 ap.add_argument("--out", required=True)
 a = ap.parse_args()
@@ -31,6 +33,7 @@ from powerstone_env_libretro import PowerStoneEnvLibretro
 from recurrent_policy import PolicyRunner, load_model
 
 slots = [int(x) for x in a.slots.split(",")]
+hp_marks = sorted({float(x) for x in a.health.split(",") if x.strip()}, reverse=True)
 leads = sorted({float(x) for x in a.lead.split(",")}, reverse=True)
 os.makedirs(a.out, exist_ok=True)
 env = PowerStoneEnvLibretro(core_path=a.core, game_path=a.game, states_dir="./states", state_slots=slots,
@@ -53,11 +56,19 @@ while losses < a.losses and eps < a.max_episodes:
     runner.reset()
     ring = collections.deque(maxlen=keep)
     t, done, info = 0, False, {}
+    me = env.AGENT_PLAYER - 1
+    hp_prev, hp_snaps = env.prev_health[me], {}
     while not done:
-        if t % a.every == 0:
+        if not hp_marks and t % a.every == 0:
             ring.append((t, emu.get_state()))
         act = runner.act(obs, deterministic=True)
         o2, r, done, info = env.step(int(act))
+        hp = env.prev_health[me]
+        for m in hp_marks:
+            # first crossing from above; a round that starts below a mark has no drill for it
+            if m not in hp_snaps and hp_prev >= m > hp > 0.001 and not done:
+                hp_snaps[m] = (t + 1, emu.get_state(), round(hp, 3))
+        hp_prev = hp
         o2 = np.asarray(o2, np.float32)[:d]; obs = fs.push(o2) if fs else o2
         t += 1
     eps += 1
@@ -66,12 +77,17 @@ while losses < a.losses and eps < a.max_episodes:
         continue
     losses += 1
     slot = int(getattr(env, "_episode_slot", env.STATE_SLOTS[0]))
-    for lead in leads:
+    picks = []
+    if hp_marks:
+        picks = [(tt, blob, dict(health_mark=m, health=h)) for m, (tt, blob, h) in sorted(hp_snaps.items(), reverse=True)
+                 if (t - tt) * STEP_S >= a.min_before]
+    for lead in ([] if hp_marks else leads):
         target = t - int(lead / STEP_S)
         cands = [(abs(tt - target), tt, blob) for tt, blob in ring if tt <= target + a.every // 2]
-        if not cands:
-            continue
-        _, tt, blob = min(cands, key=lambda c: c[0])
+        if cands:
+            _, tt, blob = min(cands, key=lambda c: c[0])
+            picks.append((tt, blob, {}))
+    for tt, blob, extra in picks:
         if not blob or len(blob) < 1_000_000:
             continue
         name = f"drill_{n_drill:03d}"
@@ -80,7 +96,7 @@ while losses < a.losses and eps < a.max_episodes:
         meta = dict(drill=name, model=os.path.basename(a.model), slot=slot, episode=eps, step=tt, end_step=t,
                     seconds_before_ko=round((t - tt) * STEP_S, 1), action_set=int(model.action_space.n),
                     ep_stats={k: (float(v) if isinstance(v, (int, float, np.floating)) else str(v))
-                              for k, v in getattr(env, "_ep", {}).items()})
+                              for k, v in getattr(env, "_ep", {}).items()}, **extra)
         json.dump(meta, open(os.path.join(a.out, name + ".json"), "w"), indent=1)
         index.write(json.dumps(meta) + "\n"); index.flush()
         n_drill += 1
