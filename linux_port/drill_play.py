@@ -231,6 +231,9 @@ def main():
         out.write(json.dumps(rec) + "\n"); out.flush()
         print(f"[drill] {dm['drill']}: {result} after {len(rec_act)} decisions ({rec['combos']} combos)", flush=True)
     print("[drill] session over", flush=True)
+    # Oct 4 2026: every recording is already on disk; skip interpreter teardown, where the core's threads abort on
+    # macOS ("mutex lock failed").
+    os._exit(0)
 
 
 if __name__ == "__main__":
