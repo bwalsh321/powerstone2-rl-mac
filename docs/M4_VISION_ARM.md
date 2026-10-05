@@ -9,7 +9,7 @@ The Ryzen session wrote this; the Mac session executes it. **Do not start until 
 
 1. The Ryzen session reports that the vision integration branch passed its gates (flag-off bit identity, all
    training + held-out lineups, exact warm start, throughput/memory, smoke run). Blake will relay it, with the
-   branch name (below: `<VBRANCH>`).
+   branch name (below: `obs-v4`).
 2. `powerstone_v6_leg128_league.zip` exists on the Ryzen (leg 128 finishes ~1:55 pm EDT Oct 5, graded ~2:30 pm).
 3. Blake has finished his drill session on the M4 tonight (~9-10:30 pm). drill_play needs the M4 in real time,
    so the arm must not be running while he plays.
@@ -33,7 +33,7 @@ The Ryzen session wrote this; the Mac session executes it. **Do not start until 
 ```bash
 # 1. the arm's own checkout of the integration branch (from the Ryzen repo; the Mac has ssh access)
 cd ~ && git clone superserver@192.168.0.105:powerstone2-rl-mac ps2_vision_arm
-cd ~/ps2_vision_arm && git checkout <VBRANCH>
+cd ~/ps2_vision_arm && git checkout obs-v4
 # the game + sdlarch: the relay scripts expect ../sdlarch-rl and "../Power Stone 2 (USA).chd" next to linux_port/
 ln -s ~/Downloads/macbook_migration/sdlarch-rl ../sdlarch-rl 2>/dev/null || true   # adjust to where they live
 ls "../Power Stone 2 (USA).chd" || ln -s "$HOME/Downloads/macbook_migration/Power Stone 2 (USA).chd" ..
@@ -51,13 +51,15 @@ rsync -a superserver@192.168.0.105:powerstone2-rl-mac/linux_port/powerstone_v6_l
    - `league_trainer.txt`: `mixed`
    - `host_role.txt`: `train`
    - `league_env.txt`: copy the Ryzen's `claude_bridge/league_env_leg128_taps_only.txt` (the leg 128 recipe: taps
-     on, DAgger off), then append the v4 flags the integration report names (expected: `PS2_OBS_V4=1
-     PS2_OBJ_GRID_N=208`). **No `PS2_DEMOS`**: the drill recordings are 160-wide and would be dropped anyway.
-   - `league_surgery.txt`: one line, `1129 obsv4` (the widening surgery runs once, on the leg 128 warm zip). Check
-     the integration report for the exact hook name.
+     on, DAgger off), then append `PS2_OBS_V4=1 PS2_OBS_V4_ITEMEMB=keep PS2_OBJ_GRID_N=208` (`keep` = exact warm start; the
+     slot-hash item embedding at obs[12..17] is left as is). **No `PS2_DEMOS`**: the drill recordings are 160-wide and would be dropped anyway.
+   - `league_surgery.txt`: one line, `1129 obsv4` (the hook widens the leg 128 warm zip once, writes
+     `powerstone_v6_leg128_v4.zip` and warms from it; league_state.txt keeps pointing at the leg 128 zip).
    - `leg_modes.txt`: keep the file (rows for 1129+ are appended by the launcher).
-4. Before the first leg, run the integration report's gate commands once on the M4 (at least the flag-off identity
-   test and the equivalence of the widened zip), since the Mac's emulator and torch builds differ from the Ryzen's.
+4. Before the first leg, rerun two gates on the M4 (its emulator and torch builds differ from the Ryzen's):
+   `test_obs_v4_flagoff.py` (flag-off identity) and the equivalence check of `surgery_widen_v4.py` on the leg 128 zip
+   (see each script's docstring for its command). Memory: the rollout buffer is ~247 MB and the actor queue can hold
+   up to ~790 MB; fine on the M4, but check free RAM.
 5. Start the relay (Darwin defaults: 10 actors, instance base 0, 10 eval shards):
    ```bash
    cd ~/ps2_vision_arm/linux_port
