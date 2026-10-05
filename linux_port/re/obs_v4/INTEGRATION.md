@@ -1,5 +1,17 @@
 # Adopting obs v4: step by step (PROPOSAL; nothing here has been applied)
 
+> **Oct 5 2026, Ryzen integration (branch `worktree-agent-a2769b32421103149`, off ryzen-bringup).** Steps 1-5 below
+> are applied in code, all behind `PS2_OBS_V4=1` (default off; flag-off bit-identity proven by
+> `linux_port/test_obs_v4_flagoff.py`). Differences from the text below, which keeps its leg-121 line numbers:
+> - the production copies are `linux_port/obs_v4_reader.py`, `stage_geom.py`, `surgery_widen_v4.py` and
+>   `equivalence_v4.py` (production env, not the envpatch mixin); `re/obs_v4/` is unchanged apart from tests;
+> - `PS2_OBS_V4_ITEMEMB` defaults to **keep** (exact warm start); `zero` stays available and the `obsv4` surgery hook
+>   passes `--zero-item-emb` only when league_env.txt sets `PS2_OBS_V4_ITEMEMB=zero`;
+> - `_legacy_item` (<=160-dim consumer) also SKIPS the v4 computation for that view (it is sliced away);
+> - the surgery gate is structural exactness + relative float32 tolerance 1e-5 (see `surgery_widen_v4.py`);
+> - `test_obs_v4.py --slots-only` covers every training slot (states_mixed) and the held-out 90-94 through the
+>   production env; `bench_obs_v4.py` measures env throughput off vs on.
+
 This changes the live observation contract, so it needs Blake's approval. The design and evidence are in
 `OBS_V4_SPEC.md`. The steps follow the obs-v3 cutover (`cutover_v3.sh`, Sep 23) and the `league_surgery.txt` hook
 (Oct 3). Line numbers refer to upstream leg 121.

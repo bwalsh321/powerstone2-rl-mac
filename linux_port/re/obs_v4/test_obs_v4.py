@@ -17,6 +17,12 @@ Parts (each a subprocess; a teardown `mutex lock failed` abort is harmless and i
   env   the real PowerStoneEnvLibretro (PS2_OBS_V3=1) with the v4 patch applied IN THIS TEST ONLY (subclass,
         no repo file touched): obs is 430-dim and obs[:160] is bit-identical to the unpatched v3 builder on the
         same state; then FFASelfPlayEnv._obs_from_view for every other seat (seat-generic integration).
+  slots (Oct 5 2026, --slots-only / --with-slots) the PRODUCTION integration (powerstone_env_v6 with PS2_OBS_V4=1)
+        on every training slot (states_mixed 0, 10-22, 30-43, 50-59; FFASelfPlayEnv with mixed seats driven by a
+        --pool of 430-dim zips) and the held-out lineups (states/ 90-94; the eval env): reader runs, 430-dim,
+        finite, per-feature ranges, binaries, self character set, per-block change rate. Writes obs_v4_stats_slots.txt.
+        9950X: PS2_V4_TEST_INSTANCE=60 python re/obs_v4/test_obs_v4.py --slots-only --pool <dir> \\
+               --mixed-states <abs states_mixed> --heldout-states <abs states> --par 2
 Exit code 1 on any failure.
 """
 import argparse
@@ -367,6 +373,111 @@ def part_env(out_json, steps):
           f"fails {len(FAILS)}", flush=True)
 
 
+# ------------------------------------------------------------------ part: every training / held-out slot (Oct 5)
+TRAIN_SLOTS = [0] + list(range(10, 23)) + list(range(30, 44)) + list(range(50, 60))   # league_env.txt (states_mixed)
+HELDOUT_SLOTS = [90, 91, 92, 93, 94]                                                 # battery lv8mix (states/)
+
+
+def part_slots(states_dir, slots, steps, pool, kind, out_json):
+    """The PRODUCTION integration (powerstone_env_v6 with PS2_OBS_V4=1, not the envpatch mixin) on every slot of a
+    states dir: kind=ffa -> FFASelfPlayEnv (the training env: mixed seats 0,2 driven by the pool, here a 430-dim zip so
+    the views build v4 too); kind=base -> PowerStoneEnvLibretro (the eval env). Per slot: the reader runs, obs is
+    430-dim and finite, every appended feature is inside its range table, binary features are binary, the self
+    character one-hot is set, and per block the fraction of steps on which the learner's block changed."""
+    os.environ.update(PS2_OBS_V2="1", PS2_OBS_V3="1", PS2_OBS_V4="1", PS2_FFA_SEATS="0,2", PS2_BUTTON_TAP="1")
+    os.environ.setdefault("PS2_OBS_V4_ITEMEMB", "keep")
+    os.environ.setdefault("PS2_OBJ_GRID_N", "208")
+    os.environ.setdefault("PS2_STAGGER_FRAMES", "240")
+    lp_reader = os.path.join(LP, "obs_v4_reader.py")
+    same_src = os.path.exists(lp_reader) and open(lp_reader).read() == open(os.path.join(HERE, "obs_v4_reader.py")).read()
+    check(same_src, "linux_port/obs_v4_reader.py differs from re/obs_v4/obs_v4_reader.py")
+    import tempfile
+    import torch as th
+    th.set_num_threads(1)
+    random.seed(5)
+    if kind == "ffa":
+        from ffa_selfplay_env import FFASelfPlayEnv
+        env = FFASelfPlayEnv(core_path=CORE, game_path=GAME, states_dir=states_dir, state_slots=[slots[0]],
+                             instance_id=INSTANCE, bridge_dir=tempfile.mkdtemp(prefix="v4br_"), pool_dir=pool)
+    else:
+        from powerstone_env_libretro import PowerStoneEnvLibretro
+        env = PowerStoneEnvLibretro(core_path=CORE, game_path=GAME, states_dir=states_dir, state_slots=[slots[0]],
+                                    instance_id=INSTANCE, bridge_dir=tempfile.mkdtemp(prefix="v4br_"))
+    env.set_action_mode(63)
+    check(env.OBS_DIM == V.V4_DIM and env.OBS_V4, f"env OBS_DIM {env.OBS_DIM} (PS2_OBS_V4 not honoured)")
+    views = []
+    if hasattr(env, "_obs_from_view"):
+        orig = env._obs_from_view
+
+        def rec(v, _o=orig):
+            o = _o(v)
+            views.append((v.player, np.asarray(o, np.float32).copy()))
+            return o
+        env._obs_from_view = rec
+    per_slot, all_vecs = {}, []
+    for slot in slots:
+        n_fail0 = len(FAILS)
+        env.STATE_SLOTS = [slot]
+        rng = random.Random(slot)
+        t0 = time.perf_counter()
+        try:
+            obs = env.reset()
+        except Exception as e:                       # noqa: BLE001
+            check(False, f"slot{slot}: reset raised {e!r}")
+            continue
+        seq, vseq, err = [np.asarray(obs, np.float32)], [], None
+        del views[:]
+        try:
+            for _ in range(steps):
+                obs, r, done, info = env.step(rng.randrange(63))
+                seq.append(np.asarray(obs, np.float32))
+                if done:
+                    break
+        except Exception as e:                       # noqa: BLE001
+            err = repr(e)
+        check(err is None, f"slot{slot}: step raised {err}")
+        vseq = [o for _, o in views]
+        X = np.stack(seq)
+        allv = np.concatenate([X] + ([np.stack(vseq)] if vseq else []))
+        ext = allv[:, V.V3_DIM:V.V4_DIM]
+        check(allv.shape[1] == V.V4_DIM, f"slot{slot}: obs width {allv.shape[1]}")
+        nonfin = int((~np.isfinite(allv)).sum())
+        check(nonfin == 0, f"slot{slot}: {nonfin} non-finite values")
+        bad = np.nonzero(((ext < LO - 1e-6) | (ext > HI + 1e-6)).any(0))[0]
+        check(len(bad) == 0, f"slot{slot}: out of range " + ", ".join(
+            f"{NAMES[i]} [{ext[:, i].min():.3f},{ext[:, i].max():.3f}]" for i in bad[:5]))
+        nb = np.nonzero((BINARY & ~np.isin(ext, (0.0, 1.0))).any(0))[0]
+        check(len(nb) == 0, f"slot{slot}: non-binary " + ", ".join(NAMES[i] for i in nb[:5]))
+        selfchar = ext[:, V.F_CHAR:V.F_CHAR + 14].sum(1)
+        check(bool(np.all(selfchar == 1.0)), f"slot{slot}: self character one-hot missing on "
+                                             f"{int((selfchar != 1.0).sum())}/{len(selfchar)} obs")
+        E = X[:, V.V3_DIM:V.V4_DIM]
+        change = {}
+        for b, (o, l) in V.BLOCKS.items():
+            blk = E[:, o:o + l]
+            change[b] = float(np.mean(np.any(blk[1:] != blk[:-1], axis=1))) if len(blk) > 1 else 0.0
+        check(change["E_state"] > 0.0, f"slot{slot}: E_state block never changed over {len(E)} steps")
+        check(any(v > 0 for v in change.values()), f"slot{slot}: v4 block constant over {len(E)} steps")
+        g = E[-1, V.G_GLOBAL:V.G_GLOBAL + V.G_LEN]
+        stage = int(np.argmax(g[2:9])) if g[2:9].any() else -1
+        per_slot[slot] = dict(steps=len(X) - 1, views=len(vseq), secs=round(time.perf_counter() - t0, 1),
+                              nonfinite=nonfin, out_of_range=len(bad), stage=stage,
+                              map_present=float(E[:, V.H_SPATIAL + 26].max()),
+                              lo=float(ext.min()), hi=float(ext.max()), change=change,
+                              nz_feats=int((ext != 0).any(0).sum()), fails=len(FAILS) - n_fail0)
+        all_vecs.append(ext)
+        print(f"[slots {kind} slot{slot}] steps {len(X) - 1} views {len(vseq)} stage {stage} "
+              f"map {per_slot[slot]['map_present']:.0f} range [{ext.min():.2f},{ext.max():.2f}] nonfinite {nonfin} "
+              f"oor {len(bad)} live feats {per_slot[slot]['nz_feats']}/270 changed% "
+              + " ".join(f"{k[0]}={100 * v:.0f}" for k, v in change.items())
+              + f" fails {len(FAILS) - n_fail0}", flush=True)
+    A = np.concatenate(all_vecs) if all_vecs else np.zeros((0, V.V4_EXTRA))
+    with open(out_json, "w") as f:
+        json.dump(dict(kind=kind, states=states_dir, slots=per_slot, fails=FAILS[:40], n_fails=len(FAILS),
+                       nz=(A != 0).sum(0).tolist(), n=int(len(A)), mn=A.min(0).tolist() if len(A) else [],
+                       mx=A.max(0).tolist() if len(A) else [], reader_same_as_re=same_src), f)
+
+
 # ------------------------------------------------------------------ part: owners and held-item swings
 def part_owner(slot, seconds, chests_first, out_json):
     """Ground truth from the game itself, checked every frame, with the overlay's scripted P2 (it picks up and
@@ -536,6 +647,65 @@ def write_stats(raws, path):
     return dead
 
 
+def driver_slots(a):
+    """Every training slot (states_mixed, FFASelfPlayEnv) + held-out 90-94 (states/, base env), --par processes at
+    once on instances INSTANCE, INSTANCE+1, ...; writes obs_v4_stats_slots.txt."""
+    tmp = os.environ.get("TMPDIR", "/tmp")
+    chunks = [TRAIN_SLOTS[k::max(1, a.par)] for k in range(max(1, a.par))]
+    jobs = [("ffa", a.mixed_states, c) for c in chunks if c] + [("base", a.heldout_states, HELDOUT_SLOTS)]
+    running, results, ok = [], [], True
+    for j, (kind, sd, sl) in enumerate(jobs):
+        while len([p for p in running if p[0].poll() is None]) >= max(1, a.par):
+            time.sleep(1.0)
+        out = os.path.join(tmp, f"obs_v4_slots_{j}.json")
+        if os.path.exists(out):
+            os.remove(out)
+        cmd = [sys.executable, os.path.abspath(__file__), "--part", "slots", "--kind", kind, "--states", sd,
+               "--slot-list", ",".join(map(str, sl)), "--steps", str(a.slot_steps), "--pool", a.pool, "--out", out]
+        env = dict(os.environ, PS2_V4_TEST_INSTANCE=str(INSTANCE + (j % max(1, a.par))))
+        running.append((subprocess.Popen(cmd, cwd=LP, env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                                         text=True), out, kind, sl))
+    for p, out, kind, sl in running:
+        so, _ = p.communicate()
+        for line in so.splitlines():
+            if line.startswith(("[slots", "FAIL")):
+                print(line, flush=True)
+        if not os.path.exists(out):
+            print(f"FAIL: slots part {kind} {sl} produced no result (rc {p.returncode})\n{so[-2000:]}")
+            ok = False
+            continue
+        with open(out) as f:
+            results.append(json.load(f))
+        os.remove(out)
+    nf = sum(r["n_fails"] for r in results)
+    if results:
+        n = sum(r["n"] for r in results)
+        nz = np.sum([r["nz"] for r in results if r["n"]], 0)
+        mn = np.min([r["mn"] for r in results if r["n"]], 0)
+        mx = np.max([r["mx"] for r in results if r["n"]], 0)
+        slots = {f"{r['kind']}:{s}": d for r in results for s, d in r["slots"].items()}
+        lines = [f"obs v4 per-slot stats (production env, PS2_OBS_V4=1): {n} observations (learner + policy-seat views) "
+                 f"over {len(slots)} slots: training {TRAIN_SLOTS} ({a.mixed_states}), held-out {HELDOUT_SLOTS} "
+                 f"({a.heldout_states}); {a.slot_steps} random-action steps per slot.",
+                 f"features never non-zero on any slot: {[NAMES[i] for i in range(V.V4_EXTRA) if nz[i] == 0]}", "",
+                 f"{'slot':>9} {'steps':>5} {'stage':>5} {'map':>3} {'min':>6} {'max':>6} {'live':>4}  "
+                 + " ".join(f"{b[0]}chg%" for b in V.BLOCKS)]
+        for k, d in sorted(slots.items(), key=lambda kv: (kv[0].split(":")[0], int(kv[0].split(":")[1]))):
+            lines.append(f"{k:>9} {d['steps']:5d} {d['stage']:5d} {d['map_present']:3.0f} {d['lo']:6.2f} {d['hi']:6.2f} "
+                         f"{d['nz_feats']:4d}  " + " ".join(f"{100 * d['change'][b]:5.0f}" for b in V.BLOCKS)
+                         + (f"  FAILS {d['fails']}" if d["fails"] else ""))
+        lines += ["", f"{'obs idx':>7} {'feature':28s} {'nonzero':>8} {'min':>8} {'max':>8}"]
+        for i, nm in enumerate(NAMES):
+            lines.append(f"{V.V3_DIM + i:7d} {nm:28s} {nz[i] / max(1, n):8.4f} {mn[i]:8.3f} {mx[i]:8.3f}")
+        with open(os.path.join(HERE, "obs_v4_stats_slots.txt"), "w") as f:
+            f.write("\n".join(lines) + "\n")
+        print(f"[summary slots] {len(slots)} slots, {n} observations, failures {nf}; table in obs_v4_stats_slots.txt",
+              flush=True)
+    good = ok and nf == 0 and len(results) == len(jobs)
+    print(f"obs v4 slot tests: {len(results)}/{len(jobs)} parts ran, {nf} failures -> {'PASS' if good else 'FAIL'}")
+    return 0 if good else 1
+
+
 def driver(a):
     tmp = os.environ.get("TMPDIR", "/tmp")
     jobs = [("raw", ["--slot", str(s), "--frames", str(a.frames)]) for s in (1, 2, 3)]
@@ -574,7 +744,10 @@ def driver(a):
               f"{scan + feat:.3f} ms, FFA 4 views {scan + 4 * feat:.3f} ms; unexpected dead features: {dead or 'none'}")
     nf = sum(r["n_fails"] for r in results.values())
     print(f"obs v4 tests: {len(results)}/{len(jobs)} parts ran, {nf} failures -> {'PASS' if ok and nf == 0 else 'FAIL'}")
-    return 0 if ok and nf == 0 else 1
+    rc = 0 if ok and nf == 0 else 1
+    if a.with_slots:
+        rc = max(rc, driver_slots(a))
+    return rc
 
 
 if __name__ == "__main__":
@@ -586,6 +759,17 @@ if __name__ == "__main__":
     ap.add_argument("--out", default="")
     ap.add_argument("--seconds", type=float, default=240.0)
     ap.add_argument("--chests-first", type=float, default=0.0)
+    # Oct 5 2026 (Ryzen integration): every training slot + the held-out lineups through the production env
+    ap.add_argument("--slots-only", action="store_true", help="run only the per-slot production-env part")
+    ap.add_argument("--with-slots", action="store_true", help="the full suite plus the per-slot part")
+    ap.add_argument("--states", default="")
+    ap.add_argument("--slot-list", default="")
+    ap.add_argument("--kind", default="ffa")
+    ap.add_argument("--pool", default="", help="pool dir for the ffa slot part (a 430-dim zip: views build v4)")
+    ap.add_argument("--mixed-states", default=os.path.join(LP, "states_mixed"))
+    ap.add_argument("--heldout-states", default=os.path.join(LP, "states"))
+    ap.add_argument("--slot-steps", type=int, default=150)
+    ap.add_argument("--par", type=int, default=2, help="slot-part processes at once (one emulator each)")
     a = ap.parse_args()
     if a.part == "raw":
         part_raw(a.slot, a.frames, a.out)
@@ -595,6 +779,10 @@ if __name__ == "__main__":
         part_owner(a.slot, a.seconds, a.chests_first, a.out)
     elif a.part == "env":
         part_env(a.out, a.steps)
+    elif a.part == "slots":
+        part_slots(a.states, [int(x) for x in a.slot_list.split(",")], a.steps, a.pool, a.kind, a.out)
+    elif a.slots_only:
+        sys.exit(driver_slots(a))
     else:
         sys.exit(driver(a))
     sys.stdout.flush()
