@@ -281,12 +281,19 @@ class FFASelfPlayEnv(PowerStoneEnvLibretro):
             from obs_stack import kd_for
             kv, dv = kd_for(v.model)
             self._legacy_proj = (dv == 122)     # Sep 25: v2 policy -> v2-rule projectile prefix
+            # Oct 5 2026 (obs v4): a <=160-dim pool policy keeps the slot-hash [12..17] it was trained on, and the
+            # v4 block is not computed for its view (sliced away below). Inert unless PS2_OBS_V4=1.
+            self._legacy_item = (dv <= 160)
             try:
                 obs_v = self._obs_from_view(v)
             finally:
                 self._legacy_proj = getattr(self, "_legacy_proj_main", False)   # Sep 28: keep the main model's contract
+                self._legacy_item = getattr(self, "_legacy_item_main", False)
             if dv < obs_v.shape[0]:
-                obs_v = obs_v[:dv]              # Sep 23: v2 pool policy under an obs v3 env
+                obs_v = obs_v[:dv]              # Sep 23: v2 pool policy under an obs v3 env (Oct 5: v3 under v4)
+            elif dv > obs_v.shape[0]:
+                raise RuntimeError(f"pool model {v.path} reads {dv}/frame but this env builds {obs_v.shape[0]} "
+                                   f"(a v4 pool zip under a PS2_OBS_V4=0 env?)")
             if kv > 1:                                   # stacked pool policy: keep its own history
                 if v.stack is None:
                     from obs_stack import FrameStack

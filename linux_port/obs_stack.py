@@ -89,16 +89,18 @@ class StackedEnv:
         return getattr(self._env, name)
 
 
-BASE_DIMS = (160, 122)          # obs v3, obs v2/v1 (checked in this order)
+# obs v4, obs v3, obs v2/v1 (checked in this order). Oct 5 2026: 430*K never equals 160*K' or 122*K' for K, K' in
+# OFFSETS_BY_K (430..3440 vs 160..1280 / 122..976), so the width alone still identifies the contract.
+BASE_DIMS = (430, 160, 122)
 
 
 def kd_for(model):
-    """(K, per-frame dim) of a policy from its input width: 122 (v2) or 160 (v3) per frame."""
+    """(K, per-frame dim) of a policy from its input width: 122 (v2), 160 (v3) or 430 (v4) per frame."""
     n = int(model.observation_space.shape[0])
     for d in BASE_DIMS:
         if n % d == 0 and (n // d) in OFFSETS_BY_K:
             return n // d, d
-    raise ValueError(f"model obs dim {n} is not K x 122 or K x 160 for a known K")
+    raise ValueError(f"model obs dim {n} is not K x 122, K x 160 or K x 430 for a known K")
 
 
 def k_for(model, base_dim=None):

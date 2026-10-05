@@ -121,10 +121,12 @@ class SelfPlayEnv(PowerStoneEnvLibretro):
             from obs_stack import kd_for
             kv, dv = kd_for(self._opp_model)
             self._legacy_proj = (dv == 122)               # Sep 25: v2 opponent -> v2-rule projectiles
+            self._legacy_item = (dv <= 160)               # Oct 5 (obs v4): a v2/v3 opponent keeps [12..17], no v4 block
             try:
                 opp_obs = self._obs_from_view(self._opp_synth, agent_player=1)
             finally:
                 self._legacy_proj = getattr(self, "_legacy_proj_main", False)   # Sep 28: keep the main model's contract
+                self._legacy_item = getattr(self, "_legacy_item_main", False)
             if dv < opp_obs.shape[0]:
                 opp_obs = opp_obs[:dv]                    # Sep 23: v2 opponent under an obs v3 env
             if kv > 1:                                   # Sep 22: stacked opponent model
