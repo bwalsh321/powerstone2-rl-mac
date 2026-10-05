@@ -1,0 +1,10 @@
+id=0xc3 vt=0x0c0f1688 st=0x2 f=60 pos=(-500,100,1000) bbox=(0,190,21,260) -> idc3_vt0c0f1688_s3_33_f60.png
+id=0xc3 vt=0x0c0f1688 st=0x2 f=60 pos=(114,100,-900) bbox=(545,55,634,128) -> idc3_vt0c0f1688_s3_33_f60.png
+id=0xc3 vt=0x0c0f1688 st=0x2 f=60 pos=(-1000,100,-100) bbox=(204,37,242,96) -> idc3_vt0c0f1688_s3_33_f60.png
+id=0xc3 vt=0x0c0f1688 st=0x2 f=60 pos=(-900,100,100) bbox=(175,54,216,115) -> idc3_vt0c0f1688_s3_33_f60.png
+id=0xc3 vt=0x0c0f1688 st=0x2 f=60 pos=(-1100,100,300) bbox=(95,54,139,116) -> idc3_vt0c0f1688_s3_33_f60.png
+id=0xc8 vt=0x0c0f18d4 st=0x2 f=60 pos=(-1000,0,-1000) bbox=(365,0,380,46) -> idc8_vt0c0f18d4_s3_33_f60.png
+id=0xc2 vt=0x0c0cc7a8 st=0x2 f=480 pos=(250,50,-600) bbox=(573,192,612,217) -> idc2_vt0c0cc7a8_s3_33_f480.png
+id=0xc1 vt=0x0c0cbcb0 st=0x2 f=480 pos=(572,75,-236) bbox=(620,250,639,303) -> idc1_vt0c0cbcb0_s3_33_f480.png
+id=0x4f vt=0x0c0c9810 st=0x0 f=1080 pos=(250,70,-600) bbox=(532,113,576,147) -> id4f_vt0c0c9810_s3_33_f1080.png
+id=0x58 vt=0x0c0ca5d8 st=0x2 f=1740 pos=(650,70,800) bbox=(375,352,411,437) -> id58_vt0c0ca5d8_s3_33_f1740.png

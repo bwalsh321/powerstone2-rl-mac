@@ -1,0 +1,24 @@
+Set variable override: flycast_hle_bios = enabled
+Set variable override: reicast_hle_bios = enabled
+Set variable override: flycast_device_port1_slot1 = VMU
+Set variable override: flycast_device_port2_slot1 = VMU
+Set variable override: flycast_threaded_rendering = disabled
+Set variable override: reicast_threaded_rendering = disabled
+2026-10-04 20:35:17.817 Python[45740:5237763] ApplePersistenceIgnoreState: Existing state will not be touched. New state will be written to /var/folders/gz/b_ggdqsj0s9_8mxs_fyvdkym0000gn/T/org.python.python.savedState
+fps 401.9311227765544
+place (3000, 3000) -> [1140.0, 0.0, 1140.0]
+place (-3000, -3000) -> [-1140.0, 0.0, -1140.0]
+place (3000, -3000) -> [1140.0, 0.0, -1140.0]
+place (1300, 1300) -> [1140.0, 0.0, 1140.0]
+place (1100, 1100) -> [1100.0, 0.0, 1100.0]
+place (1000, 1000) -> [1000.0, 0.0, 1000.0]
+place (-1139, 500) -> [-1139.0, 0.0, 500.0]
+1140.0 5 ['0x8c28a080', '0x8c28e160', '0x8c3f2144', '0x8c3f2158', '0x8c5433f4']
+-1140.0 0 []
+1200.0 35 ['0x8c0dc970', '0x8c14d594', '0x8c1c9670', '0x8c1c99f4', '0x8c1cbc44', '0x8c1ce320', '0x8c258a44', '0x8c25b018', '0x8c25b060', '0x8c25b078', '0x8c25b094', '0x8c25b10c', '0x8c285cf0', '0x8c28a71c', '0x8c28a81c', '0x8c28c1cc', '0x8c28c32c', '0x8c28c4cc', '0x8c28c60c', '0x8c28c99c', '0x8c28cb3c', '0x8c2a23d8', '0x8c2a23ec', '0x8c2a2400', '0x8c2a2414', '0x8c5455e0', '0x8c545608', '0x8c545a08', '0x8c545a48', '0x8c545a88', '0x8c545ac8', '0x8c545b08', '0x8c545b48', '0x8c545b88', '0x8c545bc8']
+-1200.0 18 ['0x8c0d287c', '0x8c0d6cb0', '0x8c0d8a78', '0x8c14d464', '0x8c1c74b8', '0x8c1c963c', '0x8c1ce1d0', '0x8c258b78', '0x8c543bf0', '0x8c543c10', '0x8c543cf8', '0x8c543d38', '0x8c543df8', '0x8c544438', '0x8c544550', '0x8c544590', '0x8c5445d0', '0x8c544690']
+1080.0 4 ['0x8c1cc1f8', '0x8c1cc220', '0x8c1ce1f0', '0x8c1ce22c']
+1100.0 15 ['0x8c083dfc', '0x8c0e7ae8', '0x8c0e7d38', '0x8c1bb3e8', '0x8c1bdccc', '0x8c1bdd4c', '0x8c1c6638', '0x8c1c94e8', '0x8c1c9500', '0x8c286150', '0x8c286c44', '0x8c28c2cc', '0x8c28c3cc', '0x8c28c58c', '0x8c28c68c']
+1160.0 4 ['0x8c28bfa4', '0x8c28c024', '0x8c28c0e4', '0x8c28c164']
+DONE
+libc++abi: terminating due to uncaught exception of type std::__1::system_error: mutex lock failed: Invalid argument

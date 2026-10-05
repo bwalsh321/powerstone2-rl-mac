@@ -1,0 +1,6 @@
+level poke None: byte at stage select 3 -> at fight start 3; P3 char 8 COM 1; COM attack windows 0, damage to idle humans 586, distinct acts 18
+level poke 0: byte at stage select 3 -> at fight start 0; P3 char 8 COM 1; COM attack windows 0, damage to idle humans 586, distinct acts 18
+level poke 7: byte at stage select 3 -> at fight start 7; P3 char 8 COM 1; COM attack windows 0, damage to idle humans 586, distinct acts 18
+level poke 0: byte at stage select 3 -> at fight start 0; P3 char 8 COM 1; COM attack windows 0, damage to idle humans 586, distinct acts 18
+level poke 7: byte at stage select 3 -> at fight start 7; P3 char 8 COM 1; COM attack windows 0, damage to idle humans 586, distinct acts 18
+DONE

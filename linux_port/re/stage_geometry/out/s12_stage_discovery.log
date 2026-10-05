@@ -1,0 +1,99 @@
+Set variable override: flycast_hle_bios = enabled
+Set variable override: reicast_hle_bios = enabled
+Set variable override: flycast_device_port1_slot1 = VMU
+Set variable override: flycast_device_port2_slot1 = VMU
+Set variable override: flycast_threaded_rendering = disabled
+Set variable override: reicast_threaded_rendering = disabled
+2026-10-04 20:48:18.352 Python[51103:5267517] ApplePersistenceIgnoreState: Existing state will not be touched. New state will be written to /var/folders/gz/b_ggdqsj0s9_8mxs_fyvdkym0000gn/T/org.python.python.savedState
+== desert  set_state 3.8 ms   P1 [250, 0, 900] P2 [-400, 0, -900]  hp2=1000
+   ledger vtables: {'0xc0f1688': 8, '0xc0f18d4': 4}
+   far   0deg -> after2f (   1140,  591,      0)  after92f (   1140,     0,      0) st=0
+   far  45deg -> after2f (   5060,  591,   5060)  after92f (    200,     0,    200) st=22
+   far  90deg -> after2f (    -75,  591,   1140)  after92f (    -75,     0,   1140) st=0
+   far 135deg -> after2f (  -5060,  591,   5060)  after92f (    200,     0,    200) st=22
+   far 180deg -> after2f (  -1140,  591,      0)  after92f (  -1140,     0,      0) st=0
+   far 225deg -> after2f (  -5060,  591,  -5060)  after92f (    200,     0,    200) st=22
+   far 270deg -> after2f (    -75,  591,  -1140)  after92f (    -75,     0,  -1140) st=0
+   far 315deg -> after2f (   5060,  591,  -5060)  after92f (    200,     0,    200) st=22
+== bluesky  set_state 3.2 ms   P1 [-300, 0, 525] P2 [300, 0, 368]  hp2=1000
+   ledger vtables: {'0xc0d1bae': 3, '0xc0d4344': 4, '0xc0c9810': 1}
+   far   0deg -> after2f (   6000,  591,    447)  after92f (      0,     0,      0) st=22
+   far  45deg -> after2f (   4243,  591,   4689)  after92f (      0,     0,      0) st=22
+   far  90deg -> after2f (      0,  591,   6447)  after92f (      0,     0,      0) st=22
+   far 135deg -> after2f (  -4243,  591,   4689)  after92f (      0,     0,      0) st=22
+   far 180deg -> after2f (  -6000,  591,    447)  after92f (      0,     0,      0) st=22
+   far 225deg -> after2f (  -4243,  591,  -3796)  after92f (      0,     0,      0) st=22
+   far 270deg -> after2f (      0,  591,  -5553)  after92f (      0,     0,      0) st=22
+   far 315deg -> after2f (   4243,  591,  -3796)  after92f (      0,     0,      0) st=22
+== darkcastle  set_state 3.0 ms   P1 [-2200, 0, -350] P2 [-809, 0, -534]  hp2=1000
+   ledger vtables: {'0xc0d859c': 2, '0xc0d7104': 7, '0xc0d7950': 6}
+   far   0deg -> after2f (   4495,  591,   -442)  after92f (   4495,  -101,   -442) st=0
+   far  45deg -> after2f (   2738,  591,   3801)  after92f (   2738,  -101,   3801) st=0
+   far  90deg -> after2f (  -1505,  591,   5558)  after92f (  -2150,     0,    990) st=22
+   far 135deg -> after2f (  -5747,  591,   3801)  after92f (  -2150,     0,    990) st=22
+   far 180deg -> after2f (  -7505,  591,   -442)  after92f (  -2150,     0,    990) st=22
+   far 225deg -> after2f (  -5860,  591,  -4685)  after92f (  -2150,     0,    990) st=22
+   far 270deg -> after2f (  -1505,  591,  -8760)  after92f (  -2150,     0,    990) st=22
+   far 315deg -> after2f (   2738,  591,  -4685)  after92f (   2738,  -101,  -4685) st=0
+== tomb  set_state 3.0 ms   P1 [-308, 0, 542] P2 [-11, 0, 13]  hp2=1000
+   ledger vtables: {'0xc0df0ca': 8}
+   far   0deg -> after2f (   5840,  591,    277)  after92f (   5840,     0,    277) st=0
+   far  45deg -> after2f (   4083,  591,   4520)  after92f (   4083,     0,   4520) st=0
+   far  90deg -> after2f (   -160,  591,   6277)  after92f (   -350,     0,    420) st=22
+   far 135deg -> after2f (  -4402,  591,   4520)  after92f (  -4402,     0,   4520) st=0
+   far 180deg -> after2f (  -6160,  591,    277)  after92f (  -6160,     0,    277) st=0
+   far 225deg -> after2f (  -4402,  591,  -3965)  after92f (  -4402,     0,  -3965) st=0
+   far 270deg -> after2f (   -160,  591,  -6010)  after92f (   -350,     0,    420) st=22
+   far 315deg -> after2f (   4083,  591,  -3965)  after92f (   4083,     0,  -3965) st=0
+== iceberg  set_state 2.9 ms   P1 [1198, 28, 1136] P2 [1152, 28, 217]  hp2=1000
+   ledger vtables: {'0xc0e455e': 3, '0xc0e7ff0': 2, '0xc0e8ae4': 11}
+   far   0deg -> after2f (   7175,  591,    676)  after92f (   1150,    15,    100) st=22
+   far  45deg -> after2f (   5418,  591,   4919)  after92f (   1150,    15,    100) st=22
+   far  90deg -> after2f (   1175,  591,   6676)  after92f (   1150,    15,    100) st=22
+   far 135deg -> after2f (  -3068,  591,   4919)  after92f (   1150,    15,    100) st=22
+   far 180deg -> after2f (  -4825,  591,    676)  after92f (   1150,    15,    100) st=22
+   far 225deg -> after2f (  -3068,  591,  -3566)  after92f (   1150,    15,    100) st=22
+   far 270deg -> after2f (   1175,  591,  -5324)  after92f (   1150,    15,    100) st=22
+   far 315deg -> after2f (   5418,  591,  -3566)  after92f (   1150,    15,    100) st=22
+== spacestation  set_state 2.8 ms   P1 [-438, 0, 133] P2 [17, 0, -408]  hp2=1000
+   ledger vtables: {'0xc0f0e08': 8, '0xc0f109a': 1}
+   far   0deg -> after2f (  10660,  591,   -137)  after92f (   -150,     0,   -450) st=22
+   far  45deg -> after2f (   5060,  591,   5060)  after92f (   -150,     0,   -450) st=22
+   far  90deg -> after2f (  -5060,  591,   5863)  after92f (   -150,     0,   -450) st=22
+   far 135deg -> after2f (  -5060,  591,   5060)  after92f (   -150,     0,   -450) st=22
+   far 180deg -> after2f (  -6210,  830,   -137)  after92f (  -6210,   830,   -137) st=0
+   far 225deg -> after2f (  -5060,  591,  -5060)  after92f (   -150,     0,   -450) st=22
+   far 270deg -> after2f (  -5060,  591,  -6137)  after92f (   -150,     0,   -450) st=22
+   far 315deg -> after2f (   5060,  591,  -5060)  after92f (   -150,     0,   -450) st=22
+== desert_menu  set_state 2.8 ms   P1 [250, 0, 900] P2 [-334, 0, -834]  hp2=1000
+   ledger vtables: {'0xc0f1688': 8, '0xc0f18d4': 4}
+   far   0deg -> after2f (   1140,  591,     33)  after92f (   1140,     0,     33) st=0
+   far  45deg -> after2f (   5060,  591,   5060)  after92f (    200,     0,    200) st=22
+   far  90deg -> after2f (    -42,  591,   1140)  after92f (    -42,     0,   1140) st=0
+   far 135deg -> after2f (  -5060,  591,   5060)  after92f (    200,     0,    200) st=22
+   far 180deg -> after2f (  -1140,  591,     33)  after92f (  -1140,     0,     33) st=0
+   far 225deg -> after2f (  -5060,  591,  -5060)  after92f (    200,     0,    200) st=22
+   far 270deg -> after2f (    -42,  591,  -1140)  after92f (    -42,     0,  -1140) st=0
+   far 315deg -> after2f (   5060,  591,  -5060)  after92f (    200,     0,    200) st=22
+== pharaoh  set_state 3.1 ms   P1 [250, 0, 900] P2 [-84, 0, 966]  hp2=1000
+   ledger vtables: {'0xc148b0c': 4, '0xc148862': 1, '0xc0f1688': 8, '0xc0f18d4': 4}
+   far   0deg -> after2f (   6083,  591,   5060)  after92f (   -235,   708,    199) st=22
+   far  45deg -> after2f (   5060,  591,   5176)  after92f (   -235,   708,    199) st=22
+   far  90deg -> after2f (     83,  591,  11260)  after92f (   -235,   708,    199) st=22
+   far 135deg -> after2f (  -5060,  591,   5176)  after92f (   -235,   708,    199) st=22
+   far 180deg -> after2f (  -5917,  591,   5060)  after92f (   -235,   708,    199) st=22
+   far 225deg -> after2f (  -5060,  591,  -5060)  after92f (   -235,   708,    199) st=22
+   far 270deg -> after2f (     83,  591,  -1140)  after92f (     83,     0,  -1140) st=0
+   far 315deg -> after2f (   5060,  591,  -5060)  after92f (   -235,   708,    199) st=22
+== chaos  set_state 3.7 ms   P1 [107, 0, 7400] P2 [-13, 0, 7400]  hp2=1000
+   ledger vtables: {'0xc0f4cec': 5}
+   far   0deg -> after2f (   6047, 5000,   7400)  after92f (   6047,  5000,   7400) st=0
+   far  45deg -> after2f (   5060,  591,  15060)  after92f (    200,     0,   6950) st=22
+   far  90deg -> after2f (     47,  591,  17780)  after92f (    200,     0,   6950) st=22
+   far 135deg -> after2f (  -5060,  591,  15060)  after92f (    200,     0,   6950) st=22
+   far 180deg -> after2f (  -5953, 5000,   7400)  after92f (  -5953,  5000,   7400) st=0
+   far 225deg -> after2f (   -520,  591,   3157)  after92f (   -520,     0,   3157) st=0
+   far 270deg -> after2f (     47,  600,   1315)  after92f (     47,   600,   1315) st=0
+   far 315deg -> after2f (    520,  591,   3157)  after92f (    520,     0,   3157) st=0
+DONE
+libc++abi: terminating due to uncaught exception of type std::__1::system_error: mutex lock failed: Invalid argument

@@ -1,0 +1,7 @@
+2026-10-04 21:01:54.759 Python[56414:5295394] ApplePersistenceIgnoreState: Existing state will not be touched. New state will be written to /var/folders/gz/b_ggdqsj0s9_8mxs_fyvdkym0000gn/T/org.python.python.savedState
+samples=3600 distinct_ptrs=29 ptrs_with_multiple_types=2
+   0xc512124 {57: 85, 70: 88, 51: 169}
+   0xc51af84 {57: 35, 36: 27}
+on 0x430 grid residue 0x1E4: 29 / 29
+max live ledger slot=125  sightings at slot>=110: 1808
+libc++abi: terminating due to uncaught exception of type std::__1::system_error: mutex lock failed: Invalid argument

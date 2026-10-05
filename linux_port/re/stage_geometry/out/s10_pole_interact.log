@@ -1,0 +1,72 @@
+Set variable override: flycast_hle_bios = enabled
+Set variable override: reicast_hle_bios = enabled
+Set variable override: flycast_device_port1_slot1 = VMU
+Set variable override: flycast_device_port2_slot1 = VMU
+Set variable override: flycast_threaded_rendering = disabled
+Set variable override: reicast_threaded_rendering = disabled
+2026-10-04 20:46:58.273 Python[50487:5264474] ApplePersistenceIgnoreState: Existing state will not be touched. New state will be written to /var/folders/gz/b_ggdqsj0s9_8mxs_fyvdkym0000gn/T/org.python.python.savedState
+pygame 2.6.1 (SDL 2.28.4, Python 3.11.16)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+== run_into
+   t=  1 btn=up       st=  0 dist= 140.0 y=   0.0
+   t=  2 btn=up       st=  1 dist= 140.0 y=   0.0
+   t= 10 btn=up       st=  1 dist= 108.0 y=   0.0
+   t= 20 btn=up       st=  1 dist=  75.0 y=   0.0
+   t= 30 btn=up       st=  1 dist=  75.0 y=   0.0
+   t= 40 btn=up       st=  1 dist=  75.0 y=   0.0
+   t= 50 btn=up       st=  1 dist=  75.0 y=   0.0
+   t= 60 btn=up       st=  1 dist=  75.0 y=   0.0
+== run_B
+   t=  1 btn=up       st=  0 dist= 140.0 y=   0.0
+   t=  2 btn=up       st=  1 dist= 140.0 y=   0.0
+   t= 10 btn=up       st=  1 dist= 108.0 y=   0.0
+   t= 20 btn=up       st=  1 dist=  75.0 y=   0.0
+   t= 30 btn=up       st=  1 dist=  75.0 y=   0.0
+   t= 40 btn=up       st=  1 dist=  75.0 y=   0.0
+   t= 50 btn=up       st=  1 dist=  75.0 y=   0.0
+   t= 60 btn=up       st=  1 dist=  75.0 y=   0.0
+   t= 70 btn=up       st=  1 dist=  75.0 y=   0.0
+== run_A
+   t=  1 btn=up       st=  0 dist= 140.0 y=   0.0
+   t=  2 btn=up       st=  1 dist= 140.0 y=   0.0
+   t= 10 btn=up+a     st=  5 dist= 112.0 y=   0.0
+   t= 20 btn=up       st=  5 dist=  75.0 y= 217.0
+   t= 30 btn=up       st=  5 dist=  75.0 y= 323.0
+   t= 40 btn=up       st=  5 dist=  75.0 y= 309.0
+   t= 50 btn=up       st=  5 dist=  75.0 y= 175.0
+   t= 59 btn=up       st=  1 dist=  75.0 y=   0.0
+   t= 60 btn=up       st=  1 dist=  75.0 y=   0.0
+   t= 70 btn=up       st=  1 dist=  75.0 y=   0.0
+== adj_B
+   t=  1 btn=none     st=  0 dist=  85.0 y=   0.0
+   t= 10 btn=none     st=  0 dist=  85.0 y=   0.0
+   t= 20 btn=none     st=  0 dist=  85.0 y=   0.0
+   t= 30 btn=none     st=  0 dist=  85.0 y=   0.0
+   t= 40 btn=none     st=  0 dist=  85.0 y=   0.0
+   t= 50 btn=none     st=  0 dist=  85.0 y=   0.0
+   t= 60 btn=none     st=  0 dist=  85.0 y=   0.0
+== adj_A
+   t=  1 btn=none     st=  0 dist=  85.0 y=   0.0
+   t=  4 btn=a        st=  4 dist=  85.0 y=   0.0
+   t=  8 btn=a        st=  5 dist=  85.0 y=   0.0
+   t= 10 btn=up       st=  5 dist=  78.0 y=  45.8
+   t= 20 btn=up       st=  5 dist=  75.0 y= 247.8
+   t= 30 btn=up       st=  5 dist=  75.0 y= 329.8
+   t= 40 btn=up       st=  5 dist=  75.0 y= 291.8
+   t= 50 btn=up       st=  5 dist=  75.0 y= 133.8
+   t= 57 btn=up       st=  1 dist=  75.0 y=   0.0
+   t= 60 btn=up       st=  1 dist=  75.0 y=   0.0
+== adj_upA_hold
+   t=  1 btn=up       st=  0 dist=  85.0 y=   0.0
+   t=  2 btn=up       st=  1 dist=  85.0 y=   0.0
+   t=  6 btn=up+a     st=  5 dist=  75.0 y=   0.0
+   t= 10 btn=up+a     st=  5 dist=  75.0 y=  95.8
+   t= 20 btn=up+a     st=  5 dist=  75.0 y= 273.8
+   t= 30 btn=up+a     st=  5 dist=  75.0 y= 331.8
+   t= 40 btn=up       st=  5 dist=  75.0 y= 269.8
+   t= 50 btn=up       st=  5 dist=  75.0 y=  87.8
+   t= 55 btn=up       st=  1 dist=  75.0 y=   0.0
+   t= 60 btn=up       st=  1 dist=  75.0 y=   0.0
+   t= 70 btn=up       st=  1 dist=  75.0 y=   0.0
+DONE
+libc++abi: terminating due to uncaught exception of type std::__1::system_error: mutex lock failed: Invalid argument

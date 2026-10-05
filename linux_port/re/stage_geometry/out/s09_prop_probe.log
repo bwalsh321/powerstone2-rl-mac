@@ -1,0 +1,46 @@
+Set variable override: flycast_hle_bios = enabled
+Set variable override: reicast_hle_bios = enabled
+Set variable override: flycast_device_port1_slot1 = VMU
+Set variable override: flycast_device_port2_slot1 = VMU
+Set variable override: flycast_threaded_rendering = disabled
+Set variable override: reicast_threaded_rendering = disabled
+2026-10-04 20:46:32.127 Python[50230:5263282] ApplePersistenceIgnoreState: Existing state will not be touched. New state will be written to /var/folders/gz/b_ggdqsj0s9_8mxs_fyvdkym0000gn/T/org.python.python.savedState
+== pole_100_1000
+  ground start dx=   0 -> dist    75.0 y=   0.0 st=  0   | drop -> y=   0.0 dist    75.0 st=0
+  ground start dx=  10 -> dist    75.0 y=   0.0 st=  0   | drop -> y=   0.0 dist    75.0 st=0
+  ground start dx=  20 -> dist    75.0 y=   0.0 st=  0   | drop -> y=   0.0 dist    75.0 st=0
+  ground start dx=  30 -> dist    75.0 y=   0.0 st=  0   | drop -> y=   0.0 dist    75.0 st=0
+  ground start dx=  40 -> dist    75.0 y=   0.0 st=  0   | drop -> y=   0.0 dist    75.0 st=0
+  ground start dx=  50 -> dist    75.0 y=   0.0 st=  0   | drop -> y=   0.0 dist    75.0 st=0
+  ground start dx=  60 -> dist    75.0 y=   0.0 st=  0   | drop -> y=   0.0 dist    75.0 st=0
+  ground start dx=  70 -> dist    75.0 y=   0.0 st=  0   | drop -> y=   0.0 dist    75.0 st=0
+  ground start dx=  80 -> dist    80.5 y=   0.0 st=  0   | drop -> y=   0.0 dist    80.5 st=0
+  ground start dx=  90 -> dist    90.5 y=   0.0 st=  0   | drop -> y=   0.0 dist    90.5 st=0
+  ground start dx= 100 -> dist   100.5 y=   0.0 st=  0   | drop -> y=   0.0 dist   100.5 st=0
+  ground start dx= 110 -> dist   110.5 y=   0.0 st=  0   | drop -> y=   0.0 dist   110.5 st=0
+  ground start dx= 120 -> dist   120.5 y=   0.0 st=  0   | drop -> y=   0.0 dist   120.5 st=0
+  ground start dx= 130 -> dist   130.5 y=   0.0 st=  0   | drop -> y=   0.0 dist   130.5 st=0
+  ground start dx= 140 -> dist   140.5 y=   0.0 st=  0   | drop -> y=   0.0 dist   140.5 st=0
+  ground start dx= 150 -> dist   150.5 y=   0.0 st=  0   | drop -> y=   0.0 dist   150.5 st=0
+== cluster_m500_1000
+  ground start dx=   0 -> dist    88.9 y=   0.0 st=  0   | drop -> y=   0.0 dist    60.3 st=0
+  ground start dx=  10 -> dist    91.4 y=   0.0 st=  0   | drop -> y=   0.0 dist    69.1 st=0
+  ground start dx=  20 -> dist    93.9 y=   0.0 st=  0   | drop -> y=   0.0 dist    72.5 st=0
+  ground start dx=  30 -> dist    96.4 y=   0.0 st=  0   | drop -> y=   0.0 dist    76.2 st=0
+  ground start dx=  40 -> dist    98.9 y=   0.0 st=  0   | drop -> y=   0.0 dist    80.3 st=0
+  ground start dx=  50 -> dist   101.4 y=   0.0 st=  0   | drop -> y=   0.0 dist    85.3 st=0
+  ground start dx=  60 -> dist   103.9 y=   0.0 st=  0   | drop -> y=   0.0 dist    90.3 st=0
+  ground start dx=  70 -> dist   106.4 y=   0.0 st=  0   | drop -> y=   0.0 dist    95.3 st=0
+  ground start dx=  80 -> dist   108.9 y=   0.0 st=  0   | drop -> y=   0.0 dist   100.3 st=0
+  ground start dx=  90 -> dist   111.4 y=   0.0 st=  0   | drop -> y=   0.0 dist   105.3 st=0
+  ground start dx= 100 -> dist   113.9 y=   0.0 st=  0   | drop -> y=   0.0 dist   110.3 st=0
+  ground start dx= 110 -> dist   116.4 y=   0.0 st=  0   | drop -> y=   0.0 dist   115.3 st=0
+  ground start dx= 120 -> dist   120.5 y=   0.0 st=  0   | drop -> y=   0.0 dist   120.5 st=0
+  ground start dx= 130 -> dist   130.5 y=   0.0 st=  0   | drop -> y=   0.0 dist   130.5 st=0
+  ground start dx= 140 -> dist   140.5 y=   0.0 st=  0   | drop -> y=   0.0 dist   140.5 st=0
+  ground start dx= 150 -> dist   150.5 y=   0.0 st=  0   | drop -> y=   0.0 dist   150.5 st=0
+pole rec +0x190: [100.0, 300.0, 1000.0, 15.0, 300.0]
+  radius field=15.0: start dx=20 -> dist 75.0
+  radius field=100.0: start dx=20 -> dist 75.0
+DONE
+libc++abi: terminating due to uncaught exception of type std::__1::system_error: mutex lock failed: Invalid argument

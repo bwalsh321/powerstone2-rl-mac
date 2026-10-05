@@ -1,0 +1,52 @@
+Set variable override: flycast_hle_bios = enabled
+Set variable override: reicast_hle_bios = enabled
+Set variable override: flycast_device_port1_slot1 = VMU
+Set variable override: flycast_device_port2_slot1 = VMU
+Set variable override: flycast_threaded_rendering = disabled
+Set variable override: reicast_threaded_rendering = disabled
+2026-10-04 20:46:44.827 Python[50369:5263909] ApplePersistenceIgnoreState: Existing state will not be touched. New state will be written to /var/folders/gz/b_ggdqsj0s9_8mxs_fyvdkym0000gn/T/org.python.python.savedState
+pygame 2.6.1 (SDL 2.28.4, Python 3.11.16)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+fight frame counter 0x8C475200: [410, 425, 440, 455, 457, 457, 457, 457, 502, 517, 532, 547]
+bytes constant within phase, differ paused vs fighting: 152
+  8C2DF52D fight=0x45 paused=0x4b
+  8C2DF62C fight=0x40 paused=0x80
+  8C2DF62D fight=0x41 paused=0x4b
+  8C2DF72D fight=0x45 paused=0x4b
+  8C2DF82C fight=0x40 paused=0x80
+  8C2DF82D fight=0x41 paused=0x4b
+  8C2DF92D fight=0x45 paused=0x4b
+  8C2DFA2C fight=0x40 paused=0x80
+  8C2DFA2D fight=0x41 paused=0x4b
+  8C2DFB2D fight=0x45 paused=0x4b
+  8C2DFC2C fight=0x40 paused=0x80
+  8C2DFC2D fight=0x41 paused=0x4b
+  8C303808 fight=0x00 paused=0x40
+  8C303809 fight=0x00 paused=0xfc
+  8C31F178 fight=0x00 paused=0x39
+  8C31F179 fight=0x00 paused=0xed
+  8C31F17C fight=0x84 paused=0x00
+  8C31F17D fight=0xe8 paused=0x31
+  8C31F17E fight=0xc9 paused=0xb2
+  8C31F17F fight=0x3f paused=0x43
+  8C31F1A1 fight=0x12 paused=0x0d
+  8C40ADAF fight=0x3f paused=0x3e
+  8C40B85F fight=0x3f paused=0x3e
+  8C40FA35 fight=0x12 paused=0x0d
+  8C40FA45 fight=0xc7 paused=0xca
+  8C46E166 fight=0x80 paused=0x00
+  8C46E167 fight=0x3f paused=0x00
+  8C46E16A fight=0x80 paused=0x00
+  8C46E16B fight=0x3f paused=0x00
+  8C46E1BB fight=0x00 paused=0x01
+  8C46E1CD fight=0x00 paused=0x01
+  8C4B30E2 fight=0x4c paused=0xcc
+  8C4B30E3 fight=0x3b paused=0x3a
+  8C4B30F6 fight=0x4c paused=0xcc
+  8C4B30F7 fight=0x3b paused=0x3a
+  8C4B3108 fight=0x95 paused=0xcd
+  8C4B3109 fight=0xbf paused=0xcc
+  8C4B310A fight=0xd6 paused=0xcc
+  8C4B310B fight=0x30 paused=0x3a
+  8C4B3110 fight=0x67 paused=0x00
+DONE

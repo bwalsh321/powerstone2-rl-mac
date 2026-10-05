@@ -1,0 +1,31 @@
+Set variable override: flycast_hle_bios = enabled
+Set variable override: reicast_hle_bios = enabled
+Set variable override: flycast_device_port1_slot1 = VMU
+Set variable override: flycast_device_port2_slot1 = VMU
+Set variable override: flycast_threaded_rendering = disabled
+Set variable override: reicast_threaded_rendering = disabled
+2026-10-04 21:21:32.820 Python[63024:5330330] ApplePersistenceIgnoreState: Existing state will not be touched. New state will be written to /var/folders/gz/b_ggdqsj0s9_8mxs_fyvdkym0000gn/T/org.python.python.savedState
+desert        sid=5 var=0 t+    0: up: angle  -135.0 speed 6.35 | right: angle   -45.0 speed 6.32
+desert        sid=5 var=0 t+ 1500: up: angle  -135.0 speed 7.20 | right: angle   -45.0 speed 7.17
+bluesky       sid=0 var=0 t+    0: up: angle   -90.0 speed 7.20 | right: angle    -0.7 speed 7.20
+bluesky       sid=0 var=0 t+ 1500: up: angle   -93.1 speed 7.20 | right: angle    -2.0 speed 4.27
+darkcastle    sid=1 var=0 t+    0: up: angle  -135.0 speed 7.20 | right: angle   -45.0 speed 7.17
+darkcastle    sid=1 var=0 t+ 1500: up: angle  -135.0 speed 7.20 | right: angle   -45.0 speed 7.17
+tomb          sid=2 var=0 t+    0: up: angle  -123.3 speed 7.20 | right: angle   -33.8 speed 7.20
+tomb          sid=2 var=0 t+ 1500: up: angle  -123.3 speed 7.20 | right: angle   -33.8 speed 7.20
+iceberg       sid=3 var=0 t+    0: up: angle  -128.5 speed 7.20 | right: angle   -38.9 speed 7.17
+iceberg       sid=3 var=0 t+ 1500: up: angle  -128.5 speed 7.20 | right: angle   -38.9 speed 7.17
+spacestation  sid=4 var=0 t+    0: up: angle  -144.1 speed 7.20 | right: angle   -54.5 speed 7.18
+spacestation  sid=4 var=0 t+ 1500: up: angle  -144.1 speed 7.20 | right: angle   -54.5 speed 7.18
+desert_menu   sid=5 var=0 t+    0: up: angle  -135.0 speed 7.20 | right: angle   -45.0 speed 7.17
+desert_menu   sid=5 var=0 t+ 1500: up: angle  -135.0 speed 7.20 | right: angle   -45.0 speed 7.17
+pharaoh       sid=5 var=1 t+    0: up: angle  -135.0 speed 7.20 | right: angle   -45.0 speed 7.17
+pharaoh       sid=5 var=1 t+ 1500: up: angle  -155.2 speed 6.98 | right: angle    12.1 speed 5.18
+chaos         sid=6 var=2 t+    0: up: angle   180.0 speed 7.20 | right: angle   -90.0 speed 7.17
+chaos         sid=6 var=2 t+ 1500: up: angle   180.0 speed 7.20 | right: angle   -90.0 speed 7.17
+slot2         sid=5 var=0 t+    0: up: angle     0.0 speed 0.00 | right: angle     0.0 speed 0.00
+slot2         sid=5 var=0 t+ 1500: up: angle  -161.2 speed 4.64 | right: angle  -161.2 speed 4.64
+slot3         sid=5 var=0 t+    0: up: angle     0.0 speed 0.00 | right: angle     0.0 speed 0.00
+slot3         sid=5 var=0 t+ 1500: up: angle  -101.1 speed 10.81 | right: angle   -21.5 speed 9.98
+DONE
+libc++abi: terminating due to uncaught exception of type std::__1::system_error: mutex lock failed: Invalid argument

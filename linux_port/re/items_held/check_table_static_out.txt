@@ -1,0 +1,3 @@
+states/slot1.state item_table md5 9085e5aa8a2d56d6512da8ff3d1980be name_ptrs md5 7bc6bfebc6f15740830829babe975f4f gun counter 6 MG counter 25
+states/slot2.state item_table md5 9085e5aa8a2d56d6512da8ff3d1980be name_ptrs md5 7bc6bfebc6f15740830829babe975f4f gun counter 6 MG counter 25
+states/slot3.state item_table md5 9085e5aa8a2d56d6512da8ff3d1980be name_ptrs md5 7bc6bfebc6f15740830829babe975f4f gun counter 6 MG counter 25

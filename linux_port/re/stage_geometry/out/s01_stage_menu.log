@@ -1,0 +1,14 @@
+Set variable override: flycast_hle_bios = enabled
+Set variable override: reicast_hle_bios = enabled
+Set variable override: flycast_device_port1_slot1 = VMU
+Set variable override: flycast_device_port2_slot1 = VMU
+Set variable override: flycast_threaded_rendering = disabled
+Set variable override: reicast_threaded_rendering = disabled
+2026-10-04 20:34:21.079 Python[45285:5235356] ApplePersistenceIgnoreState: Existing state will not be touched. New state will be written to /var/folders/gz/b_ggdqsj0s9_8mxs_fyvdkym0000gn/T/org.python.python.savedState
+pygame 2.6.1 (SDL 2.28.4, Python 3.11.16)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+slot1 [[250, 0, 900], [-400, 0, -900], [-200, 190, 200], [200, 190, -200]]
+slot2 [[-1034, 0, 1124], [-150, 0, 900], [-600, 0, 856], [-605, 0, 751]]
+slot3 [[-890, 0, 662], [-132, 0, 1140], [-719, 0, 668], [-184, 0, 798]]
+DONE
+libc++abi: terminating due to uncaught exception of type std::__1::system_error: mutex lock failed: Invalid argument

@@ -1,0 +1,19 @@
+(type, state): n_runs, median duration f, median mean-speed u/s, median max-speed u/s
+  ('item', 0): n=  32 dur~   22f  mean~    600  max~   1140
+  ('item', 2): n=  23 dur~  198f  mean~      0  max~      0
+  ('item', 5): n=  25 dur~  296f  mean~      0  max~      0
+  ('item', 6): n=  11 dur~   32f  mean~    569  max~   1173
+  ('item', 7): n=   9 dur~   24f  mean~      0  max~      0
+  ('item', 8): n=   1 dur~   14f  mean~   2400  max~   2400
+  ('item', 9): n=   1 dur~   44f  mean~     32  max~    663
+    (193, 0): n=  21 dur~   48f  mean~   1193  max~   1949
+    (193, 2): n=   4 dur~ 1080f  mean~      0  max~      0
+    (194, 2): n=  41 dur~  338f  mean~      0  max~      0
+    (194, 9): n=  27 dur~   36f  mean~      0  max~      0
+    (195, 0): n=  10 dur~   60f  mean~      0  max~      0
+    (195, 1): n=  10 dur~  300f  mean~     35  max~   5258
+   (195, 10): n=   4 dur~    2f  mean~      0  max~      0
+    (195, 2): n=  14 dur~ 2244f  mean~      0  max~    190
+    (195, 5): n=   9 dur~  218f  mean~      0  max~      0
+    (195, 6): n=   1 dur~   26f  mean~    504  max~   1057
+    (195, 8): n=   9 dur~   10f  mean~   1800  max~   1800

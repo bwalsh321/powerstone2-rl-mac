@@ -1,0 +1,243 @@
+{
+ "stone": [
+  [
+   7.9,
+   "1 loose stone(s)"
+  ],
+  [
+   26.7,
+   "2 loose stone(s)"
+  ],
+  [
+   36.7,
+   "1 loose stone(s)"
+  ],
+  [
+   46.7,
+   "1 loose stone(s)"
+  ],
+  [
+   64.2,
+   "2 loose stone(s)"
+  ],
+  [
+   74.2,
+   "1 loose stone(s)"
+  ]
+ ],
+ "stone_208_only": [
+  [
+   64.2,
+   "stone at ledger idx >= 110 (missed by v3)"
+  ]
+ ],
+ "own_bullet_excluded": [],
+ "item_swing_contact": [
+  [
+   28.5,
+   "BOT swings its item"
+  ],
+  [
+   32.9,
+   "opp0 item swing in contact (margin -37)"
+  ]
+ ],
+ "chest_open": [
+  [
+   17.6,
+   "Flame Thrower"
+  ],
+  [
+   23.0,
+   "Power Shield"
+  ],
+  [
+   25.5,
+   "Sword"
+  ],
+  [
+   27.6,
+   "Skateboard"
+  ],
+  [
+   29.6,
+   "Iron Pipe"
+  ],
+  [
+   35.9,
+   "STONE"
+  ]
+ ],
+ "held": [
+  [
+   6.4,
+   "P1 cactus"
+  ],
+  [
+   23.0,
+   "P4 cactus"
+  ],
+  [
+   30.6,
+   "P3 Iron Pipe"
+  ],
+  [
+   39.4,
+   "P1 Magic Rod"
+  ],
+  [
+   44.1,
+   "P3 cactus"
+  ],
+  [
+   46.7,
+   "P3 Magic Rod"
+  ],
+  [
+   70.3,
+   "P4 Trident"
+  ]
+ ],
+ "bot_held": [
+  [
+   27.6,
+   "P2 Sword"
+  ]
+ ],
+ "projectile": [
+  [
+   18.0,
+   "projectile at 399,-103 from P2"
+  ],
+  [
+   25.4,
+   "projectile at -142,69 from P2"
+  ],
+  [
+   40.0,
+   "projectile at 100,-241 from P2"
+  ],
+  [
+   47.0,
+   "projectile at -396,-268 from P2"
+  ],
+  [
+   54.2,
+   "projectile at 143,-1006 from P2"
+  ],
+  [
+   62.0,
+   "projectile at -525,185 from P2"
+  ],
+  [
+   67.0,
+   "projectile at 21,-14 from P2"
+  ]
+ ],
+ "thrown": [
+  [
+   8.8,
+   "thrown at 79,-116 from P2"
+  ],
+  [
+   39.7,
+   "thrown at 106,-258 from P2"
+  ],
+  [
+   39.7,
+   "thrown at 48,-113 from P2"
+  ],
+  [
+   39.8,
+   "thrown at 109,-303 from P2"
+  ],
+  [
+   39.9,
+   "thrown at 109,-307 from P2"
+  ],
+  [
+   39.9,
+   "thrown at 67,-158 from P2"
+  ],
+  [
+   39.9,
+   "thrown at 68,-160 from P2"
+  ],
+  [
+   39.9,
+   "thrown at 76,-180 from P2"
+  ],
+  [
+   39.9,
+   "thrown at 76,-180 from P2"
+  ],
+  [
+   39.9,
+   "thrown at 76,-179 from P2"
+  ],
+  [
+   40.0,
+   "thrown at 76,-178 from P2"
+  ],
+  [
+   40.0,
+   "thrown at 75,-178 from P2"
+  ]
+ ],
+ "hit": [
+  [
+   6.5,
+   "P2 -36 by P4"
+  ],
+  [
+   6.8,
+   "P2 -36 by P4"
+  ],
+  [
+   7.2,
+   "P2 -46 by P4"
+  ],
+  [
+   7.9,
+   "P4 -57 by P2"
+  ],
+  [
+   8.6,
+   "P2 -33 by P3"
+  ],
+  [
+   8.8,
+   "P2 -94 by P1"
+  ],
+  [
+   8.8,
+   "P3 -44 by P1"
+  ],
+  [
+   11.2,
+   "P4 -27 by P2"
+  ],
+  [
+   12.3,
+   "P4 -54 by P2"
+  ],
+  [
+   15.6,
+   "P4 -54 by P2"
+  ],
+  [
+   16.7,
+   "P1 -77 by P2"
+  ],
+  [
+   18.5,
+   "P1 -26 by P2"
+  ]
+ ],
+ "stone_chest_seen": [
+  [
+   11.9,
+   "chest at (-600,650)"
+  ]
+ ]
+}

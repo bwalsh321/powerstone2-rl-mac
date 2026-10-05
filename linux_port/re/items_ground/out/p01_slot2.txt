@@ -1,0 +1,29 @@
+2026-10-04 20:27:57.581 Python[41474:5216279] ApplePersistenceIgnoreState: Existing state will not be touched. New state will be written to /var/folders/gz/b_ggdqsj0s9_8mxs_fyvdkym0000gn/T/org.python.python.savedState
+slot2 +0f  wide-ledger live=12 (grid idx relative to OBJ_GRID_LO)
+  idx=  26 0x8c502a10 hdr=0x0000ff09 vt=0x0c0f1688  pos=(  -500.00,  100.00,  1000.00)
+  idx=  27 0x8c502e40 hdr=0x0001ff09 vt=0x0c0f1688  pos=(   113.75,  100.00,  -900.00)
+  idx=  28 0x8c503270 hdr=0x0002ff09 vt=0x0c0f1688  pos=(   300.00,  100.00, -1100.00)
+  idx=  29 0x8c5036a0 hdr=0x0003ff09 vt=0x0c0f1688  pos=(  -850.00,  100.00,  1000.00)
+  idx=  30 0x8c503ad0 hdr=0x0004ff09 vt=0x0c0f1688  pos=(  -650.00,  100.00,  1050.00)
+  idx=  31 0x8c503f00 hdr=0x0005ff09 vt=0x0c0f1688  pos=( -1000.00,  100.00,  -100.00)
+  idx=  32 0x8c504330 hdr=0x0006ff09 vt=0x0c0f1688  pos=(  -900.00,  100.00,   100.00)
+  idx=  33 0x8c504760 hdr=0x0007ff09 vt=0x0c0f1688  pos=( -1100.00,  100.00,   300.00)
+  idx=  34 0x8c504b90 hdr=0x0000ff09 vt=0x0c0f18d4  pos=( -1000.00,    0.00, -1000.00)
+  idx=  35 0x8c504fc0 hdr=0x0101ff09 vt=0x0c0f18d4  pos=(   950.00,    0.00,  -850.00)
+  idx=  36 0x8c5053f0 hdr=0x0202ff09 vt=0x0c0f18d4  pos=(   100.00,    0.00,  1000.00)
+  idx=  37 0x8c505820 hdr=0x0303ff09 vt=0x0c0f18d4  pos=( -1050.00,    0.00,   800.00)
+pool live=160
+  cls=0x00000000 n=160
+P1 xyz=(250.1, 133.8, 891.2) item=0x00000000
+P2 xyz=(-134.3, 141.0, 892.4) item=0x00000000
+P3 xyz=(-400.0, 121.1, -889.1) item=0x00000000
+P4 xyz=(-18.1, 152.9, -896.1) item=0x00000000
+pygame 2.6.1 (SDL 2.28.4, Python 3.11.16)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+Set variable override: flycast_hle_bios = enabled
+Set variable override: reicast_hle_bios = enabled
+Set variable override: flycast_device_port1_slot1 = VMU
+Set variable override: flycast_device_port2_slot1 = VMU
+Set variable override: flycast_threaded_rendering = disabled
+Set variable override: reicast_threaded_rendering = disabled
+libc++abi: terminating due to uncaught exception of type std::__1::system_error: mutex lock failed: Invalid argument

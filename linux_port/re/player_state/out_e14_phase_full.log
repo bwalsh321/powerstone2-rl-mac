@@ -1,0 +1,9 @@
+Set variable override: flycast_hle_bios = enabled
+Set variable override: reicast_hle_bios = enabled
+Set variable override: flycast_device_port1_slot1 = VMU
+Set variable override: flycast_device_port2_slot1 = VMU
+Set variable override: flycast_threaded_rendering = disabled
+Set variable override: reicast_threaded_rendering = disabled
+2026-10-04 20:43:30.422 Python[48843:5256420] ApplePersistenceIgnoreState: Existing state will not be touched. New state will be written to /var/folders/gz/b_ggdqsj0s9_8mxs_fyvdkym0000gn/T/org.python.python.savedState
+[('intro', 5), ('intro', 40), ('intro', 110), ('intro', 130), ('intro', 220), ('intro', 280), ('ko', -1), ('ko', 30), ('ko', 120), ('ko', 180), ('ko', 260), ('ko', 360), ('ko', 450), ('ko', 560), ('ko', 700), ('ko', 900)]
+DONE

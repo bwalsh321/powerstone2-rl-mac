@@ -1,0 +1,19 @@
+Set variable override: flycast_hle_bios = enabled
+Set variable override: reicast_hle_bios = enabled
+Set variable override: flycast_device_port1_slot1 = VMU
+Set variable override: flycast_device_port2_slot1 = VMU
+Set variable override: flycast_threaded_rendering = disabled
+Set variable override: reicast_threaded_rendering = disabled
+2026-10-04 20:58:06.965 Python[54734:5287109] ApplePersistenceIgnoreState: Existing state will not be touched. New state will be written to /var/folders/gz/b_ggdqsj0s9_8mxs_fyvdkym0000gn/T/org.python.python.savedState
+pygame 2.6.1 (SDL 2.28.4, Python 3.11.16)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+c0 fight started after 826 frames; P1 pos [1197.9, 24.1, 1136.0] P2 pos [1093.9, 24.1, 143.9]
+r fight started after 827 frames; P1 pos [-437.5, 0.0, 133.3] P2 pos [-58.3, 0.0, -462.5]
+rr fight started after 826 frames; P1 pos [1197.9, 24.1, 1136.0] P2 pos [1093.9, 24.1, 143.9]
+d fight started after 822 frames; P1 pos [250.0, 0.0, 900.0] P2 pos [-400.0, 0.0, -900.0]
+dd fight started after 826 frames; P1 pos [-300.0, 0.0, 525.0] P2 pos [300.0, 0.0, 275.0]
+rd fight started after 924 frames; P1 pos [250.0, 0.0, 900.0] P2 pos [-150.0, 0.0, 900.0]
+rdd fight started after 867 frames; P1 pos [-2200.0, 0.0, -350.0] P2 pos [-875.0, 0.0, -600.0]
+u fight started after 826 frames; P1 pos [-300.0, 0.0, 525.0] P2 pos [300.0, 0.0, 275.0]
+stage-id candidates (u8 const within stage, distinct across stages, <64): 0
+DONE

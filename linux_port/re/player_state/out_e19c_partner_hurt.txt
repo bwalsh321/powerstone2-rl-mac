@@ -1,0 +1,66 @@
+== s2
+  partner->player frames: {'symmetric': 15022, 'asym': 12872}  (holder state, partner state) top: [((1, 1), 8106), ((1, 5), 1759), ((5, 1), 1468), ((1, 32), 1161), ((32, 1), 1067), ((7, 1), 896), ((32, 32), 895), ((5, 5), 832), ((1, 7), 618), ((32, 5), 498)]
+  partner set to a NON-player object, by state: []
+  frames in state 34 (held) with partner = a player: 1.000 n 821
+  frames in state 11/12 (lift/throw) with partner = a player: 1.000 n 347
+  last attacker on melee hits: {'melee: last-att == attacker': 23}
+  last attacker on non-melee damage: {'non-melee: last-att not a player': 122, 'non-melee: last-att set to a player': 12}
+  hurt centre y == pos.y + half-height: 0.998;  hurt x/z == pos x/z: 0.991
+  (r, half-h) by state (top):
+    s0: [((np.float32(60.0), np.float32(85.0)), 780), ((np.float32(54.0), np.float32(76.0)), 201), ((np.float32(42.0), np.float32(70.0)), 183)]
+    s1: [((np.float32(60.0), np.float32(85.0)), 12114), ((np.float32(42.0), np.float32(70.0)), 8967), ((np.float32(54.0), np.float32(76.0)), 6355)]
+    s2: [((np.float32(60.0), np.float32(85.0)), 835), ((np.float32(54.0), np.float32(76.0)), 335), ((np.float32(42.0), np.float32(70.0)), 309)]
+    s4: [((np.float32(54.0), np.float32(76.0)), 40), ((np.float32(60.0), np.float32(85.0)), 24), ((np.float32(42.0), np.float32(70.0)), 10)]
+    s5: [((np.float32(60.0), np.float32(85.0)), 2501), ((np.float32(42.0), np.float32(70.0)), 1692), ((np.float32(54.0), np.float32(76.0)), 1685)]
+    s6: [((np.float32(60.0), np.float32(85.0)), 58), ((np.float32(42.0), np.float32(70.0)), 20), ((np.float32(54.0), np.float32(76.0)), 11)]
+    s7: [((np.float32(60.0), np.float32(85.0)), 6377), ((np.float32(54.0), np.float32(76.0)), 537), ((np.float32(42.0), np.float32(70.0)), 280)]
+    s8: [((np.float32(60.0), np.float32(85.0)), 1018), ((np.float32(42.0), np.float32(70.0)), 398), ((np.float32(54.0), np.float32(76.0)), 329)]
+    s9: [((np.float32(54.0), np.float32(76.0)), 45), ((np.float32(60.0), np.float32(85.0)), 20), ((np.float32(42.0), np.float32(70.0)), 10)]
+    s10: [((np.float32(60.0), np.float32(85.0)), 604), ((np.float32(54.0), np.float32(76.0)), 347), ((np.float32(42.0), np.float32(70.0)), 339)]
+    s11: [((np.float32(60.0), np.float32(85.0)), 74), ((np.float32(54.0), np.float32(76.0)), 48), ((np.float32(42.0), np.float32(70.0)), 24)]
+    s12: [((np.float32(60.0), np.float32(85.0)), 103), ((np.float32(54.0), np.float32(76.0)), 67), ((np.float32(42.0), np.float32(70.0)), 31)]
+    s14: [((np.float32(60.0), np.float32(30.0)), 235), ((np.float32(42.0), np.float32(21.0)), 154), ((np.float32(54.0), np.float32(27.0)), 139)]
+    s15: [((np.float32(60.0), np.float32(55.0)), 409), ((np.float32(42.0), np.float32(38.0)), 267), ((np.float32(54.0), np.float32(50.0)), 235)]
+    s16: [((np.float32(60.0), np.float32(85.0)), 472), ((np.float32(42.0), np.float32(70.0)), 17), ((np.float32(54.0), np.float32(76.0)), 10)]
+    s19: [((np.float32(60.0), np.float32(85.0)), 18)]
+    s25: [((np.float32(54.0), np.float32(76.0)), 62), ((np.float32(56.0), np.float32(80.0)), 56), ((np.float32(42.0), np.float32(70.0)), 31)]
+    s26: [((np.float32(56.0), np.float32(80.0)), 1392), ((np.float32(66.0), np.float32(110.0)), 433), ((np.float32(66.0), np.float32(66.0)), 2)]
+    s30: [((np.float32(42.0), np.float32(70.0)), 26)]
+    s32: [((np.float32(60.0), np.float32(85.0)), 3201), ((np.float32(42.0), np.float32(70.0)), 1265), ((np.float32(54.0), np.float32(76.0)), 1158)]
+    s33: [((np.float32(54.0), np.float32(76.0)), 204), ((np.float32(60.0), np.float32(85.0)), 78), ((np.float32(27.0), np.float32(76.0)), 2)]
+    s34: [((np.float32(60.0), np.float32(85.0)), 551), ((np.float32(54.0), np.float32(76.0)), 152), ((np.float32(42.0), np.float32(70.0)), 118)]
+    s35: [((np.float32(30.0), np.float32(85.0)), 78), ((np.float32(27.0), np.float32(76.0)), 2), ((np.float32(24.0), np.float32(70.0)), 1)]
+    s44: [((np.float32(54.0), np.float32(76.0)), 60), ((np.float32(60.0), np.float32(85.0)), 20)]
+== s3
+  partner->player frames: {'symmetric': 25492, 'asym': 13912}  (holder state, partner state) top: [((1, 1), 2995), ((7, 1), 1846), ((1, 32), 1741), ((7, 32), 1668), ((5, 1), 1571), ((1, 5), 1544), ((32, 1), 1431), ((1, 7), 1384), ((32, 7), 1322), ((32, 32), 1160)]
+  partner set to a NON-player object, by state: []
+  frames in state 34 (held) with partner = a player: 1.000 n 477
+  frames in state 11/12 (lift/throw) with partner = a player: 1.000 n 266
+  last attacker on melee hits: {'melee: last-att == attacker': 143}
+  last attacker on non-melee damage: {'non-melee: last-att not a player': 125, 'non-melee: last-att set to a player': 8}
+  hurt centre y == pos.y + half-height: 0.998;  hurt x/z == pos x/z: 0.996
+  (r, half-h) by state (top):
+    s0: [((np.float32(60.0), np.float32(85.0)), 1212), ((np.float32(63.0), np.float32(89.0)), 200), ((np.float32(67.0), np.float32(95.0)), 39)]
+    s1: [((np.float32(60.0), np.float32(85.0)), 11239), ((np.float32(63.0), np.float32(89.0)), 3149), ((np.float32(67.0), np.float32(95.0)), 1085)]
+    s2: [((np.float32(60.0), np.float32(85.0)), 655), ((np.float32(63.0), np.float32(89.0)), 175), ((np.float32(66.0), np.float32(94.0)), 7)]
+    s4: [((np.float32(60.0), np.float32(85.0)), 205), ((np.float32(63.0), np.float32(89.0)), 64), ((np.float32(67.0), np.float32(95.0)), 44)]
+    s5: [((np.float32(60.0), np.float32(85.0)), 6450), ((np.float32(63.0), np.float32(89.0)), 1965), ((np.float32(67.0), np.float32(95.0)), 275)]
+    s6: [((np.float32(60.0), np.float32(85.0)), 218), ((np.float32(63.0), np.float32(89.0)), 41), ((np.float32(67.0), np.float32(95.0)), 4)]
+    s7: [((np.float32(60.0), np.float32(85.0)), 7718), ((np.float32(63.0), np.float32(89.0)), 533), ((np.float32(50.0), np.float32(85.0)), 119)]
+    s8: [((np.float32(60.0), np.float32(85.0)), 1149), ((np.float32(63.0), np.float32(89.0)), 166)]
+    s9: [((np.float32(60.0), np.float32(85.0)), 75), ((np.float32(67.0), np.float32(95.0)), 39), ((np.float32(63.0), np.float32(89.0)), 10)]
+    s10: [((np.float32(60.0), np.float32(85.0)), 876), ((np.float32(63.0), np.float32(89.0)), 160)]
+    s11: [((np.float32(60.0), np.float32(85.0)), 98), ((np.float32(63.0), np.float32(89.0)), 24)]
+    s12: [((np.float32(60.0), np.float32(85.0)), 139), ((np.float32(63.0), np.float32(89.0)), 5)]
+    s14: [((np.float32(60.0), np.float32(30.0)), 186), ((np.float32(67.0), np.float32(34.0)), 64), ((np.float32(63.0), np.float32(31.0)), 35)]
+    s15: [((np.float32(60.0), np.float32(55.0)), 642), ((np.float32(63.0), np.float32(58.0)), 304), ((np.float32(62.0), np.float32(57.0)), 230)]
+    s16: [((np.float32(60.0), np.float32(85.0)), 2253), ((np.float32(63.0), np.float32(89.0)), 531), ((np.float32(66.0), np.float32(94.0)), 146)]
+    s19: [((np.float32(60.0), np.float32(85.0)), 20)]
+    s21: [((np.float32(60.0), np.float32(85.0)), 21)]
+    s25: [((np.float32(63.0), np.float32(89.0)), 155), ((np.float32(67.0), np.float32(95.0)), 140), ((np.float32(60.0), np.float32(85.0)), 124)]
+    s26: [((np.float32(67.0), np.float32(95.0)), 1543), ((np.float32(66.0), np.float32(94.0)), 1164), ((np.float32(34.0), np.float32(95.0)), 762)]
+    s30: [((np.float32(60.0), np.float32(85.0)), 26), ((np.float32(63.0), np.float32(89.0)), 26)]
+    s32: [((np.float32(60.0), np.float32(85.0)), 5170), ((np.float32(67.0), np.float32(95.0)), 1442), ((np.float32(63.0), np.float32(89.0)), 1103)]
+    s33: [((np.float32(60.0), np.float32(85.0)), 203), ((np.float32(30.0), np.float32(85.0)), 3)]
+    s34: [((np.float32(60.0), np.float32(85.0)), 354), ((np.float32(63.0), np.float32(89.0)), 92), ((np.float32(66.0), np.float32(94.0)), 31)]
+    s35: [((np.float32(30.0), np.float32(85.0)), 3)]

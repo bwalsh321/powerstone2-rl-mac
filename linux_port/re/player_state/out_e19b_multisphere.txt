@@ -1,0 +1,17 @@
+== s2: agreement 0x124-flag vs (count>1): 0.9631; flag&!count 2215 count&!flag 0
+  damage events: {'events': 157, 'melee_explained': 23}
+  explained by (state,item,form): {(7, '-', '-'): 23}
+  unexplained: {'someone live (no overlap)': 13, 'no live hitbox anywhere (projectile/object/stage)': 121}
+  window-level: TP 22 FP 0 FN 13 TN 508 precision 1.000 recall 0.629
+    -/-/s7           TP   22 FP    0 FN   13 TN   508
+  hit-sphere count distribution on live frames: {1: 1165, 2: 86, 3: 18}
+== s3: agreement 0x124-flag vs (count>1): 0.9598; flag&!count 2411 count&!flag 0
+  damage events: {'events': 276, 'melee_explained': 143}
+  explained by (state,item,form): {(26, '-', 'form'): 80, (7, '-', '-'): 62, (7, 'item', '-'): 1}
+  unexplained: {'no live hitbox anywhere (projectile/object/stage)': 121, 'someone live (no overlap)': 12}
+  window-level: TP 93 FP 1 FN 16 TN 730 precision 0.989 recall 0.853
+    -/-/s7           TP   61 FP    0 FN   15 TN   629
+    -/form/s26       TP   31 FP    1 FN    1 TN    93
+    -/form/s7        TP    0 FP    0 FN    0 TN     6
+    item/-/s7        TP    1 FP    0 FN    0 TN     2
+  hit-sphere count distribution on live frames: {1: 1517, 2: 689, 3: 333, 4: 389}
