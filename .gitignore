@@ -108,3 +108,13 @@ linux_port/re/**/system/
 linux_port/re/**/*.bin
 linux_port/re/**/*_dumps.npz
 linux_port/re/projectiles/cap/
+# Oct 6 2026 audit: more game-derived savestates/frames stay local (same rule as states/)
+linux_port/states_3com_lv8/*.state
+linux_port/states_3com_lv8_new/*.state
+linux_port/states_3com_lv8_new/sheets/
+linux_port/states_mixed_lv8/
+linux_port/scan/
+linux_port/system/
+linux_port/drills_*_capture.log
+linux_port/claude_bridge/alert_seen.txt
+linux_port/claude_bridge/alert_idle_since.txt

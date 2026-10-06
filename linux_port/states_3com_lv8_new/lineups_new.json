@@ -1,0 +1,56 @@
+{
+ "60": {
+  "P1": "Gunrock",
+  "P3": "Gourmand",
+  "P4": "Pride",
+  "role": "train"
+ },
+ "61": {
+  "P1": "Accel",
+  "P3": "Gunrock",
+  "P4": "Ayame",
+  "role": "train"
+ },
+ "62": {
+  "P1": "Pride",
+  "P3": "Pete",
+  "P4": "Gunrock",
+  "role": "train"
+ },
+ "63": {
+  "P1": "Gunrock",
+  "P3": "Accel",
+  "P4": "Mel",
+  "role": "train"
+ },
+ "64": {
+  "P1": "Gourmand",
+  "P3": "Galuda",
+  "P4": "Jack",
+  "role": "train"
+ },
+ "65": {
+  "P1": "Mel",
+  "P3": "Jack",
+  "P4": "Gourmand",
+  "role": "train"
+ },
+ "66": {
+  "P1": "Falcon",
+  "P3": "Rouge",
+  "P4": "Accel",
+  "role": "train"
+ },
+ "67": {
+  "P1": "Wang-Tang",
+  "P3": "Ayame",
+  "P4": "Pride",
+  "role": "train"
+ },
+ "68": {
+  "P1": "Galuda",
+  "P3": "Julia",
+  "P4": "Pete",
+  "role": "train"
+ }
+}

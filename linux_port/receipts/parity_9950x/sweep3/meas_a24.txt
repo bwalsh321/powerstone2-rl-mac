@@ -1,0 +1,1827 @@
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+[config] obs_stack=7 (learner sees the last 7 frames, oldest first)
+[config] batch_size override -> 256
+[config] learning_rate override -> 0.0001
+[config] target_kl override -> 0.03
+[config] learning_rate=0.0001 n_steps=2048 batch_size=256 n_epochs=10 gamma=0.999 gae_lambda=0.95 ent_coef=0.01 clip_range=0.2 net_arch=[256, 256] warm=./powerstone_v6_leg103_league pool=./pool_smoke_9950x n_envs=10 n_actors=24 total_steps=143360 instance_base=0 pull_every=64 env=ffa state_slots=[0, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59] obs_v2=1 obs_ctx_fix=1 zs_time=1 obs_v3=1 obs_dim=160 pool_sampling=uniform states=./states_mixed seats=0,2 mode=async
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+Set variable override: flycast_hle_bios = enabled
+Set variable override: reicast_hle_bios = enabled
+Set variable override: flycast_device_port1_slot1 = VMU
+Set variable override: flycast_device_port2_slot1 = VMU
+Set variable override: flycast_threaded_rendering = disabled
+Set variable override: reicast_threaded_rendering = disabled
+[env] bridge alive (frame 8, line=v7 obs_dim=160 actions=10)
+[config] zero_sum=1 (r = own - mean(others); nearest-attacker damage attribution)
+[config] reward2: special_dmg_w=1.0 special_r=700 lost_extra_w=1.0 special_window=2s (20 steps | 120 frames, clock=frames) loss_scale_lv8=0.5 special_attrib=1 (learner-only; +0x32e4 hit source, owner +0x10)
+[config] start_health=U(0.5, 1.0) per seat (RAM write at reset)
+[actor 0] up: instance 0, policy v0
+[opp] P1=leg37_league_1515520_steps.zip P3=leg80_league_2007040_steps.zip
+[start] health P2=977 P1=557 P3=735 P4=969
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+Set variable override: flycast_hle_bios = enabled
+Set variable override: reicast_hle_bios = enabled
+Set variable override: flycast_device_port1_slot1 = VMU
+Set variable override: flycast_device_port2_slot1 = VMU
+Set variable override: flycast_threaded_rendering = disabled
+Set variable override: reicast_threaded_rendering = disabled
+[env] bridge alive (frame 8, line=v7 obs_dim=160 actions=10)
+[config] zero_sum=1 (r = own - mean(others); nearest-attacker damage attribution)
+[config] reward2: special_dmg_w=1.0 special_r=700 lost_extra_w=1.0 special_window=2s (20 steps | 120 frames, clock=frames) loss_scale_lv8=0.5 special_attrib=1 (learner-only; +0x32e4 hit source, owner +0x10)
+[config] start_health=U(0.5, 1.0) per seat (RAM write at reset)
+[actor 1] up: instance 1, policy v0
+[opp] P1=leg33_league_3010560_steps.zip P3=leg55_league_1515520_steps.zip
+[start] health P2=801 P1=923 P3=654 P4=939
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+Set variable override: flycast_hle_bios = enabled
+Set variable override: reicast_hle_bios = enabled
+Set variable override: flycast_device_port1_slot1 = VMU
+Set variable override: flycast_device_port2_slot1 = VMU
+Set variable override: flycast_threaded_rendering = disabled
+Set variable override: reicast_threaded_rendering = disabled
+[env] bridge alive (frame 8, line=v7 obs_dim=160 actions=10)
+[config] zero_sum=1 (r = own - mean(others); nearest-attacker damage attribution)
+[config] reward2: special_dmg_w=1.0 special_r=700 lost_extra_w=1.0 special_window=2s (20 steps | 120 frames, clock=frames) loss_scale_lv8=0.5 special_attrib=1 (learner-only; +0x32e4 hit source, owner +0x10)
+[config] start_health=U(0.5, 1.0) per seat (RAM write at reset)
+[actor 2] up: instance 2, policy v0
+[opp] P1=leg103_league_1515520_steps.zip P3=leg82_league_1003520_steps.zip
+[start] health P2=693 P1=749 P3=920 P4=814
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+Set variable override: flycast_hle_bios = enabled
+Set variable override: reicast_hle_bios = enabled
+Set variable override: flycast_device_port1_slot1 = VMU
+Set variable override: flycast_device_port2_slot1 = VMU
+Set variable override: flycast_threaded_rendering = disabled
+Set variable override: reicast_threaded_rendering = disabled
+[env] bridge alive (frame 8, line=v7 obs_dim=160 actions=10)
+[config] zero_sum=1 (r = own - mean(others); nearest-attacker damage attribution)
+[config] reward2: special_dmg_w=1.0 special_r=700 lost_extra_w=1.0 special_window=2s (20 steps | 120 frames, clock=frames) loss_scale_lv8=0.5 special_attrib=1 (learner-only; +0x32e4 hit source, owner +0x10)
+[config] start_health=U(0.5, 1.0) per seat (RAM write at reset)
+[actor 3] up: instance 3, policy v0
+[opp] P1=leg73_league_512000_steps.zip P3=leg70_league_1515520_steps.zip
+[start] health P2=742 P1=516 P3=925 P4=716
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+Set variable override: flycast_hle_bios = enabled
+Set variable override: reicast_hle_bios = enabled
+Set variable override: flycast_device_port1_slot1 = VMU
+Set variable override: flycast_device_port2_slot1 = VMU
+Set variable override: flycast_threaded_rendering = disabled
+Set variable override: reicast_threaded_rendering = disabled
+[env] bridge alive (frame 8, line=v7 obs_dim=160 actions=10)
+[config] zero_sum=1 (r = own - mean(others); nearest-attacker damage attribution)
+[config] reward2: special_dmg_w=1.0 special_r=700 lost_extra_w=1.0 special_window=2s (20 steps | 120 frames, clock=frames) loss_scale_lv8=0.5 special_attrib=1 (learner-only; +0x32e4 hit source, owner +0x10)
+[config] start_health=U(0.5, 1.0) per seat (RAM write at reset)
+[actor 4] up: instance 4, policy v0
+[opp] P1=leg32_league_4014080_steps.zip P3=leg103_league_2519040_steps.zip
+[start] health P2=915 P1=933 P3=619 P4=514
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+Set variable override: flycast_hle_bios = enabled
+Set variable override: reicast_hle_bios = enabled
+Set variable override: flycast_device_port1_slot1 = VMU
+Set variable override: flycast_device_port2_slot1 = VMU
+Set variable override: flycast_threaded_rendering = disabled
+Set variable override: reicast_threaded_rendering = disabled
+[env] bridge alive (frame 8, line=v7 obs_dim=160 actions=10)
+[config] zero_sum=1 (r = own - mean(others); nearest-attacker damage attribution)
+[config] reward2: special_dmg_w=1.0 special_r=700 lost_extra_w=1.0 special_window=2s (20 steps | 120 frames, clock=frames) loss_scale_lv8=0.5 special_attrib=1 (learner-only; +0x32e4 hit source, owner +0x10)
+[config] start_health=U(0.5, 1.0) per seat (RAM write at reset)
+[actor 5] up: instance 5, policy v0
+[opp] P1=leg103_league_1003520_steps.zip P3=leg103_league_4014080_steps.zip
+[start] health P2=880 P1=509 P3=512 P4=636
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+Set variable override: flycast_hle_bios = enabled
+Set variable override: reicast_hle_bios = enabled
+Set variable override: flycast_device_port1_slot1 = VMU
+Set variable override: flycast_device_port2_slot1 = VMU
+Set variable override: flycast_threaded_rendering = disabled
+Set variable override: reicast_threaded_rendering = disabled
+[env] bridge alive (frame 8, line=v7 obs_dim=160 actions=10)
+[config] zero_sum=1 (r = own - mean(others); nearest-attacker damage attribution)
+[config] reward2: special_dmg_w=1.0 special_r=700 lost_extra_w=1.0 special_window=2s (20 steps | 120 frames, clock=frames) loss_scale_lv8=0.5 special_attrib=1 (learner-only; +0x32e4 hit source, owner +0x10)
+[config] start_health=U(0.5, 1.0) per seat (RAM write at reset)
+[ep] slot15 opps=3     win len= 454  dmg +4.56/-0.31  stones: picked=4 lost=0 opp=7(-5) forms=1/1  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=18(1) stonev=177 dmgF=1.77
+[zs] raw=+32.61 opp_mean=-9.23 adj=+40.93 dealt_nn=0.94 steps=454 spec_pen=-0.04 lost_pen=+0.00 spec_net=-0.04 lost_net=+2.33 attr=1/1 spec_dmg=0.04
+[opp] P1=leg103_league_2007040_steps.zip P3=leg12_league_1500012_steps.zip
+[actor 6] up: instance 6, policy v0
+[opp] P1=leg103_league_3502080_steps.zip P3=prog_leg103.zip
+[start] health P2=774 P1=621 P3=490 P4=972
+[start] health P2=748 P1=770 P3=827 P4=736
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+Set variable override: flycast_hle_bios = enabled
+Set variable override: reicast_hle_bios = enabled
+Set variable override: flycast_device_port1_slot1 = VMU
+Set variable override: flycast_device_port2_slot1 = VMU
+Set variable override: flycast_threaded_rendering = disabled
+Set variable override: reicast_threaded_rendering = disabled
+[env] bridge alive (frame 8, line=v7 obs_dim=160 actions=10)
+[config] zero_sum=1 (r = own - mean(others); nearest-attacker damage attribution)
+[config] reward2: special_dmg_w=1.0 special_r=700 lost_extra_w=1.0 special_window=2s (20 steps | 120 frames, clock=frames) loss_scale_lv8=0.5 special_attrib=1 (learner-only; +0x32e4 hit source, owner +0x10)
+[config] start_health=U(0.5, 1.0) per seat (RAM write at reset)
+[actor 7] up: instance 7, policy v0
+[opp] P1=prog_leg102.zip P3=leg12_league_1500012_steps.zip
+[start] health P2=946 P1=968 P3=858 P4=893
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+Set variable override: flycast_hle_bios = enabled
+Set variable override: reicast_hle_bios = enabled
+Set variable override: flycast_device_port1_slot1 = VMU
+Set variable override: flycast_device_port2_slot1 = VMU
+Set variable override: flycast_threaded_rendering = disabled
+Set variable override: reicast_threaded_rendering = disabled
+[env] bridge alive (frame 8, line=v7 obs_dim=160 actions=10)
+[config] zero_sum=1 (r = own - mean(others); nearest-attacker damage attribution)
+[config] reward2: special_dmg_w=1.0 special_r=700 lost_extra_w=1.0 special_window=2s (20 steps | 120 frames, clock=frames) loss_scale_lv8=0.5 special_attrib=1 (learner-only; +0x32e4 hit source, owner +0x10)
+[config] start_health=U(0.5, 1.0) per seat (RAM write at reset)
+[actor 8] up: instance 8, policy v0
+[opp] P1=prog_leg102.zip P3=leg103_league_4014080_steps.zip
+[start] health P2=543 P1=986 P3=526 P4=979
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+[ep] slot53 opps=3    loss len= 436  dmg +2.79/-0.74  stones: picked=5 lost=3 opp=8(-4) forms=1/2  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=11(1) stonev=233 dmgF=0.84
+[zs] raw=+5.79 opp_mean=+6.53 adj=-1.61 dealt_nn=0.33 steps=436 spec_pen=-0.25 lost_pen=-3.00 spec_net=-0.25 lost_net=-1.67 attr=11/7 spec_dmg=0.25
+Set variable override: flycast_hle_bios = enabled
+Set variable override: reicast_hle_bios = enabled
+Set variable override: flycast_device_port1_slot1 = VMU
+Set variable override: flycast_device_port2_slot1 = VMU
+Set variable override: flycast_threaded_rendering = disabled
+Set variable override: reicast_threaded_rendering = disabled
+[opp] P1=prog_leg8.zip P3=leg103_league_4014080_steps.zip
+[env] bridge alive (frame 8, line=v7 obs_dim=160 actions=10)
+[config] zero_sum=1 (r = own - mean(others); nearest-attacker damage attribution)
+[config] reward2: special_dmg_w=1.0 special_r=700 lost_extra_w=1.0 special_window=2s (20 steps | 120 frames, clock=frames) loss_scale_lv8=0.5 special_attrib=1 (learner-only; +0x32e4 hit source, owner +0x10)
+[config] start_health=U(0.5, 1.0) per seat (RAM write at reset)
+[start] health P2=773 P1=791 P3=630 P4=705
+[actor 9] up: instance 9, policy v0
+[opp] P1=leg31_league_512000_steps.zip P3=leg103_league_2519040_steps.zip
+[start] health P2=864 P1=809 P3=683 P4=871
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+Set variable override: flycast_hle_bios = enabled
+Set variable override: reicast_hle_bios = enabled
+Set variable override: flycast_device_port1_slot1 = VMU
+Set variable override: flycast_device_port2_slot1 = VMU
+Set variable override: flycast_threaded_rendering = disabled
+Set variable override: reicast_threaded_rendering = disabled
+[env] bridge alive (frame 8, line=v7 obs_dim=160 actions=10)
+[config] zero_sum=1 (r = own - mean(others); nearest-attacker damage attribution)
+[config] reward2: special_dmg_w=1.0 special_r=700 lost_extra_w=1.0 special_window=2s (20 steps | 120 frames, clock=frames) loss_scale_lv8=0.5 special_attrib=1 (learner-only; +0x32e4 hit source, owner +0x10)
+[config] start_health=U(0.5, 1.0) per seat (RAM write at reset)
+[actor 10] up: instance 10, policy v0
+[opp] P1=leg70_league_4014080_steps.zip P3=leg66_league_1515520_steps.zip
+[start] health P2=605 P1=950 P3=785 P4=685
+[ep] slot42 opps=3     win len= 600  dmg +4.97/-0.61  stones: picked=5 lost=3 opp=15(-14) forms=1/1  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=19(1) stonev=290 dmgF=0.58
+[zs] raw=+32.24 opp_mean=+2.68 adj=+28.36 dealt_nn=1.02 steps=600 spec_pen=+0.00 lost_pen=-3.00 spec_net=+0.00 lost_net=+2.00 attr=9/3 spec_dmg=0.00
+[opp] P1=leg80_league_1515520_steps.zip P3=prog_leg103.zip
+[ep] slot59 opps=3     win len= 478  dmg +4.13/-0.40  stones: picked=9 lost=1 opp=7(-7) forms=3/0  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=11(1) stonev=220 dmgF=2.50
+[zs] raw=+39.48 opp_mean=-2.28 adj=+40.81 dealt_nn=1.42 steps=478 spec_pen=+0.00 lost_pen=-1.00 spec_net=+0.00 lost_net=+2.33 attr=9/0 spec_dmg=0.00
+[start] health P2=784 P1=704 P3=836 P4=672
+[opp] P1=leg103_league_512000_steps.zip P3=leg103_league_3502080_steps.zip
+[start] health P2=993 P1=912 P3=812 P4=843
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+Set variable override: flycast_hle_bios = enabled
+Set variable override: reicast_hle_bios = enabled
+Set variable override: flycast_device_port1_slot1 = VMU
+Set variable override: flycast_device_port2_slot1 = VMU
+Set variable override: flycast_threaded_rendering = disabled
+Set variable override: reicast_threaded_rendering = disabled
+[env] bridge alive (frame 8, line=v7 obs_dim=160 actions=10)
+[config] zero_sum=1 (r = own - mean(others); nearest-attacker damage attribution)
+[config] reward2: special_dmg_w=1.0 special_r=700 lost_extra_w=1.0 special_window=2s (20 steps | 120 frames, clock=frames) loss_scale_lv8=0.5 special_attrib=1 (learner-only; +0x32e4 hit source, owner +0x10)
+[config] start_health=U(0.5, 1.0) per seat (RAM write at reset)
+[actor 11] up: instance 11, policy v0
+[opp] P1=prog_leg103.zip P3=leg103_league_3010560_steps.zip
+[start] health P2=750 P1=936 P3=842 P4=911
+[ep] slot33 opps=3    loss len= 809  dmg +4.95/-0.80  stones: picked=9 lost=4 opp=19(-15) forms=2/3  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=26(3) stonev=284 dmgF=1.89
+[zs] raw=+9.78 opp_mean=+13.32 adj=-5.16 dealt_nn=1.13 steps=809 spec_pen=-0.07 lost_pen=-4.00 spec_net=-0.07 lost_net=+0.33 attr=7/6 spec_dmg=0.07
+[opp] P1=prog_leg68.zip P3=leg103_league_1515520_steps.zip
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+Set variable override: flycast_hle_bios = enabled
+Set variable override: reicast_hle_bios = enabled
+Set variable override: flycast_device_port1_slot1 = VMU
+Set variable override: flycast_device_port2_slot1 = VMU
+Set variable override: flycast_threaded_rendering = disabled
+Set variable override: reicast_threaded_rendering = disabled
+[start] health P2=709 P1=966 P3=811 P4=514
+[env] bridge alive (frame 8, line=v7 obs_dim=160 actions=10)
+[config] zero_sum=1 (r = own - mean(others); nearest-attacker damage attribution)
+[config] reward2: special_dmg_w=1.0 special_r=700 lost_extra_w=1.0 special_window=2s (20 steps | 120 frames, clock=frames) loss_scale_lv8=0.5 special_attrib=1 (learner-only; +0x32e4 hit source, owner +0x10)
+[config] start_health=U(0.5, 1.0) per seat (RAM write at reset)
+[actor 12] up: instance 12, policy v0
+[opp] P1=leg103_league_2519040_steps.zip P3=prog_leg103.zip
+[ep] slot17 opps=3    loss len= 379  dmg +3.63/-0.95  stones: picked=6 lost=4 opp=9(-4) forms=1/2  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=10(0) stonev=137 dmgF=1.30
+[zs] raw=+4.49 opp_mean=+3.74 adj=-0.01 dealt_nn=1.10 steps=379 spec_pen=+0.00 lost_pen=-4.00 spec_net=+0.00 lost_net=-2.33 attr=4/7 spec_dmg=0.00
+[opp] P1=leg28_league_2007040_steps.zip P3=leg103_league_512000_steps.zip
+[start] health P2=627 P1=762 P3=843 P4=993
+[start] health P2=621 P1=869 P3=535 P4=924
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+Set variable override: flycast_hle_bios = enabled
+Set variable override: reicast_hle_bios = enabled
+Set variable override: flycast_device_port1_slot1 = VMU
+Set variable override: flycast_device_port2_slot1 = VMU
+Set variable override: flycast_threaded_rendering = disabled
+Set variable override: reicast_threaded_rendering = disabled
+[env] bridge alive (frame 8, line=v7 obs_dim=160 actions=10)
+[config] zero_sum=1 (r = own - mean(others); nearest-attacker damage attribution)
+[config] reward2: special_dmg_w=1.0 special_r=700 lost_extra_w=1.0 special_window=2s (20 steps | 120 frames, clock=frames) loss_scale_lv8=0.5 special_attrib=1 (learner-only; +0x32e4 hit source, owner +0x10)
+[config] start_health=U(0.5, 1.0) per seat (RAM write at reset)
+[actor 13] up: instance 13, policy v0
+[opp] P1=leg37_league_3010560_steps.zip P3=leg23_league_512000_steps.zip
+[ep] slot15 opps=3    loss len= 540  dmg +4.64/-0.77  stones: picked=2 lost=3 opp=13(-13) forms=0/2  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=14(0) stonev=178 dmgF=0.00
+[zs] raw=-6.89 opp_mean=+2.22 adj=-10.19 dealt_nn=0.98 steps=540 spec_pen=+0.00 lost_pen=-3.00 spec_net=+0.00 lost_net=-0.00 attr=7/2 spec_dmg=0.00
+[opp] P1=leg103_league_4014080_steps.zip P3=prog_leg103.zip
+[start] health P2=687 P1=923 P3=640 P4=999
+[ep] slot53 opps=3    loss len= 369  dmg +1.25/-0.77  stones: picked=2 lost=3 opp=3(-4) forms=0/0  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=10(1) stonev=116 dmgF=0.00
+[zs] raw=-3.29 opp_mean=+1.58 adj=-5.60 dealt_nn=0.11 steps=369 spec_pen=+0.00 lost_pen=-3.00 spec_net=+0.00 lost_net=-1.67 attr=5/12 spec_dmg=0.00
+[opp] P1=leg103_league_3502080_steps.zip P3=leg103_league_1515520_steps.zip
+[start] health P2=936 P1=996 P3=619 P4=789
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+[start] health P2=593 P1=824 P3=935 P4=601
+Set variable override: flycast_hle_bios = enabled
+Set variable override: reicast_hle_bios = enabled
+Set variable override: flycast_device_port1_slot1 = VMU
+Set variable override: flycast_device_port2_slot1 = VMU
+Set variable override: flycast_threaded_rendering = disabled
+Set variable override: reicast_threaded_rendering = disabled
+[env] bridge alive (frame 8, line=v7 obs_dim=160 actions=10)
+[config] zero_sum=1 (r = own - mean(others); nearest-attacker damage attribution)
+[config] reward2: special_dmg_w=1.0 special_r=700 lost_extra_w=1.0 special_window=2s (20 steps | 120 frames, clock=frames) loss_scale_lv8=0.5 special_attrib=1 (learner-only; +0x32e4 hit source, owner +0x10)
+[config] start_health=U(0.5, 1.0) per seat (RAM write at reset)
+[actor 14] up: instance 14, policy v0
+[opp] P1=leg75_league_1515520_steps.zip P3=leg103_league_512000_steps.zip
+[start] health P2=755 P1=970 P3=498 P4=695
+[ep] slot41 opps=3     win len= 717  dmg +3.32/-0.77  stones: picked=4 lost=2 opp=9(-6) forms=1/2  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=23(3) stonev=271 dmgF=0.61
+[zs] raw=+29.69 opp_mean=+0.33 adj=+27.92 dealt_nn=0.95 steps=717 spec_pen=+0.00 lost_pen=-2.00 spec_net=+0.00 lost_net=-0.00 attr=4/11 spec_dmg=0.00
+[opp] P1=leg103_league_512000_steps.zip P3=leg103_league_4014080_steps.zip
+[start] health P2=643 P1=624 P3=517 P4=820
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+Set variable override: flycast_hle_bios = enabled
+Set variable override: reicast_hle_bios = enabled
+Set variable override: flycast_device_port1_slot1 = VMU
+Set variable override: flycast_device_port2_slot1 = VMU
+Set variable override: flycast_threaded_rendering = disabled
+Set variable override: reicast_threaded_rendering = disabled
+[env] bridge alive (frame 8, line=v7 obs_dim=160 actions=10)
+[config] zero_sum=1 (r = own - mean(others); nearest-attacker damage attribution)
+[config] reward2: special_dmg_w=1.0 special_r=700 lost_extra_w=1.0 special_window=2s (20 steps | 120 frames, clock=frames) loss_scale_lv8=0.5 special_attrib=1 (learner-only; +0x32e4 hit source, owner +0x10)
+[config] start_health=U(0.5, 1.0) per seat (RAM write at reset)
+[ep] slot59 opps=3     win len= 675  dmg +4.67/-0.72  stones: picked=6 lost=1 opp=8(-6) forms=2/2  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=21(4) stonev=221 dmgF=2.11
+[zs] raw=+38.37 opp_mean=-0.02 adj=+37.04 dealt_nn=1.88 steps=675 spec_pen=-0.32 lost_pen=-1.00 spec_net=-0.32 lost_net=+0.67 attr=20/2 spec_dmg=0.32
+[opp] P1=prog_leg102.zip P3=prog_leg12.zip
+[actor 15] up: instance 15, policy v0
+[start] health P2=713 P1=768 P3=633 P4=776
+[opp] P1=prog_leg95.zip P3=prog_leg103.zip
+[start] health P2=635 P1=996 P3=624 P4=940
+[ep] slot56 opps=3    loss len= 399  dmg +3.87/-0.61  stones: picked=4 lost=2 opp=7(-8) forms=1/1  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=12(0) stonev=166 dmgF=2.15
+[zs] raw=+4.15 opp_mean=+3.68 adj=-0.33 dealt_nn=0.36 steps=399 spec_pen=-0.16 lost_pen=-2.00 spec_net=-0.16 lost_net=-0.33 attr=11/7 spec_dmg=0.16
+[opp] P1=leg40_league_1515520_steps.zip P3=leg33_league_1515520_steps.zip
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+Set variable override: flycast_hle_bios = enabled
+Set variable override: reicast_hle_bios = enabled
+Set variable override: flycast_device_port1_slot1 = VMU
+Set variable override: flycast_device_port2_slot1 = VMU
+Set variable override: flycast_threaded_rendering = disabled
+Set variable override: reicast_threaded_rendering = disabled
+[start] health P2=783 P1=964 P3=915 P4=655
+[env] bridge alive (frame 8, line=v7 obs_dim=160 actions=10)
+[config] zero_sum=1 (r = own - mean(others); nearest-attacker damage attribution)
+[config] reward2: special_dmg_w=1.0 special_r=700 lost_extra_w=1.0 special_window=2s (20 steps | 120 frames, clock=frames) loss_scale_lv8=0.5 special_attrib=1 (learner-only; +0x32e4 hit source, owner +0x10)
+[config] start_health=U(0.5, 1.0) per seat (RAM write at reset)
+[ep] slot58 opps=3     win len= 375  dmg +5.13/-0.02  stones: picked=5 lost=0 opp=7(-5) forms=2/1  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=15(3) stonev=199 dmgF=3.40
+[zs] raw=+38.03 opp_mean=-1.48 adj=+38.75 dealt_nn=1.90 steps=375 spec_pen=+0.00 lost_pen=+0.00 spec_net=+0.00 lost_net=+2.33 attr=0/1 spec_dmg=0.00
+[opp] P1=leg90_league_4014080_steps.zip P3=leg92_league_512000_steps.zip
+[actor 16] up: instance 16, policy v0
+[opp] P1=leg78_league_2007040_steps.zip P3=leg79_league_2007040_steps.zip
+[start] health P2=540 P1=619 P3=854 P4=899
+[start] health P2=583 P1=669 P3=480 P4=636
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+Set variable override: flycast_hle_bios = enabled
+Set variable override: reicast_hle_bios = enabled
+Set variable override: flycast_device_port1_slot1 = VMU
+Set variable override: flycast_device_port2_slot1 = VMU
+Set variable override: flycast_threaded_rendering = disabled
+Set variable override: reicast_threaded_rendering = disabled
+[env] bridge alive (frame 8, line=v7 obs_dim=160 actions=10)
+[config] zero_sum=1 (r = own - mean(others); nearest-attacker damage attribution)
+[config] reward2: special_dmg_w=1.0 special_r=700 lost_extra_w=1.0 special_window=2s (20 steps | 120 frames, clock=frames) loss_scale_lv8=0.5 special_attrib=1 (learner-only; +0x32e4 hit source, owner +0x10)
+[config] start_health=U(0.5, 1.0) per seat (RAM write at reset)
+[actor 17] up: instance 17, policy v0
+[opp] P1=leg80_league_2007040_steps.zip P3=leg38_league_2519040_steps.zip
+[ep] slot10 opps=3    loss len= 383  dmg +4.39/-0.62  stones: picked=5 lost=1 opp=6(-5) forms=1/2  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=14(1) stonev=121 dmgF=0.81
+[zs] raw=+4.81 opp_mean=-2.15 adj=+6.19 dealt_nn=1.29 steps=383 spec_pen=-0.37 lost_pen=-1.00 spec_net=-0.37 lost_net=-0.00 attr=1/2 spec_dmg=0.37
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+[start] health P2=708 P1=647 P3=907 P4=813
+Set variable override: flycast_hle_bios = enabled
+Set variable override: reicast_hle_bios = enabled
+Set variable override: flycast_device_port1_slot1 = VMU
+Set variable override: flycast_device_port2_slot1 = VMU
+Set variable override: flycast_threaded_rendering = disabled
+Set variable override: reicast_threaded_rendering = disabled
+[opp] P1=prog_leg85.zip P3=leg100_league_3502080_steps.zip
+[env] bridge alive (frame 8, line=v7 obs_dim=160 actions=10)
+[config] zero_sum=1 (r = own - mean(others); nearest-attacker damage attribution)
+[config] reward2: special_dmg_w=1.0 special_r=700 lost_extra_w=1.0 special_window=2s (20 steps | 120 frames, clock=frames) loss_scale_lv8=0.5 special_attrib=1 (learner-only; +0x32e4 hit source, owner +0x10)
+[config] start_health=U(0.5, 1.0) per seat (RAM write at reset)
+[ep] slot31 opps=3    loss len= 643  dmg +2.67/-0.86  stones: picked=1 lost=2 opp=8(-3) forms=0/2  gem_rew=+3.00 shape=+0.00 appr=+0.00  chests=16(0) stonev=127 dmgF=0.00
+[zs] raw=-5.02 opp_mean=+4.66 adj=-10.96 dealt_nn=0.62 steps=643 spec_pen=-0.10 lost_pen=-2.00 spec_net=-0.10 lost_net=-1.00 attr=5/7 spec_dmg=0.10
+[opp] P1=leg54_league_1515520_steps.zip P3=leg103_league_512000_steps.zip
+[start] health P2=910 P1=587 P3=584 P4=999
+[start] health P2=820 P1=970 P3=826 P4=991
+[ep] slot55 opps=3     win len= 522  dmg +5.38/-0.73  stones: picked=9 lost=1 opp=9(-9) forms=3/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=13(1) stonev=301 dmgF=4.09
+[zs] raw=+37.10 opp_mean=+1.55 adj=+34.50 dealt_nn=0.68 steps=522 spec_pen=-0.48 lost_pen=-1.00 spec_net=-0.48 lost_net=+1.33 attr=27/1 spec_dmg=0.48
+[opp] P1=leg25_league_2519040_steps.zip P3=leg36_league_3010560_steps.zip
+[actor 18] up: instance 18, policy v0
+[start] health P2=838 P1=802 P3=646 P4=834
+[opp] P1=leg103_league_1003520_steps.zip P3=leg103_league_3502080_steps.zip
+[ep] slot18 opps=3    loss len= 765  dmg +4.83/-0.54  stones: picked=9 lost=4 opp=7(-6) forms=2/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=24(0) stonev=274 dmgF=2.23
+[zs] raw=+6.09 opp_mean=+3.14 adj=+1.42 dealt_nn=1.75 steps=765 spec_pen=-0.33 lost_pen=-4.00 spec_net=-0.33 lost_net=-1.67 attr=12/1 spec_dmg=0.33
+[opp] P1=leg103_league_2519040_steps.zip P3=prog_leg86.zip
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+Set variable override: flycast_hle_bios = enabled
+Set variable override: reicast_hle_bios = enabled
+Set variable override: flycast_device_port1_slot1 = VMU
+Set variable override: flycast_device_port2_slot1 = VMU
+Set variable override: flycast_threaded_rendering = disabled
+Set variable override: reicast_threaded_rendering = disabled
+[start] health P2=992 P1=887 P3=782 P4=687
+[start] health P2=947 P1=648 P3=735 P4=802
+[env] bridge alive (frame 8, line=v7 obs_dim=160 actions=10)
+[config] zero_sum=1 (r = own - mean(others); nearest-attacker damage attribution)
+[config] reward2: special_dmg_w=1.0 special_r=700 lost_extra_w=1.0 special_window=2s (20 steps | 120 frames, clock=frames) loss_scale_lv8=0.5 special_attrib=1 (learner-only; +0x32e4 hit source, owner +0x10)
+[config] start_health=U(0.5, 1.0) per seat (RAM write at reset)
+[ep] slot50 opps=3    loss len= 317  dmg +1.43/-0.75  stones: picked=0 lost=1 opp=7(-3) forms=0/2  gem_rew=+0.00 shape=+0.00 appr=+0.00  chests=12(0) stonev=110 dmgF=0.00
+[zs] raw=-7.53 opp_mean=+5.95 adj=-14.12 dealt_nn=0.23 steps=317 spec_pen=-0.61 lost_pen=-1.00 spec_net=-0.61 lost_net=-0.00 attr=21/0 spec_dmg=0.61
+[opp] P1=prog_leg38.zip P3=leg103_league_1515520_steps.zip
+[start] health P2=633 P1=801 P3=573 P4=702
+[actor 19] up: instance 19, policy v0
+[opp] P1=prog_leg103.zip P3=leg103_league_4014080_steps.zip
+[start] health P2=950 P1=735 P3=900 P4=521
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+Set variable override: flycast_hle_bios = enabled
+Set variable override: reicast_hle_bios = enabled
+Set variable override: flycast_device_port1_slot1 = VMU
+Set variable override: flycast_device_port2_slot1 = VMU
+Set variable override: flycast_threaded_rendering = disabled
+Set variable override: reicast_threaded_rendering = disabled
+[ep] slot34 opps=3    loss len= 353  dmg +3.88/-0.64  stones: picked=4 lost=2 opp=6(-4) forms=1/1  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=13(0) stonev=159 dmgF=2.04
+[zs] raw=+4.31 opp_mean=+7.45 adj=-3.86 dealt_nn=0.37 steps=353 spec_pen=-0.09 lost_pen=-2.00 spec_net=-0.09 lost_net=-0.00 attr=6/1 spec_dmg=0.09
+/home/superserver/ps2rl/lib/python3.12/site-packages/stable_baselines3/common/save_util.py:167: UserWarning: Could not deserialize object clip_range. Consider using `custom_objects` argument to replace this object.
+Exception: code() argument 13 must be str, not int
+  warnings.warn(
+/home/superserver/ps2rl/lib/python3.12/site-packages/stable_baselines3/common/save_util.py:167: UserWarning: Could not deserialize object lr_schedule. Consider using `custom_objects` argument to replace this object.
+Exception: code() argument 13 must be str, not int
+  warnings.warn(
+[env] bridge alive (frame 8, line=v7 obs_dim=160 actions=10)
+[config] zero_sum=1 (r = own - mean(others); nearest-attacker damage attribution)
+[config] reward2: special_dmg_w=1.0 special_r=700 lost_extra_w=1.0 special_window=2s (20 steps | 120 frames, clock=frames) loss_scale_lv8=0.5 special_attrib=1 (learner-only; +0x32e4 hit source, owner +0x10)
+[config] start_health=U(0.5, 1.0) per seat (RAM write at reset)
+[opp] P1=ps_v6_5033239_steps.zip P3=leg68_league_2519040_steps.zip
+[ep] slot38 opps=3    loss len= 676  dmg +3.60/-0.78  stones: picked=4 lost=2 opp=12(-4) forms=1/3  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=22(2) stonev=157 dmgF=1.07
+[zs] raw=+5.02 opp_mean=+9.02 adj=-5.35 dealt_nn=1.12 steps=676 spec_pen=-0.08 lost_pen=-2.00 spec_net=-0.08 lost_net=-0.67 attr=7/6 spec_dmg=0.08
+[opp] P1=leg24_league_4000000_steps.zip P3=prog_leg103.zip
+[ep] slot33 opps=3     win len= 543  dmg +4.58/-0.34  stones: picked=9 lost=1 opp=8(-5) forms=3/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=20(1) stonev=297 dmgF=3.62
+[zs] raw=+39.30 opp_mean=-0.34 adj=+38.55 dealt_nn=1.36 steps=543 spec_pen=+0.00 lost_pen=-1.00 spec_net=+0.00 lost_net=+1.33 attr=1/1 spec_dmg=0.00
+[start] health P2=728 P1=534 P3=781 P4=982
+[start] health P2=844 P1=689 P3=672 P4=895
+[opp] P1=prog_leg103.zip P3=leg78_league_1003520_steps.zip
+[actor 20] up: instance 20, policy v0
+[opp] P1=prog_leg102.zip P3=leg36_league_2007040_steps.zip
+[start] health P2=633 P1=735 P3=619 P4=537
+[start] health P2=695 P1=554 P3=860 P4=649
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+Set variable override: flycast_hle_bios = enabled
+Set variable override: reicast_hle_bios = enabled
+Set variable override: flycast_device_port1_slot1 = VMU
+Set variable override: flycast_device_port2_slot1 = VMU
+Set variable override: flycast_threaded_rendering = disabled
+Set variable override: reicast_threaded_rendering = disabled
+[ep] slot43 opps=3    loss len= 487  dmg +2.65/-0.59  stones: picked=5 lost=3 opp=9(-4) forms=1/2  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=16(2) stonev=198 dmgF=0.91
+[zs] raw=+7.02 opp_mean=+5.33 adj=+0.71 dealt_nn=0.79 steps=487 spec_pen=+0.00 lost_pen=-3.00 spec_net=+0.00 lost_net=-1.67 attr=4/7 spec_dmg=0.00
+[opp] P1=leg103_league_2007040_steps.zip P3=leg103_league_3010560_steps.zip
+[env] bridge alive (frame 8, line=v7 obs_dim=160 actions=10)
+[config] zero_sum=1 (r = own - mean(others); nearest-attacker damage attribution)
+[config] reward2: special_dmg_w=1.0 special_r=700 lost_extra_w=1.0 special_window=2s (20 steps | 120 frames, clock=frames) loss_scale_lv8=0.5 special_attrib=1 (learner-only; +0x32e4 hit source, owner +0x10)
+[config] start_health=U(0.5, 1.0) per seat (RAM write at reset)
+[start] health P2=600 P1=762 P3=646 P4=725
+[actor 21] up: instance 21, policy v0
+[opp] P1=leg9_league_500004_steps.zip P3=leg84_league_3502080_steps.zip
+[ep] slot54 opps=3    loss len= 335  dmg +3.24/-0.64  stones: picked=5 lost=3 opp=8(-2) forms=1/2  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=13(0) stonev=227 dmgF=2.32
+[zs] raw=+6.12 opp_mean=+5.41 adj=+0.04 dealt_nn=0.33 steps=335 spec_pen=-0.24 lost_pen=-3.00 spec_net=-0.24 lost_net=-2.00 attr=10/6 spec_dmg=0.24
+[opp] P1=leg63_league_4014080_steps.zip P3=prog_leg102.zip
+[start] health P2=852 P1=592 P3=848 P4=991
+[start] health P2=850 P1=515 P3=597 P4=744
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+Set variable override: flycast_hle_bios = enabled
+Set variable override: reicast_hle_bios = enabled
+Set variable override: flycast_device_port1_slot1 = VMU
+Set variable override: flycast_device_port2_slot1 = VMU
+Set variable override: flycast_threaded_rendering = disabled
+Set variable override: reicast_threaded_rendering = disabled
+[ep] slot14 opps=3    loss len= 261  dmg +2.67/-0.54  stones: picked=4 lost=2 opp=3(-3) forms=1/1  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=10(0) stonev=60 dmgF=0.53
+[zs] raw=+0.69 opp_mean=+1.67 adj=-1.50 dealt_nn=0.92 steps=261 spec_pen=-0.09 lost_pen=-2.00 spec_net=-0.09 lost_net=-1.00 attr=1/2 spec_dmg=0.09
+[env] bridge alive (frame 8, line=v7 obs_dim=160 actions=10)
+[config] zero_sum=1 (r = own - mean(others); nearest-attacker damage attribution)
+[config] reward2: special_dmg_w=1.0 special_r=700 lost_extra_w=1.0 special_window=2s (20 steps | 120 frames, clock=frames) loss_scale_lv8=0.5 special_attrib=1 (learner-only; +0x32e4 hit source, owner +0x10)
+[config] start_health=U(0.5, 1.0) per seat (RAM write at reset)
+[opp] P1=leg103_league_2007040_steps.zip P3=leg103_league_4014080_steps.zip
+[actor 22] up: instance 22, policy v0
+[opp] P1=leg59_league_2519040_steps.zip P3=leg49_league_2519040_steps.zip
+[ep] slot33 opps=3    loss len= 594  dmg +3.80/-0.94  stones: picked=12 lost=4 opp=8(-3) forms=3/2  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=26(1) stonev=306 dmgF=1.79
+[zs] raw=+9.71 opp_mean=+9.12 adj=-0.60 dealt_nn=0.92 steps=594 spec_pen=+0.00 lost_pen=-4.00 spec_net=+0.00 lost_net=-2.33 attr=4/5 spec_dmg=0.00
+[opp] P1=leg103_league_1515520_steps.zip P3=leg93_league_2007040_steps.zip
+[start] health P2=604 P1=986 P3=920 P4=738
+[start] health P2=685 P1=928 P3=740 P4=757
+[start] health P2=891 P1=504 P3=491 P4=784
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+Set variable override: flycast_hle_bios = enabled
+Set variable override: reicast_hle_bios = enabled
+Set variable override: flycast_device_port1_slot1 = VMU
+Set variable override: flycast_device_port2_slot1 = VMU
+Set variable override: flycast_threaded_rendering = disabled
+Set variable override: reicast_threaded_rendering = disabled
+[env] bridge alive (frame 8, line=v7 obs_dim=160 actions=10)
+[config] zero_sum=1 (r = own - mean(others); nearest-attacker damage attribution)
+[config] reward2: special_dmg_w=1.0 special_r=700 lost_extra_w=1.0 special_window=2s (20 steps | 120 frames, clock=frames) loss_scale_lv8=0.5 special_attrib=1 (learner-only; +0x32e4 hit source, owner +0x10)
+[config] start_health=U(0.5, 1.0) per seat (RAM write at reset)
+[ep] slot10 opps=3    loss len= 459  dmg +4.30/-0.78  stones: picked=4 lost=2 opp=11(-7) forms=1/2  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=19(1) stonev=254 dmgF=0.88
+[zs] raw=-0.20 opp_mean=+4.40 adj=-5.51 dealt_nn=0.88 steps=459 spec_pen=-0.26 lost_pen=-2.00 spec_net=-0.26 lost_net=+0.33 attr=3/3 spec_dmg=0.26
+[opp] P1=leg103_league_1003520_steps.zip P3=leg103_league_4014080_steps.zip
+[actor 23] up: instance 23, policy v0
+[opp] P1=prog_leg82.zip P3=leg49_league_2519040_steps.zip
+[start] health P2=607 P1=524 P3=675 P4=780
+[ep] slot18 opps=3    loss len= 357  dmg +3.27/-0.84  stones: picked=0 lost=1 opp=8(-2) forms=0/3  gem_rew=+0.00 shape=+0.00 appr=+0.00  chests=11(1) stonev=161 dmgF=0.00
+[zs] raw=-11.14 opp_mean=+6.25 adj=-18.11 dealt_nn=0.71 steps=357 spec_pen=+0.00 lost_pen=-1.00 spec_net=+0.00 lost_net=-0.00 attr=0/5 spec_dmg=0.00
+[opp] P1=leg103_league_1515520_steps.zip P3=prog_leg103.zip
+[start] health P2=667 P1=582 P3=537 P4=985
+[start] health P2=657 P1=522 P3=606 P4=646
+[ep] slot52 opps=3    loss len= 658  dmg +4.65/-0.69  stones: picked=10 lost=5 opp=11(-11) forms=2/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=17(1) stonev=303 dmgF=2.18
+[zs] raw=+9.37 opp_mean=+10.12 adj=-2.07 dealt_nn=1.19 steps=658 spec_pen=+0.00 lost_pen=-5.00 spec_net=+0.00 lost_net=-1.67 attr=8/5 spec_dmg=0.00
+[opp] P1=leg32_league_512000_steps.zip P3=leg8_league_1000008_steps.zip
+[start] health P2=508 P1=757 P3=520 P4=868
+[ep] slot14 opps=3    loss len= 404  dmg +4.03/-0.91  stones: picked=6 lost=3 opp=6(-4) forms=1/1  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=11(1) stonev=209 dmgF=2.03
+[zs] raw=+5.22 opp_mean=+0.29 adj=+4.13 dealt_nn=1.28 steps=404 spec_pen=-0.61 lost_pen=-3.00 spec_net=-0.61 lost_net=-1.00 attr=4/3 spec_dmg=0.61
+[opp] P1=leg103_league_2519040_steps.zip P3=leg103_league_1003520_steps.zip
+[start] health P2=721 P1=864 P3=892 P4=906
+[ep] slot43 opps=3     win len= 471  dmg +4.73/-0.37  stones: picked=6 lost=1 opp=8(-5) forms=2/2  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=19(6) stonev=185 dmgF=2.07
+[zs] raw=+36.73 opp_mean=+1.08 adj=+34.71 dealt_nn=0.52 steps=471 spec_pen=+0.00 lost_pen=-1.00 spec_net=+0.00 lost_net=+0.67 attr=1/2 spec_dmg=0.00
+[opp] P1=leg103_league_3502080_steps.zip P3=leg23_league_1515520_steps.zip
+[start] health P2=519 P1=921 P3=659 P4=624
+[ep] slot13 opps=3     win len= 531  dmg +5.57/-0.67  stones: picked=5 lost=0 opp=5(-3) forms=2/1  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=16(4) stonev=262 dmgF=3.64
+[zs] raw=+37.66 opp_mean=-7.82 adj=+44.41 dealt_nn=2.19 steps=531 spec_pen=+0.00 lost_pen=+0.00 spec_net=+0.00 lost_net=+1.67 attr=3/2 spec_dmg=0.00
+[opp] P1=leg103_league_512000_steps.zip P3=leg103_league_2007040_steps.zip
+[start] health P2=983 P1=773 P3=479 P4=766
+[ep] slot10 opps=3    loss len= 338  dmg +2.77/-0.63  stones: picked=6 lost=4 opp=4(-3) forms=1/1  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=11(2) stonev=119 dmgF=0.92
+[zs] raw=+3.28 opp_mean=+2.68 adj=-0.07 dealt_nn=0.30 steps=338 spec_pen=+0.00 lost_pen=-4.00 spec_net=+0.00 lost_net=-2.67 attr=2/5 spec_dmg=0.00
+[opp] P1=leg50_league_2007040_steps.zip P3=leg103_league_1515520_steps.zip
+[start] health P2=756 P1=711 P3=807 P4=892
+[ep] slot55 opps=3    loss len= 397  dmg +1.41/-0.84  stones: picked=5 lost=6 opp=8(-5) forms=0/0  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=13(1) stonev=199 dmgF=0.00
+[zs] raw=+2.91 opp_mean=+6.15 adj=-4.04 dealt_nn=0.27 steps=397 spec_pen=+0.00 lost_pen=-6.00 spec_net=+0.00 lost_net=-4.33 attr=14/2 spec_dmg=0.00
+[opp] P1=leg69_league_512000_steps.zip P3=leg69_league_3502080_steps.zip
+[ep] slot20 opps=3    loss len= 841  dmg +4.93/-0.63  stones: picked=7 lost=2 opp=13(-6) forms=2/3  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=30(4) stonev=330 dmgF=1.87
+[zs] raw=+7.12 opp_mean=+2.42 adj=+3.02 dealt_nn=1.21 steps=841 spec_pen=+0.00 lost_pen=-2.00 spec_net=+0.00 lost_net=+0.33 attr=2/4 spec_dmg=0.00
+[opp] P1=leg103_league_512000_steps.zip P3=leg103_league_1515520_steps.zip
+[ep] slot20 opps=3    loss len= 546  dmg +4.40/-0.73  stones: picked=8 lost=3 opp=8(-5) forms=2/2  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=13(1) stonev=360 dmgF=3.50
+[zs] raw=+6.17 opp_mean=+5.04 adj=+0.03 dealt_nn=1.13 steps=546 spec_pen=-0.26 lost_pen=-3.00 spec_net=-0.26 lost_net=-1.33 attr=3/4 spec_dmg=0.26
+[start] health P2=900 P1=671 P3=686 P4=959
+[opp] P1=leg83_league_1003520_steps.zip P3=leg12_league_500004_steps.zip
+[start] health P2=779 P1=575 P3=791 P4=728
+[start] health P2=551 P1=530 P3=474 P4=835
+[ep] slot50 opps=3    loss len= 580  dmg +3.44/-0.63  stones: picked=6 lost=4 opp=12(-4) forms=1/3  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=24(1) stonev=260 dmgF=1.71
+[zs] raw=+7.54 opp_mean=+8.34 adj=-1.96 dealt_nn=0.24 steps=580 spec_pen=-0.14 lost_pen=-4.00 spec_net=-0.14 lost_net=-2.33 attr=14/8 spec_dmg=0.14
+[ep] slot33 opps=3     win len= 388  dmg +4.31/-0.55  stones: picked=6 lost=1 opp=4(-3) forms=2/1  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=8(1) stonev=177 dmgF=2.79
+[zs] raw=+38.31 opp_mean=-2.94 adj=+40.47 dealt_nn=1.38 steps=388 spec_pen=-0.12 lost_pen=-1.00 spec_net=-0.12 lost_net=+0.33 attr=4/5 spec_dmg=0.12
+[opp] P1=prog_leg102.zip P3=leg39_league_2007040_steps.zip
+[opp] P1=leg103_league_1003520_steps.zip P3=leg103_league_4014080_steps.zip
+[ep] slot20 opps=3    loss len= 470  dmg +2.53/-0.95  stones: picked=2 lost=3 opp=9(-9) forms=0/1  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=15(0) stonev=183 dmgF=0.00
+[zs] raw=-7.98 opp_mean=-0.19 adj=-8.73 dealt_nn=0.45 steps=470 spec_pen=+0.00 lost_pen=-3.00 spec_net=+0.00 lost_net=-0.67 attr=4/7 spec_dmg=0.00
+[opp] P1=leg46_league_3502080_steps.zip P3=leg103_league_1003520_steps.zip
+[start] health P2=992 P1=631 P3=585 P4=837
+[ep] slot19 opps=3    loss len= 543  dmg +3.12/-0.70  stones: picked=0 lost=1 opp=9(-1) forms=0/3  gem_rew=+0.00 shape=+0.00 appr=+0.00  chests=18(1) stonev=176 dmgF=0.00
+[zs] raw=-12.87 opp_mean=+7.84 adj=-21.80 dealt_nn=0.09 steps=543 spec_pen=-0.26 lost_pen=-1.00 spec_net=-0.26 lost_net=-0.00 attr=4/5 spec_dmg=0.26
+[opp] P1=leg98_league_2007040_steps.zip P3=leg103_league_4014080_steps.zip
+[ep] slot34 opps=3    loss len= 267  dmg +2.95/-0.72  stones: picked=4 lost=2 opp=6(-5) forms=1/0  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=9(0) stonev=128 dmgF=1.75
+[zs] raw=+5.86 opp_mean=+3.40 adj=+1.93 dealt_nn=1.06 steps=267 spec_pen=+0.00 lost_pen=-2.00 spec_net=+0.00 lost_net=-0.33 attr=0/4 spec_dmg=0.00
+[start] health P2=877 P1=557 P3=858 P4=859
+[opp] P1=leg103_league_1515520_steps.zip P3=leg80_league_4014080_steps.zip
+[start] health P2=543 P1=789 P3=720 P4=758
+[start] health P2=502 P1=711 P3=750 P4=919
+[start] health P2=775 P1=958 P3=914 P4=986
+[ep] slot34 opps=3     win len= 349  dmg +3.71/-0.42  stones: picked=5 lost=0 opp=4(-2) forms=2/1  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=14(3) stonev=170 dmgF=2.88
+[zs] raw=+36.98 opp_mean=-3.16 adj=+39.44 dealt_nn=1.55 steps=349 spec_pen=+0.00 lost_pen=+0.00 spec_net=+0.00 lost_net=+1.33 attr=1/2 spec_dmg=0.00
+[opp] P1=leg103_league_2007040_steps.zip P3=prog_leg102.zip
+[ep] slot33 opps=3    loss len= 596  dmg +3.76/-0.58  stones: picked=6 lost=2 opp=11(-4) forms=2/3  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=19(6) stonev=289 dmgF=2.65
+[zs] raw=+11.35 opp_mean=+6.45 adj=+3.71 dealt_nn=1.06 steps=596 spec_pen=+0.00 lost_pen=-2.00 spec_net=+0.00 lost_net=-0.33 attr=2/5 spec_dmg=0.00
+[opp] P1=prog_leg103.zip P3=leg99_league_1003520_steps.zip
+[ep] slot18 opps=3     win len= 777  dmg +4.73/-0.48  stones: picked=10 lost=2 opp=9(-7) forms=3/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=29(5) stonev=277 dmgF=0.63
+[zs] raw=+37.22 opp_mean=-5.20 adj=+40.87 dealt_nn=1.13 steps=777 spec_pen=+0.00 lost_pen=-2.00 spec_net=+0.00 lost_net=+1.00 attr=2/4 spec_dmg=0.00
+[start] health P2=518 P1=552 P3=734 P4=845
+[opp] P1=leg17_league_2000016_steps.zip P3=leg103_league_3010560_steps.zip
+[start] health P2=920 P1=897 P3=852 P4=951
+[start] health P2=885 P1=719 P3=606 P4=723
+[ep] slot21 opps=3    loss len= 411  dmg +1.18/-0.60  stones: picked=0 lost=1 opp=6(-3) forms=0/2  gem_rew=+0.00 shape=+0.00 appr=+0.00  chests=15(0) stonev=79 dmgF=0.00
+[zs] raw=-12.12 opp_mean=+4.68 adj=-17.62 dealt_nn=0.15 steps=411 spec_pen=+0.00 lost_pen=-1.00 spec_net=+0.00 lost_net=-0.00 attr=3/11 spec_dmg=0.00
+[opp] P1=leg103_league_2519040_steps.zip P3=leg37_league_3502080_steps.zip
+[start] health P2=1000 P1=536 P3=540 P4=825
+[ep] slot39 opps=3    loss len= 203  dmg +1.56/-0.55  stones: picked=1 lost=2 opp=4(-5) forms=0/0  gem_rew=+3.00 shape=+0.00 appr=+0.00  chests=4(0) stonev=89 dmgF=0.00
+[zs] raw=-4.20 opp_mean=+2.30 adj=-6.91 dealt_nn=0.38 steps=203 spec_pen=+0.00 lost_pen=-2.00 spec_net=+0.00 lost_net=-0.33 attr=10/2 spec_dmg=0.00
+[opp] P1=prog_leg103.zip P3=leg55_league_2519040_steps.zip
+[ep] slot42 opps=3     win len= 536  dmg +3.96/-0.06  stones: picked=5 lost=0 opp=4(-4) forms=2/0  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=16(2) stonev=100 dmgF=2.60
+[zs] raw=+36.25 opp_mean=-4.50 adj=+39.68 dealt_nn=1.19 steps=536 spec_pen=+0.00 lost_pen=+0.00 spec_net=+0.00 lost_net=+2.33 attr=0/1 spec_dmg=0.00
+[opp] P1=leg103_league_4014080_steps.zip P3=leg47_league_3010560_steps.zip
+[ep] slot16 opps=3    loss len= 402  dmg +2.24/-0.89  stones: picked=1 lost=2 opp=6(-1) forms=0/2  gem_rew=+3.00 shape=+0.00 appr=+0.00  chests=15(1) stonev=66 dmgF=0.00
+[zs] raw=-10.75 opp_mean=+2.31 adj=-13.86 dealt_nn=0.29 steps=402 spec_pen=-0.63 lost_pen=-2.00 spec_net=-0.63 lost_net=-1.67 attr=10/3 spec_dmg=0.63
+[opp] P1=prog_leg103.zip P3=leg103_league_3010560_steps.zip
+[start] health P2=660 P1=504 P3=472 P4=660
+[start] health P2=524 P1=644 P3=543 P4=599
+[start] health P2=836 P1=963 P3=725 P4=542
+[ep] slot13 opps=3     win len= 637  dmg +4.71/-0.50  stones: picked=7 lost=2 opp=3(-4) forms=2/0  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=17(4) stonev=137 dmgF=2.51
+[zs] raw=+38.07 opp_mean=-10.10 adj=+46.90 dealt_nn=1.42 steps=637 spec_pen=+0.00 lost_pen=-2.00 spec_net=+0.00 lost_net=-0.00 attr=6/3 spec_dmg=0.00
+[opp] P1=leg103_league_3502080_steps.zip P3=leg65_league_2007040_steps.zip
+[start] health P2=554 P1=934 P3=546 P4=839
+[ep] slot15 opps=3     win len= 577  dmg +4.27/-0.17  stones: picked=6 lost=1 opp=6(-3) forms=2/2  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=19(1) stonev=171 dmgF=1.97
+[zs] raw=+37.62 opp_mean=-6.01 adj=+42.48 dealt_nn=1.02 steps=577 spec_pen=-0.09 lost_pen=-1.00 spec_net=-0.09 lost_net=+0.00 attr=7/1 spec_dmg=0.09
+/home/superserver/ps2rl/lib/python3.12/site-packages/stable_baselines3/common/save_util.py:167: UserWarning: Could not deserialize object clip_range. Consider using `custom_objects` argument to replace this object.
+Exception: code() argument 13 must be str, not int
+  warnings.warn(
+/home/superserver/ps2rl/lib/python3.12/site-packages/stable_baselines3/common/save_util.py:167: UserWarning: Could not deserialize object lr_schedule. Consider using `custom_objects` argument to replace this object.
+Exception: code() argument 13 must be str, not int
+  warnings.warn(
+[opp] P1=ps_v6_5033239_steps.zip P3=prog_leg5.zip
+[start] health P2=682 P1=873 P3=563 P4=562
+[ep] slot10 opps=3     win len= 694  dmg +3.73/-0.16  stones: picked=9 lost=2 opp=5(-5) forms=2/0  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=21(2) stonev=159 dmgF=1.26
+[zs] raw=+37.95 opp_mean=-9.16 adj=+45.73 dealt_nn=1.25 steps=694 spec_pen=+0.00 lost_pen=-2.00 spec_net=+0.00 lost_net=+0.67 attr=5/2 spec_dmg=0.00
+[opp] P1=leg9_league_500004_steps.zip P3=leg22_league_1000000_steps.zip
+[start] health P2=772 P1=671 P3=751 P4=790
+[ep] slot35 opps=3    loss len= 544  dmg +4.34/-0.52  stones: picked=6 lost=1 opp=13(-9) forms=2/2  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=10(0) stonev=222 dmgF=3.44
+[zs] raw=+12.93 opp_mean=+10.47 adj=+1.38 dealt_nn=1.27 steps=544 spec_pen=+0.00 lost_pen=-1.00 spec_net=+0.00 lost_net=+2.33 attr=9/5 spec_dmg=0.00
+[opp] P1=leg19_league_500004_steps.zip P3=leg103_league_1515520_steps.zip
+[ep] slot22 opps=3    loss len= 561  dmg +4.33/-0.69  stones: picked=6 lost=4 opp=8(-11) forms=1/2  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=19(0) stonev=245 dmgF=0.89
+[zs] raw=+4.12 opp_mean=+5.69 adj=-2.69 dealt_nn=1.06 steps=561 spec_pen=-0.19 lost_pen=-4.00 spec_net=-0.19 lost_net=-2.33 attr=11/2 spec_dmg=0.19
+[start] health P2=696 P1=753 P3=929 P4=505
+[opp] P1=leg103_league_3010560_steps.zip P3=leg26_league_4014080_steps.zip
+[start] health P2=536 P1=916 P3=538 P4=565
+[ep] slot55 opps=3    loss len= 392  dmg +1.03/-0.78  stones: picked=3 lost=4 opp=6(-5) forms=0/1  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=9(2) stonev=86 dmgF=0.00
+[zs] raw=-1.40 opp_mean=+4.09 adj=-6.26 dealt_nn=0.23 steps=392 spec_pen=-0.29 lost_pen=-4.00 spec_net=-0.29 lost_net=-2.33 attr=12/6 spec_dmg=0.29
+[opp] P1=leg23_league_3502080_steps.zip P3=leg25_league_2007040_steps.zip
+[start] health P2=643 P1=526 P3=556 P4=723
+[ep] slot21 opps=3    loss len= 509  dmg +3.88/-0.51  stones: picked=5 lost=3 opp=6(-5) forms=1/1  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=17(0) stonev=223 dmgF=1.18
+[zs] raw=+0.52 opp_mean=+0.51 adj=-1.01 dealt_nn=0.19 steps=509 spec_pen=-0.33 lost_pen=-3.00 spec_net=-0.33 lost_net=-1.00 attr=5/1 spec_dmg=0.33
+[opp] P1=leg98_league_1515520_steps.zip P3=leg103_league_3010560_steps.zip
+[start] health P2=812 P1=918 P3=671 P4=843
+[ep] slot21 opps=3     win len= 373  dmg +4.63/-0.18  stones: picked=6 lost=1 opp=7(-6) forms=2/0  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=12(3) stonev=188 dmgF=3.15
+[zs] raw=+38.91 opp_mean=-7.13 adj=+45.30 dealt_nn=1.42 steps=373 spec_pen=+0.00 lost_pen=-1.00 spec_net=+0.00 lost_net=+2.33 attr=2/2 spec_dmg=0.00
+[opp] P1=leg103_league_3010560_steps.zip P3=leg103_league_3502080_steps.zip
+[start] health P2=666 P1=581 P3=791 P4=872
+[ep] slot19 opps=3    loss len= 623  dmg +3.00/-0.98  stones: picked=5 lost=3 opp=10(-5) forms=1/2  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=19(0) stonev=224 dmgF=0.39
+[zs] raw=+0.93 opp_mean=+4.11 adj=-4.43 dealt_nn=0.69 steps=623 spec_pen=-0.22 lost_pen=-3.00 spec_net=-0.22 lost_net=-1.00 attr=4/10 spec_dmg=0.22
+[ep] slot33 opps=3    loss len= 332  dmg +2.19/-0.52  stones: picked=4 lost=5 opp=6(-4) forms=0/1  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=8(2) stonev=120 dmgF=0.00
+[zs] raw=+1.49 opp_mean=+2.79 adj=-1.97 dealt_nn=0.38 steps=332 spec_pen=-0.10 lost_pen=-5.00 spec_net=-0.10 lost_net=-3.67 attr=6/2 spec_dmg=0.10
+[opp] P1=leg93_league_2007040_steps.zip P3=prog_leg72.zip
+[ep] slot11 opps=3    loss len= 384  dmg +2.29/-0.78  stones: picked=1 lost=2 opp=8(-5) forms=0/3  gem_rew=+3.00 shape=+0.00 appr=+0.00  chests=10(1) stonev=109 dmgF=0.00
+[zs] raw=-10.31 opp_mean=+4.03 adj=-15.12 dealt_nn=0.15 steps=384 spec_pen=-0.06 lost_pen=-2.00 spec_net=-0.06 lost_net=-1.33 attr=4/5 spec_dmg=0.06
+[opp] P1=leg103_league_2007040_steps.zip P3=leg39_league_3010560_steps.zip
+[opp] P1=selfplay_28415469_steps.zip P3=leg16_league_2000016_steps.zip
+[start] health P2=560 P1=931 P3=636 P4=645
+[start] health P2=625 P1=912 P3=690 P4=794
+[ep] slot31 opps=3     win len= 513  dmg +4.11/-0.56  stones: picked=7 lost=2 opp=14(-6) forms=2/4  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=14(2) stonev=277 dmgF=1.94
+[zs] raw=+36.99 opp_mean=+4.14 adj=+31.82 dealt_nn=0.83 steps=513 spec_pen=-0.09 lost_pen=-2.00 spec_net=-0.09 lost_net=-0.33 attr=8/3 spec_dmg=0.09
+[opp] P1=leg69_league_1515520_steps.zip P3=leg103_league_2007040_steps.zip
+[start] health P2=783 P1=909 P3=546 P4=798
+[start] health P2=718 P1=804 P3=587 P4=577
+[ep] slot17 opps=3     win len= 696  dmg +4.34/-0.24  stones: picked=6 lost=1 opp=9(-8) forms=2/0  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=25(2) stonev=157 dmgF=2.04
+[zs] raw=+38.38 opp_mean=-9.51 adj=+46.50 dealt_nn=1.50 steps=696 spec_pen=+0.00 lost_pen=-1.00 spec_net=+0.00 lost_net=+2.67 attr=1/2 spec_dmg=0.00
+[opp] P1=leg103_league_2519040_steps.zip P3=leg58_league_2519040_steps.zip
+[ep] slot36 opps=3    loss len= 330  dmg +2.31/-1.00  stones: picked=4 lost=4 opp=9(-7) forms=0/2  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=13(0) stonev=146 dmgF=0.00
+[zs] raw=+1.58 opp_mean=+5.80 adj=-4.88 dealt_nn=0.39 steps=330 spec_pen=-0.53 lost_pen=-4.00 spec_net=-0.53 lost_net=-2.33 attr=6/1 spec_dmg=0.53
+[ep] slot50 opps=3     win len= 217  dmg +4.37/+0.00  stones: picked=5 lost=0 opp=3(-3) forms=2/0  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=7(1) stonev=90 dmgF=3.72
+[zs] raw=+35.73 opp_mean=-4.09 adj=+39.39 dealt_nn=0.58 steps=217 spec_pen=+0.00 lost_pen=+0.00 spec_net=+0.00 lost_net=+2.00 attr=0/0 spec_dmg=0.00
+[opp] P1=leg21_league_3000000_steps.zip P3=leg33_league_2007040_steps.zip
+[opp] P1=leg103_league_3010560_steps.zip P3=leg77_league_2519040_steps.zip
+[ep] slot57 opps=3    loss len= 232  dmg +0.49/-0.68  stones: picked=1 lost=2 opp=4(-2) forms=0/1  gem_rew=+3.00 shape=+0.00 appr=+0.00  chests=7(0) stonev=56 dmgF=0.00
+[zs] raw=-5.15 opp_mean=+3.35 adj=-8.96 dealt_nn=0.09 steps=232 spec_pen=-0.18 lost_pen=-2.00 spec_net=-0.18 lost_net=-1.33 attr=12/2 spec_dmg=0.18
+[opp] P1=leg50_league_2007040_steps.zip P3=leg103_league_3010560_steps.zip
+[start] health P2=516 P1=762 P3=932 P4=664
+[start] health P2=732 P1=535 P3=704 P4=734
+[start] health P2=769 P1=735 P3=597 P4=854
+[start] health P2=967 P1=980 P3=782 P4=590
+[ep] slot42 opps=3     win len= 308  dmg +4.42/-0.09  stones: picked=3 lost=1 opp=4(-6) forms=1/0  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=11(0) stonev=118 dmgF=2.77
+[zs] raw=+27.63 opp_mean=-3.26 adj=+30.27 dealt_nn=0.17 steps=308 spec_pen=+0.00 lost_pen=-1.00 spec_net=+0.00 lost_net=+1.33 attr=0/1 spec_dmg=0.00
+[opp] P1=leg55_league_2007040_steps.zip P3=leg72_league_2519040_steps.zip
+[start] health P2=608 P1=521 P3=800 P4=812
+[ep] slot50 opps=3    loss len= 438  dmg +3.60/-0.54  stones: picked=5 lost=3 opp=5(-8) forms=1/1  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=12(1) stonev=183 dmgF=1.92
+[zs] raw=+6.13 opp_mean=+1.50 adj=+3.75 dealt_nn=0.38 steps=438 spec_pen=-0.21 lost_pen=-3.00 spec_net=-0.21 lost_net=-1.33 attr=22/1 spec_dmg=0.21
+[opp] P1=leg80_league_4014080_steps.zip P3=leg84_league_512000_steps.zip
+[start] health P2=812 P1=739 P3=507 P4=580
+[ep] slot10 opps=3     win len= 674  dmg +4.76/-0.50  stones: picked=9 lost=1 opp=11(-7) forms=3/2  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=20(5) stonev=322 dmgF=2.57
+[zs] raw=+38.75 opp_mean=-3.42 adj=+40.82 dealt_nn=1.30 steps=674 spec_pen=+0.00 lost_pen=-1.00 spec_net=+0.00 lost_net=+1.67 attr=6/3 spec_dmg=0.00
+[opp] P1=prog_leg57.zip P3=leg35_league_4014080_steps.zip
+[start] health P2=780 P1=863 P3=802 P4=527
+[ep] slot50 opps=3    loss len= 432  dmg +2.53/-0.89  stones: picked=4 lost=5 opp=9(-6) forms=0/1  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=12(0) stonev=193 dmgF=0.00
+[zs] raw=+0.65 opp_mean=+6.89 adj=-7.10 dealt_nn=0.39 steps=432 spec_pen=-0.38 lost_pen=-5.00 spec_net=-0.38 lost_net=-3.00 attr=17/4 spec_dmg=0.38
+[opp] P1=leg55_league_1515520_steps.zip P3=leg26_league_1515520_steps.zip
+[ep] slot18 opps=3    loss len= 470  dmg +3.03/-0.66  stones: picked=5 lost=3 opp=14(-7) forms=1/4  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=15(2) stonev=166 dmgF=1.42
+[zs] raw=+1.63 opp_mean=+6.14 adj=-5.45 dealt_nn=0.79 steps=470 spec_pen=-0.35 lost_pen=-3.00 spec_net=-0.35 lost_net=-1.33 attr=3/1 spec_dmg=0.35
+[opp] P1=selfplay_1500012_steps.zip P3=leg103_league_4014080_steps.zip
+[start] health P2=983 P1=991 P3=602 P4=545
+[start] health P2=679 P1=845 P3=795 P4=748
+[ep] slot41 opps=3     win len= 284  dmg +3.61/-0.17  stones: picked=3 lost=1 opp=6(-8) forms=1/1  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=6(1) stonev=122 dmgF=0.70
+[zs] raw=+28.43 opp_mean=-1.24 adj=+29.11 dealt_nn=0.59 steps=284 spec_pen=+0.00 lost_pen=-1.00 spec_net=+0.00 lost_net=+1.00 attr=0/2 spec_dmg=0.00
+[opp] P1=prog_leg103.zip P3=leg103_league_1003520_steps.zip
+[start] health P2=983 P1=902 P3=672 P4=614
+[ep] slot31 opps=3    loss len= 239  dmg +1.42/-0.72  stones: picked=0 lost=1 opp=3(-1) forms=0/1  gem_rew=+0.00 shape=+0.00 appr=+0.00  chests=7(0) stonev=50 dmgF=0.00
+[ep] slot57 opps=3    loss len= 192  dmg +0.30/-0.73  stones: picked=3 lost=4 opp=4(-2) forms=0/0  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=9(1) stonev=106 dmgF=0.00
+[zs] raw=-1.05 opp_mean=+3.46 adj=-4.89 dealt_nn=0.04 steps=192 spec_pen=+0.00 lost_pen=-4.00 spec_net=+0.00 lost_net=-3.33 attr=4/10 spec_dmg=0.00
+[zs] raw=-6.93 opp_mean=+1.12 adj=-8.53 dealt_nn=0.18 steps=239 spec_pen=-0.09 lost_pen=-1.00 spec_net=-0.09 lost_net=-0.67 attr=8/8 spec_dmg=0.09
+[opp] P1=leg103_league_3502080_steps.zip P3=leg53_league_2007040_steps.zip
+[opp] P1=leg103_league_3010560_steps.zip P3=prog_leg23.zip
+[start] health P2=886 P1=730 P3=538 P4=750
+[start] health P2=690 P1=896 P3=595 P4=874
+[ep] slot0 opps=3     win len= 221  dmg +4.51/+0.00  stones: picked=5 lost=0 opp=1(-4) forms=2/0  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=5(0) stonev=62 dmgF=3.53
+[zs] raw=+36.44 opp_mean=-10.65 adj=+46.65 dealt_nn=0.94 steps=221 spec_pen=+0.00 lost_pen=+0.00 spec_net=+0.00 lost_net=+1.33 attr=0/0 spec_dmg=0.00
+[opp] P1=prog_leg102.zip P3=leg103_league_512000_steps.zip
+[ep] slot35 opps=3     win len= 598  dmg +4.26/-0.28  stones: picked=9 lost=2 opp=6(-9) forms=2/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=16(2) stonev=214 dmgF=0.44
+[zs] raw=+38.14 opp_mean=-2.17 adj=+39.12 dealt_nn=1.31 steps=598 spec_pen=+0.00 lost_pen=-2.00 spec_net=+0.00 lost_net=-0.00 attr=2/2 spec_dmg=0.00
+[start] health P2=867 P1=833 P3=660 P4=530
+[opp] P1=prog_leg71.zip P3=leg86_league_1003520_steps.zip
+[start] health P2=861 P1=622 P3=510 P4=878
+[ep] slot50 opps=3    loss len= 222  dmg +0.69/-0.52  stones: picked=4 lost=5 opp=4(-5) forms=0/0  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=7(1) stonev=137 dmgF=0.00
+[zs] raw=+1.44 opp_mean=+2.22 adj=-1.22 dealt_nn=0.20 steps=222 spec_pen=+0.00 lost_pen=-5.00 spec_net=+0.00 lost_net=-3.33 attr=4/6 spec_dmg=0.00
+[check] update 1 lag0_steps=20480/20480 logp_maxdiff=1.53e-05 value_maxdiff=1.57e-05
+[opp] P1=prog_leg102.zip P3=leg103_league_1515520_steps.zip
+[start] health P2=593 P1=883 P3=603 P4=717
+Early stopping at step 1 due to reaching max kl: 0.06
+[learner] update 1 steps=20480 nan steps/s (since end of update 1) train=0.8s lag(min/mean/max)=0/0.00/0 step_lag=0.00 actors=[0, 1, 2, 3, 4, 5, 7, 9, 10, 11] ep_starts_in_batch=49 mean_reward=+0.0204
+[stats] update 1 approx_kl=0.02327 clip_fraction=0.0873 entropy_loss=-0.731 explained_variance=0.8089 value_loss=7.144 policy_gradient_loss=-0.0002817 loss=2.566 n_updates=6.474e+04
+-----------------------------------------
+| train/                  |             |
+|    approx_kl            | 0.023268951 |
+|    clip_fraction        | 0.0873      |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -0.731      |
+|    explained_variance   | 0.809       |
+|    learning_rate        | 0.0001      |
+|    loss                 | 2.57        |
+|    n_updates            | 64740       |
+|    policy_gradient_loss | -0.000282   |
+|    value_loss           | 7.14        |
+-----------------------------------------
+[ep] slot52 opps=3    loss len= 275  dmg +1.59/-0.61  stones: picked=3 lost=4 opp=2(-2) forms=0/1  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=6(1) stonev=138 dmgF=0.00
+[zs] raw=-1.05 opp_mean=+1.34 adj=-2.94 dealt_nn=0.17 steps=275 spec_pen=-0.23 lost_pen=-4.00 spec_net=-0.23 lost_net=-3.33 attr=14/5 spec_dmg=0.23
+[opp] P1=leg103_league_2519040_steps.zip P3=leg103_league_3502080_steps.zip
+[ep] slot12 opps=3    loss len= 618  dmg +3.95/-0.92  stones: picked=4 lost=4 opp=7(-4) forms=0/2  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=15(2) stonev=167 dmgF=0.00
+[zs] raw=-1.64 opp_mean=+1.43 adj=-4.31 dealt_nn=1.41 steps=618 spec_pen=-0.30 lost_pen=-4.00 spec_net=-0.30 lost_net=-2.67 attr=6/6 spec_dmg=0.30
+[opp] P1=leg103_league_3010560_steps.zip P3=leg103_league_1515520_steps.zip
+[start] health P2=818 P1=711 P3=659 P4=775
+[ep] slot43 opps=3     win len= 743  dmg +5.28/-0.67  stones: picked=11 lost=0 opp=8(-2) forms=4/2  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=21(1) stonev=251 dmgF=3.73
+[zs] raw=+39.06 opp_mean=-0.89 adj=+38.47 dealt_nn=1.11 steps=743 spec_pen=+0.00 lost_pen=+0.00 spec_net=+0.00 lost_net=+1.33 attr=1/5 spec_dmg=0.00
+[opp] P1=leg80_league_1515520_steps.zip P3=leg92_league_512000_steps.zip
+[start] health P2=960 P1=693 P3=722 P4=756
+[start] health P2=576 P1=833 P3=593 P4=684
+[ep] slot19 opps=3    loss len= 733  dmg +4.77/-0.88  stones: picked=5 lost=3 opp=15(-10) forms=1/2  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=17(1) stonev=119 dmgF=0.54
+[zs] raw=+2.03 opp_mean=+1.12 adj=-0.56 dealt_nn=1.19 steps=733 spec_pen=+0.00 lost_pen=-3.00 spec_net=+0.00 lost_net=-0.00 attr=9/3 spec_dmg=0.00
+[opp] P1=leg103_league_2519040_steps.zip P3=leg37_league_3502080_steps.zip
+[start] health P2=763 P1=659 P3=922 P4=670
+[ep] slot30 opps=3     win len= 520  dmg +4.64/-0.09  stones: picked=6 lost=1 opp=6(-4) forms=2/1  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=20(4) stonev=170 dmgF=1.40
+[zs] raw=+38.41 opp_mean=-2.06 adj=+39.43 dealt_nn=1.27 steps=520 spec_pen=+0.00 lost_pen=-1.00 spec_net=+0.00 lost_net=+1.00 attr=0/1 spec_dmg=0.00
+[opp] P1=prog_leg9.zip P3=prog_leg102.zip
+[start] health P2=582 P1=559 P3=936 P4=578
+[ep] slot16 opps=3     win len= 547  dmg +4.46/-0.73  stones: picked=8 lost=0 opp=8(-3) forms=3/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=21(3) stonev=234 dmgF=3.48
+[zs] raw=+39.64 opp_mean=-5.37 adj=+43.92 dealt_nn=1.26 steps=547 spec_pen=-0.06 lost_pen=+0.00 spec_net=-0.06 lost_net=+2.67 attr=1/7 spec_dmg=0.06
+[opp] P1=leg20_league_500004_steps.zip P3=leg91_league_2519040_steps.zip
+[start] health P2=625 P1=882 P3=782 P4=795
+[ep] slot14 opps=3    loss len= 163  dmg +0.81/-0.69  stones: picked=0 lost=1 opp=2(-1) forms=0/1  gem_rew=+0.00 shape=+0.00 appr=+0.00  chests=3(0) stonev=16 dmgF=0.00
+[zs] raw=-11.56 opp_mean=+1.76 adj=-13.64 dealt_nn=0.26 steps=163 spec_pen=-0.06 lost_pen=-1.00 spec_net=-0.06 lost_net=-0.67 attr=5/1 spec_dmg=0.06
+[opp] P1=leg18_league_2000016_steps.zip P3=leg103_league_1003520_steps.zip
+[ep] slot10 opps=3    loss len= 398  dmg +4.15/-0.67  stones: picked=6 lost=4 opp=11(-4) forms=1/3  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=12(0) stonev=178 dmgF=1.36
+[zs] raw=+4.16 opp_mean=+8.40 adj=-5.04 dealt_nn=0.91 steps=398 spec_pen=-0.19 lost_pen=-4.00 spec_net=-0.19 lost_net=-2.33 attr=6/5 spec_dmg=0.19
+[opp] P1=leg81_league_3010560_steps.zip P3=leg73_league_4014080_steps.zip
+[start] health P2=1000 P1=859 P3=622 P4=927
+[ep] slot51 opps=3    loss len= 539  dmg +4.21/-0.56  stones: picked=4 lost=2 opp=9(-8) forms=1/1  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=18(0) stonev=219 dmgF=1.52
+[zs] raw=+6.46 opp_mean=+5.29 adj=+0.09 dealt_nn=1.56 steps=539 spec_pen=-0.03 lost_pen=-2.00 spec_net=-0.03 lost_net=+0.67 attr=6/18 spec_dmg=0.03
+[opp] P1=leg94_league_2007040_steps.zip P3=prog_leg103.zip
+[start] health P2=678 P1=772 P3=566 P4=768
+[start] health P2=668 P1=814 P3=712 P4=857
+[ep] slot12 opps=3    loss len= 530  dmg +2.30/-0.54  stones: picked=3 lost=4 opp=12(-6) forms=0/2  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=20(1) stonev=166 dmgF=0.00
+[zs] raw=-6.08 opp_mean=+5.51 adj=-12.65 dealt_nn=0.26 steps=530 spec_pen=+0.00 lost_pen=-4.00 spec_net=+0.00 lost_net=-1.33 attr=4/5 spec_dmg=0.00
+[opp] P1=leg52_league_4014080_steps.zip P3=leg71_league_1003520_steps.zip
+[start] health P2=790 P1=667 P3=887 P4=707
+[ep] slot32 opps=3     win len= 319  dmg +4.28/-0.07  stones: picked=2 lost=0 opp=3(-6) forms=1/1  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=9(0) stonev=108 dmgF=1.94
+[zs] raw=+25.97 opp_mean=-3.10 adj=+28.44 dealt_nn=0.34 steps=319 spec_pen=+0.00 lost_pen=+0.00 spec_net=+0.00 lost_net=+1.00 attr=1/0 spec_dmg=0.00
+[opp] P1=leg72_league_2519040_steps.zip P3=leg103_league_3502080_steps.zip
+[ep] slot15 opps=3     win len=1085  dmg +4.97/-0.25  stones: picked=9 lost=0 opp=13(-5) forms=3/3  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=34(7) stonev=243 dmgF=1.17
+[zs] raw=+37.86 opp_mean=-4.60 adj=+40.29 dealt_nn=0.64 steps=1085 spec_pen=+0.00 lost_pen=+0.00 spec_net=+0.00 lost_net=+2.33 attr=0/3 spec_dmg=0.00
+[opp] P1=leg46_league_3010560_steps.zip P3=prog_leg25.zip
+[ep] slot19 opps=3    loss len= 520  dmg +3.59/-0.62  stones: picked=4 lost=2 opp=11(-9) forms=1/3  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=20(1) stonev=269 dmgF=0.18
+[zs] raw=-1.22 opp_mean=+6.41 adj=-8.67 dealt_nn=0.34 steps=520 spec_pen=-0.24 lost_pen=-2.00 spec_net=-0.24 lost_net=-0.33 attr=4/7 spec_dmg=0.24
+[opp] P1=leg103_league_3010560_steps.zip P3=prog_leg102.zip
+[start] health P2=797 P1=830 P3=552 P4=665
+[start] health P2=834 P1=929 P3=910 P4=656
+[start] health P2=979 P1=676 P3=537 P4=962
+[ep] slot31 opps=3    loss len= 402  dmg +3.62/-0.78  stones: picked=5 lost=3 opp=7(-6) forms=1/2  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=13(0) stonev=245 dmgF=1.19
+[zs] raw=+7.05 opp_mean=+8.78 adj=-2.53 dealt_nn=0.81 steps=402 spec_pen=+0.00 lost_pen=-3.00 spec_net=+0.00 lost_net=-1.67 attr=5/4 spec_dmg=0.00
+[opp] P1=leg27_league_1003520_steps.zip P3=leg103_league_4014080_steps.zip
+[start] health P2=805 P1=544 P3=675 P4=693
+[ep] slot11 opps=3     win len= 549  dmg +4.86/-0.51  stones: picked=6 lost=2 opp=8(-10) forms=1/2  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=17(2) stonev=127 dmgF=0.14
+[zs] raw=+35.21 opp_mean=-3.91 adj=+38.02 dealt_nn=0.44 steps=549 spec_pen=-0.07 lost_pen=-2.00 spec_net=-0.07 lost_net=-0.33 attr=5/3 spec_dmg=0.07
+[opp] P1=leg103_league_2519040_steps.zip P3=leg103_league_4014080_steps.zip
+[start] health P2=825 P1=736 P3=604 P4=690
+[ep] slot41 opps=3    loss len= 310  dmg +2.47/-0.58  stones: picked=2 lost=3 opp=7(-5) forms=0/2  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=11(0) stonev=101 dmgF=0.00
+[zs] raw=-2.94 opp_mean=+9.07 adj=-12.63 dealt_nn=0.16 steps=310 spec_pen=-0.06 lost_pen=-3.00 spec_net=-0.06 lost_net=-1.67 attr=3/5 spec_dmg=0.06
+[opp] P1=leg30_league_1003520_steps.zip P3=leg48_league_3502080_steps.zip
+[start] health P2=797 P1=608 P3=898 P4=755
+[ep] slot34 opps=3     win len= 462  dmg +4.38/-0.33  stones: picked=9 lost=1 opp=8(-4) forms=3/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=17(4) stonev=234 dmgF=3.06
+[zs] raw=+38.79 opp_mean=-0.40 adj=+38.27 dealt_nn=1.14 steps=462 spec_pen=-0.25 lost_pen=-1.00 spec_net=-0.25 lost_net=+1.67 attr=6/1 spec_dmg=0.25
+[opp] P1=selfplay_31915497_steps.zip P3=leg49_league_1003520_steps.zip
+[ep] slot14 opps=3     win len= 558  dmg +4.37/-0.48  stones: picked=8 lost=3 opp=10(-8) forms=2/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=17(2) stonev=315 dmgF=2.24
+[zs] raw=+36.22 opp_mean=-4.01 adj=+39.12 dealt_nn=0.91 steps=558 spec_pen=+0.00 lost_pen=-3.00 spec_net=+0.00 lost_net=+0.33 attr=4/4 spec_dmg=0.00
+[opp] P1=leg103_league_3502080_steps.zip P3=leg103_league_512000_steps.zip
+[ep] slot53 opps=3     win len= 310  dmg +4.22/-0.29  stones: picked=6 lost=1 opp=3(-4) forms=2/0  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=9(1) stonev=171 dmgF=3.15
+[zs] raw=+38.40 opp_mean=-4.49 adj=+42.28 dealt_nn=1.16 steps=310 spec_pen=+0.00 lost_pen=-1.00 spec_net=+0.00 lost_net=+1.00 attr=2/6 spec_dmg=0.00
+[opp] P1=leg103_league_1515520_steps.zip P3=leg56_league_1003520_steps.zip
+[start] health P2=823 P1=647 P3=837 P4=744
+[start] health P2=886 P1=845 P3=878 P4=715
+[start] health P2=972 P1=876 P3=501 P4=550
+[ep] slot57 opps=3     win len= 490  dmg +4.03/-0.81  stones: picked=7 lost=2 opp=4(-3) forms=2/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=13(1) stonev=235 dmgF=3.59
+[zs] raw=+36.93 opp_mean=-2.52 adj=+38.47 dealt_nn=1.13 steps=490 spec_pen=-0.55 lost_pen=-2.00 spec_net=-0.55 lost_net=-1.00 attr=17/3 spec_dmg=0.55
+[opp] P1=prog_leg102.zip P3=leg103_league_512000_steps.zip
+[ep] slot31 opps=3    loss len= 401  dmg +3.43/-0.96  stones: picked=3 lost=4 opp=9(-8) forms=0/2  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=9(0) stonev=177 dmgF=0.00
+[zs] raw=-1.34 opp_mean=+9.94 adj=-12.08 dealt_nn=0.21 steps=401 spec_pen=+0.00 lost_pen=-4.00 spec_net=+0.00 lost_net=-2.00 attr=3/10 spec_dmg=0.00
+[opp] P1=leg103_league_2519040_steps.zip P3=prog_leg103.zip
+[start] health P2=691 P1=818 P3=582 P4=547
+[start] health P2=532 P1=543 P3=772 P4=751
+[ep] slot52 opps=3    loss len= 767  dmg +4.18/-0.97  stones: picked=9 lost=4 opp=19(-16) forms=2/4  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=32(4) stonev=388 dmgF=0.50
+[zs] raw=+8.73 opp_mean=+15.65 adj=-8.45 dealt_nn=0.74 steps=767 spec_pen=-0.25 lost_pen=-4.00 spec_net=-0.25 lost_net=-0.67 attr=22/10 spec_dmg=0.25
+[opp] P1=leg100_league_1003520_steps.zip P3=leg103_league_2007040_steps.zip
+[start] health P2=883 P1=714 P3=871 P4=831
+[ep] slot39 opps=3     win len= 637  dmg +4.29/-0.16  stones: picked=6 lost=1 opp=5(-3) forms=2/1  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=15(1) stonev=69 dmgF=2.63
+[zs] raw=+36.95 opp_mean=-2.58 adj=+38.26 dealt_nn=0.69 steps=637 spec_pen=+0.00 lost_pen=-1.00 spec_net=+0.00 lost_net=+0.67 attr=0/5 spec_dmg=0.00
+[opp] P1=leg103_league_2519040_steps.zip P3=leg99_league_2519040_steps.zip
+[start] health P2=890 P1=884 P3=565 P4=619
+[ep] slot52 opps=3     win len= 746  dmg +3.65/-0.50  stones: picked=8 lost=2 opp=11(-9) forms=2/2  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=26(2) stonev=414 dmgF=1.37
+[zs] raw=+35.32 opp_mean=+2.60 adj=+31.23 dealt_nn=0.28 steps=746 spec_pen=-0.24 lost_pen=-2.00 spec_net=-0.24 lost_net=+0.67 attr=17/3 spec_dmg=0.24
+[opp] P1=leg63_league_1003520_steps.zip P3=leg34_league_1515520_steps.zip
+[start] health P2=725 P1=843 P3=908 P4=868
+[ep] slot18 opps=3     win len= 384  dmg +4.09/+0.00  stones: picked=5 lost=0 opp=4(-3) forms=2/0  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=14(1) stonev=126 dmgF=3.37
+[zs] raw=+36.79 opp_mean=-9.27 adj=+45.30 dealt_nn=1.28 steps=384 spec_pen=+0.00 lost_pen=+0.00 spec_net=+0.00 lost_net=+2.33 attr=0/0 spec_dmg=0.00
+[opp] P1=leg103_league_2007040_steps.zip P3=leg25_league_3010560_steps.zip
+[ep] slot39 opps=3    loss len= 564  dmg +3.31/-0.86  stones: picked=5 lost=6 opp=6(-6) forms=0/1  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=12(2) stonev=119 dmgF=0.00
+[zs] raw=+2.61 opp_mean=+3.13 adj=-1.65 dealt_nn=0.30 steps=564 spec_pen=+0.00 lost_pen=-6.00 spec_net=+0.00 lost_net=-5.00 attr=7/9 spec_dmg=0.00
+[opp] P1=leg103_league_3502080_steps.zip P3=leg38_league_2007040_steps.zip
+[start] health P2=942 P1=542 P3=619 P4=990
+[start] health P2=691 P1=897 P3=502 P4=686
+[ep] slot59 opps=3    loss len= 627  dmg +4.29/-0.98  stones: picked=6 lost=1 opp=6(-3) forms=2/1  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=16(1) stonev=269 dmgF=2.82
+[zs] raw=+10.96 opp_mean=+6.92 adj=+2.78 dealt_nn=0.78 steps=627 spec_pen=-0.38 lost_pen=-1.00 spec_net=-0.38 lost_net=+1.00 attr=22/7 spec_dmg=0.38
+[opp] P1=leg83_league_1515520_steps.zip P3=prog_leg103.zip
+[start] health P2=538 P1=949 P3=510 P4=929
+[ep] slot33 opps=3     win len= 760  dmg +4.78/-0.43  stones: picked=6 lost=1 opp=15(-11) forms=2/2  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=24(3) stonev=310 dmgF=0.91
+[zs] raw=+36.14 opp_mean=+5.13 adj=+29.49 dealt_nn=0.64 steps=760 spec_pen=-0.20 lost_pen=-1.00 spec_net=-0.20 lost_net=+3.00 attr=3/2 spec_dmg=0.20
+[opp] P1=prog_leg103.zip P3=leg89_league_1515520_steps.zip
+[ep] slot40 opps=3    loss len= 343  dmg +2.12/-0.88  stones: picked=2 lost=3 opp=8(-4) forms=0/2  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=15(0) stonev=115 dmgF=0.00
+[zs] raw=-3.31 opp_mean=+6.64 adj=-10.64 dealt_nn=0.42 steps=343 spec_pen=-0.59 lost_pen=-3.00 spec_net=-0.59 lost_net=-1.67 attr=17/2 spec_dmg=0.59
+[opp] P1=leg94_league_3010560_steps.zip P3=leg103_league_3502080_steps.zip
+[ep] slot14 opps=3     win len= 475  dmg +3.82/-0.63  stones: picked=3 lost=1 opp=9(-6) forms=1/2  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=18(0) stonev=191 dmgF=1.17
+[zs] raw=+28.70 opp_mean=-3.68 adj=+31.43 dealt_nn=1.19 steps=475 spec_pen=-0.09 lost_pen=-1.00 spec_net=-0.09 lost_net=+1.00 attr=5/2 spec_dmg=0.09
+[opp] P1=leg103_league_512000_steps.zip P3=leg103_league_1003520_steps.zip
+[start] health P2=611 P1=926 P3=889 P4=626
+[start] health P2=820 P1=838 P3=936 P4=675
+[start] health P2=693 P1=688 P3=780 P4=584
+[ep] slot57 opps=3    loss len= 597  dmg +4.16/-0.76  stones: picked=8 lost=6 opp=10(-7) forms=1/2  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=19(2) stonev=328 dmgF=1.77
+[zs] raw=+8.15 opp_mean=+5.86 adj=+1.10 dealt_nn=1.22 steps=597 spec_pen=-0.32 lost_pen=-6.00 spec_net=-0.32 lost_net=-4.33 attr=15/4 spec_dmg=0.32
+[ep] slot14 opps=3    loss len= 852  dmg +4.44/-0.67  stones: picked=7 lost=4 opp=11(-8) forms=1/2  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=28(2) stonev=197 dmgF=1.27
+[zs] raw=+5.03 opp_mean=+5.30 adj=-1.97 dealt_nn=1.27 steps=852 spec_pen=-0.14 lost_pen=-4.00 spec_net=-0.14 lost_net=-1.33 attr=7/4 spec_dmg=0.14
+[opp] P1=leg103_league_1515520_steps.zip P3=leg103_league_3502080_steps.zip
+[opp] P1=leg103_league_3502080_steps.zip P3=leg103_league_1515520_steps.zip
+[start] health P2=696 P1=561 P3=473 P4=764
+[ep] slot39 opps=3     win len= 830  dmg +4.52/-0.42  stones: picked=6 lost=4 opp=13(-11) forms=1/2  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=21(4) stonev=287 dmgF=0.81
+[zs] raw=+33.63 opp_mean=+2.80 adj=+29.17 dealt_nn=0.86 steps=830 spec_pen=+0.00 lost_pen=-4.00 spec_net=+0.00 lost_net=-0.67 attr=6/1 spec_dmg=0.00
+[opp] P1=leg103_league_3010560_steps.zip P3=leg20_league_2000016_steps.zip
+[start] health P2=529 P1=563 P3=601 P4=898
+[ep] slot51 opps=3    loss len= 499  dmg +4.06/-0.83  stones: picked=7 lost=5 opp=9(-8) forms=1/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=11(1) stonev=220 dmgF=1.88
+[zs] raw=+7.54 opp_mean=+4.72 adj=+1.82 dealt_nn=0.28 steps=499 spec_pen=-0.19 lost_pen=-5.00 spec_net=-0.19 lost_net=-2.33 attr=19/5 spec_dmg=0.19
+[opp] P1=prog_leg14.zip P3=leg103_league_512000_steps.zip
+[start] health P2=910 P1=866 P3=772 P4=532
+[start] health P2=635 P1=942 P3=560 P4=678
+[ep] slot15 opps=3     win len= 655  dmg +4.21/-0.23  stones: picked=13 lost=2 opp=8(-5) forms=4/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=21(2) stonev=255 dmgF=2.53
+[zs] raw=+39.51 opp_mean=-6.47 adj=+44.67 dealt_nn=2.03 steps=655 spec_pen=+0.00 lost_pen=-2.00 spec_net=+0.00 lost_net=+0.67 attr=0/3 spec_dmg=0.00
+[opp] P1=leg103_league_2519040_steps.zip P3=leg68_league_3010560_steps.zip
+[start] health P2=989 P1=891 P3=824 P4=977
+[ep] slot31 opps=3    loss len= 445  dmg +3.43/-0.97  stones: picked=4 lost=5 opp=10(-9) forms=0/3  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=17(2) stonev=192 dmgF=0.00
+[zs] raw=+1.16 opp_mean=+8.96 adj=-8.69 dealt_nn=0.56 steps=445 spec_pen=-0.09 lost_pen=-5.00 spec_net=-0.09 lost_net=-4.00 attr=8/5 spec_dmg=0.09
+[opp] P1=leg103_league_3502080_steps.zip P3=leg58_league_1003520_steps.zip
+[ep] slot52 opps=3    loss len= 624  dmg +3.50/-0.62  stones: picked=4 lost=5 opp=15(-8) forms=0/2  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=17(3) stonev=209 dmgF=0.00
+[zs] raw=+1.24 opp_mean=+8.67 adj=-8.68 dealt_nn=0.62 steps=624 spec_pen=-0.13 lost_pen=-5.00 spec_net=-0.13 lost_net=-1.67 attr=17/2 spec_dmg=0.13
+[opp] P1=leg103_league_3502080_steps.zip P3=leg34_league_2007040_steps.zip
+[start] health P2=706 P1=965 P3=548 P4=512
+[ep] slot18 opps=3     win len= 473  dmg +4.06/-0.50  stones: picked=5 lost=0 opp=6(-4) forms=2/1  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=20(4) stonev=150 dmgF=1.51
+[zs] raw=+36.47 opp_mean=-6.91 adj=+42.43 dealt_nn=1.46 steps=473 spec_pen=+0.00 lost_pen=+0.00 spec_net=+0.00 lost_net=+2.00 attr=0/2 spec_dmg=0.00
+[opp] P1=leg8_league_2000016_steps.zip P3=leg100_league_3502080_steps.zip
+[start] health P2=851 P1=849 P3=518 P4=820
+[ep] slot38 opps=3    loss len= 246  dmg +1.89/-0.69  stones: picked=2 lost=3 opp=3(-2) forms=0/1  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=9(1) stonev=115 dmgF=0.00
+[zs] raw=-1.51 opp_mean=+0.06 adj=-2.06 dealt_nn=0.84 steps=246 spec_pen=+0.00 lost_pen=-3.00 spec_net=+0.00 lost_net=-2.00 attr=4/2 spec_dmg=0.00
+[opp] P1=prog_3C_mixleg.zip P3=leg46_league_512000_steps.zip
+[start] health P2=602 P1=620 P3=757 P4=758
+[start] health P2=872 P1=631 P3=629 P4=668
+[ep] slot41 opps=3    loss len= 663  dmg +4.34/-1.04  stones: picked=6 lost=1 opp=11(-9) forms=2/2  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=30(0) stonev=315 dmgF=2.34
+[zs] raw=+11.06 opp_mean=+10.41 adj=-0.68 dealt_nn=1.02 steps=663 spec_pen=-0.62 lost_pen=-1.00 spec_net=-0.62 lost_net=+1.67 attr=3/6 spec_dmg=0.62
+[opp] P1=leg103_league_512000_steps.zip P3=leg103_league_4014080_steps.zip
+[start] health P2=640 P1=850 P3=876 P4=645
+[ep] slot38 opps=3     win len=1090  dmg +4.04/-0.68  stones: picked=13 lost=2 opp=7(-9) forms=4/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=24(1) stonev=342 dmgF=0.35
+[zs] raw=+37.00 opp_mean=-2.34 adj=+37.16 dealt_nn=1.43 steps=1090 spec_pen=+0.00 lost_pen=-2.00 spec_net=+0.00 lost_net=+0.33 attr=3/13 spec_dmg=0.00
+[opp] P1=prog_leg102.zip P3=leg76_league_2007040_steps.zip
+[start] health P2=973 P1=732 P3=498 P4=513
+[ep] slot11 opps=3     win len= 709  dmg +4.69/-0.69  stones: picked=6 lost=1 opp=13(-8) forms=2/2  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=27(2) stonev=259 dmgF=1.40
+[zs] raw=+38.14 opp_mean=-2.29 adj=+39.01 dealt_nn=1.67 steps=709 spec_pen=-0.09 lost_pen=-1.00 spec_net=-0.09 lost_net=+2.33 attr=4/2 spec_dmg=0.09
+[opp] P1=leg103_league_3502080_steps.zip P3=leg103_league_3502080_steps.zip
+[ep] slot40 opps=3    loss len= 290  dmg +2.97/-0.54  stones: picked=4 lost=2 opp=2(-2) forms=1/1  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=8(1) stonev=112 dmgF=1.83
+[zs] raw=+5.49 opp_mean=-0.60 adj=+5.50 dealt_nn=0.80 steps=290 spec_pen=+0.00 lost_pen=-2.00 spec_net=+0.00 lost_net=-1.33 attr=6/4 spec_dmg=0.00
+[opp] P1=leg103_league_3502080_steps.zip P3=leg55_league_512000_steps.zip
+[start] health P2=813 P1=874 P3=683 P4=534
+[ep] slot30 opps=3     win len= 485  dmg +5.41/-0.44  stones: picked=6 lost=1 opp=8(-6) forms=2/1  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=17(2) stonev=160 dmgF=2.36
+[zs] raw=+36.62 opp_mean=-2.12 adj=+37.77 dealt_nn=0.51 steps=485 spec_pen=+0.00 lost_pen=-1.00 spec_net=+0.00 lost_net=+1.67 attr=3/2 spec_dmg=0.00
+[start] health P2=732 P1=876 P3=655 P4=885
+[opp] P1=leg103_league_3502080_steps.zip P3=prog_leg80.zip
+[start] health P2=696 P1=553 P3=872 P4=610
+[check] update 2 lag0_steps=5120/20480 logp_maxdiff=1.14e-05 value_maxdiff=1.53e-05
+Early stopping at step 1 due to reaching max kl: 0.09
+[learner] update 2 steps=40960 341.0 steps/s (since end of update 1) train=0.8s lag(min/mean/max)=1/1.00/1 step_lag=0.75 actors=[6, 8, 12, 13, 14, 15, 16, 17, 19, 20] ep_starts_in_batch=44 mean_reward=+0.0271
+[stats] update 2 approx_kl=0.03382 clip_fraction=0.1239 entropy_loss=-0.73 explained_variance=0.7779 value_loss=7.343 policy_gradient_loss=0.005063 loss=2.975 n_updates=6.474e+04
+-----------------------------------------
+| train/                  |             |
+|    approx_kl            | 0.033816583 |
+|    clip_fraction        | 0.124       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -0.73       |
+|    explained_variance   | 0.778       |
+|    learning_rate        | 0.0001      |
+|    loss                 | 2.98        |
+|    n_updates            | 64742       |
+|    policy_gradient_loss | 0.00506     |
+|    value_loss           | 7.34        |
+-----------------------------------------
+[ep] slot40 opps=3    loss len= 470  dmg +3.52/-0.53  stones: picked=4 lost=2 opp=11(-4) forms=1/3  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=13(0) stonev=158 dmgF=0.12
+[zs] raw=+5.76 opp_mean=+10.25 adj=-5.43 dealt_nn=1.13 steps=470 spec_pen=-0.04 lost_pen=-2.00 spec_net=-0.04 lost_net=-0.33 attr=9/2 spec_dmg=0.04
+[opp] P1=leg103_league_4014080_steps.zip P3=leg103_league_2519040_steps.zip
+[start] health P2=514 P1=530 P3=751 P4=807
+[ep] slot32 opps=3    loss len= 556  dmg +2.97/-0.69  stones: picked=7 lost=8 opp=12(-7) forms=0/2  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=16(2) stonev=234 dmgF=0.00
+[zs] raw=+5.42 opp_mean=+11.75 adj=-7.44 dealt_nn=0.64 steps=556 spec_pen=-0.06 lost_pen=-8.00 spec_net=-0.06 lost_net=-5.00 attr=5/6 spec_dmg=0.06
+[opp] P1=leg36_league_1515520_steps.zip P3=leg103_league_1515520_steps.zip
+[start] health P2=628 P1=555 P3=772 P4=850
+[ep] slot52 opps=3    loss len= 574  dmg +3.71/-0.72  stones: picked=5 lost=3 opp=12(-9) forms=1/2  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=18(2) stonev=252 dmgF=2.16
+[zs] raw=+5.66 opp_mean=+8.71 adj=-4.19 dealt_nn=0.37 steps=574 spec_pen=-0.20 lost_pen=-3.00 spec_net=-0.20 lost_net=-0.00 attr=17/8 spec_dmg=0.20
+[opp] P1=leg103_league_3502080_steps.zip P3=leg103_league_4014080_steps.zip
+[ep] slot13 opps=3     win len= 677  dmg +3.85/-0.60  stones: picked=7 lost=2 opp=6(-4) forms=2/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=25(4) stonev=144 dmgF=2.27
+[zs] raw=+37.63 opp_mean=-6.56 adj=+42.84 dealt_nn=1.38 steps=677 spec_pen=-0.18 lost_pen=-2.00 spec_net=-0.18 lost_net=-0.67 attr=4/4 spec_dmg=0.18
+[opp] P1=leg103_league_3010560_steps.zip P3=leg70_league_512000_steps.zip
+[ep] slot42 opps=3    loss len= 659  dmg +4.43/-0.82  stones: picked=9 lost=7 opp=19(-8) forms=1/4  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=23(0) stonev=276 dmgF=1.63
+[zs] raw=+8.29 opp_mean=+14.47 adj=-7.50 dealt_nn=1.74 steps=659 spec_pen=-0.06 lost_pen=-7.00 spec_net=-0.06 lost_net=-3.67 attr=10/6 spec_dmg=0.06
+[opp] P1=leg103_league_2519040_steps.zip P3=leg103_league_4014080_steps.zip
+[start] health P2=964 P1=548 P3=608 P4=581
+[ep] slot15 opps=3    loss len= 453  dmg +3.98/-0.91  stones: picked=4 lost=2 opp=7(-3) forms=1/2  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=14(1) stonev=134 dmgF=2.12
+[zs] raw=-1.11 opp_mean=+5.80 adj=-7.81 dealt_nn=0.35 steps=453 spec_pen=+0.00 lost_pen=-2.00 spec_net=+0.00 lost_net=-0.67 attr=0/6 spec_dmg=0.00
+[opp] P1=leg103_league_2519040_steps.zip P3=leg90_league_3010560_steps.zip
+[start] health P2=718 P1=916 P3=823 P4=617
+[start] health P2=946 P1=645 P3=872 P4=879
+[start] health P2=911 P1=671 P3=495 P4=900
+[ep] slot42 opps=3    loss len= 258  dmg +2.51/-0.85  stones: picked=0 lost=1 opp=8(-6) forms=0/2  gem_rew=+0.00 shape=+0.00 appr=+0.00  chests=7(0) stonev=84 dmgF=0.00
+[zs] raw=-7.06 opp_mean=+5.03 adj=-12.61 dealt_nn=0.15 steps=258 spec_pen=+0.00 lost_pen=-1.00 spec_net=+0.00 lost_net=+0.67 attr=9/2 spec_dmg=0.00
+[ep] slot32 opps=3    loss len= 345  dmg +3.27/-0.53  stones: picked=3 lost=1 opp=5(-4) forms=1/1  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=11(0) stonev=153 dmgF=1.42
+[zs] raw=+3.92 opp_mean=+6.16 adj=-2.94 dealt_nn=1.07 steps=345 spec_pen=+0.00 lost_pen=-1.00 spec_net=+0.00 lost_net=+0.67 attr=7/3 spec_dmg=0.00
+[opp] P1=leg100_league_4014080_steps.zip P3=prog_leg64.zip
+[opp] P1=prog_leg103.zip P3=leg81_league_3010560_steps.zip
+[ep] slot50 opps=3    loss len= 514  dmg +3.01/-0.61  stones: picked=3 lost=0 opp=9(-7) forms=1/1  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=15(1) stonev=137 dmgF=1.34
+[zs] raw=+2.68 opp_mean=+4.60 adj=-2.95 dealt_nn=0.41 steps=514 spec_pen=-0.50 lost_pen=+0.00 spec_net=-0.50 lost_net=+2.33 attr=13/1 spec_dmg=0.50
+[opp] P1=leg87_league_512000_steps.zip P3=leg86_league_3010560_steps.zip
+[start] health P2=912 P1=627 P3=662 P4=612
+[start] health P2=801 P1=740 P3=649 P4=515
+[start] health P2=644 P1=879 P3=724 P4=918
+[ep] slot57 opps=3     win len= 480  dmg +3.60/-0.26  stones: picked=7 lost=2 opp=9(-5) forms=2/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=17(2) stonev=279 dmgF=1.94
+[zs] raw=+36.75 opp_mean=+0.48 adj=+35.31 dealt_nn=0.50 steps=480 spec_pen=-0.02 lost_pen=-2.00 spec_net=-0.02 lost_net=+1.00 attr=1/3 spec_dmg=0.02
+[opp] P1=leg93_league_2007040_steps.zip P3=leg28_league_2519040_steps.zip
+[start] health P2=838 P1=706 P3=739 P4=583
+[ep] slot15 opps=3    loss len= 721  dmg +4.16/-0.94  stones: picked=6 lost=1 opp=7(-6) forms=2/1  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=12(1) stonev=155 dmgF=2.32
+[zs] raw=+5.73 opp_mean=+4.15 adj=+0.14 dealt_nn=0.60 steps=721 spec_pen=-0.09 lost_pen=-1.00 spec_net=-0.09 lost_net=+1.33 attr=4/2 spec_dmg=0.09
+[opp] P1=leg103_league_3010560_steps.zip P3=leg25_league_4014080_steps.zip
+[ep] slot16 opps=3    loss len= 409  dmg +3.02/-0.69  stones: picked=2 lost=3 opp=11(-8) forms=0/3  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=15(1) stonev=150 dmgF=0.00
+[zs] raw=-7.15 opp_mean=+1.69 adj=-9.66 dealt_nn=0.68 steps=409 spec_pen=+0.00 lost_pen=-3.00 spec_net=+0.00 lost_net=-1.33 attr=1/6 spec_dmg=0.00
+[opp] P1=leg103_league_2007040_steps.zip P3=leg103_league_2007040_steps.zip
+[start] health P2=930 P1=679 P3=588 P4=948
+[start] health P2=911 P1=563 P3=640 P4=906
+[ep] slot31 opps=3    loss len= 439  dmg +1.87/-0.71  stones: picked=3 lost=4 opp=10(-7) forms=0/3  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=11(0) stonev=175 dmgF=0.00
+[zs] raw=-0.52 opp_mean=+5.80 adj=-7.20 dealt_nn=0.65 steps=439 spec_pen=-0.24 lost_pen=-4.00 spec_net=-0.24 lost_net=-2.67 attr=8/3 spec_dmg=0.24
+/home/superserver/ps2rl/lib/python3.12/site-packages/stable_baselines3/common/save_util.py:167: UserWarning: Could not deserialize object clip_range. Consider using `custom_objects` argument to replace this object.
+Exception: code() argument 13 must be str, not int
+  warnings.warn(
+/home/superserver/ps2rl/lib/python3.12/site-packages/stable_baselines3/common/save_util.py:167: UserWarning: Could not deserialize object lr_schedule. Consider using `custom_objects` argument to replace this object.
+Exception: code() argument 13 must be str, not int
+  warnings.warn(
+[opp] P1=leg66_league_1515520_steps.zip P3=ps_v6_10037079_steps.zip
+[start] health P2=751 P1=556 P3=614 P4=840
+[ep] slot22 opps=3     win len= 354  dmg +4.83/+0.00  stones: picked=5 lost=0 opp=4(-4) forms=2/0  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=13(1) stonev=164 dmgF=3.35
+[zs] raw=+37.79 opp_mean=-9.07 adj=+46.14 dealt_nn=1.75 steps=354 spec_pen=+0.00 lost_pen=+0.00 spec_net=+0.00 lost_net=+2.00 attr=0/0 spec_dmg=0.00
+[opp] P1=leg103_league_2519040_steps.zip P3=leg103_league_4014080_steps.zip
+[start] health P2=924 P1=876 P3=501 P4=688
+[ep] slot33 opps=3    loss len= 529  dmg +3.31/-0.82  stones: picked=6 lost=1 opp=3(-3) forms=2/1  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=14(0) stonev=181 dmgF=2.13
+[zs] raw=+11.79 opp_mean=+3.15 adj=+7.58 dealt_nn=0.83 steps=529 spec_pen=+0.00 lost_pen=-1.00 spec_net=+0.00 lost_net=+0.00 attr=0/8 spec_dmg=0.00
+[opp] P1=leg103_league_2007040_steps.zip P3=leg92_league_3010560_steps.zip
+[ep] slot10 opps=3    loss len= 324  dmg +3.16/-0.64  stones: picked=4 lost=2 opp=4(-4) forms=1/1  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=11(0) stonev=104 dmgF=2.43
+[zs] raw=-1.39 opp_mean=+2.82 adj=-4.85 dealt_nn=0.23 steps=324 spec_pen=-0.56 lost_pen=-2.00 spec_net=-0.56 lost_net=-0.67 attr=3/2 spec_dmg=0.56
+[opp] P1=leg71_league_3010560_steps.zip P3=leg103_league_2519040_steps.zip
+[start] health P2=910 P1=776 P3=937 P4=503
+[start] health P2=907 P1=736 P3=709 P4=794
+[ep] slot17 opps=3    loss len=1223  dmg +4.21/-0.59  stones: picked=18 lost=4 opp=8(-5) forms=5/2  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=38(2) stonev=366 dmgF=1.42
+[zs] raw=+4.27 opp_mean=+4.19 adj=-2.37 dealt_nn=1.19 steps=1223 spec_pen=-0.08 lost_pen=-4.00 spec_net=-0.08 lost_net=-2.33 attr=4/8 spec_dmg=0.08
+[opp] P1=leg46_league_2007040_steps.zip P3=leg103_league_3502080_steps.zip
+[start] health P2=947 P1=584 P3=777 P4=864
+[ep] slot41 opps=3    loss len= 275  dmg +2.85/-0.64  stones: picked=1 lost=2 opp=9(-8) forms=0/2  gem_rew=+3.00 shape=+0.00 appr=+0.00  chests=12(0) stonev=117 dmgF=0.00
+[zs] raw=-4.72 opp_mean=+5.86 adj=-11.14 dealt_nn=0.23 steps=275 spec_pen=+0.00 lost_pen=-2.00 spec_net=+0.00 lost_net=-0.33 attr=5/3 spec_dmg=0.00
+[opp] P1=prog_leg15.zip P3=leg103_league_4014080_steps.zip
+[start] health P2=799 P1=799 P3=623 P4=701
+[ep] slot33 opps=3     win len= 281  dmg +4.36/-0.61  stones: picked=3 lost=1 opp=6(-3) forms=1/2  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=10(1) stonev=138 dmgF=1.62
+[zs] raw=+27.67 opp_mean=+0.29 adj=+26.82 dealt_nn=0.42 steps=281 spec_pen=+0.00 lost_pen=-1.00 spec_net=+0.00 lost_net=-0.00 attr=0/4 spec_dmg=0.00
+[opp] P1=leg79_league_2519040_steps.zip P3=leg103_league_512000_steps.zip
+[start] health P2=591 P1=971 P3=799 P4=760
+[ep] slot13 opps=3    loss len= 516  dmg +3.00/-0.64  stones: picked=7 lost=5 opp=9(-5) forms=1/2  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=23(3) stonev=175 dmgF=1.43
+[zs] raw=+2.69 opp_mean=+6.71 adj=-5.06 dealt_nn=0.27 steps=516 spec_pen=-0.18 lost_pen=-5.00 spec_net=-0.18 lost_net=-3.00 attr=5/4 spec_dmg=0.18
+[opp] P1=leg103_league_512000_steps.zip P3=leg63_league_1003520_steps.zip
+[ep] slot36 opps=3    loss len= 406  dmg +2.33/-0.81  stones: picked=5 lost=3 opp=7(-2) forms=1/2  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=17(0) stonev=147 dmgF=0.88
+[zs] raw=+6.58 opp_mean=+4.32 adj=+1.45 dealt_nn=0.69 steps=406 spec_pen=-0.18 lost_pen=-3.00 spec_net=-0.18 lost_net=-2.33 attr=7/4 spec_dmg=0.18
+[opp] P1=leg103_league_512000_steps.zip P3=leg103_league_3010560_steps.zip
+[start] health P2=516 P1=968 P3=644 P4=859
+[start] health P2=992 P1=738 P3=691 P4=531
+[ep] slot15 opps=3    loss len= 546  dmg +4.79/-0.99  stones: picked=6 lost=1 opp=8(-3) forms=2/3  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=18(1) stonev=198 dmgF=1.80
+[zs] raw=+7.49 opp_mean=+6.46 adj=-0.06 dealt_nn=1.37 steps=546 spec_pen=-0.16 lost_pen=-1.00 spec_net=-0.16 lost_net=+0.00 attr=6/4 spec_dmg=0.16
+[opp] P1=leg85_league_3010560_steps.zip P3=leg103_league_2007040_steps.zip
+[start] health P2=979 P1=578 P3=694 P4=504
+[ep] slot52 opps=3    loss len= 390  dmg +2.98/-0.51  stones: picked=3 lost=1 opp=4(-3) forms=1/1  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=8(0) stonev=175 dmgF=2.08
+[zs] raw=+2.10 opp_mean=+5.85 adj=-4.53 dealt_nn=0.32 steps=390 spec_pen=-0.25 lost_pen=-1.00 spec_net=-0.25 lost_net=+0.33 attr=7/4 spec_dmg=0.25
+[ep] slot41 opps=3    loss len= 514  dmg +2.94/-0.87  stones: picked=1 lost=2 opp=12(-6) forms=0/4  gem_rew=+3.00 shape=+0.00 appr=+0.00  chests=15(1) stonev=222 dmgF=0.00
+[zs] raw=-3.85 opp_mean=+5.35 adj=-10.23 dealt_nn=1.04 steps=514 spec_pen=-0.03 lost_pen=-2.00 spec_net=-0.03 lost_net=-1.00 attr=5/7 spec_dmg=0.03
+[opp] P1=leg49_league_3010560_steps.zip P3=leg103_league_2007040_steps.zip
+[opp] P1=prog_leg103.zip P3=leg103_league_4014080_steps.zip
+[start] health P2=852 P1=836 P3=672 P4=603
+[ep] slot34 opps=3     win len= 462  dmg +3.48/-0.34  stones: picked=3 lost=2 opp=8(-8) forms=0/2  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=13(2) stonev=125 dmgF=0.00
+[zs] raw=+26.56 opp_mean=+0.94 adj=+24.70 dealt_nn=0.42 steps=462 spec_pen=+0.00 lost_pen=-2.00 spec_net=+0.00 lost_net=-0.33 attr=4/3 spec_dmg=0.00
+[opp] P1=prog_leg75.zip P3=leg34_league_4014080_steps.zip
+[start] health P2=610 P1=984 P3=472 P4=656
+[ep] slot17 opps=3     win len= 751  dmg +4.27/-0.08  stones: picked=5 lost=0 opp=3(-4) forms=2/0  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=21(3) stonev=72 dmgF=2.67
+[zs] raw=+35.36 opp_mean=-10.39 adj=+44.25 dealt_nn=0.97 steps=751 spec_pen=+0.00 lost_pen=+0.00 spec_net=+0.00 lost_net=+2.00 attr=0/1 spec_dmg=0.00
+[opp] P1=leg62_league_3502080_steps.zip P3=prog_leg102.zip
+[start] health P2=860 P1=868 P3=648 P4=642
+[start] health P2=627 P1=706 P3=677 P4=716
+[ep] slot43 opps=3     win len= 473  dmg +3.80/-0.58  stones: picked=5 lost=3 opp=10(-7) forms=1/1  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=10(0) stonev=221 dmgF=0.50
+[zs] raw=+32.36 opp_mean=+0.45 adj=+30.96 dealt_nn=0.94 steps=473 spec_pen=+0.00 lost_pen=-3.00 spec_net=+0.00 lost_net=+0.33 attr=8/2 spec_dmg=0.00
+[opp] P1=leg59_league_3502080_steps.zip P3=leg103_league_4014080_steps.zip
+[ep] slot57 opps=3    loss len= 365  dmg +3.62/-0.72  stones: picked=5 lost=3 opp=4(-3) forms=1/0  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=6(0) stonev=203 dmgF=2.92
+[zs] raw=+6.26 opp_mean=-0.32 adj=+5.84 dealt_nn=0.50 steps=365 spec_pen=-0.30 lost_pen=-3.00 spec_net=-0.30 lost_net=-2.00 attr=15/2 spec_dmg=0.30
+[opp] P1=leg57_league_3502080_steps.zip P3=leg56_league_1515520_steps.zip
+[start] health P2=815 P1=783 P3=776 P4=841
+[start] health P2=763 P1=527 P3=659 P4=825
+[ep] slot56 opps=3    loss len= 581  dmg +3.54/-0.95  stones: picked=4 lost=2 opp=8(-5) forms=1/2  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=18(1) stonev=201 dmgF=0.98
+[zs] raw=+4.99 opp_mean=+9.02 adj=-5.19 dealt_nn=1.06 steps=581 spec_pen=-0.01 lost_pen=-2.00 spec_net=-0.01 lost_net=-0.33 attr=13/9 spec_dmg=0.01
+[opp] P1=leg103_league_2519040_steps.zip P3=leg39_league_1515520_steps.zip
+[start] health P2=829 P1=959 P3=893 P4=532
+[ep] slot22 opps=3    loss len= 351  dmg +2.53/-0.92  stones: picked=6 lost=4 opp=5(-2) forms=1/2  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=9(1) stonev=96 dmgF=0.55
+[zs] raw=+2.61 opp_mean=+1.26 adj=+0.65 dealt_nn=0.12 steps=351 spec_pen=+0.00 lost_pen=-4.00 spec_net=+0.00 lost_net=-3.33 attr=3/7 spec_dmg=0.00
+[opp] P1=leg103_league_2007040_steps.zip P3=leg72_league_2519040_steps.zip
+[ep] slot54 opps=3    loss len= 559  dmg +3.57/-0.80  stones: picked=7 lost=5 opp=10(-6) forms=1/2  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=21(1) stonev=266 dmgF=1.47
+[zs] raw=+7.26 opp_mean=+11.24 adj=-5.10 dealt_nn=0.16 steps=559 spec_pen=-0.14 lost_pen=-5.00 spec_net=-0.14 lost_net=-3.00 attr=4/8 spec_dmg=0.14
+[opp] P1=leg66_league_3502080_steps.zip P3=leg102_league_3502080_steps.zip
+[start] health P2=798 P1=970 P3=560 P4=618
+[start] health P2=632 P1=616 P3=895 P4=960
+[ep] slot0 opps=3    loss len= 396  dmg +3.58/-0.75  stones: picked=6 lost=1 opp=3(-2) forms=2/1  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=12(0) stonev=119 dmgF=3.09
+[zs] raw=+7.09 opp_mean=+1.70 adj=+4.60 dealt_nn=0.91 steps=396 spec_pen=-0.18 lost_pen=-1.00 spec_net=-0.18 lost_net=+0.00 attr=1/3 spec_dmg=0.18
+[opp] P1=leg38_league_2007040_steps.zip P3=leg103_league_4014080_steps.zip
+[ep] slot53 opps=3    loss len= 471  dmg +3.35/-0.96  stones: picked=5 lost=3 opp=9(-6) forms=1/2  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=9(0) stonev=140 dmgF=0.87
+[zs] raw=+5.65 opp_mean=+10.24 adj=-5.53 dealt_nn=0.54 steps=471 spec_pen=-0.52 lost_pen=-3.00 spec_net=-0.52 lost_net=-1.00 attr=22/4 spec_dmg=0.52
+[opp] P1=leg103_league_1515520_steps.zip P3=leg103_league_512000_steps.zip
+[start] health P2=798 P1=889 P3=737 P4=872
+[start] health P2=548 P1=995 P3=615 P4=653
+[ep] slot37 opps=3    loss len= 348  dmg +3.82/-0.91  stones: picked=6 lost=7 opp=13(-12) forms=0/2  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=11(2) stonev=234 dmgF=0.00
+[zs] raw=+5.37 opp_mean=+12.55 adj=-7.88 dealt_nn=0.49 steps=348 spec_pen=+0.00 lost_pen=-7.00 spec_net=+0.00 lost_net=-3.67 attr=10/6 spec_dmg=0.00
+[opp] P1=leg69_league_1515520_steps.zip P3=leg82_league_1003520_steps.zip
+[ep] slot57 opps=3    loss len= 460  dmg +3.31/-0.91  stones: picked=5 lost=3 opp=7(-3) forms=1/2  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=15(0) stonev=246 dmgF=2.89
+[zs] raw=+5.25 opp_mean=+8.96 adj=-4.63 dealt_nn=0.42 steps=460 spec_pen=-0.76 lost_pen=-3.00 spec_net=-0.76 lost_net=-1.67 attr=34/2 spec_dmg=0.76
+[opp] P1=leg14_league_1000008_steps.zip P3=leg103_league_3010560_steps.zip
+[start] health P2=691 P1=523 P3=725 P4=809
+[start] health P2=520 P1=776 P3=503 P4=563
+[ep] slot56 opps=3    loss len= 343  dmg +1.26/-0.80  stones: picked=1 lost=2 opp=4(-3) forms=0/1  gem_rew=+3.00 shape=+0.00 appr=+0.00  chests=9(0) stonev=79 dmgF=0.00
+[zs] raw=-5.08 opp_mean=+2.84 adj=-8.60 dealt_nn=0.32 steps=343 spec_pen=-0.24 lost_pen=-2.00 spec_net=-0.24 lost_net=-1.00 attr=10/4 spec_dmg=0.24
+[opp] P1=leg56_league_4014080_steps.zip P3=leg103_league_3010560_steps.zip
+[ep] slot52 opps=3     win len= 609  dmg +4.07/-0.64  stones: picked=5 lost=0 opp=9(-6) forms=2/3  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=20(3) stonev=217 dmgF=2.16
+[zs] raw=+34.67 opp_mean=+2.31 adj=+31.14 dealt_nn=0.87 steps=609 spec_pen=-0.20 lost_pen=+0.00 spec_net=-0.20 lost_net=+1.00 attr=13/6 spec_dmg=0.20
+[opp] P1=leg103_league_3010560_steps.zip P3=leg75_league_1003520_steps.zip
+[start] health P2=830 P1=728 P3=794 P4=899
+[start] health P2=843 P1=968 P3=480 P4=807
+[ep] slot16 opps=3     win len= 354  dmg +4.48/+0.00  stones: picked=5 lost=0 opp=5(-3) forms=2/1  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=9(0) stonev=130 dmgF=3.25
+[zs] raw=+37.79 opp_mean=-7.80 adj=+44.88 dealt_nn=1.75 steps=354 spec_pen=+0.00 lost_pen=+0.00 spec_net=+0.00 lost_net=+1.67 attr=0/0 spec_dmg=0.00
+[opp] P1=leg103_league_512000_steps.zip P3=leg102_league_1003520_steps.zip
+[ep] slot36 opps=3    loss len= 356  dmg +1.00/-0.95  stones: picked=4 lost=5 opp=4(-3) forms=0/1  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=14(2) stonev=97 dmgF=0.00
+[zs] raw=+0.62 opp_mean=+2.93 adj=-3.03 dealt_nn=0.23 steps=356 spec_pen=-0.18 lost_pen=-5.00 spec_net=-0.18 lost_net=-4.00 attr=9/3 spec_dmg=0.18
+[opp] P1=prog_leg102.zip P3=prog_leg103.zip
+[start] health P2=586 P1=931 P3=919 P4=690
+[ep] slot55 opps=3    loss len= 279  dmg +2.52/-0.52  stones: picked=3 lost=1 opp=6(-6) forms=1/1  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=8(1) stonev=168 dmgF=1.19
+[zs] raw=+2.47 opp_mean=+4.03 adj=-2.12 dealt_nn=0.27 steps=279 spec_pen=+0.00 lost_pen=-1.00 spec_net=+0.00 lost_net=+1.00 attr=13/1 spec_dmg=0.00
+[opp] P1=leg23_league_3502080_steps.zip P3=leg71_league_1515520_steps.zip
+[start] health P2=634 P1=981 P3=826 P4=916
+[start] health P2=839 P1=707 P3=624 P4=569
+[ep] slot57 opps=3     win len= 361  dmg +4.20/-0.58  stones: picked=5 lost=0 opp=2(-4) forms=2/0  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=6(1) stonev=109 dmgF=3.04
+[zs] raw=+35.29 opp_mean=-4.83 adj=+39.40 dealt_nn=0.80 steps=361 spec_pen=+0.00 lost_pen=+0.00 spec_net=+0.00 lost_net=+1.67 attr=7/6 spec_dmg=0.00
+[opp] P1=leg78_league_2519040_steps.zip P3=leg103_league_3010560_steps.zip
+[start] health P2=918 P1=528 P3=514 P4=819
+[ep] slot19 opps=3     win len= 554  dmg +5.29/-0.49  stones: picked=7 lost=2 opp=11(-8) forms=2/2  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=17(0) stonev=179 dmgF=1.83
+[zs] raw=+37.75 opp_mean=-5.74 adj=+42.37 dealt_nn=1.26 steps=554 spec_pen=-0.17 lost_pen=-2.00 spec_net=-0.17 lost_net=-0.00 attr=9/2 spec_dmg=0.17
+[ep] slot36 opps=3    loss len= 241  dmg +2.15/-0.76  stones: picked=1 lost=2 opp=6(-3) forms=0/2  gem_rew=+3.00 shape=+0.00 appr=+0.00  chests=7(1) stonev=81 dmgF=0.00
+[zs] raw=-5.02 opp_mean=+4.31 adj=-9.81 dealt_nn=0.11 steps=241 spec_pen=+0.00 lost_pen=-2.00 spec_net=+0.00 lost_net=-1.67 attr=1/4 spec_dmg=0.00
+[opp] P1=leg103_league_4014080_steps.zip P3=selfplay_27915461_steps.zip
+[opp] P1=leg51_league_2519040_steps.zip P3=leg81_league_4014080_steps.zip
+[start] health P2=808 P1=866 P3=602 P4=543
+[start] health P2=844 P1=592 P3=606 P4=608
+[ep] slot50 opps=3    loss len= 499  dmg +3.96/-0.61  stones: picked=5 lost=4 opp=9(-7) forms=1/1  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=12(1) stonev=195 dmgF=2.02
+[zs] raw=+6.77 opp_mean=+8.59 adj=-2.82 dealt_nn=1.22 steps=499 spec_pen=-0.06 lost_pen=-4.00 spec_net=-0.06 lost_net=-1.00 attr=14/10 spec_dmg=0.06
+[opp] P1=leg78_league_4014080_steps.zip P3=leg103_league_4014080_steps.zip
+[start] health P2=530 P1=813 P3=487 P4=644
+[ep] slot51 opps=3    loss len= 496  dmg +4.07/-0.99  stones: picked=6 lost=4 opp=12(-7) forms=1/2  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=17(0) stonev=300 dmgF=1.44
+[zs] raw=+7.93 opp_mean=+10.68 adj=-3.74 dealt_nn=0.51 steps=496 spec_pen=-0.10 lost_pen=-4.00 spec_net=-0.10 lost_net=-1.00 attr=3/25 spec_dmg=0.10
+[opp] P1=leg54_league_3502080_steps.zip P3=leg103_league_2007040_steps.zip
+[start] health P2=502 P1=981 P3=556 P4=734
+[ep] slot35 opps=3     win len= 943  dmg +4.09/-0.38  stones: picked=3 lost=1 opp=15(-6) forms=1/4  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=20(2) stonev=215 dmgF=1.96
+[zs] raw=+26.54 opp_mean=-1.55 adj=+26.20 dealt_nn=0.40 steps=943 spec_pen=+0.00 lost_pen=-1.00 spec_net=+0.00 lost_net=+1.00 attr=1/4 spec_dmg=0.00
+/home/superserver/ps2rl/lib/python3.12/site-packages/stable_baselines3/common/save_util.py:167: UserWarning: Could not deserialize object clip_range. Consider using `custom_objects` argument to replace this object.
+Exception: code() argument 13 must be str, not int
+  warnings.warn(
+/home/superserver/ps2rl/lib/python3.12/site-packages/stable_baselines3/common/save_util.py:167: UserWarning: Could not deserialize object lr_schedule. Consider using `custom_objects` argument to replace this object.
+Exception: code() argument 13 must be str, not int
+  warnings.warn(
+[opp] P1=ps_v6_5033239_steps.zip P3=leg86_league_2007040_steps.zip
+[start] health P2=542 P1=508 P3=849 P4=948
+[ep] slot37 opps=3    loss len= 571  dmg +1.99/-0.91  stones: picked=5 lost=6 opp=9(-6) forms=0/2  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=14(0) stonev=209 dmgF=0.00
+[zs] raw=+2.83 opp_mean=+4.83 adj=-3.14 dealt_nn=0.44 steps=571 spec_pen=+0.00 lost_pen=-6.00 spec_net=+0.00 lost_net=-4.00 attr=14/6 spec_dmg=0.00
+[opp] P1=leg93_league_3502080_steps.zip P3=leg103_league_512000_steps.zip
+[start] health P2=634 P1=689 P3=845 P4=750
+[ep] slot14 opps=3     win len= 780  dmg +4.43/-0.42  stones: picked=8 lost=4 opp=9(-7) forms=1/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=27(1) stonev=147 dmgF=2.21
+[zs] raw=+36.75 opp_mean=-6.47 adj=+41.66 dealt_nn=1.89 steps=780 spec_pen=-0.06 lost_pen=-4.00 spec_net=-0.06 lost_net=-1.00 attr=3/7 spec_dmg=0.06
+[opp] P1=leg46_league_1515520_steps.zip P3=leg79_league_1003520_steps.zip
+[start] health P2=748 P1=812 P3=772 P4=817
+[ep] slot33 opps=3    loss len= 360  dmg +1.72/-0.82  stones: picked=4 lost=2 opp=5(-7) forms=1/1  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=12(0) stonev=176 dmgF=0.00
+[zs] raw=+4.72 opp_mean=+3.34 adj=+0.67 dealt_nn=0.66 steps=360 spec_pen=-0.07 lost_pen=-2.00 spec_net=-0.07 lost_net=-0.67 attr=9/11 spec_dmg=0.07
+[opp] P1=leg66_league_3502080_steps.zip P3=leg103_league_3502080_steps.zip
+[start] health P2=936 P1=698 P3=479 P4=502
+[ep] slot36 opps=3    loss len= 475  dmg +2.88/-0.85  stones: picked=7 lost=5 opp=9(-7) forms=1/2  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=14(1) stonev=203 dmgF=1.22
+[zs] raw=+9.56 opp_mean=+9.64 adj=-1.03 dealt_nn=1.18 steps=475 spec_pen=+0.00 lost_pen=-5.00 spec_net=+0.00 lost_net=-3.00 attr=4/8 spec_dmg=0.00
+[opp] P1=leg57_league_3010560_steps.zip P3=leg77_league_1515520_steps.zip
+[start] health P2=817 P1=778 P3=653 P4=591
+[ep] slot55 opps=3    loss len= 531  dmg +4.03/-0.63  stones: picked=5 lost=3 opp=5(-5) forms=1/1  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=15(2) stonev=223 dmgF=2.66
+[zs] raw=+5.58 opp_mean=+1.48 adj=+3.04 dealt_nn=0.32 steps=531 spec_pen=-0.37 lost_pen=-3.00 spec_net=-0.37 lost_net=-1.33 attr=14/3 spec_dmg=0.37
+[opp] P1=leg69_league_2519040_steps.zip P3=leg40_league_3502080_steps.zip
+[start] health P2=757 P1=853 P3=904 P4=588
+[check] update 3 lag0_steps=3840/20480 logp_maxdiff=1.62e-05 value_maxdiff=1.91e-05
+Early stopping at step 1 due to reaching max kl: 0.07
+[learner] update 3 steps=61440 334.3 steps/s (since end of update 1) train=0.7s lag(min/mean/max)=2/2.00/2 step_lag=1.12 actors=[0, 1, 2, 3, 9, 11, 18, 21, 22, 23] ep_starts_in_batch=41 mean_reward=+0.0135
+[stats] update 3 approx_kl=0.02283 clip_fraction=0.1391 entropy_loss=-0.7264 explained_variance=0.8006 value_loss=7.381 policy_gradient_loss=0.004353 loss=3.097 n_updates=6.474e+04
+----------------------------------------
+| train/                  |            |
+|    approx_kl            | 0.02282964 |
+|    clip_fraction        | 0.139      |
+|    clip_range           | 0.2        |
+|    entropy_loss         | -0.726     |
+|    explained_variance   | 0.801      |
+|    learning_rate        | 0.0001     |
+|    loss                 | 3.1        |
+|    n_updates            | 64744      |
+|    policy_gradient_loss | 0.00435    |
+|    value_loss           | 7.38       |
+----------------------------------------
+[ep] slot31 opps=3    loss len= 256  dmg +1.52/-0.63  stones: picked=0 lost=1 opp=9(-2) forms=0/2  gem_rew=+0.00 shape=+0.00 appr=+0.00  chests=10(1) stonev=88 dmgF=0.00
+[zs] raw=-7.00 opp_mean=+8.39 adj=-15.90 dealt_nn=0.16 steps=256 spec_pen=-0.18 lost_pen=-1.00 spec_net=-0.18 lost_net=-0.33 attr=9/1 spec_dmg=0.18
+[opp] P1=leg23_league_2007040_steps.zip P3=leg103_league_1003520_steps.zip
+[ep] slot10 opps=3    loss len= 403  dmg +2.68/-0.55  stones: picked=2 lost=3 opp=6(-4) forms=0/1  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=12(0) stonev=102 dmgF=0.00
+[zs] raw=-6.95 opp_mean=+0.87 adj=-8.62 dealt_nn=0.70 steps=403 spec_pen=+0.00 lost_pen=-3.00 spec_net=+0.00 lost_net=-1.67 attr=2/2 spec_dmg=0.00
+[opp] P1=leg71_league_3010560_steps.zip P3=prog_leg102.zip
+[start] health P2=834 P1=826 P3=730 P4=613
+[start] health P2=887 P1=606 P3=708 P4=878
+[ep] slot11 opps=3     win len= 404  dmg +3.69/-0.15  stones: picked=6 lost=1 opp=5(-5) forms=2/1  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=14(2) stonev=169 dmgF=0.30
+[zs] raw=+37.22 opp_mean=-7.15 adj=+43.57 dealt_nn=0.59 steps=404 spec_pen=+0.00 lost_pen=-1.00 spec_net=+0.00 lost_net=+0.67 attr=0/2 spec_dmg=0.00
+[opp] P1=leg103_league_512000_steps.zip P3=leg103_league_3502080_steps.zip
+[start] health P2=901 P1=826 P3=525 P4=662
+[ep] slot15 opps=3    loss len= 423  dmg +3.00/-0.69  stones: picked=4 lost=1 opp=9(-2) forms=1/3  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=12(1) stonev=144 dmgF=0.23
+[zs] raw=-0.11 opp_mean=+2.90 adj=-3.86 dealt_nn=0.32 steps=423 spec_pen=-0.21 lost_pen=-1.00 spec_net=-0.21 lost_net=+0.00 attr=5/3 spec_dmg=0.21
+[opp] P1=leg103_league_4014080_steps.zip P3=leg94_league_1515520_steps.zip
+[ep] slot56 opps=3     win len= 421  dmg +3.72/-0.62  stones: picked=7 lost=2 opp=6(-6) forms=2/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=9(0) stonev=214 dmgF=3.06
+[zs] raw=+36.04 opp_mean=-0.98 adj=+36.18 dealt_nn=0.27 steps=421 spec_pen=-0.03 lost_pen=-2.00 spec_net=-0.03 lost_net=-0.00 attr=10/3 spec_dmg=0.03
+[opp] P1=leg103_league_2007040_steps.zip P3=leg103_league_1515520_steps.zip
+[ep] slot59 opps=3    loss len= 483  dmg +3.07/-0.80  stones: picked=10 lost=5 opp=7(-6) forms=2/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=14(1) stonev=237 dmgF=1.57
+[zs] raw=+8.12 opp_mean=+2.77 adj=+4.38 dealt_nn=0.46 steps=483 spec_pen=-0.04 lost_pen=-5.00 spec_net=-0.04 lost_net=-2.67 attr=11/9 spec_dmg=0.04
+[opp] P1=leg61_league_1003520_steps.zip P3=leg46_league_2519040_steps.zip
+[start] health P2=580 P1=535 P3=589 P4=641
+[start] health P2=767 P1=585 P3=517 P4=968
+[start] health P2=880 P1=956 P3=877 P4=534
+[ep] slot16 opps=3     win len= 565  dmg +4.31/-0.74  stones: picked=6 lost=1 opp=9(-7) forms=2/2  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=22(5) stonev=222 dmgF=0.80
+[zs] raw=+37.70 opp_mean=-4.44 adj=+41.01 dealt_nn=1.29 steps=565 spec_pen=+0.00 lost_pen=-1.00 spec_net=+0.00 lost_net=+1.00 attr=1/6 spec_dmg=0.00
+[opp] P1=prog_leg102.zip P3=leg48_league_1515520_steps.zip
+[ep] slot57 opps=3    loss len= 463  dmg +2.26/-0.80  stones: picked=4 lost=5 opp=14(-13) forms=0/1  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=19(2) stonev=245 dmgF=0.00
+[zs] raw=+0.51 opp_mean=+10.53 adj=-10.94 dealt_nn=0.18 steps=463 spec_pen=-0.12 lost_pen=-5.00 spec_net=-0.12 lost_net=-1.67 attr=10/9 spec_dmg=0.12
+[opp] P1=leg103_league_1515520_steps.zip P3=leg55_league_3502080_steps.zip
+[start] health P2=656 P1=868 P3=831 P4=849
+[start] health P2=933 P1=910 P3=726 P4=684
+[ep] slot32 opps=3    loss len= 343  dmg +1.63/-0.54  stones: picked=2 lost=3 opp=5(-3) forms=0/1  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=13(0) stonev=100 dmgF=0.00
+[zs] raw=-2.99 opp_mean=+3.74 adj=-7.41 dealt_nn=0.31 steps=343 spec_pen=-0.39 lost_pen=-3.00 spec_net=-0.39 lost_net=-2.00 attr=10/1 spec_dmg=0.39
+[opp] P1=leg103_league_1003520_steps.zip P3=leg103_league_1003520_steps.zip
+[ep] slot31 opps=3     win len= 475  dmg +4.02/-0.55  stones: picked=8 lost=3 opp=4(-4) forms=2/0  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=10(3) stonev=114 dmgF=1.79
+[zs] raw=+35.48 opp_mean=-5.24 adj=+39.77 dealt_nn=0.49 steps=475 spec_pen=+0.00 lost_pen=-3.00 spec_net=+0.00 lost_net=-0.67 attr=1/4 spec_dmg=0.00
+[opp] P1=leg84_league_2519040_steps.zip P3=leg103_league_3502080_steps.zip
+[start] health P2=548 P1=796 P3=633 P4=599
+[start] health P2=507 P1=780 P3=856 P4=878
+[ep] slot31 opps=3    loss len= 449  dmg +2.99/-0.84  stones: picked=4 lost=5 opp=12(-7) forms=0/2  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=16(0) stonev=232 dmgF=0.00
+[zs] raw=+2.11 opp_mean=+5.19 adj=-3.97 dealt_nn=0.97 steps=449 spec_pen=-0.08 lost_pen=-5.00 spec_net=-0.08 lost_net=-2.00 attr=7/3 spec_dmg=0.08
+[opp] P1=leg87_league_2519040_steps.zip P3=leg73_league_512000_steps.zip
+[start] health P2=601 P1=577 P3=630 P4=830
+[ep] slot10 opps=3    loss len= 430  dmg +2.41/-0.53  stones: picked=3 lost=1 opp=5(-3) forms=1/1  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=16(1) stonev=111 dmgF=1.31
+[zs] raw=-1.58 opp_mean=-0.38 adj=-2.06 dealt_nn=0.91 steps=430 spec_pen=+0.00 lost_pen=-1.00 spec_net=+0.00 lost_net=+0.33 attr=1/4 spec_dmg=0.00
+[opp] P1=leg95_league_4014080_steps.zip P3=leg13_league_2000016_steps.zip
+[start] health P2=756 P1=792 P3=578 P4=809
+[ep] slot31 opps=3    loss len= 495  dmg +3.94/-0.59  stones: picked=5 lost=3 opp=12(-8) forms=1/2  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=18(0) stonev=179 dmgF=0.86
+[zs] raw=+7.43 opp_mean=+6.33 adj=+0.11 dealt_nn=1.09 steps=495 spec_pen=-0.18 lost_pen=-3.00 spec_net=-0.18 lost_net=-0.33 attr=2/2 spec_dmg=0.18
+[ep] slot41 opps=3    loss len= 369  dmg +2.28/-0.94  stones: picked=3 lost=1 opp=4(-3) forms=1/1  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=12(0) stonev=51 dmgF=1.64
+[zs] raw=+1.97 opp_mean=+1.05 adj=+0.18 dealt_nn=0.32 steps=369 spec_pen=+0.00 lost_pen=-1.00 spec_net=+0.00 lost_net=+0.33 attr=0/6 spec_dmg=0.00
+[opp] P1=leg103_league_3010560_steps.zip P3=leg88_league_4014080_steps.zip
+[opp] P1=leg103_league_3502080_steps.zip P3=leg33_league_4014080_steps.zip
+[ep] slot22 opps=3     win len= 805  dmg +3.55/-0.49  stones: picked=11 lost=1 opp=14(-5) forms=4/3  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=26(3) stonev=440 dmgF=2.60
+[zs] raw=+39.13 opp_mean=-5.12 adj=+42.65 dealt_nn=1.65 steps=805 spec_pen=-0.06 lost_pen=-1.00 spec_net=-0.06 lost_net=+1.67 attr=2/6 spec_dmg=0.06
+[opp] P1=leg15_league_1500012_steps.zip P3=leg103_league_2519040_steps.zip
+[start] health P2=747 P1=804 P3=509 P4=678
+[start] health P2=737 P1=633 P3=611 P4=668
+[start] health P2=750 P1=722 P3=489 P4=518
+[ep] slot36 opps=3     win len= 379  dmg +4.80/-0.72  stones: picked=6 lost=4 opp=11(-6) forms=1/2  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=14(2) stonev=230 dmgF=0.93
+[zs] raw=+35.19 opp_mean=+1.30 adj=+33.13 dealt_nn=1.34 steps=379 spec_pen=+0.00 lost_pen=-4.00 spec_net=+0.00 lost_net=-1.33 attr=9/3 spec_dmg=0.00
+[opp] P1=leg103_league_1003520_steps.zip P3=leg103_league_2519040_steps.zip
+[start] health P2=780 P1=810 P3=551 P4=626
+[ep] slot15 opps=3     win len=1112  dmg +4.77/-0.50  stones: picked=11 lost=1 opp=17(-9) forms=4/3  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=31(3) stonev=372 dmgF=2.74
+[zs] raw=+38.55 opp_mean=-2.60 adj=+38.92 dealt_nn=1.75 steps=1112 spec_pen=-0.23 lost_pen=-1.00 spec_net=-0.23 lost_net=+2.67 attr=8/2 spec_dmg=0.23
+[opp] P1=leg103_league_1003520_steps.zip P3=leg30_league_1003520_steps.zip
+[start] health P2=812 P1=531 P3=849 P4=859
+[ep] slot10 opps=3    loss len= 614  dmg +2.45/-0.84  stones: picked=3 lost=4 opp=13(-6) forms=0/4  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=17(1) stonev=211 dmgF=0.00
+[zs] raw=-6.53 opp_mean=+6.56 adj=-14.32 dealt_nn=0.27 steps=614 spec_pen=+0.00 lost_pen=-4.00 spec_net=+0.00 lost_net=-2.67 attr=5/4 spec_dmg=0.00
+[opp] P1=leg27_league_3010560_steps.zip P3=leg103_league_1515520_steps.zip
+[ep] slot32 opps=3    loss len= 506  dmg +4.42/-0.63  stones: picked=8 lost=3 opp=13(-7) forms=2/2  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=16(1) stonev=316 dmgF=2.29
+[zs] raw=+11.37 opp_mean=+11.80 adj=-1.44 dealt_nn=1.03 steps=506 spec_pen=-0.04 lost_pen=-3.00 spec_net=-0.04 lost_net=+0.33 attr=5/6 spec_dmg=0.04
+[opp] P1=leg103_league_2519040_steps.zip P3=prog_leg102.zip
+[start] health P2=627 P1=619 P3=529 P4=861
+[start] health P2=839 P1=511 P3=659 P4=946
+[ep] slot50 opps=3    loss len= 746  dmg +4.53/-0.83  stones: picked=10 lost=2 opp=12(-10) forms=3/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=22(1) stonev=282 dmgF=2.32
+[zs] raw=+10.73 opp_mean=+7.08 adj=+2.16 dealt_nn=0.60 steps=746 spec_pen=-0.15 lost_pen=-2.00 spec_net=-0.15 lost_net=+1.67 attr=13/7 spec_dmg=0.15
+[opp] P1=leg35_league_3010560_steps.zip P3=leg49_league_1003520_steps.zip
+[ep] slot18 opps=3    loss len= 493  dmg +4.08/-0.82  stones: picked=4 lost=2 opp=10(-6) forms=1/2  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=15(2) stonev=191 dmgF=0.61
+[zs] raw=+0.09 opp_mean=+0.94 adj=-1.83 dealt_nn=0.95 steps=493 spec_pen=+0.00 lost_pen=-2.00 spec_net=+0.00 lost_net=-0.00 attr=6/4 spec_dmg=0.00
+[opp] P1=leg35_league_1003520_steps.zip P3=leg76_league_4014080_steps.zip
+[ep] slot19 opps=3    loss len= 440  dmg +3.00/-0.83  stones: picked=4 lost=2 opp=4(-3) forms=1/1  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=17(2) stonev=99 dmgF=1.68
+[zs] raw=+0.08 opp_mean=+2.25 adj=-3.05 dealt_nn=0.90 steps=440 spec_pen=-0.00 lost_pen=-2.00 spec_net=-0.00 lost_net=-0.67 attr=4/5 spec_dmg=0.00
+[opp] P1=leg103_league_4014080_steps.zip P3=leg103_league_2007040_steps.zip
+[ep] slot55 opps=3     win len= 399  dmg +5.03/+0.00  stones: picked=4 lost=0 opp=2(-3) forms=2/0  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=9(0) stonev=105 dmgF=4.61
+[zs] raw=+32.44 opp_mean=-5.04 adj=+36.68 dealt_nn=0.62 steps=399 spec_pen=+0.00 lost_pen=+0.00 spec_net=+0.00 lost_net=+1.67 attr=0/0 spec_dmg=0.00
+[start] health P2=857 P1=948 P3=772 P4=657
+[opp] P1=leg103_league_1003520_steps.zip P3=leg96_league_2007040_steps.zip
+[start] health P2=616 P1=580 P3=740 P4=560
+[start] health P2=614 P1=777 P3=765 P4=604
+[start] health P2=519 P1=957 P3=910 P4=806
+[ep] slot54 opps=3    loss len= 709  dmg +3.38/-0.81  stones: picked=5 lost=3 opp=16(-9) forms=1/2  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=24(1) stonev=264 dmgF=1.70
+[zs] raw=+5.95 opp_mean=+9.89 adj=-5.36 dealt_nn=0.69 steps=709 spec_pen=-0.21 lost_pen=-3.00 spec_net=-0.21 lost_net=-0.00 attr=13/11 spec_dmg=0.21
+[opp] P1=prog_leg102.zip P3=leg58_league_3010560_steps.zip
+[ep] slot11 opps=3    loss len= 624  dmg +3.61/-0.50  stones: picked=7 lost=4 opp=12(-8) forms=1/3  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=19(4) stonev=258 dmgF=0.00
+[zs] raw=+3.54 opp_mean=+7.26 adj=-4.96 dealt_nn=0.15 steps=624 spec_pen=+0.00 lost_pen=-4.00 spec_net=+0.00 lost_net=-2.33 attr=2/5 spec_dmg=0.00
+[opp] P1=leg83_league_2007040_steps.zip P3=leg92_league_1003520_steps.zip
+[ep] slot54 opps=3     win len= 409  dmg +4.03/-0.26  stones: picked=10 lost=3 opp=9(-9) forms=2/0  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=13(0) stonev=278 dmgF=2.41
+[zs] raw=+36.96 opp_mean=-0.65 adj=+36.79 dealt_nn=1.02 steps=409 spec_pen=+0.00 lost_pen=-3.00 spec_net=+0.00 lost_net=+1.00 attr=0/3 spec_dmg=0.00
+[opp] P1=leg103_league_3010560_steps.zip P3=leg69_league_1515520_steps.zip
+[start] health P2=581 P1=765 P3=563 P4=730
+[ep] slot32 opps=3    loss len= 289  dmg +2.67/-0.60  stones: picked=1 lost=2 opp=7(-5) forms=0/2  gem_rew=+3.00 shape=+0.00 appr=+0.00  chests=8(0) stonev=92 dmgF=0.00
+[zs] raw=-3.07 opp_mean=+5.88 adj=-9.54 dealt_nn=1.07 steps=289 spec_pen=-0.04 lost_pen=-2.00 spec_net=-0.04 lost_net=-1.33 attr=8/2 spec_dmg=0.04
+[opp] P1=leg103_league_4014080_steps.zip P3=leg103_league_1515520_steps.zip
+[start] health P2=579 P1=862 P3=613 P4=786
+[start] health P2=839 P1=705 P3=722 P4=613
+[ep] slot21 opps=3     win len= 387  dmg +3.53/-0.53  stones: picked=6 lost=4 opp=10(-10) forms=1/2  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=15(2) stonev=231 dmgF=0.41
+[zs] raw=+33.26 opp_mean=-2.37 adj=+34.86 dealt_nn=0.31 steps=387 spec_pen=-0.06 lost_pen=-4.00 spec_net=-0.06 lost_net=-1.67 attr=6/3 spec_dmg=0.06
+[opp] P1=leg53_league_2007040_steps.zip P3=leg63_league_2007040_steps.zip
+[start] health P2=565 P1=682 P3=892 P4=765
+[start] health P2=761 P1=999 P3=709 P4=623
+[ep] slot54 opps=3    loss len= 484  dmg +3.22/-0.59  stones: picked=5 lost=3 opp=10(-6) forms=1/2  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=14(2) stonev=282 dmgF=1.70
+[zs] raw=+5.94 opp_mean=+5.74 adj=-0.77 dealt_nn=0.33 steps=484 spec_pen=-0.17 lost_pen=-3.00 spec_net=-0.17 lost_net=-0.67 attr=13/3 spec_dmg=0.17
+[opp] P1=leg103_league_2519040_steps.zip P3=leg103_league_2007040_steps.zip
+[start] health P2=738 P1=940 P3=679 P4=757
+[ep] slot39 opps=3    loss len= 780  dmg +4.39/-0.76  stones: picked=8 lost=3 opp=16(-11) forms=2/2  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=25(5) stonev=354 dmgF=1.86
+[zs] raw=+11.13 opp_mean=+12.19 adj=-2.62 dealt_nn=1.22 steps=780 spec_pen=+0.00 lost_pen=-3.00 spec_net=+0.00 lost_net=+1.33 attr=1/5 spec_dmg=0.00
+[opp] P1=leg103_league_2519040_steps.zip P3=leg38_league_3502080_steps.zip
+[start] health P2=847 P1=829 P3=578 P4=522
+[ep] slot55 opps=3     win len= 474  dmg +4.73/-0.03  stones: picked=5 lost=0 opp=11(-10) forms=2/1  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=15(0) stonev=159 dmgF=2.78
+[zs] raw=+34.64 opp_mean=+1.32 adj=+32.37 dealt_nn=0.31 steps=474 spec_pen=+0.00 lost_pen=+0.00 spec_net=+0.00 lost_net=+3.67 attr=1/0 spec_dmg=0.00
+[opp] P1=leg71_league_1003520_steps.zip P3=selfplay_500004_steps.zip
+[start] health P2=787 P1=675 P3=575 P4=849
+[ep] slot17 opps=3     win len= 304  dmg +3.82/-0.08  stones: picked=3 lost=1 opp=4(-2) forms=1/1  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=10(0) stonev=106 dmgF=1.23
+[zs] raw=+29.11 opp_mean=-7.85 adj=+36.35 dealt_nn=0.90 steps=304 spec_pen=+0.00 lost_pen=-1.00 spec_net=+0.00 lost_net=+0.33 attr=0/1 spec_dmg=0.00
+[opp] P1=leg103_league_2519040_steps.zip P3=leg103_league_1003520_steps.zip
+[ep] slot52 opps=3    loss len= 406  dmg +3.58/-0.93  stones: picked=4 lost=2 opp=10(-10) forms=1/2  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=15(2) stonev=196 dmgF=2.04
+[zs] raw=+4.33 opp_mean=+7.60 adj=-4.08 dealt_nn=0.71 steps=406 spec_pen=-0.35 lost_pen=-2.00 spec_net=-0.35 lost_net=+0.33 attr=23/3 spec_dmg=0.35
+[opp] P1=leg103_league_3010560_steps.zip P3=leg103_league_1515520_steps.zip
+[start] health P2=707 P1=788 P3=663 P4=540
+[start] health P2=501 P1=820 P3=738 P4=801
+[ep] slot11 opps=3    loss len= 707  dmg +2.97/-0.77  stones: picked=3 lost=4 opp=13(-5) forms=0/3  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=25(3) stonev=278 dmgF=0.00
+[zs] raw=-6.64 opp_mean=+8.37 adj=-16.42 dealt_nn=0.33 steps=707 spec_pen=-0.12 lost_pen=-4.00 spec_net=-0.12 lost_net=-1.67 attr=2/8 spec_dmg=0.12
+[opp] P1=leg76_league_4014080_steps.zip P3=leg103_league_2007040_steps.zip
+[ep] slot15 opps=3     win len= 368  dmg +4.48/+0.00  stones: picked=8 lost=0 opp=2(-2) forms=3/0  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=11(1) stonev=105 dmgF=3.63
+[zs] raw=+41.97 opp_mean=-10.89 adj=+52.13 dealt_nn=1.85 steps=368 spec_pen=+0.00 lost_pen=+0.00 spec_net=+0.00 lost_net=+1.67 attr=0/0 spec_dmg=0.00
+[opp] P1=leg36_league_2007040_steps.zip P3=leg51_league_1003520_steps.zip
+[start] health P2=694 P1=818 P3=597 P4=638
+[start] health P2=824 P1=892 P3=743 P4=557
+[check] update 4 lag0_steps=3520/20480 logp_maxdiff=1.67e-05 value_maxdiff=1.34e-05
+Early stopping at step 2 due to reaching max kl: 0.05
+[learner] update 4 steps=81920 364.5 steps/s (since end of update 1) train=1.6s lag(min/mean/max)=1/2.40/3 step_lag=1.19 actors=[4, 5, 6, 7, 8, 10, 13, 15, 17, 18] ep_starts_in_batch=42 mean_reward=+0.0263
+[stats] update 4 approx_kl=0.02469 clip_fraction=0.1548 entropy_loss=-0.7088 explained_variance=0.7753 value_loss=6.546 policy_gradient_loss=-0.01111 loss=1.802 n_updates=6.475e+04
+-----------------------------------------
+| train/                  |             |
+|    approx_kl            | 0.024685882 |
+|    clip_fraction        | 0.155       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -0.709      |
+|    explained_variance   | 0.775       |
+|    learning_rate        | 0.0001      |
+|    loss                 | 1.8         |
+|    n_updates            | 64747       |
+|    policy_gradient_loss | -0.0111     |
+|    value_loss           | 6.55        |
+-----------------------------------------
+[ep] slot41 opps=3     win len= 560  dmg +3.98/-0.40  stones: picked=5 lost=0 opp=9(-4) forms=2/1  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=16(1) stonev=156 dmgF=2.37
+[zs] raw=+34.99 opp_mean=+0.98 adj=+32.89 dealt_nn=0.75 steps=560 spec_pen=+0.00 lost_pen=+0.00 spec_net=+0.00 lost_net=+2.33 attr=1/5 spec_dmg=0.00
+[opp] P1=leg103_league_3502080_steps.zip P3=leg103_league_2519040_steps.zip
+[start] health P2=669 P1=626 P3=766 P4=582
+[ep] slot59 opps=3    loss len= 481  dmg +2.73/-0.75  stones: picked=7 lost=5 opp=10(-6) forms=1/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=21(1) stonev=255 dmgF=0.73
+[zs] raw=+7.37 opp_mean=+5.89 adj=+0.52 dealt_nn=0.15 steps=481 spec_pen=-0.22 lost_pen=-5.00 spec_net=-0.22 lost_net=-2.67 attr=15/2 spec_dmg=0.22
+[opp] P1=prog_leg32.zip P3=leg30_league_3502080_steps.zip
+[ep] slot59 opps=3     win len= 618  dmg +3.97/-0.57  stones: picked=8 lost=3 opp=10(-6) forms=2/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=23(1) stonev=288 dmgF=2.12
+[zs] raw=+36.09 opp_mean=+0.84 adj=+34.01 dealt_nn=0.95 steps=618 spec_pen=+0.00 lost_pen=-3.00 spec_net=+0.00 lost_net=+0.33 attr=4/4 spec_dmg=0.00
+[opp] P1=leg103_league_3502080_steps.zip P3=prog_leg103.zip
+[start] health P2=930 P1=633 P3=676 P4=935
+[ep] slot57 opps=3    loss len= 336  dmg +3.33/-0.63  stones: picked=4 lost=2 opp=8(-7) forms=1/1  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=10(0) stonev=220 dmgF=1.98
+[zs] raw=+4.90 opp_mean=+3.78 adj=+0.44 dealt_nn=0.78 steps=336 spec_pen=-0.36 lost_pen=-2.00 spec_net=-0.36 lost_net=+0.33 attr=11/2 spec_dmg=0.36
+[opp] P1=leg103_league_3502080_steps.zip P3=prog_leg102.zip
+[start] health P2=645 P1=740 P3=536 P4=514
+[start] health P2=650 P1=945 P3=543 P4=805
+[ep] slot58 opps=3    loss len= 290  dmg +1.50/-0.84  stones: picked=4 lost=5 opp=7(-4) forms=0/1  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=10(0) stonev=163 dmgF=0.00
+[zs] raw=+0.96 opp_mean=+5.76 adj=-5.38 dealt_nn=0.21 steps=290 spec_pen=-0.04 lost_pen=-5.00 spec_net=-0.04 lost_net=-3.67 attr=18/2 spec_dmg=0.04
+[opp] P1=prog_leg103.zip P3=prog_leg71.zip
+[ep] slot50 opps=3    loss len= 373  dmg +2.64/-0.86  stones: picked=3 lost=4 opp=5(-3) forms=0/1  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=11(1) stonev=161 dmgF=0.00
+[zs] raw=-1.07 opp_mean=+3.94 adj=-5.76 dealt_nn=0.49 steps=373 spec_pen=-0.45 lost_pen=-4.00 spec_net=-0.45 lost_net=-3.00 attr=23/1 spec_dmg=0.45
+[opp] P1=leg35_league_1003520_steps.zip P3=leg70_league_1515520_steps.zip
+[start] health P2=603 P1=796 P3=584 P4=778
+[ep] slot52 opps=3    loss len= 426  dmg +2.93/-0.58  stones: picked=4 lost=2 opp=7(-6) forms=1/1  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=15(1) stonev=155 dmgF=1.23
+[zs] raw=+4.28 opp_mean=+5.67 adj=-2.24 dealt_nn=0.53 steps=426 spec_pen=-0.36 lost_pen=-2.00 spec_net=-0.36 lost_net=-1.00 attr=23/3 spec_dmg=0.36
+[start] health P2=950 P1=892 P3=761 P4=542
+[opp] P1=leg74_league_3502080_steps.zip P3=leg103_league_2519040_steps.zip
+[start] health P2=782 P1=634 P3=573 P4=506
+[ep] slot0 opps=3     win len= 688  dmg +5.10/-0.04  stones: picked=5 lost=0 opp=14(-10) forms=2/2  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=32(2) stonev=361 dmgF=2.66
+[zs] raw=+36.43 opp_mean=-3.78 adj=+38.83 dealt_nn=1.42 steps=688 spec_pen=+0.00 lost_pen=+0.00 spec_net=+0.00 lost_net=+3.67 attr=0/1 spec_dmg=0.00
+[opp] P1=leg99_league_1003520_steps.zip P3=leg37_league_1515520_steps.zip
+[ep] slot32 opps=3    loss len= 572  dmg +3.31/-0.84  stones: picked=7 lost=5 opp=7(-5) forms=1/2  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=16(0) stonev=175 dmgF=1.37
+[zs] raw=+8.41 opp_mean=+3.50 adj=+3.76 dealt_nn=0.69 steps=572 spec_pen=+0.00 lost_pen=-5.00 spec_net=+0.00 lost_net=-3.67 attr=11/3 spec_dmg=0.00
+[opp] P1=leg103_league_3502080_steps.zip P3=prog_leg103.zip
+[ep] slot10 opps=3     win len= 445  dmg +5.20/-0.23  stones: picked=5 lost=0 opp=3(-2) forms=2/1  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=13(1) stonev=70 dmgF=3.56
+[zs] raw=+38.21 opp_mean=-12.65 adj=+49.97 dealt_nn=2.17 steps=445 spec_pen=+0.00 lost_pen=+0.00 spec_net=+0.00 lost_net=+1.00 attr=1/4 spec_dmg=0.00
+[opp] P1=leg103_league_2007040_steps.zip P3=leg103_league_3010560_steps.zip
+[ep] slot14 opps=3    loss len= 417  dmg +3.72/-0.52  stones: picked=5 lost=3 opp=7(-3) forms=1/2  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=19(0) stonev=154 dmgF=1.29
+[zs] raw=+1.17 opp_mean=+5.62 adj=-5.28 dealt_nn=0.26 steps=417 spec_pen=+0.00 lost_pen=-3.00 spec_net=+0.00 lost_net=-1.67 attr=1/6 spec_dmg=0.00
+[ep] slot38 opps=3    loss len= 335  dmg +2.73/-0.79  stones: picked=4 lost=2 opp=3(-3) forms=1/1  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=10(1) stonev=127 dmgF=1.70
+[zs] raw=+4.32 opp_mean=+0.29 adj=+3.35 dealt_nn=0.52 steps=335 spec_pen=-0.27 lost_pen=-2.00 spec_net=-0.27 lost_net=-1.00 attr=9/2 spec_dmg=0.27
+[opp] P1=prog_leg103.zip P3=leg103_league_3010560_steps.zip
+[opp] P1=leg103_league_1515520_steps.zip P3=leg76_league_1515520_steps.zip
+[start] health P2=504 P1=682 P3=796 P4=796
+[start] health P2=950 P1=916 P3=550 P4=960
+[ep] slot34 opps=3    loss len= 284  dmg +1.18/-0.82  stones: picked=1 lost=2 opp=4(-1) forms=0/2  gem_rew=+3.00 shape=+0.00 appr=+0.00  chests=4(0) stonev=97 dmgF=0.00
+[zs] raw=-4.99 opp_mean=+1.85 adj=-7.41 dealt_nn=0.50 steps=284 spec_pen=-0.59 lost_pen=-2.00 spec_net=-0.59 lost_net=-1.67 attr=1/3 spec_dmg=0.59
+[opp] P1=leg103_league_4014080_steps.zip P3=leg103_league_1515520_steps.zip
+[start] health P2=589 P1=788 P3=794 P4=737
+[start] health P2=891 P1=665 P3=599 P4=572
+[start] health P2=903 P1=969 P3=480 P4=555
+[start] health P2=739 P1=870 P3=508 P4=763
+[ep] slot34 opps=3     win len= 696  dmg +4.22/-0.57  stones: picked=5 lost=0 opp=11(-6) forms=2/2  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=19(1) stonev=249 dmgF=1.84
+[zs] raw=+34.08 opp_mean=-2.70 adj=+35.38 dealt_nn=0.58 steps=696 spec_pen=-0.12 lost_pen=+0.00 spec_net=-0.12 lost_net=+2.67 attr=8/5 spec_dmg=0.12
+[opp] P1=leg103_league_2007040_steps.zip P3=leg79_league_3502080_steps.zip
+[ep] slot16 opps=3    loss len= 322  dmg +2.26/-0.50  stones: picked=2 lost=1 opp=4(-3) forms=0/1  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=11(0) stonev=86 dmgF=0.00
+[zs] raw=-5.45 opp_mean=-0.59 adj=-5.50 dealt_nn=0.49 steps=322 spec_pen=-0.29 lost_pen=-1.00 spec_net=-0.29 lost_net=-0.00 attr=7/1 spec_dmg=0.29
+[opp] P1=leg40_league_1515520_steps.zip P3=leg25_league_4014080_steps.zip
+[start] health P2=727 P1=518 P3=871 P4=654
+[ep] slot32 opps=3    loss len=1211  dmg +3.65/-0.89  stones: picked=6 lost=4 opp=19(-13) forms=1/3  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=29(1) stonev=265 dmgF=0.50
+[zs] raw=+7.45 opp_mean=+13.18 adj=-8.16 dealt_nn=0.89 steps=1211 spec_pen=-0.03 lost_pen=-4.00 spec_net=-0.03 lost_net=-0.33 attr=8/7 spec_dmg=0.03
+[opp] P1=leg92_league_512000_steps.zip P3=prog_leg103.zip
+[start] health P2=674 P1=722 P3=872 P4=716
+[start] health P2=501 P1=573 P3=731 P4=732
+[ep] slot31 opps=3     win len= 483  dmg +4.38/-0.47  stones: picked=7 lost=2 opp=7(-3) forms=2/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=13(2) stonev=154 dmgF=1.49
+[zs] raw=+37.65 opp_mean=-2.62 adj=+39.30 dealt_nn=1.04 steps=483 spec_pen=+0.00 lost_pen=-2.00 spec_net=+0.00 lost_net=+0.33 attr=7/1 spec_dmg=0.00
+[opp] P1=leg103_league_4014080_steps.zip P3=leg67_league_1515520_steps.zip
+[ep] slot53 opps=3     win len= 221  dmg +3.58/+0.00  stones: picked=5 lost=0 opp=3(-5) forms=2/0  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=6(0) stonev=109 dmgF=2.94
+[zs] raw=+35.92 opp_mean=-4.30 adj=+39.78 dealt_nn=0.68 steps=221 spec_pen=+0.00 lost_pen=+0.00 spec_net=+0.00 lost_net=+2.00 attr=0/0 spec_dmg=0.00
+[opp] P1=leg103_league_1003520_steps.zip P3=prog_leg103.zip
+[start] health P2=715 P1=798 P3=792 P4=665
+[ep] slot32 opps=3    loss len= 488  dmg +2.94/-0.85  stones: picked=4 lost=5 opp=10(-9) forms=0/3  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=20(0) stonev=224 dmgF=0.00
+[zs] raw=+1.09 opp_mean=+6.69 adj=-6.58 dealt_nn=0.58 steps=488 spec_pen=-0.24 lost_pen=-5.00 spec_net=-0.24 lost_net=-3.67 attr=11/4 spec_dmg=0.24
+[start] health P2=570 P1=867 P3=507 P4=761
+[ep] slot18 opps=3    loss len= 542  dmg +3.33/-0.58  stones: picked=5 lost=3 opp=7(-7) forms=1/2  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=15(0) stonev=162 dmgF=0.60
+[zs] raw=+2.85 opp_mean=+4.69 adj=-2.92 dealt_nn=1.26 steps=542 spec_pen=+0.00 lost_pen=-3.00 spec_net=+0.00 lost_net=-1.67 attr=5/6 spec_dmg=0.00
+[opp] P1=leg103_league_2007040_steps.zip P3=leg103_league_512000_steps.zip
+[opp] P1=leg103_league_512000_steps.zip P3=leg25_league_3010560_steps.zip
+[start] health P2=574 P1=760 P3=660 P4=849
+[start] health P2=530 P1=882 P3=604 P4=815
+[ep] slot42 opps=3    loss len= 569  dmg +3.35/-0.61  stones: picked=5 lost=3 opp=9(-6) forms=1/3  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=21(2) stonev=167 dmgF=0.76
+[zs] raw=+6.77 opp_mean=+10.66 adj=-5.03 dealt_nn=0.76 steps=569 spec_pen=+0.00 lost_pen=-3.00 spec_net=+0.00 lost_net=-2.00 attr=3/8 spec_dmg=0.00
+[opp] P1=prog_leg33.zip P3=leg103_league_3502080_steps.zip
+[ep] slot53 opps=3    loss len= 318  dmg +2.00/-0.78  stones: picked=1 lost=2 opp=7(-5) forms=0/1  gem_rew=+3.00 shape=+0.00 appr=+0.00  chests=6(0) stonev=101 dmgF=0.00
+[zs] raw=-4.45 opp_mean=+5.19 adj=-10.28 dealt_nn=0.54 steps=318 spec_pen=-0.11 lost_pen=-2.00 spec_net=-0.11 lost_net=-0.33 attr=19/3 spec_dmg=0.11
+[opp] P1=leg103_league_512000_steps.zip P3=prog_leg103.zip
+[ep] slot21 opps=3    loss len= 439  dmg +2.79/-0.71  stones: picked=3 lost=4 opp=12(-5) forms=0/4  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=14(1) stonev=230 dmgF=0.00
+[zs] raw=-5.85 opp_mean=+8.11 adj=-14.84 dealt_nn=0.43 steps=439 spec_pen=-0.12 lost_pen=-4.00 spec_net=-0.12 lost_net=-3.00 attr=8/6 spec_dmg=0.12
+[opp] P1=prog_leg88.zip P3=leg96_league_2007040_steps.zip
+[start] health P2=551 P1=876 P3=824 P4=990
+[start] health P2=994 P1=866 P3=526 P4=594
+[start] health P2=930 P1=749 P3=695 P4=939
+[ep] slot56 opps=3    loss len= 545  dmg +3.17/-0.76  stones: picked=6 lost=4 opp=9(-8) forms=1/1  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=16(1) stonev=279 dmgF=1.81
+[zs] raw=+7.65 opp_mean=+6.09 adj=+0.48 dealt_nn=0.29 steps=545 spec_pen=-0.07 lost_pen=-4.00 spec_net=-0.07 lost_net=-1.33 attr=18/7 spec_dmg=0.07
+[opp] P1=leg103_league_1003520_steps.zip P3=leg103_league_2519040_steps.zip
+[start] health P2=566 P1=806 P3=863 P4=802
+[ep] slot13 opps=3    loss len= 191  dmg +0.54/-0.73  stones: picked=1 lost=2 opp=3(-2) forms=0/1  gem_rew=+3.00 shape=+0.00 appr=+0.00  chests=10(0) stonev=67 dmgF=0.00
+[zs] raw=-9.57 opp_mean=+2.35 adj=-12.29 dealt_nn=0.27 steps=191 spec_pen=+0.00 lost_pen=-2.00 spec_net=+0.00 lost_net=-1.33 attr=0/5 spec_dmg=0.00
+[opp] P1=leg103_league_3010560_steps.zip P3=leg91_league_2519040_steps.zip
+[ep] slot20 opps=3    loss len= 549  dmg +2.60/-0.67  stones: picked=7 lost=2 opp=7(-4) forms=2/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=13(1) stonev=215 dmgF=1.55
+[zs] raw=+6.85 opp_mean=+4.48 adj=+1.27 dealt_nn=0.96 steps=549 spec_pen=-0.29 lost_pen=-2.00 spec_net=-0.29 lost_net=-0.33 attr=4/3 spec_dmg=0.29
+[opp] P1=leg103_league_512000_steps.zip P3=leg103_league_1515520_steps.zip
+[start] health P2=895 P1=560 P3=790 P4=875
+[start] health P2=681 P1=988 P3=904 P4=712
+[ep] slot11 opps=3     win len= 509  dmg +4.87/-0.61  stones: picked=4 lost=2 opp=9(-11) forms=1/1  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=17(2) stonev=224 dmgF=1.30
+[zs] raw=+31.90 opp_mean=-8.37 adj=+39.25 dealt_nn=1.85 steps=509 spec_pen=-0.18 lost_pen=-2.00 spec_net=-0.18 lost_net=+1.00 attr=4/3 spec_dmg=0.18
+[ep] slot20 opps=3    loss len= 911  dmg +3.69/-0.75  stones: picked=4 lost=2 opp=13(-8) forms=1/3  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=28(1) stonev=229 dmgF=0.89
+[zs] raw=-0.97 opp_mean=+5.05 adj=-7.84 dealt_nn=0.87 steps=911 spec_pen=-0.12 lost_pen=-2.00 spec_net=-0.12 lost_net=-0.00 attr=6/8 spec_dmg=0.12
+[opp] P1=leg32_league_4014080_steps.zip P3=leg38_league_1003520_steps.zip
+[opp] P1=prog_leg102.zip P3=leg26_league_1515520_steps.zip
+[start] health P2=574 P1=790 P3=843 P4=848
+[start] health P2=756 P1=820 P3=789 P4=765
+[ep] slot40 opps=3     win len= 319  dmg +4.28/-0.34  stones: picked=6 lost=1 opp=4(-4) forms=2/1  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=11(1) stonev=133 dmgF=3.12
+[zs] raw=+37.74 opp_mean=-2.60 adj=+39.70 dealt_nn=0.86 steps=319 spec_pen=+0.00 lost_pen=-1.00 spec_net=+0.00 lost_net=+0.33 attr=11/0 spec_dmg=0.00
+[opp] P1=leg103_league_1515520_steps.zip P3=prog_leg46.zip
+[start] health P2=802 P1=990 P3=916 P4=966
+[ep] slot36 opps=3    loss len= 503  dmg +3.90/-0.95  stones: picked=7 lost=2 opp=8(-8) forms=2/2  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=19(2) stonev=201 dmgF=1.58
+[zs] raw=+13.05 opp_mean=+8.90 adj=+3.15 dealt_nn=1.57 steps=503 spec_pen=-0.12 lost_pen=-2.00 spec_net=-0.12 lost_net=-0.33 attr=8/8 spec_dmg=0.12
+[opp] P1=selfplay_28415469_steps.zip P3=leg70_league_2007040_steps.zip
+[ep] slot11 opps=3     win len= 870  dmg +4.87/-0.37  stones: picked=10 lost=2 opp=9(-7) forms=3/2  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=24(4) stonev=205 dmgF=3.05
+[zs] raw=+39.70 opp_mean=-5.30 adj=+43.26 dealt_nn=2.43 steps=870 spec_pen=-0.06 lost_pen=-2.00 spec_net=-0.06 lost_net=-0.00 attr=3/2 spec_dmg=0.06
+[opp] P1=leg103_league_3010560_steps.zip P3=leg103_league_2519040_steps.zip
+[start] health P2=680 P1=529 P3=560 P4=771
+[ep] slot21 opps=3     win len= 434  dmg +4.32/-0.40  stones: picked=10 lost=2 opp=6(-6) forms=3/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=13(3) stonev=213 dmgF=1.16
+[zs] raw=+38.58 opp_mean=-6.83 adj=+44.55 dealt_nn=1.42 steps=434 spec_pen=+0.00 lost_pen=-2.00 spec_net=+0.00 lost_net=-0.00 attr=2/2 spec_dmg=0.00
+[opp] P1=prog_leg103.zip P3=leg103_league_1515520_steps.zip
+[start] health P2=799 P1=547 P3=737 P4=806
+[start] health P2=589 P1=503 P3=935 P4=808
+[ep] slot34 opps=3    loss len= 520  dmg +3.50/-0.65  stones: picked=5 lost=6 opp=6(-5) forms=0/1  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=14(1) stonev=149 dmgF=0.00
+[zs] raw=+4.81 opp_mean=+6.48 adj=-2.71 dealt_nn=1.25 steps=520 spec_pen=+0.00 lost_pen=-6.00 spec_net=+0.00 lost_net=-4.00 attr=5/5 spec_dmg=0.00
+[opp] P1=leg99_league_3010560_steps.zip P3=leg103_league_1003520_steps.zip
+[start] health P2=662 P1=882 P3=744 P4=801
+[ep] slot30 opps=3    loss len= 322  dmg +3.47/-0.55  stones: picked=3 lost=1 opp=5(-4) forms=1/1  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=10(0) stonev=131 dmgF=1.61
+[zs] raw=+2.58 opp_mean=+3.57 adj=-1.64 dealt_nn=0.60 steps=322 spec_pen=-0.42 lost_pen=-1.00 spec_net=-0.42 lost_net=+0.33 attr=10/0 spec_dmg=0.42
+[opp] P1=leg103_league_512000_steps.zip P3=leg103_league_3010560_steps.zip
+[start] health P2=903 P1=525 P3=887 P4=644
+[ep] slot32 opps=3    loss len= 566  dmg +4.11/-0.59  stones: picked=5 lost=2 opp=9(-7) forms=1/2  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=16(0) stonev=234 dmgF=1.77
+[zs] raw=+9.48 opp_mean=+9.18 adj=-0.83 dealt_nn=1.65 steps=566 spec_pen=-0.10 lost_pen=-2.00 spec_net=-0.10 lost_net=-0.00 attr=6/3 spec_dmg=0.10
+[opp] P1=leg103_league_3010560_steps.zip P3=leg31_league_4014080_steps.zip
+[ep] slot54 opps=3     win len= 423  dmg +4.01/-0.70  stones: picked=9 lost=1 opp=7(-4) forms=3/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=11(2) stonev=323 dmgF=3.30
+[zs] raw=+37.65 opp_mean=-0.50 adj=+37.31 dealt_nn=0.68 steps=423 spec_pen=-0.17 lost_pen=-1.00 spec_net=-0.17 lost_net=+1.33 attr=9/24 spec_dmg=0.17
+[opp] P1=leg30_league_3010560_steps.zip P3=leg86_league_2519040_steps.zip
+[start] health P2=841 P1=851 P3=694 P4=917
+[start] health P2=503 P1=846 P3=819 P4=801
+[ep] slot11 opps=3    loss len= 413  dmg +3.07/-0.67  stones: picked=5 lost=3 opp=9(-7) forms=1/1  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=17(4) stonev=203 dmgF=1.16
+[zs] raw=+2.10 opp_mean=+6.27 adj=-5.00 dealt_nn=0.80 steps=413 spec_pen=+0.00 lost_pen=-3.00 spec_net=+0.00 lost_net=-0.67 attr=6/11 spec_dmg=0.00
+[opp] P1=leg103_league_1515520_steps.zip P3=leg103_league_3010560_steps.zip
+[ep] slot31 opps=3    loss len= 518  dmg +3.52/-0.57  stones: picked=4 lost=2 opp=10(-9) forms=1/2  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=19(0) stonev=146 dmgF=0.87
+[zs] raw=+4.75 opp_mean=+5.76 adj=-2.05 dealt_nn=0.77 steps=518 spec_pen=-0.18 lost_pen=-2.00 spec_net=-0.18 lost_net=-0.00 attr=1/5 spec_dmg=0.18
+[opp] P1=leg83_league_1515520_steps.zip P3=leg103_league_512000_steps.zip
+[ep] slot42 opps=3    loss len= 467  dmg +4.35/-0.58  stones: picked=9 lost=4 opp=10(-4) forms=2/2  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=17(2) stonev=281 dmgF=3.00
+[zs] raw=+10.52 opp_mean=+9.83 adj=-0.24 dealt_nn=1.02 steps=467 spec_pen=+0.00 lost_pen=-4.00 spec_net=+0.00 lost_net=-1.67 attr=3/3 spec_dmg=0.00
+[opp] P1=leg30_league_2007040_steps.zip P3=leg47_league_1515520_steps.zip
+[start] health P2=629 P1=535 P3=794 P4=655
+[start] health P2=853 P1=502 P3=877 P4=732
+[ep] slot56 opps=3    loss len= 496  dmg +1.51/-0.89  stones: picked=8 lost=9 opp=9(-10) forms=0/0  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=16(0) stonev=355 dmgF=0.00
+[zs] raw=+3.61 opp_mean=+5.36 adj=-2.74 dealt_nn=0.25 steps=496 spec_pen=+0.00 lost_pen=-9.00 spec_net=+0.00 lost_net=-5.67 attr=14/11 spec_dmg=0.00
+[opp] P1=prog_leg10.zip P3=leg11_league_2000016_steps.zip
+[start] health P2=986 P1=840 P3=863 P4=720
+[check] update 5 lag0_steps=2048/20480 logp_maxdiff=9.54e-06 value_maxdiff=1.19e-05
+[ep] slot57 opps=3     win len= 375  dmg +4.60/-0.43  stones: picked=13 lost=5 opp=5(-4) forms=3/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=11(2) stonev=218 dmgF=3.88
+[zs] raw=+34.52 opp_mean=-1.93 adj=+35.70 dealt_nn=0.86 steps=375 spec_pen=-0.01 lost_pen=-5.00 spec_net=-0.01 lost_net=-3.33 attr=10/4 spec_dmg=0.01
+[opp] P1=leg35_league_512000_steps.zip P3=prog_leg49.zip
+Early stopping at step 1 due to reaching max kl: 0.08
+[learner] update 5 steps=102400 376.5 steps/s (since end of update 1) train=1.1s lag(min/mean/max)=2/2.50/3 step_lag=1.51 actors=[0, 2, 12, 14, 16, 19, 20, 21, 22, 23] ep_starts_in_batch=42 mean_reward=+0.0257
+[stats] update 5 approx_kl=0.02295 clip_fraction=0.1672 entropy_loss=-0.7142 explained_variance=0.8114 value_loss=6.583 policy_gradient_loss=-0.004902 loss=2.115 n_updates=6.475e+04
+----------------------------------------
+| train/                  |            |
+|    approx_kl            | 0.02295143 |
+|    clip_fraction        | 0.167      |
+|    clip_range           | 0.2        |
+|    entropy_loss         | -0.714     |
+|    explained_variance   | 0.811      |
+|    learning_rate        | 0.0001     |
+|    loss                 | 2.11       |
+|    n_updates            | 64749      |
+|    policy_gradient_loss | -0.0049    |
+|    value_loss           | 6.58       |
+----------------------------------------
+[start] health P2=825 P1=661 P3=777 P4=642
+[start] health P2=616 P1=737 P3=707 P4=923
+[ep] slot55 opps=3    loss len= 250  dmg +1.96/-0.59  stones: picked=2 lost=3 opp=6(-3) forms=0/1  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=9(0) stonev=85 dmgF=0.00
+[zs] raw=-2.33 opp_mean=+4.87 adj=-7.69 dealt_nn=0.53 steps=250 spec_pen=-0.29 lost_pen=-3.00 spec_net=-0.29 lost_net=-2.00 attr=15/0 spec_dmg=0.29
+[opp] P1=leg103_league_2519040_steps.zip P3=leg103_league_3010560_steps.zip
+[start] health P2=601 P1=550 P3=903 P4=752
+[ep] slot59 opps=3    loss len= 560  dmg +1.88/-0.68  stones: picked=4 lost=5 opp=5(-3) forms=0/1  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=18(1) stonev=115 dmgF=0.00
+[zs] raw=+0.15 opp_mean=+3.62 adj=-4.59 dealt_nn=0.04 steps=560 spec_pen=-0.13 lost_pen=-5.00 spec_net=-0.13 lost_net=-4.00 attr=16/2 spec_dmg=0.13
+[opp] P1=leg66_league_2519040_steps.zip P3=leg103_league_512000_steps.zip
+[ep] slot18 opps=3     win len= 409  dmg +4.00/-0.54  stones: picked=6 lost=4 opp=9(-8) forms=1/2  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=17(1) stonev=282 dmgF=0.81
+[zs] raw=+34.17 opp_mean=-11.63 adj=+44.98 dealt_nn=0.76 steps=409 spec_pen=+0.00 lost_pen=-4.00 spec_net=+0.00 lost_net=-2.00 attr=4/8 spec_dmg=0.00
+[opp] P1=leg24_league_1000000_steps.zip P3=leg103_league_2519040_steps.zip
+[start] health P2=823 P1=752 P3=504 P4=813
+[start] health P2=717 P1=928 P3=803 P4=578
+[ep] slot22 opps=3    loss len= 528  dmg +3.48/-0.93  stones: picked=2 lost=1 opp=10(-7) forms=0/2  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=12(1) stonev=84 dmgF=0.00
+[zs] raw=-6.73 opp_mean=+4.97 adj=-12.75 dealt_nn=0.26 steps=528 spec_pen=-0.26 lost_pen=-1.00 spec_net=-0.26 lost_net=+0.67 attr=3/6 spec_dmg=0.26
+[opp] P1=leg103_league_2519040_steps.zip P3=leg95_league_512000_steps.zip
+[ep] slot32 opps=3    loss len= 527  dmg +4.25/-0.71  stones: picked=7 lost=2 opp=8(-5) forms=2/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=22(6) stonev=274 dmgF=2.62
+[zs] raw=+11.95 opp_mean=+8.15 adj=+2.75 dealt_nn=0.98 steps=527 spec_pen=-0.24 lost_pen=-2.00 spec_net=-0.24 lost_net=+0.67 attr=4/6 spec_dmg=0.24
+[opp] P1=leg103_league_3502080_steps.zip P3=leg103_league_2007040_steps.zip
+[ep] slot14 opps=3     win len= 615  dmg +4.35/-0.43  stones: picked=9 lost=2 opp=7(-5) forms=3/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=18(3) stonev=283 dmgF=2.88
+[zs] raw=+39.56 opp_mean=-5.63 adj=+43.96 dealt_nn=2.11 steps=615 spec_pen=+0.00 lost_pen=-2.00 spec_net=+0.00 lost_net=+1.00 attr=5/4 spec_dmg=0.00
+[opp] P1=leg93_league_3010560_steps.zip P3=prog_leg103.zip
+[ep] slot54 opps=3    loss len= 256  dmg +1.21/-0.50  stones: picked=1 lost=1 opp=4(-2) forms=0/1  gem_rew=+3.00 shape=+0.00 appr=+0.00  chests=5(0) stonev=77 dmgF=0.00
+[zs] raw=-3.92 opp_mean=+3.30 adj=-7.73 dealt_nn=0.09 steps=256 spec_pen=-0.09 lost_pen=-1.00 spec_net=-0.09 lost_net=-0.33 attr=7/18 spec_dmg=0.09
+[opp] P1=leg93_league_3502080_steps.zip P3=leg71_league_2519040_steps.zip
+[start] health P2=513 P1=985 P3=895 P4=881
+[start] health P2=851 P1=544 P3=849 P4=624
+[start] health P2=997 P1=967 P3=649 P4=887
+[start] health P2=650 P1=623 P3=737 P4=620
+[ep] slot52 opps=3    loss len= 335  dmg +1.31/-0.90  stones: picked=4 lost=5 opp=9(-7) forms=0/1  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=14(2) stonev=212 dmgF=0.00
+[zs] raw=+0.77 opp_mean=+7.68 adj=-7.58 dealt_nn=0.20 steps=335 spec_pen=-0.07 lost_pen=-5.00 spec_net=-0.07 lost_net=-3.67 attr=12/5 spec_dmg=0.07
+[opp] P1=leg54_league_3502080_steps.zip P3=prog_leg103.zip
+[start] health P2=785 P1=618 P3=740 P4=737
+[ep] slot50 opps=3     win len= 343  dmg +4.85/-0.03  stones: picked=5 lost=0 opp=2(-4) forms=2/0  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=10(0) stonev=220 dmgF=3.63
+[zs] raw=+35.20 opp_mean=-4.83 adj=+39.34 dealt_nn=0.46 steps=343 spec_pen=+0.00 lost_pen=+0.00 spec_net=+0.00 lost_net=+1.67 attr=1/0 spec_dmg=0.00
+[opp] P1=leg28_league_3502080_steps.zip P3=selfplay_2000016_steps.zip
+[start] health P2=611 P1=513 P3=881 P4=946
+[ep] slot12 opps=3    loss len= 431  dmg +4.67/-0.84  stones: picked=5 lost=3 opp=10(-7) forms=1/1  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=16(1) stonev=214 dmgF=2.08
+[zs] raw=+3.02 opp_mean=+3.12 adj=-0.96 dealt_nn=1.54 steps=431 spec_pen=-0.35 lost_pen=-3.00 spec_net=-0.35 lost_net=-0.00 attr=7/4 spec_dmg=0.35
+[opp] P1=leg22_league_1000000_steps.zip P3=leg103_league_512000_steps.zip
+[ep] slot59 opps=3    loss len= 232  dmg +1.29/-0.62  stones: picked=1 lost=2 opp=6(-5) forms=0/1  gem_rew=+3.00 shape=+0.00 appr=+0.00  chests=4(0) stonev=90 dmgF=0.00
+[zs] raw=-4.76 opp_mean=+4.35 adj=-9.58 dealt_nn=0.21 steps=232 spec_pen=-0.10 lost_pen=-2.00 spec_net=-0.10 lost_net=-0.33 attr=2/8 spec_dmg=0.10
+[opp] P1=prog_leg103.zip P3=leg103_league_3502080_steps.zip
+[ep] slot33 opps=3     win len= 799  dmg +4.15/-0.39  stones: picked=8 lost=3 opp=12(-4) forms=2/3  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=30(3) stonev=326 dmgF=2.21
+[zs] raw=+36.95 opp_mean=-0.29 adj=+35.65 dealt_nn=1.47 steps=799 spec_pen=+0.00 lost_pen=-3.00 spec_net=+0.00 lost_net=-1.00 attr=3/3 spec_dmg=0.00
+[opp] P1=leg92_league_4014080_steps.zip P3=leg103_league_512000_steps.zip
+[start] health P2=959 P1=905 P3=686 P4=503
+[ep] slot37 opps=3     win len= 819  dmg +4.45/-0.62  stones: picked=10 lost=2 opp=10(-7) forms=3/2  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=21(3) stonev=247 dmgF=1.16
+[zs] raw=+37.73 opp_mean=-0.55 adj=+36.64 dealt_nn=1.60 steps=819 spec_pen=-0.21 lost_pen=-2.00 spec_net=-0.21 lost_net=+0.33 attr=18/4 spec_dmg=0.21
+[opp] P1=leg103_league_2519040_steps.zip P3=leg103_league_2519040_steps.zip
+[start] health P2=897 P1=636 P3=854 P4=667
+[ep] slot31 opps=3     win len= 873  dmg +4.39/-0.55  stones: picked=10 lost=4 opp=10(-8) forms=2/0  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=19(0) stonev=396 dmgF=1.32
+[zs] raw=+35.38 opp_mean=-0.87 adj=+34.51 dealt_nn=1.34 steps=873 spec_pen=+0.00 lost_pen=-4.00 spec_net=+0.00 lost_net=+0.33 attr=9/2 spec_dmg=0.00
+[opp] P1=leg87_league_4014080_steps.zip P3=prog_leg102.zip
+[start] health P2=960 P1=996 P3=807 P4=789
+[ep] slot0 opps=3    loss len= 644  dmg +4.31/-0.57  stones: picked=9 lost=4 opp=10(-5) forms=2/2  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=23(2) stonev=293 dmgF=2.62
+[zs] raw=+5.52 opp_mean=+6.59 adj=-2.36 dealt_nn=1.32 steps=644 spec_pen=-0.26 lost_pen=-4.00 spec_net=-0.26 lost_net=-1.67 attr=3/4 spec_dmg=0.26
+[opp] P1=leg95_league_4014080_steps.zip P3=leg39_league_4014080_steps.zip
+[ep] slot16 opps=3     win len= 836  dmg +4.33/-0.36  stones: picked=12 lost=4 opp=7(-6) forms=3/0  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=31(6) stonev=197 dmgF=2.17
+[zs] raw=+35.53 opp_mean=-11.23 adj=+45.09 dealt_nn=1.28 steps=836 spec_pen=+0.00 lost_pen=-4.00 spec_net=+0.00 lost_net=-0.67 attr=2/4 spec_dmg=0.00
+[opp] P1=leg103_league_1515520_steps.zip P3=leg103_league_1515520_steps.zip
+[start] health P2=843 P1=808 P3=690 P4=636
+[start] health P2=655 P1=514 P3=754 P4=557
+[start] health P2=731 P1=687 P3=666 P4=667
+[start] health P2=798 P1=521 P3=614 P4=662
+[ep] slot10 opps=3    loss len= 342  dmg +3.70/-0.99  stones: picked=6 lost=4 opp=9(-5) forms=1/2  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=13(4) stonev=183 dmgF=0.88
+[zs] raw=+4.97 opp_mean=+3.71 adj=+0.58 dealt_nn=1.33 steps=342 spec_pen=-0.01 lost_pen=-4.00 spec_net=-0.01 lost_net=-2.33 attr=2/7 spec_dmg=0.01
+[opp] P1=leg57_league_2007040_steps.zip P3=leg103_league_1515520_steps.zip
+[start] health P2=870 P1=750 P3=887 P4=519
+[ep] slot37 opps=3     win len= 384  dmg +4.22/-0.15  stones: picked=3 lost=1 opp=8(-8) forms=1/1  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=10(1) stonev=121 dmgF=0.68
+[zs] raw=+27.95 opp_mean=+0.75 adj=+26.43 dealt_nn=0.43 steps=384 spec_pen=+0.00 lost_pen=-1.00 spec_net=+0.00 lost_net=+1.00 attr=1/2 spec_dmg=0.00
+[opp] P1=leg103_league_2007040_steps.zip P3=leg103_league_3010560_steps.zip
+[start] health P2=562 P1=571 P3=811 P4=670
+[ep] slot10 opps=3     win len= 564  dmg +5.13/-0.40  stones: picked=6 lost=1 opp=7(-3) forms=2/1  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=21(1) stonev=163 dmgF=2.85
+[zs] raw=+39.73 opp_mean=-6.82 adj=+45.42 dealt_nn=2.22 steps=564 spec_pen=-0.18 lost_pen=-1.00 spec_net=-0.18 lost_net=+1.33 attr=4/1 spec_dmg=0.18
+[opp] P1=leg103_league_3010560_steps.zip P3=leg89_league_2007040_steps.zip
+[ep] slot42 opps=3    loss len= 348  dmg +2.10/-0.83  stones: picked=1 lost=2 opp=5(-2) forms=0/1  gem_rew=+3.00 shape=+0.00 appr=+0.00  chests=9(2) stonev=96 dmgF=0.00
+[zs] raw=-5.32 opp_mean=+4.46 adj=-10.48 dealt_nn=0.12 steps=348 spec_pen=-0.04 lost_pen=-2.00 spec_net=-0.04 lost_net=-1.33 attr=8/2 spec_dmg=0.04
+[opp] P1=leg53_league_3010560_steps.zip P3=leg47_league_1515520_steps.zip
+[start] health P2=832 P1=754 P3=860 P4=611
+[ep] slot41 opps=3    loss len= 664  dmg +4.33/-0.76  stones: picked=8 lost=3 opp=9(-6) forms=2/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=25(3) stonev=164 dmgF=1.03
+[zs] raw=+9.86 opp_mean=+8.88 adj=-0.35 dealt_nn=0.52 steps=664 spec_pen=-0.11 lost_pen=-3.00 spec_net=-0.11 lost_net=+0.00 attr=2/15 spec_dmg=0.11
+[opp] P1=leg103_league_2007040_steps.zip P3=prog_leg28.zip
+[start] health P2=899 P1=665 P3=830 P4=554
+[ep] slot30 opps=3    loss len= 195  dmg +1.30/-0.51  stones: picked=2 lost=3 opp=3(-3) forms=0/1  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=3(0) stonev=49 dmgF=0.00
+[zs] raw=-2.54 opp_mean=+2.05 adj=-4.97 dealt_nn=0.18 steps=195 spec_pen=+0.00 lost_pen=-3.00 spec_net=+0.00 lost_net=-2.00 attr=3/2 spec_dmg=0.00
+[opp] P1=selfplay_29915481_steps.zip P3=prog_leg25.zip
+[start] health P2=772 P1=995 P3=600 P4=740
+[start] health P2=549 P1=722 P3=888 P4=896
+[ep] slot57 opps=3     win len= 455  dmg +4.47/-0.28  stones: picked=8 lost=0 opp=1(-3) forms=3/0  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=9(2) stonev=139 dmgF=2.62
+[zs] raw=+40.97 opp_mean=-8.03 adj=+48.10 dealt_nn=1.58 steps=455 spec_pen=+0.00 lost_pen=+0.00 spec_net=+0.00 lost_net=+1.33 attr=0/10 spec_dmg=0.00
+[opp] P1=leg80_league_1003520_steps.zip P3=leg103_league_3502080_steps.zip
+[start] health P2=971 P1=981 P3=868 P4=657
+[ep] slot51 opps=3    loss len= 459  dmg +3.63/-0.60  stones: picked=4 lost=2 opp=9(-6) forms=1/2  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=13(2) stonev=140 dmgF=2.20
+[zs] raw=+6.09 opp_mean=+4.54 adj=+0.63 dealt_nn=1.32 steps=459 spec_pen=-0.03 lost_pen=-2.00 spec_net=-0.03 lost_net=-0.00 attr=6/13 spec_dmg=0.03
+[opp] P1=leg103_league_2519040_steps.zip P3=leg103_league_2007040_steps.zip
+[ep] slot10 opps=3    loss len= 566  dmg +5.25/-0.80  stones: picked=9 lost=4 opp=7(-5) forms=2/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=17(3) stonev=213 dmgF=2.86
+[zs] raw=+5.56 opp_mean=+4.01 adj=+0.42 dealt_nn=1.40 steps=566 spec_pen=-0.32 lost_pen=-4.00 spec_net=-0.32 lost_net=-1.67 attr=13/4 spec_dmg=0.32
+[opp] P1=leg103_league_2519040_steps.zip P3=leg87_league_4014080_steps.zip
+[start] health P2=903 P1=648 P3=871 P4=577
+[start] health P2=738 P1=792 P3=488 P4=972
+[ep] slot16 opps=3     win len= 397  dmg +4.14/-0.65  stones: picked=4 lost=2 opp=11(-8) forms=1/2  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=12(4) stonev=155 dmgF=0.90
+[zs] raw=+29.74 opp_mean=-1.76 adj=+30.71 dealt_nn=0.64 steps=397 spec_pen=-0.09 lost_pen=-2.00 spec_net=-0.09 lost_net=+0.67 attr=4/4 spec_dmg=0.09
+[opp] P1=leg15_league_1000008_steps.zip P3=leg96_league_3502080_steps.zip
+[start] health P2=613 P1=895 P3=563 P4=636
+[ep] slot30 opps=3    loss len= 295  dmg +3.26/-0.84  stones: picked=4 lost=2 opp=8(-4) forms=1/2  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=12(2) stonev=117 dmgF=2.35
+[zs] raw=+4.91 opp_mean=+4.92 adj=-0.60 dealt_nn=0.89 steps=295 spec_pen=-0.43 lost_pen=-2.00 spec_net=-0.43 lost_net=-0.67 attr=8/1 spec_dmg=0.43
+[opp] P1=prog_leg29.zip P3=leg28_league_3502080_steps.zip
+[ep] slot38 opps=3    loss len= 392  dmg +2.22/-0.65  stones: picked=4 lost=2 opp=5(-4) forms=1/1  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=13(0) stonev=149 dmgF=1.24
+[zs] raw=+5.51 opp_mean=+1.04 adj=+3.68 dealt_nn=0.97 steps=392 spec_pen=+0.00 lost_pen=-2.00 spec_net=+0.00 lost_net=-0.33 attr=8/2 spec_dmg=0.00
+[opp] P1=leg100_league_3010560_steps.zip P3=leg103_league_3502080_steps.zip
+[start] health P2=861 P1=690 P3=895 P4=502
+[start] health P2=875 P1=917 P3=799 P4=696
+[ep] slot21 opps=3    loss len= 370  dmg +2.60/-0.56  stones: picked=7 lost=0 opp=3(-2) forms=2/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=13(2) stonev=66 dmgF=1.88
+[zs] raw=+9.39 opp_mean=-5.28 adj=+13.94 dealt_nn=1.02 steps=370 spec_pen=-0.35 lost_pen=+0.00 spec_net=-0.35 lost_net=+1.00 attr=2/3 spec_dmg=0.35
+[opp] P1=leg103_league_512000_steps.zip P3=prog_leg9.zip
+[start] health P2=850 P1=964 P3=920 P4=816
+[ep] slot36 opps=3     win len= 528  dmg +4.57/-0.36  stones: picked=9 lost=1 opp=10(-5) forms=3/2  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=23(2) stonev=284 dmgF=2.37
+[zs] raw=+38.56 opp_mean=+0.29 adj=+37.22 dealt_nn=0.99 steps=528 spec_pen=+0.00 lost_pen=-1.00 spec_net=+0.00 lost_net=+1.33 attr=2/3 spec_dmg=0.00
+[opp] P1=leg103_league_2519040_steps.zip P3=leg103_league_1515520_steps.zip
+[ep] slot33 opps=3     win len= 408  dmg +4.31/-0.65  stones: picked=5 lost=0 opp=7(-5) forms=2/2  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=13(1) stonev=272 dmgF=2.62
+[zs] raw=+34.84 opp_mean=+0.06 adj=+33.97 dealt_nn=0.92 steps=408 spec_pen=-0.53 lost_pen=+0.00 spec_net=-0.53 lost_net=+1.67 attr=3/1 spec_dmg=0.53
+[ep] slot43 opps=3    loss len= 477  dmg +4.28/-0.72  stones: picked=6 lost=4 opp=9(-6) forms=1/1  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=14(0) stonev=201 dmgF=1.34
+[zs] raw=+8.41 opp_mean=+4.52 adj=+2.93 dealt_nn=0.57 steps=477 spec_pen=-0.06 lost_pen=-4.00 spec_net=-0.06 lost_net=-1.33 attr=12/2 spec_dmg=0.06
+[opp] P1=leg81_league_3010560_steps.zip P3=leg31_league_3010560_steps.zip
+[opp] P1=leg40_league_4014080_steps.zip P3=prog_leg102.zip
+[ep] slot30 opps=3     win len= 757  dmg +4.27/-0.12  stones: picked=2 lost=0 opp=12(-7) forms=1/1  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=28(3) stonev=258 dmgF=0.69
+[zs] raw=+25.57 opp_mean=+1.21 adj=+22.84 dealt_nn=0.60 steps=757 spec_pen=+0.00 lost_pen=+0.00 spec_net=+0.00 lost_net=+4.00 attr=1/1 spec_dmg=0.00
+[opp] P1=leg103_league_3502080_steps.zip P3=leg16_league_500004_steps.zip
+[start] health P2=768 P1=774 P3=803 P4=681
+[check] update 6 lag0_steps=5312/20480 logp_maxdiff=1.38e-05 value_maxdiff=1.62e-05
+[start] health P2=598 P1=834 P3=916 P4=914
+Early stopping at step 1 due to reaching max kl: 0.05
+[learner] update 6 steps=122880 390.4 steps/s (since end of update 1) train=0.8s lag(min/mean/max)=2/2.40/3 step_lag=1.16 actors=[1, 3, 4, 5, 6, 7, 8, 9, 11, 17] ep_starts_in_batch=39 mean_reward=+0.0161
+[stats] update 6 approx_kl=0.02507 clip_fraction=0.1632 entropy_loss=-0.7254 explained_variance=0.8083 value_loss=6.789 policy_gradient_loss=0.00174 loss=3.004 n_updates=6.475e+04
+-----------------------------------------
+| train/                  |             |
+|    approx_kl            | 0.025073873 |
+|    clip_fraction        | 0.163       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -0.725      |
+|    explained_variance   | 0.808       |
+|    learning_rate        | 0.0001      |
+|    loss                 | 3           |
+|    n_updates            | 64751       |
+|    policy_gradient_loss | 0.00174     |
+|    value_loss           | 6.79        |
+-----------------------------------------
+[start] health P2=713 P1=502 P3=530 P4=683
+[start] health P2=885 P1=961 P3=814 P4=946
+[ep] slot21 opps=3    loss len= 530  dmg +1.96/-0.65  stones: picked=3 lost=4 opp=6(-3) forms=0/1  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=18(2) stonev=84 dmgF=0.00
+[zs] raw=-5.70 opp_mean=+0.65 adj=-7.41 dealt_nn=0.57 steps=530 spec_pen=-0.12 lost_pen=-4.00 spec_net=-0.12 lost_net=-2.67 attr=2/8 spec_dmg=0.12
+[opp] P1=leg103_league_3010560_steps.zip P3=leg98_league_1515520_steps.zip
+[start] health P2=582 P1=825 P3=672 P4=769
+[ep] slot16 opps=3    loss len= 602  dmg +3.33/-0.96  stones: picked=6 lost=1 opp=9(-5) forms=2/2  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=26(1) stonev=133 dmgF=1.93
+[zs] raw=+7.71 opp_mean=+3.03 adj=+3.48 dealt_nn=1.44 steps=602 spec_pen=+0.00 lost_pen=-1.00 spec_net=+0.00 lost_net=+0.67 attr=0/4 spec_dmg=0.00
+[opp] P1=leg103_league_3502080_steps.zip P3=leg78_league_3010560_steps.zip
+[ep] slot10 opps=3     win len= 435  dmg +4.04/-0.60  stones: picked=7 lost=2 opp=9(-5) forms=2/2  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=21(1) stonev=237 dmgF=2.37
+[zs] raw=+37.41 opp_mean=-3.47 adj=+40.01 dealt_nn=1.01 steps=435 spec_pen=-0.13 lost_pen=-2.00 spec_net=-0.13 lost_net=-0.00 attr=6/4 spec_dmg=0.13
+[opp] P1=prog_leg68.zip P3=leg36_league_4014080_steps.zip
+[start] health P2=994 P1=627 P3=764 P4=668
+[start] health P2=860 P1=751 P3=743 P4=619
+[ep] slot39 opps=3     win len= 532  dmg +4.47/-0.35  stones: picked=6 lost=1 opp=9(-8) forms=2/2  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=15(4) stonev=207 dmgF=1.46
+[zs] raw=+38.07 opp_mean=-0.58 adj=+37.58 dealt_nn=1.24 steps=532 spec_pen=+0.00 lost_pen=-1.00 spec_net=+0.00 lost_net=+1.00 attr=2/4 spec_dmg=0.00
+[opp] P1=leg68_league_2007040_steps.zip P3=leg103_league_3502080_steps.zip
+[ep] slot36 opps=3    loss len= 350  dmg +3.54/-0.61  stones: picked=5 lost=3 opp=5(-2) forms=1/1  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=11(2) stonev=182 dmgF=2.06
+[zs] raw=+5.93 opp_mean=+0.87 adj=+4.36 dealt_nn=0.15 steps=350 spec_pen=-0.06 lost_pen=-3.00 spec_net=-0.06 lost_net=-2.00 attr=3/4 spec_dmg=0.06
+[opp] P1=leg103_league_2519040_steps.zip P3=leg99_league_2007040_steps.zip
+[start] health P2=978 P1=510 P3=655 P4=733
+[start] health P2=808 P1=869 P3=488 P4=619
+[ep] slot42 opps=3    loss len= 427  dmg +3.51/-0.97  stones: picked=5 lost=3 opp=7(-4) forms=1/2  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=14(2) stonev=243 dmgF=1.93
+[zs] raw=+6.87 opp_mean=+7.13 adj=-1.11 dealt_nn=0.88 steps=427 spec_pen=-0.06 lost_pen=-3.00 spec_net=-0.06 lost_net=-1.67 attr=8/4 spec_dmg=0.06
+[opp] P1=leg102_league_3502080_steps.zip P3=leg103_league_512000_steps.zip
+[ep] slot50 opps=3    loss len= 320  dmg +1.68/-0.86  stones: picked=1 lost=2 opp=7(-5) forms=0/2  gem_rew=+3.00 shape=+0.00 appr=+0.00  chests=12(0) stonev=121 dmgF=0.00
+[zs] raw=-5.60 opp_mean=+6.45 adj=-12.69 dealt_nn=0.15 steps=320 spec_pen=-0.40 lost_pen=-2.00 spec_net=-0.40 lost_net=-1.33 attr=9/7 spec_dmg=0.40
+[opp] P1=leg103_league_1515520_steps.zip P3=prog_leg103.zip
+[start] health P2=645 P1=753 P3=470 P4=727
+[start] health P2=694 P1=738 P3=621 P4=787
+[ep] slot41 opps=3    loss len= 543  dmg +4.08/-0.83  stones: picked=6 lost=1 opp=10(-8) forms=2/2  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=15(1) stonev=244 dmgF=1.16
+[zs] raw=+11.18 opp_mean=+10.78 adj=-0.69 dealt_nn=0.55 steps=543 spec_pen=+0.00 lost_pen=-1.00 spec_net=+0.00 lost_net=+1.33 attr=0/6 spec_dmg=0.00
+[opp] P1=leg36_league_1515520_steps.zip P3=leg29_league_512000_steps.zip
+[ep] slot34 opps=3    loss len= 668  dmg +3.84/-0.85  stones: picked=10 lost=5 opp=6(-5) forms=2/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=20(0) stonev=299 dmgF=2.33
+[zs] raw=+9.17 opp_mean=+3.08 adj=+4.76 dealt_nn=1.19 steps=668 spec_pen=-0.02 lost_pen=-5.00 spec_net=-0.02 lost_net=-3.00 attr=14/13 spec_dmg=0.02
+[opp] P1=leg20_league_500004_steps.zip P3=leg103_league_2007040_steps.zip
+[ep] slot53 opps=3    loss len= 598  dmg +2.95/-0.61  stones: picked=4 lost=5 opp=10(-7) forms=0/1  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=19(4) stonev=241 dmgF=0.00
+[zs] raw=+1.07 opp_mean=+7.06 adj=-7.19 dealt_nn=0.46 steps=598 spec_pen=-0.04 lost_pen=-5.00 spec_net=-0.04 lost_net=-2.67 attr=4/8 spec_dmg=0.04
+[opp] P1=leg39_league_4014080_steps.zip P3=prog_leg51.zip
+[start] health P2=917 P1=758 P3=661 P4=824
+[start] health P2=801 P1=547 P3=606 P4=897
+[start] health P2=946 P1=674 P3=589 P4=949
+[ep] slot38 opps=3    loss len= 590  dmg +3.39/-0.79  stones: picked=3 lost=3 opp=7(-3) forms=0/2  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=16(4) stonev=150 dmgF=0.00
+[zs] raw=+0.11 opp_mean=+8.48 adj=-9.54 dealt_nn=0.65 steps=590 spec_pen=-0.22 lost_pen=-3.00 spec_net=-0.22 lost_net=-1.67 attr=13/2 spec_dmg=0.22
+[opp] P1=prog_leg27.zip P3=leg103_league_1515520_steps.zip
+[start] health P2=764 P1=827 P3=834 P4=704
+[ep] slot33 opps=3    loss len= 562  dmg +3.46/-0.90  stones: picked=6 lost=1 opp=7(-4) forms=2/2  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=15(0) stonev=168 dmgF=0.85
+[zs] raw=+11.68 opp_mean=+8.32 adj=+2.24 dealt_nn=1.11 steps=562 spec_pen=-0.51 lost_pen=-1.00 spec_net=-0.51 lost_net=+0.33 attr=8/3 spec_dmg=0.51
+[opp] P1=leg103_league_4014080_steps.zip P3=leg60_league_1003520_steps.zip
+[ep] slot33 opps=3     win len= 489  dmg +4.50/-0.14  stones: picked=5 lost=0 opp=8(-4) forms=2/2  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=14(1) stonev=249 dmgF=1.91
+[zs] raw=+34.86 opp_mean=+0.54 adj=+33.34 dealt_nn=0.49 steps=489 spec_pen=+0.00 lost_pen=+0.00 spec_net=+0.00 lost_net=+2.00 attr=0/3 spec_dmg=0.00
+[opp] P1=leg46_league_1515520_steps.zip P3=leg96_league_1003520_steps.zip
+[start] health P2=603 P1=910 P3=649 P4=991
+[start] health P2=820 P1=950 P3=910 P4=637
+[ep] slot12 opps=3    loss len= 319  dmg +3.13/-0.71  stones: picked=3 lost=1 opp=3(-3) forms=1/1  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=8(2) stonev=113 dmgF=1.67
+[zs] raw=-1.69 opp_mean=-1.53 adj=-0.79 dealt_nn=0.83 steps=319 spec_pen=+0.00 lost_pen=-1.00 spec_net=+0.00 lost_net=+0.00 attr=3/3 spec_dmg=0.00
+[opp] P1=leg103_league_512000_steps.zip P3=leg103_league_3010560_steps.zip
+[start] health P2=596 P1=996 P3=545 P4=786
+[ep] slot0 opps=3     win len= 277  dmg +4.69/-0.11  stones: picked=5 lost=1 opp=4(-5) forms=1/0  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=14(1) stonev=132 dmgF=2.92
+[zs] raw=+36.79 opp_mean=-9.18 adj=+45.42 dealt_nn=1.73 steps=277 spec_pen=+0.00 lost_pen=-1.00 spec_net=+0.00 lost_net=+1.33 attr=3/0 spec_dmg=0.00
+[opp] P1=leg74_league_3010560_steps.zip P3=leg103_league_4014080_steps.zip
+[start] health P2=665 P1=589 P3=490 P4=864
+[ep] slot53 opps=3     win len= 328  dmg +4.12/-0.06  stones: picked=5 lost=0 opp=2(-2) forms=2/0  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=11(0) stonev=130 dmgF=3.40
+[zs] raw=+36.09 opp_mean=-5.20 adj=+40.63 dealt_nn=0.90 steps=328 spec_pen=+0.00 lost_pen=+0.00 spec_net=+0.00 lost_net=+1.67 attr=2/1 spec_dmg=0.00
+[opp] P1=leg103_league_1515520_steps.zip P3=prog_leg80.zip
+[start] health P2=639 P1=930 P3=661 P4=987
+[ep] slot10 opps=3    loss len= 282  dmg +2.10/-0.58  stones: picked=4 lost=5 opp=4(-3) forms=0/1  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=8(1) stonev=87 dmgF=0.00
+[zs] raw=-2.71 opp_mean=-0.67 adj=-2.61 dealt_nn=0.77 steps=282 spec_pen=-0.10 lost_pen=-5.00 spec_net=-0.10 lost_net=-4.00 attr=4/4 spec_dmg=0.10
+[opp] P1=leg24_league_1500000_steps.zip P3=leg103_league_512000_steps.zip
+[ep] slot36 opps=3    loss len= 377  dmg +4.49/-0.85  stones: picked=4 lost=2 opp=7(-5) forms=1/1  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=13(3) stonev=97 dmgF=1.94
+[zs] raw=+5.60 opp_mean=+7.68 adj=-2.83 dealt_nn=1.32 steps=377 spec_pen=-0.44 lost_pen=-2.00 spec_net=-0.44 lost_net=+0.33 attr=2/2 spec_dmg=0.44
+[start] health P2=892 P1=707 P3=747 P4=634
+[opp] P1=leg103_league_1003520_steps.zip P3=leg83_league_2007040_steps.zip
+[start] health P2=583 P1=551 P3=919 P4=773
+[ep] slot36 opps=3    loss len= 695  dmg +4.11/-0.80  stones: picked=6 lost=4 opp=9(-7) forms=1/2  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=21(0) stonev=201 dmgF=0.85
+[zs] raw=+8.71 opp_mean=+5.44 adj=+1.88 dealt_nn=1.07 steps=695 spec_pen=-0.25 lost_pen=-4.00 spec_net=-0.25 lost_net=-2.00 attr=9/3 spec_dmg=0.25
+[opp] P1=leg52_league_4014080_steps.zip P3=prog_leg59.zip
+[start] health P2=710 P1=565 P3=706 P4=977
+[ep] slot42 opps=3    loss len= 875  dmg +3.62/-1.00  stones: picked=4 lost=5 opp=11(-8) forms=0/2  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=26(2) stonev=166 dmgF=0.00
+[zs] raw=+0.40 opp_mean=+7.76 adj=-9.12 dealt_nn=0.63 steps=875 spec_pen=-0.12 lost_pen=-5.00 spec_net=-0.12 lost_net=-3.33 attr=10/7 spec_dmg=0.12
+[opp] P1=selfplay_500004_steps.zip P3=leg26_league_1515520_steps.zip
+[start] health P2=786 P1=615 P3=585 P4=521
+[ep] slot57 opps=3     win len= 416  dmg +3.80/-0.53  stones: picked=7 lost=2 opp=2(-4) forms=2/0  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=6(0) stonev=236 dmgF=2.69
+[zs] raw=+37.91 opp_mean=-5.27 adj=+42.35 dealt_nn=1.14 steps=416 spec_pen=+0.00 lost_pen=-2.00 spec_net=+0.00 lost_net=-0.33 attr=3/3 spec_dmg=0.00
+[opp] P1=leg50_league_2007040_steps.zip P3=leg103_league_2007040_steps.zip
+[start] health P2=792 P1=554 P3=509 P4=691
+[ep] slot12 opps=3    loss len= 593  dmg +2.26/-0.89  stones: picked=4 lost=2 opp=8(-4) forms=1/2  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=19(1) stonev=148 dmgF=0.22
+[zs] raw=-1.09 opp_mean=+6.12 adj=-8.39 dealt_nn=0.49 steps=593 spec_pen=+0.00 lost_pen=-2.00 spec_net=+0.00 lost_net=-0.67 attr=9/8 spec_dmg=0.00
+[ep] slot12 opps=3    loss len= 737  dmg +4.05/-0.90  stones: picked=8 lost=6 opp=9(-4) forms=1/2  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=21(2) stonev=241 dmgF=1.57
+[zs] raw=+2.75 opp_mean=+1.67 adj=-0.39 dealt_nn=1.20 steps=737 spec_pen=-0.26 lost_pen=-6.00 spec_net=-0.26 lost_net=-4.67 attr=4/9 spec_dmg=0.26
+[opp] P1=leg78_league_2519040_steps.zip P3=prog_leg103.zip
+[opp] P1=leg59_league_1003520_steps.zip P3=prog_leg103.zip
+[ep] slot40 opps=3     win len= 366  dmg +4.42/-0.23  stones: picked=4 lost=2 opp=8(-7) forms=1/1  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=13(2) stonev=175 dmgF=0.30
+[zs] raw=+29.93 opp_mean=+0.18 adj=+29.01 dealt_nn=0.46 steps=366 spec_pen=-0.03 lost_pen=-2.00 spec_net=-0.03 lost_net=+0.67 attr=4/1 spec_dmg=0.03
+[opp] P1=leg103_league_512000_steps.zip P3=leg103_league_1003520_steps.zip
+[start] health P2=651 P1=900 P3=902 P4=530
+[ep] slot11 opps=3     win len= 724  dmg +5.01/-0.52  stones: picked=8 lost=3 opp=14(-10) forms=2/3  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=30(3) stonev=300 dmgF=2.09
+[zs] raw=+36.47 opp_mean=-4.41 adj=+39.44 dealt_nn=1.22 steps=724 spec_pen=+0.00 lost_pen=-3.00 spec_net=+0.00 lost_net=-0.33 attr=5/3 spec_dmg=0.00
+[opp] P1=leg32_league_2007040_steps.zip P3=leg103_league_4014080_steps.zip
+[start] health P2=821 P1=854 P3=909 P4=634
+[start] health P2=810 P1=896 P3=664 P4=750
+[ep] slot11 opps=3    loss len= 302  dmg +1.81/-0.76  stones: picked=3 lost=1 opp=2(-1) forms=1/1  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=10(2) stonev=56 dmgF=1.50
+[zs] raw=-2.54 opp_mean=+1.60 adj=-4.74 dealt_nn=0.41 steps=302 spec_pen=+0.00 lost_pen=-1.00 spec_net=+0.00 lost_net=-0.67 attr=0/3 spec_dmg=0.00
+[opp] P1=leg59_league_3502080_steps.zip P3=leg62_league_2007040_steps.zip
+[ep] slot19 opps=3     win len= 621  dmg +4.83/-0.06  stones: picked=8 lost=0 opp=10(-5) forms=3/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=19(2) stonev=251 dmgF=3.43
+[zs] raw=+42.10 opp_mean=-4.53 adj=+45.39 dealt_nn=2.20 steps=621 spec_pen=+0.00 lost_pen=+0.00 spec_net=+0.00 lost_net=+2.67 attr=0/2 spec_dmg=0.00
+[opp] P1=leg22_league_2500000_steps.zip P3=leg72_league_2007040_steps.zip
+[ep] slot20 opps=3     win len= 960  dmg +4.67/-0.28  stones: picked=7 lost=2 opp=10(-5) forms=2/3  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=25(3) stonev=142 dmgF=3.26
+[zs] raw=+39.31 opp_mean=-4.79 adj=+42.18 dealt_nn=2.26 steps=960 spec_pen=+0.00 lost_pen=-2.00 spec_net=+0.00 lost_net=-0.33 attr=1/3 spec_dmg=0.00
+[opp] P1=leg96_league_1003520_steps.zip P3=leg59_league_1515520_steps.zip
+[start] health P2=543 P1=624 P3=883 P4=605
+[start] health P2=989 P1=940 P3=805 P4=633
+[start] health P2=603 P1=620 P3=672 P4=985
+[start] health P2=844 P1=898 P3=563 P4=997
+[ep] slot34 opps=3    loss len= 304  dmg +4.41/-0.64  stones: picked=3 lost=1 opp=4(-3) forms=1/1  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=9(0) stonev=76 dmgF=2.93
+[zs] raw=+4.16 opp_mean=+2.57 adj=+0.98 dealt_nn=1.48 steps=304 spec_pen=-0.55 lost_pen=-1.00 spec_net=-0.55 lost_net=+0.00 attr=3/1 spec_dmg=0.55
+[opp] P1=leg101_league_2007040_steps.zip P3=leg59_league_1003520_steps.zip
+[start] health P2=635 P1=797 P3=526 P4=890
+[ep] slot59 opps=3     win len= 459  dmg +4.99/-0.69  stones: picked=6 lost=1 opp=5(-2) forms=2/1  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=11(2) stonev=188 dmgF=3.24
+[zs] raw=+36.89 opp_mean=-1.88 adj=+37.85 dealt_nn=0.88 steps=459 spec_pen=-0.26 lost_pen=-1.00 spec_net=-0.26 lost_net=+0.67 attr=6/2 spec_dmg=0.26
+[opp] P1=leg103_league_1515520_steps.zip P3=leg65_league_512000_steps.zip
+[ep] slot54 opps=3    loss len= 545  dmg +4.58/-0.60  stones: picked=8 lost=3 opp=12(-6) forms=2/2  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=14(0) stonev=290 dmgF=2.59
+[zs] raw=+9.96 opp_mean=+7.49 adj=+1.39 dealt_nn=0.38 steps=545 spec_pen=-0.10 lost_pen=-3.00 spec_net=-0.10 lost_net=-0.33 attr=10/3 spec_dmg=0.10
+[opp] P1=leg54_league_2007040_steps.zip P3=prog_leg94.zip
+[start] health P2=822 P1=920 P3=928 P4=744
+[start] health P2=974 P1=992 P3=862 P4=532
+[ep] slot37 opps=3    loss len= 403  dmg +5.04/-0.60  stones: picked=5 lost=3 opp=6(-6) forms=1/1  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=9(1) stonev=114 dmgF=2.46
+[zs] raw=+6.38 opp_mean=+7.48 adj=-1.90 dealt_nn=0.44 steps=403 spec_pen=-0.09 lost_pen=-3.00 spec_net=-0.09 lost_net=-1.00 attr=9/3 spec_dmg=0.09
+[opp] P1=leg103_league_2519040_steps.zip P3=leg102_league_2007040_steps.zip
+[start] health P2=638 P1=619 P3=566 P4=650
+[ep] slot32 opps=3    loss len= 582  dmg +3.82/-0.64  stones: picked=7 lost=5 opp=13(-12) forms=1/2  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=18(2) stonev=236 dmgF=1.63
+[zs] raw=+10.08 opp_mean=+7.59 adj=+1.33 dealt_nn=1.48 steps=582 spec_pen=-0.06 lost_pen=-5.00 spec_net=-0.06 lost_net=-1.67 attr=1/6 spec_dmg=0.06
+[opp] P1=prog_leg65.zip P3=leg103_league_512000_steps.zip
+[start] health P2=839 P1=576 P3=531 P4=618
+[ep] slot54 opps=3     win len= 431  dmg +3.44/-0.78  stones: picked=3 lost=1 opp=8(-3) forms=1/2  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=8(0) stonev=213 dmgF=1.18
+[zs] raw=+27.11 opp_mean=+1.95 adj=+24.30 dealt_nn=0.43 steps=431 spec_pen=-0.10 lost_pen=-1.00 spec_net=-0.10 lost_net=+0.00 attr=9/12 spec_dmg=0.10
+[opp] P1=prog_leg98.zip P3=prog_leg103.zip
+[ep] slot38 opps=3    loss len= 625  dmg +3.20/-0.86  stones: picked=7 lost=5 opp=6(-5) forms=1/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=16(2) stonev=224 dmgF=1.18
+[zs] raw=+8.24 opp_mean=+1.74 adj=+5.25 dealt_nn=0.68 steps=625 spec_pen=+0.00 lost_pen=-5.00 spec_net=+0.00 lost_net=-3.00 attr=2/4 spec_dmg=0.00
+[opp] P1=sweep40_kl01_league_2007040_steps.zip P3=leg86_league_3502080_steps.zip
+[start] health P2=968 P1=886 P3=573 P4=909
+[ep] slot15 opps=3    loss len= 567  dmg +3.97/-0.81  stones: picked=4 lost=1 opp=13(-7) forms=1/3  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=20(2) stonev=264 dmgF=1.12
+[zs] raw=+0.40 opp_mean=+0.62 adj=-1.36 dealt_nn=0.67 steps=567 spec_pen=+0.00 lost_pen=-1.00 spec_net=+0.00 lost_net=+0.33 attr=3/7 spec_dmg=0.00
+[opp] P1=leg103_league_2007040_steps.zip P3=prog_leg49.zip
+[start] health P2=705 P1=926 P3=639 P4=519
+[start] health P2=723 P1=793 P3=900 P4=769
+[ep] slot14 opps=3    loss len= 713  dmg +4.12/-0.60  stones: picked=11 lost=4 opp=8(-3) forms=3/2  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=21(2) stonev=215 dmgF=2.20
+[zs] raw=+5.73 opp_mean=+1.72 adj=+2.58 dealt_nn=1.41 steps=713 spec_pen=-0.06 lost_pen=-4.00 spec_net=-0.06 lost_net=-2.33 attr=4/2 spec_dmg=0.06
+[opp] P1=prog_leg73.zip P3=leg103_league_1515520_steps.zip
+[start] health P2=931 P1=619 P3=660 P4=503
+[ep] slot31 opps=3     win len= 464  dmg +3.89/-0.34  stones: picked=7 lost=5 opp=8(-4) forms=1/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=15(5) stonev=156 dmgF=0.63
+[zs] raw=+33.85 opp_mean=-0.09 adj=+33.01 dealt_nn=0.56 steps=464 spec_pen=+0.00 lost_pen=-5.00 spec_net=+0.00 lost_net=-2.33 attr=1/4 spec_dmg=0.00
+[opp] P1=leg103_league_1003520_steps.zip P3=leg73_league_2519040_steps.zip
+[ep] slot30 opps=3     win len= 529  dmg +3.51/-0.16  stones: picked=7 lost=0 opp=5(-3) forms=3/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=19(2) stonev=224 dmgF=1.80
+[zs] raw=+40.13 opp_mean=-2.82 adj=+41.89 dealt_nn=1.18 steps=529 spec_pen=+0.00 lost_pen=+0.00 spec_net=+0.00 lost_net=+1.67 attr=0/3 spec_dmg=0.00
+[opp] P1=leg103_league_3502080_steps.zip P3=prog_leg103.zip
+[start] health P2=951 P1=514 P3=506 P4=508
+[start] health P2=971 P1=639 P3=661 P4=743
+[check] update 7 lag0_steps=5440/20480 logp_maxdiff=1.34e-05 value_maxdiff=1.41e-05
+Early stopping at step 1 due to reaching max kl: 0.07
+[learner] update 7 steps=143360 389.1 steps/s (since end of update 1) train=0.8s lag(min/mean/max)=2/2.50/3 step_lag=1.18 actors=[0, 2, 10, 12, 13, 14, 15, 18, 19, 22] ep_starts_in_batch=47 mean_reward=+0.0273
+[stats] update 7 approx_kl=0.02197 clip_fraction=0.1404 entropy_loss=-0.7252 explained_variance=0.7757 value_loss=8.156 policy_gradient_loss=0.0012 loss=3.517 n_updates=6.475e+04
+-----------------------------------------
+| train/                  |             |
+|    approx_kl            | 0.021972267 |
+|    clip_fraction        | 0.14        |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -0.725      |
+|    explained_variance   | 0.776       |
+|    learning_rate        | 0.0001      |
+|    loss                 | 3.52        |
+|    n_updates            | 64753       |
+|    policy_gradient_loss | 0.0012      |
+|    value_loss           | 8.16        |
+-----------------------------------------
+leg complete -> ./powerstone_v6_meas9950x3_a24.zip
+/usr/lib/python3.12/multiprocessing/resource_tracker.py:254: UserWarning: resource_tracker: There appear to be 3 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
