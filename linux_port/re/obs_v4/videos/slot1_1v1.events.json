@@ -1,0 +1,145 @@
+{
+ "stone": [
+  [
+   5.0,
+   "1 loose stone(s)"
+  ],
+  [
+   15.0,
+   "1 loose stone(s)"
+  ],
+  [
+   25.0,
+   "1 loose stone(s)"
+  ],
+  [
+   35.0,
+   "2 loose stone(s)"
+  ],
+  [
+   45.0,
+   "2 loose stone(s)"
+  ]
+ ],
+ "stone_208_only": [],
+ "own_bullet_excluded": [
+  [
+   41.2,
+   "P2's own item bullet vt 0xc163f9e (grey, not in obs)"
+  ]
+ ],
+ "item_swing_contact": [
+  [
+   46.0,
+   "BOT swings its item"
+  ],
+  [
+   49.0,
+   "BOT swings its item"
+  ],
+  [
+   52.0,
+   "BOT swings its item"
+  ]
+ ],
+ "chest_open": [
+  [
+   7.8,
+   "STONE"
+  ],
+  [
+   9.6,
+   "Power Shield"
+  ],
+  [
+   11.2,
+   "Toy Hammer"
+  ],
+  [
+   11.9,
+   "Medium Bomb"
+  ],
+  [
+   14.5,
+   "Ice Rod"
+  ],
+  [
+   17.4,
+   "Short Cake"
+  ]
+ ],
+ "held": [],
+ "bot_held": [
+  [
+   39.5,
+   "P2 Magic Rod"
+  ],
+  [
+   44.8,
+   "P2 Battlefield Axe"
+  ]
+ ],
+ "projectile": [
+  [
+   18.8,
+   "projectile at -1167,-687 from P2"
+  ]
+ ],
+ "thrown": [],
+ "hit": [
+  [
+   5.0,
+   "P1 -66 by P2"
+  ],
+  [
+   19.8,
+   "P1 -36 by P2"
+  ],
+  [
+   41.6,
+   "P1 -58 by P2"
+  ],
+  [
+   42.2,
+   "P1 -58 by P2"
+  ],
+  [
+   42.9,
+   "P1 -58 by P2"
+  ],
+  [
+   43.4,
+   "P1 -58 by P2"
+  ],
+  [
+   43.9,
+   "P1 -58 by P2"
+  ],
+  [
+   47.9,
+   "P1 -50 by P2"
+  ],
+  [
+   50.7,
+   "P1 -50 by P2"
+  ],
+  [
+   65.1,
+   "P1 -72 by P2"
+  ],
+  [
+   65.2,
+   "P1 -72 by P2"
+  ],
+  [
+   68.8,
+   "P1 -72 by P2"
+  ]
+ ],
+ "stone_chest_seen": [
+  [
+   5.9,
+   "chest at (950,300)"
+  ]
+ ]
+}

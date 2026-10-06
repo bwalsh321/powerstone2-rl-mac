@@ -1,0 +1,43 @@
+s2a lag 0 axis x median|dpos-vel|=0.000  frac<0.05=0.617  frac<1=0.678
+s2a lag 0 axis y median|dpos-vel|=0.000  frac<0.05=0.825  frac<1=0.836
+s2a lag 0 axis z median|dpos-vel|=0.000  frac<0.05=0.662  frac<1=0.724
+s2a lag 1 axis x median|dpos-vel|=0.000  frac<0.05=0.584  frac<1=0.644
+s2a lag 1 axis y median|dpos-vel|=0.000  frac<0.05=0.956  frac<1=0.956
+s2a lag 1 axis z median|dpos-vel|=0.000  frac<0.05=0.626  frac<1=0.693
+s2a seat 1 horizontal |dpos - v(t)| <0.05 frac 0.648, mean speed 5.78
+s2a seat 2 horizontal |dpos - v(t)| <0.05 frac 0.492, mean speed 4.81
+s2a seat 3 horizontal |dpos - v(t)| <0.05 frac 0.678, mean speed 6.23
+s2a seat 4 horizontal |dpos - v(t)| <0.05 frac 0.561, mean speed 6.29
+s3a lag 0 axis x median|dpos-vel|=0.000  frac<0.05=0.628  frac<1=0.685
+s3a lag 0 axis y median|dpos-vel|=0.000  frac<0.05=0.689  frac<1=0.722
+s3a lag 0 axis z median|dpos-vel|=0.000  frac<0.05=0.623  frac<1=0.680
+s3a lag 1 axis x median|dpos-vel|=0.000  frac<0.05=0.582  frac<1=0.652
+s3a lag 1 axis y median|dpos-vel|=0.000  frac<0.05=0.932  frac<1=0.932
+s3a lag 1 axis z median|dpos-vel|=0.000  frac<0.05=0.575  frac<1=0.648
+s3a seat 1 horizontal |dpos - v(t)| <0.05 frac 0.555, mean speed 4.52
+s3a seat 2 horizontal |dpos - v(t)| <0.05 frac 0.488, mean speed 4.69
+s3a seat 3 horizontal |dpos - v(t)| <0.05 frac 0.516, mean speed 4.49
+s3a seat 4 horizontal |dpos - v(t)| <0.05 frac 0.662, mean speed 5.86
+per-state: frames, frac exact(<0.05), mean |dpos| when mismatch, mean |v|
+  state  0: n=  1398 exact=0.96  |dpos| mism=4.36  |v|=0.00
+  state  1: n= 12978 exact=0.90  |dpos| mism=4.23  |v|=7.01
+  state  2: n=   751 exact=0.30  |dpos| mism=3.02  |v|=3.10
+  state  4: n=   125 exact=0.95  |dpos| mism=1.68  |v|=0.00
+  state  5: n=  5496 exact=0.08  |dpos| mism=7.40  |v|=1.16
+  state  6: n=   116 exact=0.80  |dpos| mism=5.50  |v|=0.00
+  state  7: n=  5580 exact=0.24  |dpos| mism=3.20  |v|=4.53
+  state  8: n=  1420 exact=0.28  |dpos| mism=1.22  |v|=3.56
+  state  9: n=    69 exact=0.00  |dpos| mism=0.82  |v|=5.39
+  state 10: n=   563 exact=0.25  |dpos| mism=0.11  |v|=5.24
+  state 11: n=    72 exact=0.00  |dpos| mism=0.00  |v|=7.20
+  state 12: n=    72 exact=0.00  |dpos| mism=0.00  |v|=7.20
+  state 14: n=   171 exact=0.97  |dpos| mism=2.12  |v|=0.00
+  state 15: n=  1327 exact=0.82  |dpos| mism=6.14  |v|=8.65
+  state 16: n=  1070 exact=0.47  |dpos| mism=7.85  |v|=4.92
+  state 25: n=   295 exact=0.00  |dpos| mism=0.08  |v|=7.38
+  state 26: n=  2363 exact=0.48  |dpos| mism=2.14  |v|=5.99
+  state 32: n=  5216 exact=0.63  |dpos| mism=3.60  |v|=4.36
+  state 33: n=   302 exact=0.27  |dpos| mism=2.54  |v|=8.60
+  state 34: n=   434 exact=0.37  |dpos| mism=4.87  |v|=4.64
+  state 35: n=    46 exact=0.91  |dpos| mism=57.27  |v|=0.00
+  state 36: n=   108 exact=0.09  |dpos| mism=4.13  |v|=6.67

@@ -76,10 +76,13 @@ for kv in $OPTIM; do case "$kv" in PS2_LR=*|PS2_BATCH_SIZE=*|PS2_TARGET_KL=*) ex
 # leg_modes.txt as a fifth column. Evals never see these (base env), so the eval
 # contract is unchanged.
 ARENA="$(tr -s '[:space:]' ' ' < league_env.txt 2>/dev/null | sed 's/^ //;s/ $//')"
-for kv in $ARENA; do case "$kv" in PS2_ZERO_SUM=*|PS2_START_HEALTH=*|PS2_STATE_SLOTS=*|PS2_OBS_STACK=*|PS2_OBS_CTX_FIX=*|PS2_ZS_TIME=*|PS2_OBS_V3=*|PS2_SPECIAL_DMG_W=*|PS2_SPECIAL_R=*|PS2_LOST_EXTRA_W=*|PS2_LOSS_SCALE_LV8=*|PS2_SPECIAL_WINDOW=*|PS2_SPECIAL_WINDOW_CLOCK=*|PS2_SPECIAL_EVENTS=*|PS2_SPECIAL_ATTRIB=*|PS2_BUTTON_TAP=*|PS2_DEMOS=*|PS2_BC_COEF=*|PS2_BC_STEPS=*|PS2_BC_SEQS=*|PS2_BC_ANNEAL=*|PS2_BC_HOLDOUT=*|PS2_BC_EVAL=*|PS2_BC_PATIENCE=*|PS2_BC_RESULTS=*|PS2_OBJ_GRID_N=*) export "$kv" ;; *) echo "[wrapper-async] ignoring unknown arena flag $kv" >> wrapper_league.log ;; esac; done
+unset PS2_OBS_V4 PS2_OBS_V4_ITEMEMB    # Oct 5 2026: the v4 contract comes from league_env.txt only, never an inherited env
+for kv in $ARENA; do case "$kv" in PS2_ZERO_SUM=*|PS2_START_HEALTH=*|PS2_STATE_SLOTS=*|PS2_OBS_STACK=*|PS2_OBS_CTX_FIX=*|PS2_ZS_TIME=*|PS2_OBS_V3=*|PS2_SPECIAL_DMG_W=*|PS2_SPECIAL_R=*|PS2_LOST_EXTRA_W=*|PS2_LOSS_SCALE_LV8=*|PS2_SPECIAL_WINDOW=*|PS2_SPECIAL_WINDOW_CLOCK=*|PS2_SPECIAL_EVENTS=*|PS2_SPECIAL_ATTRIB=*|PS2_BUTTON_TAP=*|PS2_DEMOS=*|PS2_BC_COEF=*|PS2_BC_STEPS=*|PS2_BC_SEQS=*|PS2_BC_ANNEAL=*|PS2_BC_HOLDOUT=*|PS2_BC_EVAL=*|PS2_BC_PATIENCE=*|PS2_BC_RESULTS=*|PS2_OBJ_GRID_N=*|PS2_OBS_V4=*|PS2_OBS_V4_ITEMEMB=*) export "$kv" ;; *) echo "[wrapper-async] ignoring unknown arena flag $kv" >> wrapper_league.log ;; esac; done
 # Oct 3 2026 (Blake: action space "is priority"): league_surgery.txt holds one "<from_leg> <kind>" per line, applied in
 # file order. lstm128 = SkipLSTM memory (surgery_lstm.py); joint63 = 63-action direction x button set
 # (surgery_actions.py, combo penalty 3). Each applies only to a warm zip that does not have it yet.
+# Oct 5 2026: obsv4 = widen 160 -> 430 per frame (surgery_widen_v4.py: new columns zero = exact warm start); needs
+# PS2_OBS_V4=1 in league_env.txt. With PS2_OBS_V4_ITEMEMB=zero the parent's [12..17] columns are zeroed too.
 while read -r SURG_FROM SURG_KIND; do
   [ -n "$SURG_FROM" ] && [ "$N" -ge "$SURG_FROM" ] || continue
   case "$SURG_KIND" in
@@ -91,6 +94,12 @@ while read -r SURG_FROM SURG_KIND; do
       CHECK="from recurrent_policy import load_model as f; ok = int(f('${PREV}').action_space.n) == 63"
       OUT="./powerstone_v6_leg$((N-1))_joint63.zip"
       CMD="python surgery_actions.py \"$PREV\" \"$OUT\" --penalty 3"; TAG="ACTIONS=joint63" ;;
+    obsv4)
+      [ "${PS2_OBS_V4:-0}" = "1" ] || { echo "[wrapper-async] leg $N REFUSED: obsv4 surgery listed but league_env.txt lacks PS2_OBS_V4=1; nothing launched $(date)" | tee -a wrapper_league.log >&2; exit 2; }
+      CHECK="from obs_stack import kd_for; from recurrent_policy import load_model as f; ok = kd_for(f('${PREV}'))[1] == 430"
+      OUT="./powerstone_v6_leg$((N-1))_v4.zip"
+      ZI=""; [ "${PS2_OBS_V4_ITEMEMB:-keep}" = "zero" ] && ZI="--zero-item-emb"
+      CMD="python surgery_widen_v4.py \"$PREV\" \"$OUT\" $ZI"; TAG="OBS=v4" ;;
     *) echo "[wrapper-async] leg $N REFUSED: unknown surgery kind '$SURG_KIND'; nothing launched $(date)" | tee -a wrapper_league.log >&2; exit 2 ;;
   esac
   if ! python -c "import sys; ${CHECK}; sys.exit(0 if ok else 1)" 2>/dev/null; then

@@ -42,6 +42,8 @@ model = load_model(a.model)
 runner = PolicyRunner(model)
 env.set_action_mode(int(model.action_space.n))
 K, d = kd_for(model)
+env._legacy_item_main = env._legacy_item = (d <= 160)     # Oct 5 (obs v4): v2/v3 model keeps [12..17]
+assert d <= env.OBS_DIM, f"model reads {d}/frame but the env builds {env.OBS_DIM}: set PS2_OBS_V4=1"
 fs = FrameStack(K, d) if K > 1 else None
 emu = env._lr_bridge.emu
 STEP_S = 0.1

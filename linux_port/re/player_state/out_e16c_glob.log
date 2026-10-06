@@ -1,0 +1,46 @@
+Set variable override: flycast_hle_bios = enabled
+Set variable override: reicast_hle_bios = enabled
+Set variable override: flycast_device_port1_slot1 = VMU
+Set variable override: flycast_device_port2_slot1 = VMU
+Set variable override: flycast_threaded_rendering = disabled
+Set variable override: reicast_threaded_rendering = disabled
+2026-10-04 21:00:25.534 Python[55703:5291853] ApplePersistenceIgnoreState: Existing state will not be touched. New state will be written to /var/folders/gz/b_ggdqsj0s9_8mxs_fyvdkym0000gn/T/org.python.python.savedState
+cols: ['iceberg', 'space', 'desert', 'ship', 'pharaoh', 'garden', 'iceberg2', 'ship2']
+  8C472AB0 [0, 0, 0, 0, 0, 1, 0, 0]
+  8C472AB4 [0, 0, 0, 0, 0, 1, 0, 0]
+  8C472AB8 [0, 0, 0, 0, 0, 1, 0, 0]
+  8C472ABC [0, 0, 0, 0, 0, 10, 0, 0]
+  8C472AC0 [0, 0, 0, 0, 0, 10, 0, 0]
+  8C472CF0 [1, 1, 2, 0, 2, 0, 1, 0]
+  8C472CF8 [3, 4, 5, 0, 5, 1, 3, 0]
+  8C472DD0 [2, 2, 2, 2, 1, 2, 2, 2]
+  8C472DD8 [0, 0, 0, 0, 12, 0, 0, 0]
+  8C46E154 [104, 107, 0, 95, 0, 98, 104, 95]
+  8C46E155 [1, 1, 0, 1, 0, 1, 1, 1]
+  8C46E158 [127, 127, 0, 127, 0, 127, 127, 127]
+  8C46E15C [231, 242, 235, 226, 235, 228, 231, 226]
+  8C46E198 [3, 4, 5, 0, 5, 1, 3, 0]
+  8C46E1F0 [84, 36, 84, 228, 84, 164, 84, 228]
+  8C46E1F1 [185, 176, 185, 140, 185, 220, 185, 140]
+  8C46E1F5 [0, 0, 0, 64, 0, 0, 0, 64]
+  8C46E1F6 [0, 0, 0, 231, 0, 0, 0, 231]
+  8C46E1F7 [0, 0, 0, 196, 0, 0, 0, 196]
+  8C46E1FC [52, 164, 52, 52, 52, 164, 52, 52]
+  8C46E1FD [185, 175, 185, 185, 185, 221, 185, 185]
+  8C46E201 [0, 0, 0, 0, 0, 128, 0, 0]
+  8C46E202 [250, 0, 250, 250, 250, 187, 250, 250]
+  8C46E203 [69, 0, 69, 69, 69, 69, 69, 69]
+  8C46E208 [20, 196, 20, 20, 20, 100, 20, 20]
+  8C46E209 [185, 175, 185, 185, 185, 221, 185, 185]
+  8C46E20D [0, 192, 0, 0, 0, 128, 0, 0]
+  8C46E20E [250, 218, 250, 250, 250, 187, 250, 250]
+  8C46E214 [116, 4, 116, 116, 116, 116, 116, 116]
+  8C46E215 [185, 176, 185, 185, 185, 185, 185, 185]
+  8C46E220 [0, 228, 0, 0, 0, 0, 0, 0]
+  8C46E221 [0, 175, 0, 0, 0, 0, 0, 0]
+  8C46E222 [0, 40, 0, 0, 0, 0, 0, 0]
+  8C46E223 [0, 12, 0, 0, 0, 0, 0, 0]
+  8C46E225 [0, 96, 0, 0, 0, 0, 0, 0]
+  8C46E226 [0, 106, 0, 0, 0, 0, 0, 0]
+  8C46E227 [0, 70, 0, 0, 0, 0, 0, 0]
+DONE

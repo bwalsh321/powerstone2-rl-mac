@@ -1,0 +1,220 @@
+f=474 forced chest 0x8c50c0d0 content -> 0x1
+f=534 forced chest 0x8c50c500 content -> 0x2
+f=654 forced chest 0x8c5068e0 content -> 0x3
+f=714 forced chest 0x8c50d9f0 content -> 0x4
+f=774 forced chest 0x8c50d5c0 content -> 0x5
+f=1346 forced chest 0x8c50ffa0 content -> 0x6
+f=1854 forced chest 0x8c50e250 content -> 0x7
+f=1980 forced chest 0x8c5103d0 content -> 0x8
+f=2158 forced chest 0x8c50d190 content -> 0x9
+f=2410 forced chest 0x8c507570 content -> 0xa
+f=2642 forced chest 0x8c50eee0 content -> 0xb
+f=3002 forced chest 0x8c5064b0 content -> 0xc
+f=3706 forced chest 0x8c511cf0 content -> 0xd
+f=4062 forced chest 0x8c50fb70 content -> 0xe
+f=4122 forced chest 0x8c50e250 content -> 0xf
+f=4182 forced chest 0x8c511490 content -> 0x10
+f=4706 forced chest 0x8c50f740 content -> 0x11
+f=5310 forced chest 0x8c512db0 content -> 0x12
+f=5370 forced chest 0x8c50e680 content -> 0x13
+f=5430 forced chest 0x8c511490 content -> 0x14
+f=5652 forced chest 0x8c50ffa0 content -> 0x15
+f=6096 forced chest 0x8c513e70 content -> 0x16
+f=6682 forced chest 0x8c513610 content -> 0x17
+f=6802 forced chest 0x8c50f310 content -> 0x18
+f=6870 forced chest 0x8c5142a0 content -> 0x19
+f=7102 forced chest 0x8c50f740 content -> 0x1a
+f=7568 forced chest 0x8c5146d0 content -> 0x1b
+f=8068 forced chest 0x8c5068e0 content -> 0x1c
+f=8356 forced chest 0x8c5118c0 content -> 0x1d
+f=8502 forced chest 0x8c50e250 content -> 0x1e
+f=9154 forced chest 0x8c513a40 content -> 0x1f
+f=9344 forced chest 0x8c50d190 content -> 0x20
+f=9578 forced chest 0x8c50d5c0 content -> 0x21
+f=9986 forced chest 0x8c507570 content -> 0x22
+f=10046 forced chest 0x8c510800 content -> 0x23
+f=11072 forced chest 0x8c50cd60 content -> 0x24
+f=11310 forced chest 0x8c50c930 content -> 0x25
+f=11476 forced chest 0x8c511490 content -> 0x26
+f=12640 forced chest 0x8c5079a0 content -> 0x27
+f=13348 forced chest 0x8c513610 content -> 0x28
+f=13408 forced chest 0x8c50de20 content -> 0x29
+f=13474 forced chest 0x8c50f740 content -> 0x2a
+f=14216 forced chest 0x8c516850 content -> 0x2b
+f=14386 forced chest 0x8c50eab0 content -> 0x2c
+f=14446 forced chest 0x8c50c500 content -> 0x2d
+f=14868 forced chest 0x8c50e680 content -> 0x2e
+f=15022 forced chest 0x8c513e70 content -> 0x2f
+f=15216 forced chest 0x8c517910 content -> 0x30
+f=16466 forced chest 0x8c517d40 content -> 0x31
+f=16962 forced chest 0x8c5189d0 content -> 0x32
+f=17046 forced chest 0x8c5142a0 content -> 0x33
+f=17610 forced chest 0x8c512980 content -> 0x34
+f=17814 forced chest 0x8c511490 content -> 0x35
+f=17948 forced chest 0x8c51ab50 content -> 0x36
+f=18574 forced chest 0x8c5185a0 content -> 0x37
+f=19078 forced chest 0x8c512980 content -> 0x38
+f=19558 forced chest 0x8c5142a0 content -> 0x39
+f=20192 forced chest 0x8c516420 content -> 0x3a
+f=20572 forced chest 0x8c50f310 content -> 0x3b
+f=21360 forced chest 0x8c516c80 content -> 0x3c
+TOUR f=21420 idx=26 vt=0x0c0f1688 hdr=0x00000309 id=0xc3 st=0x2 pos=(1140,100,1140) 
+TOUR f=21420 idx=27 vt=0x0c0f1688 hdr=0x00010209 id=0xc3 st=0x2 pos=(100,100,-900) bbox=(469, 77, 534, 165)
+TOUR f=21420 idx=28 vt=0x0c0f1688 hdr=0x00020309 id=0xc3 st=0x2 pos=(300,100,-1100) bbox=(583, 76, 639, 166)
+TOUR f=21420 idx=29 vt=0x0c0f1688 hdr=0x00030009 id=0xc3 st=0x2 pos=(-867,100,1021) 
+TOUR f=21420 idx=30 vt=0x0c0f1688 hdr=0x00040109 id=0xc3 st=0x2 pos=(-650,100,1050) 
+TOUR f=21420 idx=31 vt=0x0c0f1688 hdr=0x00050209 id=0xc3 st=0x2 pos=(-1097,100,-792) bbox=(161, 11, 204, 77)
+TOUR f=21420 idx=32 vt=0x0c0f1688 hdr=0x00060109 id=0xc3 st=0x2 pos=(-900,100,100) 
+TOUR f=21420 idx=33 vt=0x0c0f1688 hdr=0x00070209 id=0xc3 st=0x2 pos=(-1100,100,300) 
+TOUR f=21420 idx=34 vt=0x0c0f18d4 hdr=0x0000ff09 id=0xc8 st=0x2 pos=(-1000,0,-1000) bbox=(228, 0, 251, 71)
+TOUR f=21420 idx=35 vt=0x0c0f18d4 hdr=0x0101ff09 id=0xc8 st=0x2 pos=(950,0,-850) 
+TOUR f=21420 idx=36 vt=0x0c0f18d4 hdr=0x0202ff09 id=0xc8 st=0x2 pos=(100,0,1000) 
+TOUR f=21420 idx=37 vt=0x0c0f18d4 hdr=0x0303ff09 id=0xc8 st=0x2 pos=(-1050,0,800) 
+TOUR f=21420 idx=63 vt=0x0c0c9810 hdr=0x00000209 id=0x24 st=0x5 pos=(3,-27,14) bbox=(187, 226, 219, 264)
+TOUR f=21420 idx=82 vt=0x0c0c9810 hdr=0x00000209 id=0x37 st=0x2 pos=(-619,40,254) 
+TOUR f=21420 idx=103 vt=0x0c0cc7a8 hdr=0x0000ff09 id=0xc2 st=0x2 pos=(0,50,600) 
+TOUR f=21420 idx=109 vt=0x0c0cc7a8 hdr=0x0000ff09 id=0xc2 st=0x2 pos=(950,50,300) 
+TOUR f=21420 idx=111 vt=0x0c0c9810 hdr=0x00000009 id=0x3b st=0x5 pos=(0,-13,20) bbox=(467, 121, 546, 161)
+TOUR f=21420 idx=117 vt=0x0c0ceb94 hdr=0x00000009 id=0xc8 st=0x2 pos=(250,0,-600) bbox=(424, 0, 563, 259)
+TOUR f=26040 idx=24 vt=0x0c0f0e08 hdr=0x0000ff09 id=0xc3 st=0x2 pos=(-500,50,350) 
+TOUR f=26040 idx=25 vt=0x0c0f0e08 hdr=0x0001ff09 id=0xc3 st=0x2 pos=(-500,50,550) 
+TOUR f=26040 idx=26 vt=0x0c0f0e08 hdr=0x0002ff09 id=0xc3 st=0x2 pos=(-500,50,450) 
+TOUR f=26040 idx=27 vt=0x0c0f0e08 hdr=0x0003ff09 id=0xc3 st=0x2 pos=(500,50,0) 
+TOUR f=26040 idx=28 vt=0x0c0f0e08 hdr=0x0004ff09 id=0xc3 st=0x2 pos=(500,50,100) 
+TOUR f=26040 idx=29 vt=0x0c0f0e08 hdr=0x0005ff09 id=0xc3 st=0x2 pos=(500,50,200) 
+TOUR f=26040 idx=30 vt=0x0c0f0e08 hdr=0x0006ff09 id=0xc3 st=0x2 pos=(400,50,50) bbox=(604, 274, 639, 295)
+TOUR f=26040 idx=31 vt=0x0c0f0e08 hdr=0x0007ff09 id=0xc3 st=0x2 pos=(400,50,150) bbox=(517, 290, 639, 479)
+TOUR f=26040 idx=32 vt=0x0c0f109a hdr=0x0000ff09 id=0xc8 st=0x2 pos=(200,0,400) bbox=(0, 0, 53, 479)
+f=26802 forced chest 0x8c507140 content -> 0x3d
+f=26862 forced chest 0x8c506d10 content -> 0x3e
+f=26922 forced chest 0x8c5064b0 content -> 0x3f
+f=27042 forced chest 0x8c507dd0 content -> 0x40
+f=27102 forced chest 0x8c508200 content -> 0x41
+TOUR f=27120 idx=24 vt=0x0c0f0e08 hdr=0x00000309 id=0xc3 st=0x1 pos=(-500,50,400) 
+TOUR f=27120 idx=25 vt=0x0c0f0e08 hdr=0x0001ff09 id=0xc3 st=0x2 pos=(-500,50,681) 
+TOUR f=27120 idx=26 vt=0x0c0f0e08 hdr=0x0002ff09 id=0xc3 st=0x2 pos=(-500,50,581) 
+TOUR f=27120 idx=27 vt=0x0c0f0e08 hdr=0x0003ff09 id=0xc3 st=0x2 pos=(501,50,0) 
+TOUR f=27120 idx=28 vt=0x0c0f0e08 hdr=0x0004ff09 id=0xc3 st=0x2 pos=(500,50,100) 
+TOUR f=27120 idx=29 vt=0x0c0f0e08 hdr=0x0005ff09 id=0xc3 st=0x2 pos=(500,50,200) 
+TOUR f=27120 idx=30 vt=0x0c0f0e08 hdr=0x0006ff09 id=0xc3 st=0x2 pos=(400,50,50) bbox=(339, 445, 441, 479)
+TOUR f=27120 idx=31 vt=0x0c0f0e08 hdr=0x0007ff09 id=0xc3 st=0x2 pos=(400,50,150) bbox=(329, 475, 342, 479)
+TOUR f=27120 idx=32 vt=0x0c0f109a hdr=0x0000ff09 id=0xc8 st=0x2 pos=(200,0,400) bbox=(0, 193, 57, 479)
+TOUR f=27120 idx=39 vt=0x0c0cd554 hdr=0x00000109 id=0xc6 st=0x2 pos=(-14,196,-109) bbox=(300, 240, 336, 365)
+TOUR f=27120 idx=40 vt=0x0c0cd554 hdr=0x00000109 id=0xc6 st=0x2 pos=(6,34,-52) bbox=(293, 336, 302, 364)
+TOUR f=27120 idx=41 vt=0x0c0c9810 hdr=0x00000009 id=0x3d st=0x2 pos=(450,150,-850) 
+TOUR f=27120 idx=42 vt=0x0c0cc7a8 hdr=0x0000ff09 id=0xc2 st=0x2 pos=(-1050,50,-268) 
+TOUR f=27120 idx=43 vt=0x0c0cc7a8 hdr=0x0000ff09 id=0xc2 st=0x2 pos=(400,50,500) 
+TOUR f=27120 idx=44 vt=0x0c0cc7a8 hdr=0x0000ff09 id=0xc2 st=0x2 pos=(-1050,50,32) bbox=(151, 171, 215, 256)
+TOUR f=27120 idx=45 vt=0x0c0cc7a8 hdr=0x0000ff09 id=0xc2 st=0x2 pos=(-1050,50,182) 
+TOUR f=27120 idx=46 vt=0x0c0cc7a8 hdr=0x0000ff09 id=0xc2 st=0x2 pos=(-1050,50,-718) 
+TOUR f=27120 idx=47 vt=0x0c0cc7a8 hdr=0x0000ff09 id=0xc2 st=0x2 pos=(-400,50,500) 
+TOUR f=27120 idx=48 vt=0x0c0c9810 hdr=0x00000009 id=0x3f st=0x2 pos=(0,70,0) bbox=(235, 312, 300, 393)
+TOUR f=27120 idx=50 vt=0x0c0cbcb0 hdr=0x00000009 id=0xc1 st=0x0 pos=(352,292,11) bbox=(376, 269, 452, 347)
+f=27432 forced chest 0x8c50a380 content -> 0x42
+f=27492 forced chest 0x8c509f50 content -> 0x43
+f=27552 forced chest 0x8c506080 content -> 0x44
+f=27612 forced chest 0x8c5064b0 content -> 0x45
+f=27732 forced chest 0x8c5096f0 content -> 0x46
+f=27792 forced chest 0x8c508630 content -> 0x47
+f=28360 forced chest 0x8c501520 content -> 0x48
+f=28808 forced chest 0x8c50b010 content -> 0x49
+f=28934 forced chest 0x8c50eee0 content -> 0x4a
+f=28994 forced chest 0x8c50fb70 content -> 0x4b
+f=29460 forced chest 0x8c5010f0 content -> 0x4c
+f=29520 forced chest 0x8c50e250 content -> 0x4d
+f=29580 forced chest 0x8c50a7b0 content -> 0x4e
+f=29700 forced chest 0x8c50cd60 content -> 0x4f
+TOUR f=29760 idx=20 vt=0x0c0cc7a8 hdr=0x0000ff09 id=0xc2 st=0x2 pos=(800,5900,-800) 
+TOUR f=29760 idx=21 vt=0x0c0f0e08 hdr=0x0008ff09 id=0xc3 st=0x2 pos=(-900,4345,-350) 
+TOUR f=29760 idx=24 vt=0x0c0f0e08 hdr=0x0012ff09 id=0xc3 st=0x2 pos=(-850,3550,350) 
+TOUR f=29760 idx=25 vt=0x0c0f0e08 hdr=0x0011ff09 id=0xc3 st=0x2 pos=(-850,3550,450) 
+TOUR f=29760 idx=26 vt=0x0c0f0e08 hdr=0x000dff09 id=0xc3 st=0x2 pos=(750,3550,400) 
+TOUR f=29760 idx=27 vt=0x0c0f0e08 hdr=0x0010ff09 id=0xc3 st=0x2 pos=(-850,3550,550) 
+TOUR f=29760 idx=29 vt=0x0c0f0e08 hdr=0x000fff09 id=0xc3 st=0x2 pos=(-850,3650,400) 
+TOUR f=29760 idx=30 vt=0x0c0f0e08 hdr=0x000eff09 id=0xc3 st=0x2 pos=(-850,3650,500) 
+TOUR f=29760 idx=31 vt=0x0c0f0e08 hdr=0x000cff09 id=0xc3 st=0x2 pos=(750,3550,500) 
+TOUR f=29760 idx=32 vt=0x0c0ebc60 hdr=0x0101ff09 id=0xca st=0x2 pos=(800,3650,50) bbox=(0, 0, 246, 190)
+TOUR f=29760 idx=45 vt=0x0c0cc7a8 hdr=0x0000ff09 id=0xc2 st=0x2 pos=(-750,3550,350) 
+TOUR f=29760 idx=48 vt=0x0c0ebc60 hdr=0x0000ff09 id=0xca st=0x2 pos=(-750,4550,-750) 
+TOUR f=29760 idx=50 vt=0x0c0f0e08 hdr=0x000aff09 id=0xc3 st=0x2 pos=(154,3550,320) 
+TOUR f=29760 idx=51 vt=0x0c0f0e08 hdr=0x0009ff09 id=0xc3 st=0x2 pos=(-800,4345,-350) 
+TOUR f=29760 idx=56 vt=0x0c0cc7a8 hdr=0x0000ff09 id=0xc2 st=0x2 pos=(-850,4450,-650) 
+TOUR f=29760 idx=62 vt=0x0c0f0e08 hdr=0x000bff09 id=0xc3 st=0x2 pos=(154,3550,100) 
+TOUR f=29760 idx=64 vt=0x0c0ebc60 hdr=0x0202ff09 id=0xca st=0x2 pos=(-99,3650,350) 
+TOUR f=29760 idx=65 vt=0x0c0cc7a8 hdr=0x00000009 id=0xc2 st=0x9 pos=(450,3215,-650) bbox=(379, 182, 434, 268)
+TOUR f=29760 idx=70 vt=0x0c0cc7a8 hdr=0x0000ff09 id=0xc2 st=0x2 pos=(900,3550,350) 
+TOUR f=29760 idx=72 vt=0x0c0cc7a8 hdr=0x0000ff09 id=0xc2 st=0x2 pos=(-800,6650,-750) 
+TOUR f=29760 idx=74 vt=0x0c0cc7a8 hdr=0x0000ff09 id=0xc2 st=0x2 pos=(-296,3550,316) 
+TOUR f=29760 idx=76 vt=0x0c0f109a hdr=0x0101ff09 id=0xc8 st=0x2 pos=(-299,3500,550) 
+f=29820 forced chest 0x8c50d190 content -> 0x50
+f=29880 forced chest 0x8c501d80 content -> 0x51
+TOUR f=34080 idx=17 vt=0x0c0e455e hdr=0x0202ff09 id=0xc4 st=0x0 pos=(250,0,700) bbox=(373, 157, 401, 175)
+TOUR f=34080 idx=18 vt=0x0c0e455e hdr=0x0202ff09 id=0xc4 st=0x0 pos=(-250,0,700) bbox=(403, 131, 430, 147)
+TOUR f=34080 idx=19 vt=0x0c0e455e hdr=0x0303ff09 id=0xc4 st=0x0 pos=(0,211,-297) bbox=(458, 149, 539, 205)
+TOUR f=34080 idx=23 vt=0x0c0e7ff0 hdr=0x0000ff09 id=0xc3 st=0x1 pos=(1250,-150,1100) 
+TOUR f=34080 idx=24 vt=0x0c0e7ff0 hdr=0x0101ff09 id=0xc3 st=0x1 pos=(1250,-150,1100) 
+TOUR f=34080 idx=31 vt=0x0c0e8ae4 hdr=0x0000ff09 id=0xc3 st=0x2 pos=(-490,78,100) bbox=(477, 145, 489, 153)
+TOUR f=34080 idx=32 vt=0x0c0e8ae4 hdr=0x0001ff09 id=0xc3 st=0x2 pos=(-490,78,200) bbox=(463, 141, 479, 157)
+TOUR f=34080 idx=33 vt=0x0c0e8ae4 hdr=0x0002ff09 id=0xc3 st=0x2 pos=(190,78,100) bbox=(434, 185, 451, 204)
+TOUR f=34080 idx=34 vt=0x0c0e8ae4 hdr=0x0003ff09 id=0xc3 st=0x2 pos=(190,78,200) bbox=(423, 180, 440, 199)
+TOUR f=34080 idx=35 vt=0x0c0e8ae4 hdr=0x0004ff09 id=0xc3 st=0x2 pos=(-490,78,1090) bbox=(380, 107, 394, 123)
+TOUR f=34080 idx=36 vt=0x0c0e8ae4 hdr=0x0005ff09 id=0xc3 st=0x1 pos=(-180,210,-290) 
+TOUR f=34080 idx=37 vt=0x0c0e8ae4 hdr=0x0006ff09 id=0xc3 st=0x1 pos=(180,210,-290) 
+TOUR f=34080 idx=38 vt=0x0c0e8ae4 hdr=0x0007ff09 id=0xc3 st=0x1 pos=(-250,50,950) 
+TOUR f=34080 idx=39 vt=0x0c0e8ae4 hdr=0x0008ff09 id=0xc3 st=0x1 pos=(-250,50,1080) 
+TOUR f=34080 idx=40 vt=0x0c0e8ae4 hdr=0x0009ff09 id=0xc3 st=0x1 pos=(250,50,950) 
+TOUR f=34080 idx=41 vt=0x0c0e8ae4 hdr=0x000aff09 id=0xc3 st=0x1 pos=(250,50,1080) 
+f=34818 forced chest 0x8c508a60 content -> 0x52
+f=34878 forced chest 0x8c50c0d0 content -> 0x53
+f=35260 forced chest 0x8c5170b0 content -> 0x54
+f=35620 forced chest 0x8c51fae0 content -> 0x55
+f=35750 forced chest 0x8c508e90 content -> 0x56
+f=35750 forced chest 0x8c5092c0 content -> 0x57
+f=35982 forced chest 0x8c51ccd0 content -> 0x58
+f=36342 forced chest 0x8c515360 content -> 0x59
+TOUR f=36540 idx=17 vt=0x0c0e455e hdr=0x02020309 id=0xc4 st=0x2 pos=(250,0,700) 
+TOUR f=36540 idx=18 vt=0x0c0e455e hdr=0x0202ff09 id=0xc4 st=0x2 pos=(-250,0,700) 
+TOUR f=36540 idx=19 vt=0x0c0e455e hdr=0x03030209 id=0xc4 st=0x2 pos=(0,211,-297) 
+TOUR f=36540 idx=23 vt=0x0c0e7ff0 hdr=0x0000ff09 id=0xc3 st=0x2 pos=(-150,25,1100) bbox=(44, 376, 86, 420)
+TOUR f=36540 idx=24 vt=0x0c0e7ff0 hdr=0x0101ff09 id=0xc3 st=0x1 pos=(-150,-95,1100) 
+TOUR f=36540 idx=31 vt=0x0c0e8ae4 hdr=0x0000ff09 id=0xc3 st=0x1 pos=(-340,50,100) 
+TOUR f=36540 idx=32 vt=0x0c0e8ae4 hdr=0x0001ff09 id=0xc3 st=0x1 pos=(-340,50,200) 
+TOUR f=36540 idx=33 vt=0x0c0e8ae4 hdr=0x00020309 id=0xc3 st=0x1 pos=(340,50,100) 
+TOUR f=36540 idx=34 vt=0x0c0e8ae4 hdr=0x0003ff09 id=0xc3 st=0x1 pos=(340,50,200) 
+TOUR f=36540 idx=35 vt=0x0c0e8ae4 hdr=0x0004ff09 id=0xc3 st=0x1 pos=(-340,50,1090) 
+TOUR f=36540 idx=36 vt=0x0c0e8ae4 hdr=0x0005ff09 id=0xc3 st=0x2 pos=(-330,185,-290) bbox=(187, 156, 215, 184)
+TOUR f=36540 idx=37 vt=0x0c0e8ae4 hdr=0x0006ff09 id=0xc3 st=0x2 pos=(30,185,-290) bbox=(254, 166, 281, 195)
+TOUR f=36540 idx=38 vt=0x0c0e8ae4 hdr=0x0007ff09 id=0xc3 st=0x2 pos=(-400,25,950) bbox=(10, 330, 56, 373)
+TOUR f=36540 idx=39 vt=0x0c0e8ae4 hdr=0x0008ff09 id=0xc3 st=0x2 pos=(-400,25,1080) bbox=(0, 353, 33, 399)
+TOUR f=36540 idx=40 vt=0x0c0e8ae4 hdr=0x0009ff09 id=0xc3 st=0x2 pos=(100,25,950) bbox=(88, 360, 197, 455)
+TOUR f=36540 idx=41 vt=0x0c0e8ae4 hdr=0x000aff09 id=0xc3 st=0x2 pos=(100,25,1080) bbox=(109, 386, 155, 435)
+TOUR f=36540 idx=58 vt=0x0c0cc7a8 hdr=0x0000ff09 id=0xc2 st=0x2 pos=(1150,29,1100) 
+TOUR f=36540 idx=111 vt=0x0c0ca5d8 hdr=0x00000009 id=0x58 st=0x2 pos=(935,49,1450) 
+TOUR f=36540 idx=135 vt=0x0c0c9810 hdr=0x00000309 id=0x01 st=0x5 pos=(0,-16,17) bbox=(468, 270, 476, 284)
+f=36560 forced chest 0x8c50eee0 content -> 0x5a
+f=36620 forced chest 0x8c519230 content -> 0x5b
+f=36862 forced chest 0x8c512120 content -> 0x5c
+f=37064 forced chest 0x8c5224c0 content -> 0x5d
+TOUR f=37800 idx=17 vt=0x0c0e455e hdr=0x02020309 id=0xc4 st=0x2 pos=(250,0,700) 
+TOUR f=37800 idx=18 vt=0x0c0e455e hdr=0x0202ff09 id=0xc4 st=0x2 pos=(-250,0,700) 
+TOUR f=37800 idx=19 vt=0x0c0e455e hdr=0x03030209 id=0xc4 st=0x2 pos=(0,211,-297) 
+TOUR f=37800 idx=23 vt=0x0c0e7ff0 hdr=0x0000ff09 id=0xc3 st=0x2 pos=(-197,62,1100) bbox=(155, 371, 217, 443)
+TOUR f=37800 idx=24 vt=0x0c0e7ff0 hdr=0x0101ff09 id=0xc3 st=0x1 pos=(-200,-57,1100) 
+TOUR f=37800 idx=31 vt=0x0c0e8ae4 hdr=0x0000ff09 id=0xc3 st=0x1 pos=(-340,50,100) 
+TOUR f=37800 idx=32 vt=0x0c0e8ae4 hdr=0x0001ff09 id=0xc3 st=0x1 pos=(-340,50,200) 
+TOUR f=37800 idx=33 vt=0x0c0e8ae4 hdr=0x00020309 id=0xc3 st=0x1 pos=(340,50,100) 
+TOUR f=37800 idx=34 vt=0x0c0e8ae4 hdr=0x0003ff09 id=0xc3 st=0x1 pos=(340,50,200) 
+TOUR f=37800 idx=35 vt=0x0c0e8ae4 hdr=0x0004ff09 id=0xc3 st=0x1 pos=(-340,50,1090) 
+TOUR f=37800 idx=36 vt=0x0c0e8ae4 hdr=0x00050209 id=0xc3 st=0x2 pos=(-377,222,-290) bbox=(184, 74, 217, 108)
+TOUR f=37800 idx=37 vt=0x0c0e8ae4 hdr=0x00060009 id=0xc3 st=0x1 pos=(180,210,-290) 
+TOUR f=37800 idx=38 vt=0x0c0e8ae4 hdr=0x0007ff09 id=0xc3 st=0x2 pos=(-450,62,950) bbox=(44, 320, 114, 386)
+TOUR f=37800 idx=39 vt=0x0c0e8ae4 hdr=0x0008ff09 id=0xc3 st=0x2 pos=(-447,62,1084) bbox=(19, 362, 98, 436)
+TOUR f=37800 idx=40 vt=0x0c0e8ae4 hdr=0x00090109 id=0xc3 st=0x5 pos=(55,-50,0) bbox=(346, 85, 407, 146)
+TOUR f=37800 idx=41 vt=0x0c0e8ae4 hdr=0x000aff09 id=0xc3 st=0x2 pos=(53,62,1080) bbox=(290, 361, 343, 435)
+TOUR f=37800 idx=58 vt=0x0c0cbcb0 hdr=0x00000009 id=0xc1 st=0x2 pos=(309,87,228) bbox=(379, 165, 426, 238)
+TOUR f=37800 idx=82 vt=0x0c0c9810 hdr=0x00000009 id=0x39 st=0x2 pos=(1372,101,-75) 
+TOUR f=37800 idx=126 vt=0x0c0e5522 hdr=0x00000009 id=0xcc st=0x2 pos=(946,101,-287) bbox=(518, 94, 590, 173)
+TOUR f=37800 idx=135 vt=0x0c0c9810 hdr=0x00000309 id=0x01 st=0x2 pos=(1306,61,-75) 
+TOUR f=37800 idx=136 vt=0x0c0c9810 hdr=0x00000009 id=0x02 st=0x2 pos=(1372,61,421) 
+captured: {}
+libc++abi: terminating due to uncaught exception of type std::__1::system_error: mutex lock failed: Invalid argument

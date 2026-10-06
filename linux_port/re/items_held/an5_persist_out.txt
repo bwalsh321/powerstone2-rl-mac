@@ -1,0 +1,41 @@
+re-pickups of the same record within 600 f: 190; counter unchanged across the gap: 189
+  Iron Pipe        end= 481 next_init= 481 gap=420 f
+  Ice Rod          end=   5 next_init=   5 gap= 45 f
+  Sword            end= 245 next_init= 245 gap=420 f
+  Sword            end= 186 next_init= 186 gap=285 f
+  Power Sword      end= 380 next_init= 380 gap= 45 f
+  Power Sword      end= 101 next_init= 101 gap=270 f
+  3-Way Shotgun    end=   7 next_init=   7 gap=150 f
+  Fire-Bottle      end=  10 next_init=  10 gap=120 f
+  Trident          end= 392 next_init= 392 gap= 60 f
+  Trident          end=  96 next_init=  96 gap=240 f
+  Gun              end=   1 next_init=   1 gap=375 f
+  Power Sword      end= 276 next_init= 276 gap= 45 f
+  Magic Stick      end= 376 next_init= 376 gap=105 f
+  3-Way Shotgun    end=   7 next_init=   7 gap=180 f
+  3-Way Shotgun    end=   7 next_init=   7 gap=135 f
+  3-Way Shotgun    end=   7 next_init=   7 gap=345 f
+  Magic Stick      end= 213 next_init= 213 gap=270 f
+  Magic Stick      end=   6 next_init=   6 gap=210 f
+  Fire-Bottle      end=  10 next_init=  10 gap= 50 f
+  Ice Rod          end=   5 next_init=   5 gap=374 f
+  Ray Gun          end=   5 next_init=   5 gap= 40 f
+  Ray Gun          end=   4 next_init=   4 gap=285 f
+  3-Way Shotgun    end=   7 next_init=   7 gap=138 f
+  3-Way Shotgun    end=   7 next_init=   7 gap=489 f
+  3-Way Shotgun    end=   4 next_init=   4 gap=497 f
+  Ray Gun          end=   5 next_init=   5 gap= 34 f
+  Iron Pipe        end= 563 next_init= 563 gap=176 f
+  Hammer           end= 594 next_init= 594 gap=255 f
+  Umbrella         end= 585 next_init= 585 gap= 49 f
+  Magic Stick      end= 133 next_init= 133 gap=141 f
+  Magic Stick      end=  59 next_init=  59 gap=518 f
+  Bazooka          end=   3 next_init=   3 gap=214 f
+  Machine Gun      end=  25 next_init=  25 gap=300 f
+  Machine Gun      end=  25 next_init=  25 gap=221 f
+  Power Sword      end= 462 next_init= 462 gap=148 f
+  Hammer           end= 588 next_init= 588 gap=512 f
+  Hammer           end= 545 next_init= 545 gap= 62 f
+  Umbrella         end= 237 next_init= 237 gap= 32 f
+  Power Shield     end= 365 next_init= 365 gap=517 f
+  Power Shield     end= 298 next_init= 298 gap= 72 f

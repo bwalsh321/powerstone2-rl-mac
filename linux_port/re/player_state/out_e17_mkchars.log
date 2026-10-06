@@ -1,0 +1,24 @@
+Set variable override: flycast_hle_bios = enabled
+Set variable override: reicast_hle_bios = enabled
+Set variable override: flycast_device_port1_slot1 = VMU
+Set variable override: flycast_device_port2_slot1 = VMU
+Set variable override: flycast_threaded_rendering = disabled
+Set variable override: reicast_threaded_rendering = disabled
+2026-10-04 21:02:00.804 Python[56454:5295604] ApplePersistenceIgnoreState: Existing state will not be touched. New state will be written to /var/folders/gz/b_ggdqsj0s9_8mxs_fyvdkym0000gn/T/org.python.python.savedState
+pygame 2.6.1 (SDL 2.28.4, Python 3.11.16)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+char 0: menu id 0, live after 822, P+2 = 0, P2 char 0, stage area 5, P1 pos [250.0, 0.0, 900.0] P2 pos [-400.0, 0.0, -900.0]
+char 6: menu id 6, live after 813, P+2 = 6, P2 char 0, stage area 5, P1 pos [250.0, 0.0, 900.0] P2 pos [-400.0, 0.0, -900.0]
+char 4: menu id 4, live after 822, P+2 = 4, P2 char 0, stage area 5, P1 pos [250.0, 0.0, 900.0] P2 pos [-400.0, 0.0, -900.0]
+char 1: menu id 1, live after 822, P+2 = 1, P2 char 0, stage area 5, P1 pos [250.0, 0.0, 900.0] P2 pos [-400.0, 0.0, -900.0]
+char 2: menu id 2, live after 822, P+2 = 2, P2 char 0, stage area 5, P1 pos [250.0, 0.0, 900.0] P2 pos [-400.0, 0.0, -900.0]
+char 5: menu id 5, live after 823, P+2 = 5, P2 char 0, stage area 5, P1 pos [250.0, 0.0, 900.0] P2 pos [-400.0, 0.0, -900.0]
+char 7: menu id 7, live after 822, P+2 = 7, P2 char 0, stage area 5, P1 pos [250.0, 0.0, 900.0] P2 pos [-400.0, 0.0, -900.0]
+char 3: menu id 3, live after 822, P+2 = 3, P2 char 0, stage area 5, P1 pos [250.0, 0.0, 900.0] P2 pos [-400.0, 0.0, -900.0]
+char 8: menu id 8, live after 822, P+2 = 8, P2 char 0, stage area 5, P1 pos [250.0, 0.0, 900.0] P2 pos [-400.0, 0.0, -900.0]
+char 10: menu id 10, live after 822, P+2 = 10, P2 char 0, stage area 5, P1 pos [250.0, 0.0, 900.0] P2 pos [-400.0, 0.0, -900.0]
+char 9: menu id 9, live after 823, P+2 = 9, P2 char 0, stage area 5, P1 pos [250.0, 0.0, 900.0] P2 pos [-400.0, 0.0, -900.0]
+char 11: menu id 11, live after 822, P+2 = 11, P2 char 0, stage area 5, P1 pos [250.0, 0.0, 900.0] P2 pos [-400.0, 0.0, -900.0]
+char 14: menu id 14, live after 817, P+2 = 14, P2 char 0, stage area 5, P1 pos [250.0, 0.0, 900.0] P2 pos [-400.0, 0.0, -900.0]
+char 15: menu id 15, live after 822, P+2 = 15, P2 char 0, stage area 5, P1 pos [250.0, 0.0, 900.0] P2 pos [-400.0, 0.0, -900.0]
+DONE

@@ -90,6 +90,8 @@ def main():
         env = PowerStoneEnvLibretro(core_path=args.core, game_path=args.game, states_dir="./states",
                                     state_slots=[1], instance_id=args.instance, bridge_dir=bridge_dir)
         env._legacy_proj_main = env._legacy_proj = (_d == 122)      # Sep 28 (Astra 3): main-model contract
+        env._legacy_item_main = env._legacy_item = (_d <= 160)     # Oct 5 (obs v4): main-model contract
+        assert _d <= env.OBS_DIM, f"model reads {_d}/frame but the env builds {env.OBS_DIM}: set PS2_OBS_V4=1"
     else:
         from ffa_selfplay_env import FFASelfPlayEnv
         states_dir = "./states" if args.mode == "ffa" else "./states_mixed"
@@ -99,6 +101,8 @@ def main():
                              pool_dir="./pool_league", seats=seats, sampling="uniform",
                              opp_deterministic=not args.stochastic)
         env._legacy_proj_main = env._legacy_proj = (_d == 122)      # Sep 28 (Astra 3): main-model contract
+        env._legacy_item_main = env._legacy_item = (_d <= 160)     # Oct 5 (obs v4): main-model contract
+        assert _d <= env.OBS_DIM, f"model reads {_d}/frame but the env builds {env.OBS_DIM}: set PS2_OBS_V4=1"
         if args.opps == "same":
             def _same():
                 env._pool.last_path = args.model

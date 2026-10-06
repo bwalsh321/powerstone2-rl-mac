@@ -257,7 +257,9 @@ def main():
     del probe
     # Sep 22 (frame stacking): PS2_OBS_STACK=K must match the warm zip's input (122*K).
     OBS_STACK = int(os.environ.get("PS2_OBS_STACK", "1"))
-    _D = 160 if os.environ.get("PS2_OBS_V3", "0") == "1" else 122
+    _D = (430 if os.environ.get("PS2_OBS_V4", "0") == "1"
+          else 160 if os.environ.get("PS2_OBS_V3", "0") == "1" else 122)
+    assert _D != 430 or os.environ.get("PS2_OBS_V3", "0") == "1", "PS2_OBS_V4=1 needs PS2_OBS_V3=1"
     assert obs_space.shape[0] == _D * OBS_STACK, (
         f"warm zip expects {obs_space.shape[0]} inputs but PS2_OBS_STACK={OBS_STACK} x obs dim {_D} gives {_D * OBS_STACK}; "
         f"run surgery_stack.py or fix league_env.txt")
@@ -273,6 +275,9 @@ def main():
         lstm_mod = model.policy.lstm_actor
         print(f"[config] recurrent=SkipLSTM hidden={lstm_mod.hidden_size} layers={lstm_mod.num_layers} "
               f"lstm_input={lstm_mod.input_size} (newest frame) skip=[features,lstm]", flush=True)
+        assert lstm_mod.input_size == _D, (
+            f"LSTM reads {lstm_mod.input_size} features (newest frame) but the env builds {_D}/frame; "
+            f"run surgery_widen_v4.py (league_surgery.txt obsv4) or fix league_env.txt")
     model.verbose = 1            # SB3 prints "Early stopping ... max kl" notices + its table
     # Sep 16 (entropy trigger fired at leg 38): optional entropy-coefficient override.
     # Unset = the zip's stored value (0.01 for this lineage). Blake decides per leg.
@@ -312,6 +317,8 @@ def main():
           f"state_slots={STATE_SLOTS} obs_v2={os.environ.get('PS2_OBS_V2', '0')} "
           f"obs_ctx_fix={os.environ.get('PS2_OBS_CTX_FIX', '1')} zs_time={os.environ.get('PS2_ZS_TIME', '1')} "
           f"obs_v3={os.environ.get('PS2_OBS_V3', '0')} obs_dim={_D} "
+          f"obs_v4={os.environ.get('PS2_OBS_V4', '0')} obs_v4_itememb={os.environ.get('PS2_OBS_V4_ITEMEMB', 'keep')} "
+          f"obj_grid_n={os.environ.get('PS2_OBJ_GRID_N', '110')} "
           f"pool_sampling={os.environ.get('PS2_POOL_SAMPLING', 'uniform')} "
           f"states={STATES} seats={os.environ.get('PS2_FFA_SEATS', '0,2,3')} mode=async", flush=True)
 

@@ -62,6 +62,14 @@ fi
 # Oct 5 2026: the object-grid width a leg trained with (PS2_OBJ_GRID_N=208 in its row) is its eval contract too.
 GRID_N="$(awk -v n="$N" '$1==n' leg_modes.txt 2>/dev/null | grep -o "PS2_OBJ_GRID_N=[0-9]*" | head -1)"
 if [ -n "$GRID_N" ]; then export "$GRID_N"; echo "battery leg $N: object-grid eval contract ($GRID_N)"; fi
+# Oct 5 2026 (obs v4): a leg trained with PS2_OBS_V4=1 (430/frame) is evaluated under the v4 contract, with the same
+# [12..17] item-embedding mode; older (<=160/frame) champions/opponents read obs[:160] with their own [12..17].
+if awk -v n="$N" '$1==n' leg_modes.txt 2>/dev/null | grep -q "PS2_OBS_V4=1"; then
+  export PS2_OBS_V4=1
+  V4EMB="$(awk -v n="$N" '$1==n' leg_modes.txt 2>/dev/null | grep -o "PS2_OBS_V4_ITEMEMB=[a-z]*" | head -1)"
+  [ -n "$V4EMB" ] && export "$V4EMB"
+  echo "battery leg $N: obs v4 eval contract (PS2_OBS_V4=1 ${V4EMB:-PS2_OBS_V4_ITEMEMB=keep})"
+fi
 GAME="../Power Stone 2 (USA).chd"
 M=./powerstone_v6_leg${N}_league.zip
 LEG1=./powerstone_v6_ppo.zip

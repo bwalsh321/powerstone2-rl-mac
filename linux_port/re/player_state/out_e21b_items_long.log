@@ -1,0 +1,11 @@
+Set variable override: flycast_hle_bios = enabled
+Set variable override: reicast_hle_bios = enabled
+Set variable override: flycast_device_port1_slot1 = VMU
+Set variable override: flycast_device_port2_slot1 = VMU
+Set variable override: flycast_threaded_rendering = disabled
+Set variable override: reicast_threaded_rendering = disabled
+2026-10-04 21:22:26.945 Python[63248:5331749] ApplePersistenceIgnoreState: Existing state will not be touched. New state will be written to /var/folders/gz/b_ggdqsj0s9_8mxs_fyvdkym0000gn/T/org.python.python.savedState
+pole {('nopred', 'nodmg'): 80, ('pred', 'dmg'): 58, ('nopred', 'dmg'): 12, ('pred', 'nodmg'): 1} sphere radii: [(40, 1231), (63, 708), (70, 691), (54, 404), (30, 290), (36, 180), (60, 75), (65, 67)]
+special {('pred', 'dmg'): 100, ('nopred', 'nodmg'): 83, ('nopred', 'dmg'): 4, ('pred', 'nodmg'): 2} sphere radii: [(31, 5382), (123, 1952), (168, 1952), (224, 1097), (163, 698), (208, 262), (30, 224), (67, 218)]
+item {('nopred', 'nodmg'): 4, ('pred', 'dmg'): 1} sphere radii: [(60, 33), (42, 22)]
+DONE

@@ -1,0 +1,19 @@
+Set variable override: flycast_hle_bios = enabled
+Set variable override: reicast_hle_bios = enabled
+Set variable override: flycast_device_port1_slot1 = VMU
+Set variable override: flycast_device_port2_slot1 = VMU
+Set variable override: flycast_threaded_rendering = disabled
+Set variable override: reicast_threaded_rendering = disabled
+2026-10-04 20:57:35.516 Python[54516:5286046] ApplePersistenceIgnoreState: Existing state will not be touched. New state will be written to /var/folders/gz/b_ggdqsj0s9_8mxs_fyvdkym0000gn/T/org.python.python.savedState
+pygame 2.6.1 (SDL 2.28.4, Python 3.11.16)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+menu_cycle fightctr 367 seat table [[0, 0, 2], [0, 0, 1], [2, 0, 0], [2, 0, 0]]
+menu_cycle2 fightctr 367 seat table [[0, 0, 1], [0, 0, 1], [2, 0, 0], [2, 0, 0]]
+menu_match fightctr 367 seat table [[0, 0, 1], [0, 0, 1], [2, 0, 0], [2, 0, 0]]
+menu_stage fightctr 367 seat table [[0, 0, 1], [0, 0, 1], [2, 0, 0], [2, 0, 0]]
+menu_work fightctr 367 seat table [[0, 6, 1], [0, 0, 1], [2, 0, 0], [2, 0, 0]]
+menu_work2 fightctr 367 seat table [[2, 6, 1], [0, 0, 1], [2, 0, 0], [2, 0, 0]]
+menu_work3 fightctr 367 seat table [[0, 6, 1], [0, 0, 1], [2, 0, 0], [2, 0, 0]]
+menu_work4 fightctr 367 seat table [[0, 6, 1], [0, 0, 1], [2, 0, 0], [2, 0, 0]]
+menu_work5 fightctr 367 seat table [[0, 4, 1], [0, 0, 1], [2, 0, 0], [2, 0, 0]]
+DONE

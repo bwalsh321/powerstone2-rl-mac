@@ -1,0 +1,20 @@
+Set variable override: flycast_hle_bios = enabled
+Set variable override: reicast_hle_bios = enabled
+Set variable override: flycast_device_port1_slot1 = VMU
+Set variable override: flycast_device_port2_slot1 = VMU
+Set variable override: flycast_threaded_rendering = disabled
+Set variable override: reicast_threaded_rendering = disabled
+2026-10-04 20:41:10.721 Python[47991:5251191] ApplePersistenceIgnoreState: Existing state will not be touched. New state will be written to /var/folders/gz/b_ggdqsj0s9_8mxs_fyvdkym0000gn/T/org.python.python.savedState
+D=  0 (punch active ~D) P2 during active frames: s15/0000 s15/0000 s15/0000 s15/0000 s15/0000  dmg=0.0
+D= 10 (punch active ~D) P2 during active frames: s15/0000 s15/0000 s15/0000 s15/0000 s15/0000  dmg=0.0
+D= 18 (punch active ~D) P2 during active frames: s15/0000 s15/0000 s15/0000 s15/0000 s15/0000  dmg=0.0
+D= 22 (punch active ~D) P2 during active frames: s15/0000 s15/0000 s15/0000 s15/0000 s15/0000  dmg=0.0
+D= 24 (punch active ~D) P2 during active frames: s15/0000 s15/0000 s15/0000 s15/0000 s15/0000  dmg=0.0
+D= 26 (punch active ~D) P2 during active frames: s15/0000 s15/0000 s15/0000 s0/0000 s32/ffff s32/ffff s32/ffff s32/ffff s32/ffff s32/ffff s32/ffff  dmg=32.8
+D= 28 (punch active ~D) P2 during active frames: s15/0000 s0/0000 s32/ffff s32/ffff s32/ffff s32/ffff s32/ffff s32/ffff s32/ffff s32/ffff s32/ffff  dmg=32.8
+D= 30 (punch active ~D) P2 during active frames: s32/ffff s32/ffff s32/ffff s32/ffff s32/ffff s32/ffff s32/ffff s32/ffff s32/ffff s32/ffff s32/ffff  dmg=32.8
+D= 34 (punch active ~D) P2 during active frames: s32/ffff s32/ffff s32/ffff s32/ffff s32/ffff s32/ffff s32/ffff s32/ffff s32/ffff s32/ffff s32/ffff  dmg=32.8
+D= 40 (punch active ~D) P2 during active frames: s32/ffff s32/ffff s32/ffff s32/ffff s32/ffff s32/ffff s32/ffff s32/ffff s32/ffff s32/ffff s32/ffff  dmg=32.8
+D= 60 (punch active ~D) P2 during active frames: s32/ffff s32/ffff s32/ffff s32/ffff s32/ffff s32/ffff s32/ffff s32/ffff s32/ffff s32/ffff s32/ffff  dmg=32.8
+D= 90 (punch active ~D) P2 during active frames: s32/ffff s32/ffff s32/ffff s32/ffff s32/ffff s32/ffff s32/ffff s32/ffff s32/ffff s32/ffff s32/ffff  dmg=32.8
+DONE

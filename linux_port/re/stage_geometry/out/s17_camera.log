@@ -1,0 +1,14 @@
+Set variable override: flycast_hle_bios = enabled
+Set variable override: reicast_hle_bios = enabled
+Set variable override: flycast_device_port1_slot1 = VMU
+Set variable override: flycast_device_port2_slot1 = VMU
+Set variable override: flycast_threaded_rendering = disabled
+Set variable override: reicast_threaded_rendering = disabled
+2026-10-04 21:22:58.161 Python[63435:5333008] ApplePersistenceIgnoreState: Existing state will not be touched. New state will be written to /var/folders/gz/b_ggdqsj0s9_8mxs_fyvdkym0000gn/T/org.python.python.savedState
+top |corr| with midx: 8C541ADC:+0.90(m877) 8C5417E4:+0.90(m877) 8C5411F4:+0.90(m877) 8C5414EC:+0.90(m877) 8C541AAC:+0.90(m936) 8C5417B4:+0.90(m936) 8C54149C:+0.90(m936) 8C5414BC:+0.90(m936) 8C541794:+0.90(m936) 8C541A8C:+0.90(m936) 8C5411C4:+0.90(m936) 8C5411A4:+0.90(m936)
+top |corr| with midz: 8C40AC30:+0.98(m-105) 8C40ACC0:+0.98(m-105) 8C40AD50:+0.98(m-104) 8C3C145C:+0.98(m-105) 8C3C1450:+0.98(m-105) 8C3C1444:+0.98(m-104) 8C3BB43C:+0.98(m-104) 8C3BB454:+0.98(m-104) 8C3BB430:+0.98(m-104) 8C3C1288:+0.98(m-105) 8C3C12F4:+0.98(m-105) 8C3EE5A4:+0.98(m-147)
+top |corr| with spread: 8C00ECE0:+0.98(m1102) 8C00ECE4:+0.98(m968) 8C00ECE8:+0.98(m2377) 8C00ECEC:+0.98(m2243) 8C541A90:+0.94(m857) 8C5411A8:+0.94(m857) 8C5414A0:+0.94(m857) 8C541798:+0.94(m857) 8C541AB0:+0.94(m857) 8C5414C0:+0.94(m857) 8C5411C8:+0.94(m857) 8C5417B8:+0.94(m857)
+midpoint xz std 492.7
+x/z-tracking triples (a, a+8): 0
+DONE
+libc++abi: terminating due to uncaught exception of type std::__1::system_error: mutex lock failed: Invalid argument

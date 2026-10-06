@@ -1,0 +1,13 @@
+Set variable override: flycast_hle_bios = enabled
+Set variable override: reicast_hle_bios = enabled
+Set variable override: flycast_device_port1_slot1 = VMU
+Set variable override: flycast_device_port2_slot1 = VMU
+Set variable override: flycast_threaded_rendering = disabled
+Set variable override: reicast_threaded_rendering = disabled
+2026-10-04 21:17:17.964 Python[61503:5322872] ApplePersistenceIgnoreState: Existing state will not be touched. New state will be written to /var/folders/gz/b_ggdqsj0s9_8mxs_fyvdkym0000gn/T/org.python.python.savedState
+level poke None: byte at stage select 3 -> at fight start 3; P3 char 8 COM 1; COM attack windows 0, damage to idle humans 586, distinct acts 18
+level poke 0: byte at stage select 3 -> at fight start 0; P3 char 8 COM 1; COM attack windows 0, damage to idle humans 586, distinct acts 18
+level poke 7: byte at stage select 3 -> at fight start 7; P3 char 8 COM 1; COM attack windows 0, damage to idle humans 586, distinct acts 18
+level poke 0: byte at stage select 3 -> at fight start 0; P3 char 8 COM 1; COM attack windows 0, damage to idle humans 586, distinct acts 18
+level poke 7: byte at stage select 3 -> at fight start 7; P3 char 8 COM 1; COM attack windows 0, damage to idle humans 586, distinct acts 18
+DONE

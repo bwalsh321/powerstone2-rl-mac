@@ -1,0 +1,137 @@
+f=1200 live ledger: 0xc0c9810x3, 0xc0c9f50x1, 0xc0cbcb0x1, 0xc0cc7a8x1, 0xc0f1688x8, 0xc0f18d4x4
+f=2400 live ledger: 0xc0c9810x1, 0xc0ca928x1, 0xc0cbcb0x1, 0xc0cc7a8x4, 0xc0f1688x8, 0xc0f18d4x4
+f=3600 live ledger: 0xc0c9810x2, 0xc0cbcb0x3, 0xc0cc7a8x3, 0xc0f1688x8, 0xc0f18d4x4
+f=4800 live ledger: 0xc0c9810x3, 0xc0cc7a8x3, 0xc0f1688x8, 0xc0f18d4x4
+f=6000 live ledger: 0xc0c9810x1, 0xc0cc7a8x5, 0xc0f1688x8, 0xc0f18d4x4
+
+=== ledger vtables (sightings, maxsim, y range, first frame, grid idxs)
+  0x0c0c9810 n=  3458 maxsim=  5 y=[-32.0,572.8] first=492 idx=43..107 (15)
+  0x0c0c9f50 n=   156 maxsim=  1 y=[70.0,180.0] first=728 idx=69..69 (1)
+  0x0c0ca928 n=    89 maxsim=  1 y=[-49.0,180.0] first=2260 idx=45..45 (1)
+  0x0c0cbcb0 n=  1568 maxsim=  3 y=[75.0,427.2] first=1164 idx=42..77 (8)
+  0x0c0cc7a8 n=  3874 maxsim=  5 y=[50.0,50.0] first=460 idx=40..91 (18)
+  0x0c0f1688 n= 12000 maxsim=  8 y=[-55.0,612.5] first=4 idx=26..33 (8)
+  0x0c0f18d4 n=  6000 maxsim=  4 y=[0.0,0.0] first=4 idx=34..37 (4)
+=== pool classes (sightings per 32f, first frame)
+  0x0c54d6c0 n=120 first=736
+  0x0c54dac0 n=124 first=736
+  0x0c58ad20 n=35 first=320
+  0x0c58b2e8 n=39 first=320
+  0x0c58b668 n=40 first=320
+  0x0c58bf98 n=38 first=320
+  0x0c58c210 n=39 first=320
+  0x0c58c5c8 n=39 first=320
+  0x0c58c840 n=39 first=320
+  0x0c58cc40 n=38 first=320
+  0x0c58cf58 n=39 first=352
+  0x0c58d310 n=36 first=352
+  0x0c58d640 n=35 first=352
+  0x0c58d958 n=35 first=352
+  0x0c58dd10 n=37 first=384
+  0x0c58e040 n=2 first=5632
+  0x0c58e600 n=1 first=736
+  0x0c58ebc0 n=2 first=5504
+  0x0c590698 n=15 first=2624
+  0x0c590ae8 n=5 first=1888
+  0x0c590be0 n=5 first=1888
+  0x0c590dd0 n=5 first=1888
+  0x0c590ec8 n=5 first=1888
+  0x0c590fc0 n=6 first=1888
+  0x0c5910b8 n=11 first=1888
+  0x0c5911b0 n=463 first=480
+  0x0c5917f8 n=403 first=480
+  0x0c5918f0 n=429 first=480
+  0x0c591a70 n=474 first=480
+  0x0c592258 n=469 first=480
+  0x0c592ee8 n=5 first=4160
+  0x0c5936d0 n=30 first=1376
+  0x0c594100 n=154 first=64
+  0x0c596e60 n=130 first=64
+  0x0c598510 n=131 first=64
+  0x0c599bc0 n=12 first=3872
+  0x0c59b270 n=126 first=64
+  0x0c59c920 n=146 first=1344
+  0x0c59f680 n=6 first=736
+  0x0c5a0cb0 n=2 first=3872
+  0x0c5a1110 n=1 first=3872
+  0x0c5a2630 n=1 first=2752
+  0x0c5a4410 n=1 first=4992
+  0x0c5a7690 n=10 first=4288
+  0x0c5a7908 n=1 first=4288
+  0x0c5a7d50 n=21 first=4256
+  0x0c5a8cb0 n=14 first=992
+  0x0c5a8da8 n=18 first=576
+  0x0c5a8ea0 n=16 first=640
+  0x0c5a8f98 n=32 first=704
+  0x0c5a9090 n=7 first=2624
+  0x0c5a9378 n=6 first=2656
+  0x0c5a9568 n=6 first=2688
+  0x0c5ab000 n=184 first=1216
+  0x0c5ab590 n=149 first=1216
+  0x0c5ab748 n=145 first=1216
+  0x0c5add78 n=226 first=2368
+  0x0c5ade70 n=223 first=2432
+  0x0c5adf68 n=229 first=2336
+  0x0c5ae060 n=328 first=2400
+  0x0c5aee78 n=15 first=4288
+  0x0c5c4fd8 n=6 first=1888
+  0x0c5c5300 n=6 first=1888
+  0x0c5c5810 n=6 first=1888
+  0x0c5d0e90 n=186 first=64
+  0x0c5d2020 n=186 first=64
+  0x0c5d2c38 n=558 first=64
+  0x0c5d34c0 n=744 first=64
+  0x0c5d70e0 n=63 first=4384
+  0x0c5d8570 n=1 first=1920
+  0x0c5de3e8 n=2 first=3072
+  0x0c5dfce8 n=4 first=800
+  0x0c5dfde0 n=6 first=768
+  0x0c5dfed8 n=2 first=896
+  0x0c5e00c8 n=6 first=768
+  0x0c5e01c0 n=6 first=768
+  0x0c5e9920 n=3 first=224
+  0x0c5eae48 n=3 first=224
+  0x0c5eb4c8 n=3 first=224
+  0x0c5f5ca0 n=3 first=224
+  0x0c5fc330 n=3 first=224
+  0x0c5fc428 n=3 first=224
+  0x0c5fc820 n=3 first=224
+  0x0c5fd088 n=3 first=224
+  0x0c604908 n=186 first=64
+  0x0c609050 n=1 first=4256
+  0x0c609148 n=54 first=4288
+  0x0c609580 n=75 first=2752
+  0x0c609a90 n=146 first=256
+  0x0c60a1c0 n=62 first=64
+  0x0c60a2b8 n=62 first=64
+  0x0c60ed48 n=19 first=4000
+  0x0c60fbc8 n=43 first=4384
+  0x0c610938 n=120 first=1632
+  0x0c611d28 n=26 first=800
+  0x0c615260 n=11 first=2272
+  0x0c615ac0 n=11 first=2272
+  0x0c615fa0 n=19 first=2624
+  0x0c618410 n=19 first=4544
+  0x0c6192c8 n=20 first=2464
+  0x0c622738 n=20 first=992
+  0x0c63b900 n=19 first=3648
+  0x0c63ed90 n=46 first=1408
+  0x0c642df0 n=22 first=512
+  0x0c643c78 n=22 first=512
+  0x0c6486d0 n=21 first=3040
+  0x0c65a5b8 n=19 first=1088
+  0x0c65bf48 n=15 first=640
+  0x0c65e128 n=20 first=736
+  0x0c815740 n=63 first=5056
+  0x0c815ec8 n=78 first=5056
+  0x0c816568 n=71 first=5056
+  0x0c816a88 n=78 first=5056
+  0x0c816ec0 n=78 first=5056
+  0x0c817710 n=24 first=4992
+  0x0c81cfb8 n=10 first=4352
+  0x0c81d508 n=10 first=4352
+  0x0c81d9e0 n=14 first=4352
+  0x0c81dee0 n=5 first=4352
+  0x0c81e158 n=64 first=4352
+=== held items seen {'0xc504334': 21, '0xc50c934': 13, '0xc50d194': 19, '0xc502a14': 36, '0xc503ad4': 6, '0xc5036a4': 4, '0xc50f744': 15, '0xc50d5c4': 75, '0xc504764': 12, '0xc5079a4': 10, '0xc502e44': 28, '0xc50d9f4': 1, '0xc515794': 22, '0xc50fb74': 2}
+libc++abi: terminating due to uncaught exception of type std::__1::system_error: mutex lock failed: Invalid argument

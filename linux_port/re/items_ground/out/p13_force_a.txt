@@ -1,0 +1,20 @@
+f=60 captured id=0xc3 vt=0xc0f1688
+f=60 captured id=0xc3 vt=0xc0f1688
+f=60 captured id=0xc3 vt=0xc0f1688
+f=60 captured id=0xc3 vt=0xc0f1688
+f=60 captured id=0xc3 vt=0xc0f1688
+f=60 captured id=0xc8 vt=0xc0f18d4
+f=474 forced chest 0x8c50c0d0 content -> 0x1
+f=480 captured id=0xc2 vt=0xc0cc7a8
+f=534 forced chest 0x8c50c500 content -> 0x2
+f=654 forced chest 0x8c5068e0 content -> 0x3
+f=660 captured id=0xc1 vt=0xc0cbcb0
+f=660 captured id=0x01 vt=0xc0c9810
+f=660 captured id=0x02 vt=0xc0c9810
+f=714 forced chest 0x8c50d9f0 content -> 0x4
+f=774 forced chest 0x8c50d5c0 content -> 0x5
+Traceback (most recent call last):
+  File "/Users/blakewalsh/Documents/macbook_migration/linux_port/re/items_ground/p13_gallery.py", line 95, in <module>
+    save(crop, p)
+  File "/Users/blakewalsh/Documents/macbook_migration/linux_port/re/items_ground/p13_gallery.py", line 45, in save
+libc++abi: terminating due to uncaught exception of type std::__1::system_error: mutex lock failed: Invalid argument

@@ -1,0 +1,83 @@
+fight live counter 398 A pos [250, 0, 900] facing 32768
+== baseline close punch (victim 100u in front)
+   f8 cnt=2 spheres=[(250, 130, 808, 40)] victim hp=967 mask=ffff vpos=[250, 0, 790]
+   f9 cnt=2 spheres=[(250, 130, 808, 40)] victim hp=967 mask=ffff vpos=[250, 0, 790]
+   f10 cnt=2 spheres=[(250, 130, 808, 40)] victim hp=967 mask=ffff vpos=[250, 0, 790]
+   f11 cnt=2 spheres=[(250, 130, 808, 40)] victim hp=967 mask=ffff vpos=[250, 0, 790]
+   f12 cnt=2 spheres=[(250, 130, 808, 40)] victim hp=967 mask=ffff vpos=[250, 0, 790]
+   f13 cnt=2 spheres=[(250, 130, 808, 40)] victim hp=967 mask=ffff vpos=[250, 0, 790]
+   f14 cnt=2 spheres=[(250, 130, 808, 40)] victim hp=967 mask=ffff vpos=[250, 0, 770]
+   f15 cnt=2 spheres=[(251, 130, 807, 40)] victim hp=967 mask=ffff vpos=[250, 0, 760]
+   f16 cnt=2 spheres=[(251, 130, 806, 40)] victim hp=967 mask=ffff vpos=[250, 0, 755]
+   f17 cnt=2 spheres=[(252, 130, 805, 40)] victim hp=967 mask=ffff vpos=[250, 0, 752]
+   f18 cnt=2 spheres=[(251, 130, 805, 40)] victim hp=967 mask=ffff vpos=[250, 0, 751]
+   f19 cnt=1 spheres=[] victim hp=967 mask=ffff vpos=[250, 0, 750]
+   f20 cnt=1 spheres=[] victim hp=967 mask=ffff vpos=[250, 0, 750]
+   f21 cnt=1 spheres=[] victim hp=967 mask=ffff vpos=[250, 0, 750]
+   f22 cnt=1 spheres=[] victim hp=967 mask=ffff vpos=[250, 0, 750]
+   f23 cnt=1 spheres=[] victim hp=967 mask=ffff vpos=[250, 0, 750]
+   f24 cnt=1 spheres=[] victim hp=967 mask=ffff vpos=[250, 0, 750]
+   f25 cnt=1 spheres=[] victim hp=967 mask=ffff vpos=[250, 0, 750]
+   f26 cnt=1 spheres=[] victim hp=967 mask=ffff vpos=[250, 0, 750]
+   f27 cnt=1 spheres=[] victim hp=967 mask=ffff vpos=[250, 0, 750]
+   f28 cnt=1 spheres=[] victim hp=967 mask=ffff vpos=[250, 0, 750]
+   f29 cnt=1 spheres=[] victim hp=967 mask=ffff vpos=[250, 0, 750]
+  close ctl                              first_live=8 dmg_frame=8 dmg=32.8 victim_state_end=0
+  whiff ctl (600u)                       first_live=8 dmg_frame=None dmg=0.0 victim_state_end=0
+  tele-in ctl                            first_live=8 dmg_frame=9 dmg=32.8 victim_state_end=0
+  tele-in + sphere centre +3000x         first_live=8 dmg_frame=9 dmg=32.8 victim_state_end=0 write_survived_next_frame=1/11
+  tele-in + sphere r=0                   first_live=8 dmg_frame=9 dmg=32.8 victim_state_end=0 write_survived_next_frame=1/11
+  tele-in + count=1                      first_live=8 dmg_frame=9 dmg=32.8 victim_state_end=0 write_survived_next_frame=1/11
+  tele-in + victim hurt-cyl centre +3000x first_live=8 dmg_frame=9 dmg=32.8 victim_state_end=0 write_survived_next_frame=0/11
+  tele-in + victim hurt-cyl r=h=0        first_live=8 dmg_frame=9 dmg=32.8 victim_state_end=0 write_survived_next_frame=0/11
+  tele-in + victim mask lo16=0           first_live=8 dmg_frame=9 dmg=32.8 victim_state_end=0 write_survived_next_frame=0/11
+  whiff + sphere r=700 every live frame  first_live=8 dmg_frame=None dmg=0.0 victim_state_end=0 write_survived_next_frame=1/5
+  whiff + sphere r=2000 every live frame first_live=8 dmg_frame=None dmg=0.0 victim_state_end=0 write_survived_next_frame=1/5
+  whiff + sphere centre := victim pos    first_live=8 dmg_frame=None dmg=0.0 victim_state_end=0 write_survived_next_frame=1/5
+  close + victim mask lo16=0 every frame first_live=8 dmg_frame=8 dmg=32.8 victim_state_end=0
+  close + victim mask lo16=0 (post-frame) first_live=8 dmg_frame=8 dmg=32.8 victim_state_end=0 write_survived_next_frame=0/43
+  close + count=1 after each live frame  first_live=8 dmg_frame=8 dmg=32.8 victim_state_end=0
+== getup: grab + throw the victim
+victim state sequence (state, first frame, mask): [(0, 1, 65535), (34, 11, 0), (32, 55, 65535), (14, 167, 0), (15, 177, 0), (0, 207, 0)]
+ delay 0: victim state=14 mask=0000 attacker state=0
+    getup d0 tele-in ctl                 first_live=8 dmg_frame=None dmg=0.0 victim_state_end=0
+    getup d0 tele-in + mask=FFFF every frame first_live=8 dmg_frame=None dmg=0.0 victim_state_end=0
+ delay 3: victim state=14 mask=0000 attacker state=0
+    getup d3 tele-in ctl                 first_live=8 dmg_frame=None dmg=0.0 victim_state_end=0
+    getup d3 tele-in + mask=FFFF every frame first_live=8 dmg_frame=None dmg=0.0 victim_state_end=0
+ delay 6: victim state=14 mask=0000 attacker state=0
+    getup d6 tele-in ctl                 first_live=8 dmg_frame=None dmg=0.0 victim_state_end=0
+    getup d6 tele-in + mask=FFFF every frame first_live=8 dmg_frame=None dmg=0.0 victim_state_end=0
+ delay 9: victim state=14 mask=0000 attacker state=0
+    getup d9 tele-in ctl                 first_live=8 dmg_frame=None dmg=0.0 victim_state_end=0
+    getup d9 tele-in + mask=FFFF every frame first_live=8 dmg_frame=None dmg=0.0 victim_state_end=0
+ delay 12: victim state=15 mask=0000 attacker state=0
+    getup d12 tele-in ctl                first_live=8 dmg_frame=None dmg=0.0 victim_state_end=0
+    getup d12 tele-in + mask=FFFF every frame first_live=8 dmg_frame=None dmg=0.0 victim_state_end=0
+ delay 15: victim state=15 mask=0000 attacker state=0
+    getup d15 tele-in ctl                first_live=8 dmg_frame=None dmg=0.0 victim_state_end=0
+    getup d15 tele-in + mask=FFFF every frame first_live=8 dmg_frame=None dmg=0.0 victim_state_end=0
+ delay 18: victim state=15 mask=0000 attacker state=0
+    getup d18 tele-in ctl                first_live=8 dmg_frame=None dmg=0.0 victim_state_end=0
+    getup d18 tele-in + mask=FFFF every frame first_live=8 dmg_frame=None dmg=0.0 victim_state_end=0
+ delay 21: victim state=15 mask=0000 attacker state=0
+    getup d21 tele-in ctl                first_live=8 dmg_frame=None dmg=0.0 victim_state_end=0
+    getup d21 tele-in + mask=FFFF every frame first_live=8 dmg_frame=None dmg=0.0 victim_state_end=0
+ delay 24: victim state=15 mask=0000 attacker state=0
+    getup d24 tele-in ctl                first_live=8 dmg_frame=None dmg=0.0 victim_state_end=0
+    getup d24 tele-in + mask=FFFF every frame first_live=8 dmg_frame=None dmg=0.0 victim_state_end=0
+ delay 27: victim state=15 mask=0000 attacker state=0
+    getup d27 tele-in ctl                first_live=8 dmg_frame=None dmg=0.0 victim_state_end=0
+    getup d27 tele-in + mask=FFFF every frame first_live=8 dmg_frame=None dmg=0.0 victim_state_end=0
+ delay 30: victim state=15 mask=0000 attacker state=0
+    getup d30 tele-in ctl                first_live=8 dmg_frame=10 dmg=32.8 victim_state_end=0
+    getup d30 tele-in + mask=FFFF every frame first_live=8 dmg_frame=10 dmg=32.8 victim_state_end=0
+ delay 33: victim state=15 mask=0000 attacker state=0
+    getup d33 tele-in ctl                first_live=8 dmg_frame=9 dmg=32.8 victim_state_end=0
+    getup d33 tele-in + mask=FFFF every frame first_live=8 dmg_frame=9 dmg=32.8 victim_state_end=0
+ delay 36: victim state=15 mask=0000 attacker state=0
+    getup d36 tele-in ctl                first_live=8 dmg_frame=9 dmg=32.8 victim_state_end=0
+    getup d36 tele-in + mask=FFFF every frame first_live=8 dmg_frame=9 dmg=32.8 victim_state_end=0
+ delay 39: victim state=15 mask=0000 attacker state=0
+    getup d39 tele-in ctl                first_live=8 dmg_frame=9 dmg=32.8 victim_state_end=0
+    getup d39 tele-in + mask=FFFF every frame first_live=8 dmg_frame=9 dmg=32.8 victim_state_end=0

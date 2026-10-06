@@ -1,0 +1,37 @@
+f=796 chest (-600,650) content=0x0c -> spawn vt=0xc0c9810 id=0x0c y=90 MATCH
+f=842 chest (0,600) content=0x19 -> spawn vt=0xc0c9810 id=0x19 y=121 MATCH
+f=860 chest (250,-600) content=0x04 -> spawn vt=0xc0c9810 id=0x04 y=110 MATCH
+f=1086 chest (950,300) content=0x24 -> spawn vt=0xc0c9810 id=0x24 y=121 MATCH
+f=1142 chest (650,800) content=0x3b -> spawn vt=0xc0c9810 id=0x3b y=150 MATCH
+f=1480 chest (-650,180) content=0x79 -> spawn vt=0xc0c9810 id=0x79 y=170 MATCH
+f=1620 chest (0,600) content=0x0f -> spawn vt=0xc0c9810 id=0x0f y=110 MATCH
+f=1872 chest (250,-600) content=0x06 -> spawn vt=0xc0c9810 id=0x06 y=121 MATCH
+f=2006 chest (-650,180) content=0xc1 -> spawn vt=0xc0cbcb0 id=0xc1 y=86 MATCH
+f=2424 chest (-600,650) content=0x01 -> spawn vt=0xc0c9810 id=0x01 y=70 MATCH
+f=2564 chest (-650,180) content=0xc1 -> spawn vt=0xc0cbcb0 id=0xc1 y=86 MATCH
+f=2780 chest (250,-600) content=0x0b -> spawn vt=0xc0c9810 id=0x0b y=70 MATCH
+f=3198 chest (-650,180) content=0x07 -> spawn vt=0xc0c9810 id=0x07 y=110 MATCH
+f=3390 chest (0,600) content=0x04 -> spawn vt=0xc0c9810 id=0x04 y=121 MATCH
+f=3908 chest (650,800) content=0x43 -> spawn vt=0xc0c9810 id=0x43 y=70 MATCH
+f=4034 chest (950,300) content=0x46 -> spawn vt=0xc0c9f50 id=0x46 y=90 MATCH
+f=4190 chest (250,-600) content=0xc1 -> spawn vt=0xc0cbcb0 id=0xc1 y=75 MATCH
+f=4372 chest (0,600) content=0x39 -> spawn vt=0xc0c9810 id=0x39 y=110 MATCH
+f=4552 chest (-650,180) content=0xc1 -> spawn vt=0xc0cbcb0 id=0xc1 y=86 MATCH
+f=5232 chest (-650,180) content=0x3b -> spawn vt=0xc0c9810 id=0x3b y=170 MATCH
+f=5284 chest (-600,650) content=0x0e -> spawn vt=0xc0c9810 id=0x0e y=90 MATCH
+f=5326 chest (0,600) content=0xc1 -> spawn vt=0xc0cbcb0 id=0xc1 y=86 MATCH
+f=5446 chest (0,600) content=0x03 -> spawn vt=0xc0c9810 id=0x03 y=70 MATCH
+f=5482 chest (650,800) content=0x0d -> spawn vt=0xc0c9810 id=0x0d y=70 MATCH
+f=5944 chest (-650,180) content=0xc1 -> spawn vt=0xc0cbcb0 id=0xc1 y=75 MATCH
+f=5988 chest (250,-600) content=0xc1 -> spawn vt=0xc0cbcb0 id=0xc1 y=75 MATCH
+f=6160 chest (0,600) content=0x21 -> spawn vt=0xc0c9810 id=0x21 y=90 MATCH
+f=6222 chest (950,300) content=0xc1 -> spawn vt=0xc0cbcb0 id=0xc1 y=75 MATCH
+f=6250 chest (-650,180) content=0x33 -> spawn vt=0xc0c9810 id=0x33 y=90 MATCH
+f=6306 chest (650,800) content=0x2b -> spawn vt=0xc0c9810 id=0x2b y=110 MATCH
+f=6802 chest (950,300) content=0xc1 -> spawn vt=0xc0cbcb0 id=0xc1 y=75 MATCH
+f=7218 chest (-600,650) content=0x08 -> spawn vt=0xc0ca928 id=0x08 y=70 MATCH
+f=7526 chest (950,300) content=0x0b -> spawn vt=0xc0c9810 id=0x0b y=90 MATCH
+f=7584 chest (650,800) content=0xc1 -> spawn vt=0xc0cbcb0 id=0xc1 y=86 MATCH
+f=7810 chest (250,-600) content=0xc1 -> spawn vt=0xc0cbcb0 id=0xc1 y=86 MATCH
+MATCH=35 MISMATCH=0 NOSPAWN=0
+content -> vt: {'0xc': '0xc0c9810', '0x19': '0xc0c9810', '0x4': '0xc0c9810', '0x24': '0xc0c9810', '0x3b': '0xc0c9810', '0x79': '0xc0c9810', '0xf': '0xc0c9810', '0x6': '0xc0c9810', '0xc1': '0xc0cbcb0', '0x1': '0xc0c9810', '0xb': '0xc0c9810', '0x7': '0xc0c9810', '0x43': '0xc0c9810', '0x46': '0xc0c9f50', '0x39': '0xc0c9810', '0xe': '0xc0c9810', '0x3': '0xc0c9810', '0xd': '0xc0c9810', '0x21': '0xc0c9810', '0x33': '0xc0c9810', '0x2b': '0xc0c9810', '0x8': '0xc0ca928'}

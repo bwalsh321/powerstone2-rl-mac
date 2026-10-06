@@ -1,0 +1,5 @@
+box      n= 74  stopped 1.00  |err| median    4.3  p90   11.2  mean err   -5.1
+pole     n= 19  stopped 0.95  |err| median   42.9  p90  413.5  mean err +164.9
+cluster  n= 45  stopped 0.91  |err| median   20.7  p90  347.3  mean err +115.1
+no blocker within 1000: n=90  stopped early 0.07  min travel 1002
+DONE

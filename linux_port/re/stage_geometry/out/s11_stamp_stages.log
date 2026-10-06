@@ -1,0 +1,19 @@
+Set variable override: flycast_hle_bios = enabled
+Set variable override: reicast_hle_bios = enabled
+Set variable override: flycast_device_port1_slot1 = VMU
+Set variable override: flycast_device_port2_slot1 = VMU
+Set variable override: flycast_threaded_rendering = disabled
+Set variable override: reicast_threaded_rendering = disabled
+2026-10-04 20:47:18.392 Python[50653:5265283] ApplePersistenceIgnoreState: Existing state will not be touched. New state will be written to /var/folders/gz/b_ggdqsj0s9_8mxs_fyvdkym0000gn/T/org.python.python.savedState
+pygame 2.6.1 (SDL 2.28.4, Python 3.11.16)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+bluesky live at 540 P1 [-300, 0, 525] P2 [300, 0, 368]
+darkcastle live at 540 P1 [-2200, 0, -350] P2 [-809, 0, -534]
+tomb live at 540 P1 [-308, 0, 542] P2 [-11, 0, 13]
+iceberg live at 540 P1 [1198, 28, 1136] P2 [1152, 28, 217]
+spacestation live at 540 P1 [-438, 0, 133] P2 [17, 0, -408]
+desert live at 540 P1 [250, 0, 900] P2 [-334, 0, -834]
+pharaoh live at 600 P1 [250, 0, 900] P2 [-84, 0, 966]
+chaos live at 540 P1 [107, 0, 7400] P2 [-13, 0, 7400]
+DONE
+libc++abi: terminating due to uncaught exception of type std::__1::system_error: mutex lock failed: Invalid argument

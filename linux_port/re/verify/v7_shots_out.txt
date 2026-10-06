@@ -1,0 +1,4 @@
+ctl_type06: held type 0x6 uses 492 live cat1 now []
+swap_type01: held type 0x1 uses 599 live cat1 now []
+proj ctl: seat3 hp loss 111
+proj moved: seat3 hp loss 0

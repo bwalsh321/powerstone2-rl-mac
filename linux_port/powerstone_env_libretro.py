@@ -95,6 +95,9 @@ class PowerStoneEnvLibretro(PowerStoneEnvV6):
             # shard vs ~95%% before), zero pre-roll damage. Eval contract change:
             # champion + candidates re-baselined (HANDOFF "PRE-ROLL FIX").
             self._lr_bridge.run_frames(random.randrange(int(os.environ.get("PS2_STAGGER_FRAMES", "240"))))
+            # Oct 5 2026 (obs v4): the reader's onset clocks / per-frame cache restart on every loadstate.
+            if getattr(self, "_v4", None) is not None:
+                self._v4.reset()
 
     def _parse_state_once(self):
         line = self._lr_synth.line

@@ -74,6 +74,15 @@ class PowerStoneEnvV6(gym.Env):
     # opponent block) at [130..153], and a THIRD projectile slot at [154..159]. The first 122
     # dims are byte-identical to v2, so a v2 policy reads obs[:122]. Default off.
     OBS_V3 = os.environ.get("PS2_OBS_V3", "0") == "1"
+    # obs v4 (Oct 5 2026, PS2_OBS_V4=1, needs PS2_OBS_V3=1; re/obs_v4/OBS_V4_SPEC.md): 270 dims appended at
+    # [160..429] by obs_v4_reader.ObsV4Reader (melee hit spheres, ledger threats, ground items/chests, held items,
+    # player state, characters, globals, Desert spatial block). [0..159] = the v3 builder, unchanged, except [12..17]
+    # (the slot-hash "item embedding") when PS2_OBS_V4_ITEMEMB=zero: then a 430-dim consumer reads 0 there. Default
+    # "keep" (exact warm start from a 160-dim parent). A <=160-dim consumer (pool seat / eval of an older model) sets
+    # self._legacy_item: it keeps the hash and the v4 block is not computed for it (it slices obs[:160] anyway).
+    # Default off: with PS2_OBS_V4 unset every observation is bit-identical to the pre-v4 code. Libretro envs only.
+    OBS_V4 = os.environ.get("PS2_OBS_V4", "0") == "1"
+    OBS_V4_ITEMEMB = os.environ.get("PS2_OBS_V4_ITEMEMB", "keep")
     LOAD_STATE_KEY = "f7"
     TURBO_KEY = "f9"
 
@@ -492,7 +501,8 @@ class PowerStoneEnvV6(gym.Env):
     #            2 stage phase, 5 sky hazard, 4 spare. Reserved on purpose:
     #            known-wanted and un-pinned; paying the dims now is far
     #            cheaper than a bus change (which orphans the model).
-    OBS_DIM = 160 if os.environ.get("PS2_OBS_V3", "0") == "1" else 122
+    OBS_DIM = (430 if os.environ.get("PS2_OBS_V4", "0") == "1"
+               else 160 if os.environ.get("PS2_OBS_V3", "0") == "1" else 122)
     _OPP0, _STN0, _PRJ0, _STG0, _ACT0 = 18, 57, 81, 93, 97
     _CHT0, _RSV0 = 107, 111
     _V3_0, _PRJ3 = 122, 154               # obs v3 block, third projectile slot
@@ -614,6 +624,10 @@ class PowerStoneEnvV6(gym.Env):
             self.set_action_mode(63)
         self.observation_space = spaces.Box(
             low=-5.0, high=5.0, shape=(self.OBS_DIM,), dtype=np.float32)
+        if self.OBS_V4:
+            assert self.OBS_V3, "PS2_OBS_V4=1 needs PS2_OBS_V3=1 (v4 appends to the v3 prefix)"
+            assert self.OBS_V4_ITEMEMB in ("keep", "zero"), f"PS2_OBS_V4_ITEMEMB={self.OBS_V4_ITEMEMB!r}"
+            assert hasattr(self, "_lr_bridge"), "PS2_OBS_V4=1 needs a libretro env (reads RAM directly)"
 
         self.steps = 0
         self.prev = None
@@ -1460,7 +1474,25 @@ class PowerStoneEnvV6(gym.Env):
                     b = self._V3_0 + 8 * (k + 1)
                     obs[b] = min(1.0, psn[j] / 40.0)
                     obs[b + 1 + self.STATE_CLASS.get(pst[j], 6)] = 1.0
-        return np.clip(obs, -5.0, 5.0)
+        obs = np.clip(obs, -5.0, 5.0)
+        if self.OBS_V4 and not getattr(self, "_legacy_item", False):
+            self._observe_v4(obs, s, i)
+        return obs
+
+    def _observe_v4(self, obs, s, i):
+        """obs v4: fill obs[160:430] in place for the seat being observed (i = AGENT_PLAYER - 1, which
+        FFASelfPlayEnv._obs_from_view swaps per view). The opponent order is the v2 opponent block's, the frame
+        clock is the LEARNER synth's (one counter per emulator; the reader's seat-independent scan is cached per
+        frame and shared by every view)."""
+        rdr = getattr(self, "_v4", None)
+        if rdr is None:
+            from obs_v4_reader import ObsV4Reader, V3_DIM, V4_DIM
+            assert (V3_DIM, V4_DIM) == (160, 430)
+            rdr = self._v4 = ObsV4Reader(self._lr_bridge.ram)
+        oo = [j for _, j, _ in self._opps(s)[:self.N_OPP]]
+        obs[160:430], _ = rdr.features(i, oo, self._lr_synth.frame)
+        if self.OBS_V4_ITEMEMB == "zero":
+            obs[12:18] = 0.0
 
     def _meter(self, p):
         """Form meter -> [0,1]. -1 (unanchored) and missing keys read 0.0.

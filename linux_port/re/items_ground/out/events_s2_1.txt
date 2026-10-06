@@ -1,0 +1,116 @@
+f=     4 SPAWN idx= 26 0x8c502a10 vt=0x0c0f1688 hdr=0x0000ff09 pos=(-500.0,100.0,1000.0)
+f=     4 SPAWN idx= 27 0x8c502e40 vt=0x0c0f1688 hdr=0x0001ff09 pos=(113.8,100.0,-900.0)
+f=     4 SPAWN idx= 28 0x8c503270 vt=0x0c0f1688 hdr=0x0002ff09 pos=(300.0,100.0,-1100.0)
+f=     4 SPAWN idx= 29 0x8c5036a0 vt=0x0c0f1688 hdr=0x0003ff09 pos=(-850.0,100.0,1000.0)
+f=     4 SPAWN idx= 30 0x8c503ad0 vt=0x0c0f1688 hdr=0x0004ff09 pos=(-650.0,100.0,1050.0)
+f=     4 SPAWN idx= 31 0x8c503f00 vt=0x0c0f1688 hdr=0x0005ff09 pos=(-1000.0,100.0,-100.0)
+f=     4 SPAWN idx= 32 0x8c504330 vt=0x0c0f1688 hdr=0x0006ff09 pos=(-900.0,100.0,100.0)
+f=     4 SPAWN idx= 33 0x8c504760 vt=0x0c0f1688 hdr=0x0007ff09 pos=(-1100.0,100.0,300.0)
+f=     4 SPAWN idx= 34 0x8c504b90 vt=0x0c0f18d4 hdr=0x0000ff09 pos=(-1000.0,0.0,-1000.0)
+f=     4 SPAWN idx= 35 0x8c504fc0 vt=0x0c0f18d4 hdr=0x0101ff09 pos=(950.0,0.0,-850.0)
+f=     4 SPAWN idx= 36 0x8c5053f0 vt=0x0c0f18d4 hdr=0x0202ff09 pos=(100.0,0.0,1000.0)
+f=     4 SPAWN idx= 37 0x8c505820 vt=0x0c0f18d4 hdr=0x0303ff09 pos=(-1050.0,0.0,800.0)
+f=   460 SPAWN idx= 40 0x8c5064b0 vt=0x0c0cc7a8 hdr=0x0000ff09 pos=(-650.0,50.0,180.0)
+f=   492 SPAWN idx= 45 0x8c5079a0 vt=0x0c0c9810 hdr=0x00000009 pos=(-650.0,90.0,180.0)
+f=   504 GONE  0x8c5064b0 vt=0x0c0cc7a8
+f=   520 SPAWN idx= 40 0x8c5064b0 vt=0x0c0cc7a8 hdr=0x0000ff09 pos=(-600.0,50.0,650.0)
+f=   580 SPAWN idx= 42 0x8c506d10 vt=0x0c0cc7a8 hdr=0x0000ff09 pos=(250.0,50.0,-600.0)
+f=   612 SPAWN idx= 64 0x8c50c930 vt=0x0c0c9810 hdr=0x00000009 pos=(-600.0,196.0,650.0)
+f=   624 GONE  0x8c5064b0 vt=0x0c0cc7a8
+f=   640 SPAWN idx= 68 0x8c50d9f0 vt=0x0c0cc7a8 hdr=0x0000ff09 pos=(950.0,50.0,300.0)
+f=   700 SPAWN idx= 66 0x8c50d190 vt=0x0c0cc7a8 hdr=0x00000009 pos=(0.0,50.0,600.0)
+f=   728 SPAWN idx= 69 0x8c50de20 vt=0x0c0c9f50 hdr=0x00000009 pos=(0.0,108.0,600.0)
+f=   740 GONE  0x8c50d190 vt=0x0c0cc7a8
+f=   760 SPAWN idx= 41 0x8c5068e0 vt=0x0c0cc7a8 hdr=0x0000ff09 pos=(650.0,50.0,800.0)
+f=   780 SPAWN idx= 66 0x8c50d190 vt=0x0c0c9810 hdr=0x00000009 pos=(250.0,139.0,-600.0)
+f=   792 GONE  0x8c506d10 vt=0x0c0cc7a8
+f=   984 SPAWN idx= 43 0x8c507140 vt=0x0c0c9810 hdr=0x00000009 pos=(950.0,121.0,300.0)
+f=   996 GONE  0x8c50d9f0 vt=0x0c0cc7a8
+f=  1060 SPAWN idx= 68 0x8c50d9f0 vt=0x0c0c9810 hdr=0x00000009 pos=(650.0,90.0,800.0)
+f=  1072 GONE  0x8c5068e0 vt=0x0c0cc7a8
+f=  1112 GONE  0x8c50c930 vt=0x0c0c9810
+f=  1120 GONE  0x8c5079a0 vt=0x0c0c9810
+f=  1164 SPAWN idx= 64 0x8c50c930 vt=0x0c0cbcb0 hdr=0x00000009 pos=(244.7,152.1,797.2)
+f=  1172 SPAWN idx= 40 0x8c5064b0 vt=0x0c0cc7a8 hdr=0x0000ff09 pos=(-600.0,50.0,650.0)
+f=  1232 SPAWN idx= 65 0x8c50cd60 vt=0x0c0cc7a8 hdr=0x0000ff09 pos=(-650.0,50.0,180.0)
+f=  1316 SPAWN idx= 70 0x8c50e250 vt=0x0c0cbcb0 hdr=0x00000009 pos=(-550.9,124.7,762.8)
+f=  1324 SPAWN idx= 42 0x8c506d10 vt=0x0c0cbcb0 hdr=0x00000009 pos=(-600.0,75.0,650.0)
+f=  1336 GONE  0x8c5064b0 vt=0x0c0cc7a8
+f=  1352 GONE  0x8c50de20 vt=0x0c0c9f50
+f=  1404 SPAWN idx= 75 0x8c50f740 vt=0x0c0c9810 hdr=0x00000009 pos=(-650.0,124.0,180.0)
+f=  1412 SPAWN idx= 41 0x8c5068e0 vt=0x0c0cc7a8 hdr=0x0000ff09 pos=(0.0,50.0,600.0)
+f=  1412 GONE  0x8c50cd60 vt=0x0c0cc7a8
+f=  1520 GONE  0x8c506d10 vt=0x0c0cbcb0
+f=  1580 SPAWN idx= 44 0x8c507570 vt=0x0c0cc7a8 hdr=0x00000009 pos=(-600.0,50.0,650.0)
+f=  1608 SPAWN idx= 67 0x8c50d5c0 vt=0x0c0c9810 hdr=0x00000009 pos=(-600.0,124.0,650.0)
+f=  1608 GONE  0x8c507140 vt=0x0c0c9810
+f=  1608 GONE  0x8c50d190 vt=0x0c0c9810
+f=  1616 GONE  0x8c507570 vt=0x0c0cc7a8
+f=  1668 SPAWN idx= 77 0x8c50ffa0 vt=0x0c0cc7a8 hdr=0x0000ff09 pos=(250.0,50.0,-600.0)
+f=  1684 GONE  0x8c50d9f0 vt=0x0c0c9810
+f=  1728 SPAWN idx= 76 0x8c50fb70 vt=0x0c0cc7a8 hdr=0x0000ff09 pos=(950.0,50.0,300.0)
+f=  1744 SPAWN idx= 68 0x8c50d9f0 vt=0x0c0cbcb0 hdr=0x00000009 pos=(-620.5,152.1,795.4)
+f=  1788 SPAWN idx= 73 0x8c50eee0 vt=0x0c0cc7a8 hdr=0x0000ff09 pos=(650.0,50.0,800.0)
+f=  2260 SPAWN idx= 45 0x8c5079a0 vt=0x0c0ca928 hdr=0x00000009 pos=(0.0,108.0,600.0)
+f=  2272 GONE  0x8c5068e0 vt=0x0c0cc7a8
+f=  2272 GONE  0x8c50f740 vt=0x0c0c9810
+f=  2292 GONE  0x8c50c930 vt=0x0c0cbcb0
+f=  2320 GONE  0x8c50e250 vt=0x0c0cbcb0
+f=  2332 SPAWN idx= 70 0x8c50e250 vt=0x0c0cc7a8 hdr=0x0000ff09 pos=(-650.0,50.0,180.0)
+f=  2456 SPAWN idx= 80 0x8c510c30 vt=0x0c0c9810 hdr=0x00000009 pos=(650.0,124.0,800.0)
+f=  2464 GONE  0x8c50eee0 vt=0x0c0cc7a8
+f=  2604 SPAWN idx= 74 0x8c50f310 vt=0x0c0c9810 hdr=0x00000009 pos=(-650.0,108.0,180.0)
+f=  2616 GONE  0x8c5079a0 vt=0x0c0ca928
+f=  2616 GONE  0x8c50e250 vt=0x0c0cc7a8
+f=  2620 SPAWN idx= 64 0x8c50c930 vt=0x0c0cbcb0 hdr=0x00000009 pos=(29.4,75.0,765.0)
+f=  2676 SPAWN idx= 73 0x8c50eee0 vt=0x0c0cc7a8 hdr=0x0000ff09 pos=(0.0,50.0,600.0)
+f=  2740 GONE  0x8c50d9f0 vt=0x0c0cbcb0
+f=  3012 SPAWN idx= 68 0x8c50d9f0 vt=0x0c0c9810 hdr=0x00000009 pos=(0.0,155.0,600.0)
+f=  3020 GONE  0x8c50eee0 vt=0x0c0cc7a8
+f=  3068 SPAWN idx= 69 0x8c50de20 vt=0x0c0cbcb0 hdr=0x00000009 pos=(-204.3,124.7,652.1)
+f=  3080 GONE  0x8c510c30 vt=0x0c0c9810
+f=  3140 SPAWN idx= 66 0x8c50d190 vt=0x0c0cc7a8 hdr=0x0000ff09 pos=(650.0,50.0,800.0)
+f=  3228 GONE  0x8c50f310 vt=0x0c0c9810
+f=  3288 SPAWN idx= 81 0x8c511060 vt=0x0c0cc7a8 hdr=0x00000009 pos=(-650.0,50.0,180.0)
+f=  3316 SPAWN idx= 43 0x8c507140 vt=0x0c0cbcb0 hdr=0x00000009 pos=(-650.0,86.0,180.0)
+f=  3328 GONE  0x8c511060 vt=0x0c0cc7a8
+f=  3632 SPAWN idx= 81 0x8c511060 vt=0x0c0c9810 hdr=0x00000009 pos=(250.0,170.0,-600.0)
+f=  3644 GONE  0x8c50ffa0 vt=0x0c0cc7a8
+f=  3700 GONE  0x8c50d9f0 vt=0x0c0c9810
+f=  3752 GONE  0x8c50c930 vt=0x0c0cbcb0
+f=  3760 SPAWN idx= 77 0x8c50ffa0 vt=0x0c0cc7a8 hdr=0x0000ff09 pos=(0.0,50.0,600.0)
+f=  3868 SPAWN idx= 65 0x8c50cd60 vt=0x0c0cbcb0 hdr=0x00000009 pos=(950.0,120.0,300.0)
+f=  3872 GONE  0x8c507140 vt=0x0c0cbcb0
+f=  3876 GONE  0x8c50fb70 vt=0x0c0cc7a8
+f=  3888 GONE  0x8c50cd60 vt=0x0c0cbcb0
+f=  3928 SPAWN idx= 65 0x8c50cd60 vt=0x0c0cbcb0 hdr=0x00000009 pos=(0.0,86.0,600.0)
+f=  3932 SPAWN idx= 43 0x8c507140 vt=0x0c0cc7a8 hdr=0x0000ff09 pos=(-650.0,50.0,180.0)
+f=  3940 GONE  0x8c50ffa0 vt=0x0c0cc7a8
+f=  3952 GONE  0x8c50cd60 vt=0x0c0cbcb0
+f=  3972 SPAWN idx= 73 0x8c50eee0 vt=0x0c0c9810 hdr=0x00000009 pos=(650.0,108.0,800.0)
+f=  3984 GONE  0x8c50d190 vt=0x0c0cc7a8
+f=  3992 SPAWN idx= 65 0x8c50cd60 vt=0x0c0cc7a8 hdr=0x0000ff09 pos=(950.0,50.0,300.0)
+f=  4052 SPAWN idx= 78 0x8c5103d0 vt=0x0c0cc7a8 hdr=0x0000ff09 pos=(0.0,50.0,600.0)
+f=  4148 SPAWN idx= 77 0x8c50ffa0 vt=0x0c0cbcb0 hdr=0x00000009 pos=(4.9,96.0,956.4)
+f=  4196 GONE  0x8c50de20 vt=0x0c0cbcb0
+f=  4236 GONE  0x8c50ffa0 vt=0x0c0cbcb0
+f=  4256 GONE  0x8c511060 vt=0x0c0c9810
+f=  4316 SPAWN idx= 86 0x8c512550 vt=0x0c0cc7a8 hdr=0x0000ff09 pos=(250.0,50.0,-600.0)
+f=  4376 SPAWN idx= 98 0x8c515790 vt=0x0c0c9810 hdr=0x00000009 pos=(0.0,90.0,600.0)
+f=  4388 GONE  0x8c5103d0 vt=0x0c0cc7a8
+f=  4516 SPAWN idx= 70 0x8c50e250 vt=0x0c0c9810 hdr=0x00000009 pos=(-650.0,108.0,180.0)
+f=  4528 GONE  0x8c507140 vt=0x0c0cc7a8
+f=  4596 GONE  0x8c50eee0 vt=0x0c0c9810
+f=  4656 SPAWN idx= 73 0x8c50eee0 vt=0x0c0cc7a8 hdr=0x0000ff09 pos=(650.0,50.0,800.0)
+f=  5140 GONE  0x8c50e250 vt=0x0c0c9810
+f=  5200 SPAWN idx= 43 0x8c507140 vt=0x0c0cc7a8 hdr=0x0000ff09 pos=(-650.0,50.0,180.0)
+f=  5316 SPAWN idx=107 0x8c517d40 vt=0x0c0c9810 hdr=0x00000009 pos=(-650.0,124.0,180.0)
+f=  5324 GONE  0x8c507140 vt=0x0c0cc7a8
+f=  5460 GONE  0x8c50d5c0 vt=0x0c0c9810
+f=  5520 SPAWN idx= 45 0x8c5079a0 vt=0x0c0cc7a8 hdr=0x0000ff09 pos=(-600.0,50.0,650.0)
+f=  5740 GONE  0x8c515790 vt=0x0c0c9810
+f=  5800 SPAWN idx= 91 0x8c513a40 vt=0x0c0cc7a8 hdr=0x0000ff09 pos=(0.0,50.0,600.0)
+f=  5892 SPAWN idx= 76 0x8c50fb70 vt=0x0c0c9810 hdr=0x00000009 pos=(-601.6,108.0,648.8)
+f=  5904 GONE  0x8c5079a0 vt=0x0c0cc7a8
+f=  5940 GONE  0x8c517d40 vt=0x0c0c9810
+f=  6000 SPAWN idx= 83 0x8c5118c0 vt=0x0c0cc7a8 hdr=0x0000ff09 pos=(-650.0,50.0,180.0)

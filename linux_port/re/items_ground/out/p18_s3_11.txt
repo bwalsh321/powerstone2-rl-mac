@@ -1,0 +1,21 @@
+SHOT f=11820 idx=34 vt=0x0c0f18d4 hdr=0x0000ff09 id=0xc8 st=2 pos=(-1000,0,-1000) bbox=None
+SHOT f=11820 idx=35 vt=0x0c0f18d4 hdr=0x0101ff09 id=0xc8 st=2 pos=(950,0,-850) bbox=None
+SHOT f=11820 idx=36 vt=0x0c0f18d4 hdr=0x02020009 id=0xc8 st=5 pos=(-30,-52,-53) bbox=None
+SHOT f=11820 idx=37 vt=0x0c0f18d4 hdr=0x0303ff09 id=0xc8 st=2 pos=(-1050,0,800) bbox=None
+SHOT f=11820 idx=58 vt=0x0c0cc7a8 hdr=0x0000ff09 id=0xc2 st=2 pos=(0,50,600) bbox=None
+SHOT f=11820 P1 xyz=(-47, 155, 1011) held=0xc5053f4
+SHOT f=11820 P2 xyz=(322, 473, 999) held=0x0
+SHOT f=11820 P3 xyz=(-357, 260, 63) held=0x0
+SHOT f=11820 P4 xyz=(-26, 118, 267) held=0x0
+SHOT f=11940 idx=34 vt=0x0c0f18d4 hdr=0x0000ff09 id=0xc8 st=2 pos=(-1000,0,-1000) bbox=None
+SHOT f=11940 idx=35 vt=0x0c0f18d4 hdr=0x0101ff09 id=0xc8 st=2 pos=(950,0,-850) bbox=None
+SHOT f=11940 idx=36 vt=0x0c0f18d4 hdr=0x02020009 id=0xc8 st=1 pos=(69,180,901) bbox=None
+SHOT f=11940 idx=37 vt=0x0c0f18d4 hdr=0x0303ff09 id=0xc8 st=2 pos=(-1050,0,800) bbox=None
+SHOT f=11940 idx=59 vt=0x0c0cbcb0 hdr=0x00000009 id=0xc1 st=2 pos=(344,75,161) bbox=None
+SHOT f=11940 idx=60 vt=0x0c0cc7a8 hdr=0x0000ff09 id=0xc2 st=2 pos=(650,50,800) bbox=None
+SHOT f=11940 idx=63 vt=0x0c0cc7a8 hdr=0x0000ff09 id=0xc2 st=2 pos=(950,50,300) bbox=None
+SHOT f=11940 idx=64 vt=0x0c0c9810 hdr=0x00000009 id=0x0c st=5 pos=(13,-115,1) bbox=None
+SHOT f=11940 P1 xyz=(-21, 164, 812) held=0xc50c934
+SHOT f=11940 P2 xyz=(903, 126, 1095) held=0x0
+SHOT f=11940 P3 xyz=(-757, 118, 52) held=0x0
+SHOT f=11940 P4 xyz=(-604, 92, 178) held=0x0

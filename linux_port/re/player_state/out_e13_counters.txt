@@ -1,0 +1,8 @@
+intro 0x8c472a7c t0 0 tEnd 0 nchanges 0 first change [] last change None
+intro 0x8c475200 t0 367 tEnd 493 nchanges 126 first change [174 175 176] last change [297 298 299]
+intro 0x8c472d0c t0 783 tEnd 783 nchanges 0 first change [] last change None
+intro 0x8c472ad4 t0 16843011 tEnd 16843011 nchanges 0 first change [] last change None
+ko 0x8c472a7c t0 0 tEnd 0 nchanges 0 first change [] last change None
+ko 0x8c475200 t0 398 tEnd 406 nchanges 8 first change [1 2 3] last change [6 7 8]
+ko 0x8c472d0c t0 783 tEnd 783 nchanges 0 first change [] last change None
+ko 0x8c472ad4 t0 16843011 tEnd 16843011 nchanges 0 first change [] last change None

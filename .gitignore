@@ -98,3 +98,13 @@ linux_port/host_role.txt
 
 # DAgger drills (Oct 3 2026): emulator snapshots (~8 MB each) + recordings; game-derived, keep out of git
 linux_port/drills/
+
+# --- Oct 5 2026 additions (re/ reverse-engineering workspace) ---
+# Same rule as states/ + system/: no game-derived binaries in the public repo.
+# Savestates, emulator nvmem/VMU dirs, raw RAM dumps and per-frame RAM capture
+# arrays stay local; scripts, write-ups, small derived maps and outputs are tracked.
+linux_port/re/**/*.state
+linux_port/re/**/system/
+linux_port/re/**/*.bin
+linux_port/re/**/*_dumps.npz
+linux_port/re/projectiles/cap/

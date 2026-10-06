@@ -1,0 +1,12 @@
+Set variable override: flycast_hle_bios = enabled
+Set variable override: reicast_hle_bios = enabled
+Set variable override: flycast_device_port1_slot1 = VMU
+Set variable override: flycast_device_port2_slot1 = VMU
+Set variable override: flycast_threaded_rendering = disabled
+Set variable override: reicast_threaded_rendering = disabled
+2026-10-04 20:36:55.079 Python[46445:5242528] ApplePersistenceIgnoreState: Existing state will not be touched. New state will be written to /var/folders/gz/b_ggdqsj0s9_8mxs_fyvdkym0000gn/T/org.python.python.savedState
+pygame 2.6.1 (SDL 2.28.4, Python 3.11.16)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+P1 RLE: 0:s0/a0(y0,hp1000) 1:s4/a7(y0,hp1000) 3:s5/a8(y0,hp1000) 9:s7/a203(y119,hp1000) 23:s7/a204(y144,hp1000) 29:s7/a205(y24,hp1000) 71:s7/a206(y221,hp1000) 80:s7/ab(y221,hp1000) 117:s7/a207(y-0,hp1000) 135:s0/a0(y-0,hp1000)
+P2 RLE: 0:s0/a0(y0,hp1000) 28:s32/a0(y0,hp974) 29:s32/a43f(y0,hp974) 71:s32/a42b(y0,hp915) 79:s32/a42c(y0,hp915) 105:s32/a434(y-0,hp915) 131:s14/a436(y-0,hp915) 139:s15/a438(y-0,hp915) 162:s15/a0(y-0,hp915) 169:s0/a0(y-0,hp915)
+DONE

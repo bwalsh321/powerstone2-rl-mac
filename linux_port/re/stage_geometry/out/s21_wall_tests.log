@@ -1,0 +1,15 @@
+Set variable override: flycast_hle_bios = enabled
+Set variable override: reicast_hle_bios = enabled
+Set variable override: flycast_device_port1_slot1 = VMU
+Set variable override: flycast_device_port2_slot1 = VMU
+Set variable override: flycast_threaded_rendering = disabled
+Set variable override: reicast_threaded_rendering = disabled
+2026-10-04 21:45:38.076 Python[70716:5373745] ApplePersistenceIgnoreState: Existing state will not be touched. New state will be written to /var/folders/gz/b_ggdqsj0s9_8mxs_fyvdkym0000gn/T/org.python.python.savedState
+headon_hold                maxy=   0.0  t0:st0@(-14,0,-900) t6:st1@(-14,0,-900)
+oblique_hold               maxy=   0.0  t0:st0@(-14,0,-900) t6:st1@(-14,0,-900)
+headon_jump_at_wall        maxy= 331.8  t0:st0@(-14,0,-900) t6:st1@(-14,0,-900) t41:st5@(-15,0,-1118) t90:st1@(-17,0,-1140)
+headon_jump_then_neutral   maxy= 331.8  t0:st0@(-14,0,-900) t6:st1@(-14,0,-900) t41:st5@(-15,0,-1118) t90:st6@(-15,0,-1140) t94:st0@(-15,0,-1140)
+headon_jump_then_away      maxy= 331.8  t0:st0@(-14,0,-900) t6:st1@(-14,0,-900) t41:st5@(-15,0,-1118) t90:st1@(-17,0,-960)
+pole_slide                 maxy=   0.0  t0:st0@(-840,0,-825) t6:st1@(-840,0,-825)
+DONE
+libc++abi: terminating due to uncaught exception of type std::__1::system_error: mutex lock failed: Invalid argument

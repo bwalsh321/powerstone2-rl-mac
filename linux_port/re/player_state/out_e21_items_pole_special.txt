@@ -1,0 +1,4 @@
+pole {('pred', 'dmg'): 28, ('nopred', 'nodmg'): 31, ('pred', 'nodmg'): 1, ('nopred', 'dmg'): 2} sphere radii: [(40, 306), (63, 258), (70, 252), (36, 124), (60, 113), (30, 112), (54, 70), (65, 35)]
+item {('nopred', 'nodmg'): 4} sphere radii: [(60, 44)]
+special {('pred', 'dmg'): 57, ('nopred', 'dmg'): 3, ('nopred', 'nodmg'): 26, ('pred', 'nodmg'): 4} sphere radii: [(31, 2818), (123, 592), (168, 592), (224, 334), (163, 215), (208, 118), (67, 80), (30, 48)]
+DONE
