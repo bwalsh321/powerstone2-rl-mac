@@ -11,7 +11,7 @@ log "watcher up"
 while true; do
   read N PREV < league_state.txt
   if [ -f "train_leg${N}_out.txt" ] && grep -q "leg complete" "train_leg${N}_out.txt" \
-     && [ "$(pgrep -fc 'train_selfplay_asyn[c]')" -eq 0 ] \
+     && [ "$(pgrep -f 'train_selfplay_asyn[c]' | wc -l | tr -d ' ')" -eq 0 ] \
      && ! tmux has-session -t "bat${N}" 2>/dev/null \
      && [ ! -d "claude_bridge/battery_leg${N}.lock" ] && [ ! -f "claude_bridge/battery_leg${N}_done.txt" ]; then
     log "leg $N complete -> battery (tmux bat${N})"

@@ -35,8 +35,9 @@ The Ryzen session wrote this; the Mac session executes it. **Do not start until 
 cd ~ && git clone superserver@192.168.0.105:powerstone2-rl-mac ps2_vision_arm
 cd ~/ps2_vision_arm && git checkout obs-v4
 # the game + sdlarch: the relay scripts expect ../sdlarch-rl and "../Power Stone 2 (USA).chd" next to linux_port/
-ln -s ~/Downloads/macbook_migration/sdlarch-rl ../sdlarch-rl 2>/dev/null || true   # adjust to where they live
-ls "../Power Stone 2 (USA).chd" || ln -s "$HOME/Downloads/macbook_migration/Power Stone 2 (USA).chd" ..
+# the links belong at the arm's repo root (~/ps2_vision_arm), next to linux_port/, not in ~
+ln -s ~/Downloads/macbook_migration/sdlarch-rl ~/ps2_vision_arm/sdlarch-rl 2>/dev/null || true   # adjust to where they live
+ls ~/ps2_vision_arm/"Power Stone 2 (USA).chd" || ln -s "$HOME/Downloads/macbook_migration/Power Stone 2 (USA).chd" ~/ps2_vision_arm/
 
 # 2. bring over what git does not carry (untracked on the Ryzen): states, the opponent pool, the warm zip
 cd ~/ps2_vision_arm/linux_port
@@ -54,10 +55,10 @@ rsync -a superserver@192.168.0.105:powerstone2-rl-mac/linux_port/powerstone_v6_l
      on, DAgger off), then append `PS2_OBS_V4=1 PS2_OBS_V4_ITEMEMB=keep PS2_OBJ_GRID_N=208` (`keep` = exact warm start; the
      slot-hash item embedding at obs[12..17] is left as is). **No `PS2_DEMOS`**: the drill recordings are 160-wide and would be dropped anyway.
    - `league_surgery.txt`: one line, `1129 obsv4` (the hook widens the leg 128 warm zip once, writes
-     `powerstone_v6_leg128_v4.zip` and warms from it; league_state.txt keeps pointing at the leg 128 zip).
+     `powerstone_v6_leg1128_v4.zip` (named for leg N-1) and warms from it; league_state.txt keeps pointing at the leg 128 zip).
    - `leg_modes.txt`: keep the file (rows for 1129+ are appended by the launcher).
 4. Before the first leg, rerun two gates on the M4 (its emulator and torch builds differ from the Ryzen's):
-   `test_obs_v4_flagoff.py` (flag-off identity) and the equivalence check of `surgery_widen_v4.py` on the leg 128 zip
+   `test_obs_v4_flagoff.py` (flag-off identity; run with `PYTHONPATH=../sdlarch-rl/p4:../sdlarch-rl:.` or the 4-player part fails with "player >= MAX_PLAYERS") and the equivalence check of `surgery_widen_v4.py` on the leg 128 zip
    (see each script's docstring for its command). Memory: the rollout buffer is ~247 MB and the actor queue can hold
    up to ~790 MB; fine on the M4, but check free RAM.
 5. Start the relay (Darwin defaults: 10 actors, instance base 0, 10 eval shards):
@@ -66,7 +67,7 @@ rsync -a superserver@192.168.0.105:powerstone2-rl-mac/linux_port/powerstone_v6_l
    tmux new -s ps2train -d "caffeinate -is bash league_leg_async.sh"
    tmux new -s relay -d "caffeinate -is bash relay_watch_linux.sh"
    ```
-   relay_watch_linux.sh is portable (tmux + pgrep); `linux_gpu_env.sh` is sourced by the wrapper, so confirm it is a
+   relay_watch_linux.sh is portable since Oct 6 (it used `pgrep -c`, which macOS lacks; the battery never started on the M4 for ~5 h); `linux_gpu_env.sh` is sourced by the wrapper, so confirm it is a
    no-op on Darwin before launch.
 6. Confirm the boot: `train_leg1129_out.txt` shows the `[config]` lines for v4 width (430 per frame, 3010 stacked,
    LSTM input 430), `actions=63`, the surgery line, no `dagger` line, and steps/s.
