@@ -399,7 +399,11 @@ def main():
         model.num_timesteps += T * N_ENVS
         model._update_current_progress_remaining(model.num_timesteps, total_steps)
         t_train = time.time()
-        model.train()
+        if hasattr(model.policy, "lstm_actor"):   # Oct 6 2026: instrumented copy (bit-identical unless PS2_PPO_KL_REF=prox)
+            import ppo_train
+            ppo_train.train(model, n_updates + 1)
+        else:
+            model.train()
         if DAGGER is not None:                      # Oct 3 2026: imitation term on Blake's drill recordings
             DAGGER.after_update(model, n_updates + 1, model.num_timesteps / max(total_steps, 1))
         train_s = time.time() - t_train
