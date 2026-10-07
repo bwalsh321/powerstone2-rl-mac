@@ -29,6 +29,7 @@ import numpy as np
 
 from powerstone_env_libretro import PowerStoneEnvLibretro
 from ps2_ram import StateLineSynth
+POOL_CACHE = int(__import__("os").environ.get("PS2_POOL_CACHE", "4"))   # opponent models kept in memory per actor
 
 
 class OpponentPool:
@@ -75,7 +76,7 @@ class OpponentPool:
                                 # high learner win% is unreadable (crushing
                                 # 0.2M-15M relics vs beating 27.9M peers)
         if pick not in self._cache:
-            if len(self._cache) > 20:      # LRU-ish: don't hold 250 models
+            if len(self._cache) >= POOL_CACHE:   # Oct 7 2026: was > 20; with only big recent models (pool pruned to legs 113+) 16 actors x 21 cached models used ~28 GB and thrashed swap      # LRU-ish: don't hold 250 models
                 self._cache.pop(next(iter(self._cache)))
             from recurrent_policy import load_model
             self._cache[pick] = load_model(pick)   # Oct 2: PPO or RecurrentPPO

@@ -43,6 +43,7 @@ import ps2_addr as A
 from powerstone_env_libretro import PowerStoneEnvLibretro
 from ps2_ram import StateLineSynth
 from selfplay_env import OpponentPool
+POOL_CACHE = int(__import__("os").environ.get("PS2_POOL_CACHE", "4"))   # opponent models kept in memory per actor
 
 FFA_SLOT = int(os.environ.get("PS2_FFA_SLOT", "0"))
 
@@ -119,7 +120,7 @@ class PFSPPool(OpponentPool):
             pick = random.choice(self.paths)
         self.last_path = pick
         if pick not in self._cache:
-            if len(self._cache) > 20:
+            if len(self._cache) >= POOL_CACHE:   # Oct 7 2026: was > 20; with only big recent models (pool pruned to legs 113+) 16 actors x 21 cached models used ~28 GB and thrashed swap
                 self._cache.pop(next(iter(self._cache)))
             from recurrent_policy import load_model
             self._cache[pick] = load_model(pick)   # Oct 2: PPO or RecurrentPPO
