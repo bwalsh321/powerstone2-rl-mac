@@ -120,7 +120,7 @@ class PowerStoneEnvV6(gym.Env):
     # Sep 25 2026: 90 = fresh lv8 HELD-OUT trio (P1 COM Gunrock, P3 COM Julia, P4 COM Mel, all lv8; states/slot90)
     # Sep 25 2026: 50-59 = THREE lv8 COMs + P2 Falcon (training lineups, states_mixed), 90-94 = five held-out
     # three-COM lv8 lineups (states/); all mirror slot 3's context (stage dim 2, level 8). states_3com_lv8/lineups.json.
-    SLOT_META = {**{k: (1, 8) for k in range(30, 44)}, **{k: (2, 8) for k in range(50, 60)}, **{k: (2, 8) for k in range(90, 95)},
+    SLOT_META = {**{k: (1, 8) for k in range(30, 44)}, **{k: (2, 8) for k in range(50, 69)}, **{k: (2, 8) for k in range(90, 95)},
                  0: (3, 4), 1: (1, 2), 2: (2, 3),
                  3: (2, 8), 4: (2, 4), 5: (1, 5), 6: (1, 5),
                  # Leg I (Aug 19): 7/8 = Falcon-ditto SELF-PLAY states

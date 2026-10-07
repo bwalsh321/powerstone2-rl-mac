@@ -29,7 +29,13 @@ def train(self, n_update=None):
 
     prox = None
     if KL_REF == "prox":
-        prox = copy.deepcopy(self.policy)
+        # Oct 7 2026: one copy made once, then refreshed by state_dict each update. A deepcopy per update failed
+        # ("Only Tensors created explicitly by the user support the deepcopy protocol") once training had left a
+        # non-leaf tensor attribute on the policy; the first copy is taken before the first gradient step.
+        prox = getattr(self, "_ps2_prox", None)
+        if prox is None:
+            prox = self._ps2_prox = copy.deepcopy(self.policy)
+        prox.load_state_dict(self.policy.state_dict())
         prox.set_training_mode(False)
 
     entropy_losses, pg_losses, value_losses, clip_fractions = [], [], [], []

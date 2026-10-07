@@ -152,12 +152,12 @@ class SeatView:
 
 def ffa_slot_meta(state_slots, base_meta=None):
     """The mixed-arena context table for a configured slot list (Sep 25 2026, one function so the
-    constructor and test_obs_context.py cannot drift): COM-only lv8 arenas 1-9 / 50-59 / 90-94 keep the
+    constructor and test_obs_context.py cannot drift): COM-only lv8 arenas 1-9 / 50-68 (60-68 = Oct 6 balanced lineups) / 90-94 keep the
     base (stage 2, level 8) entry; slots 30-43 = P4 COM at level 8 -> (1, 8); every other slot (0, 10-22,
     unknown) = (1, 2), the pre-registered mixed-arena context."""
     meta = dict(base_meta if base_meta is not None else PowerStoneEnvLibretro.SLOT_META)
     for _slot in state_slots:
-        if (1 <= _slot <= 9 or 50 <= _slot <= 59 or 90 <= _slot <= 94) and _slot in PowerStoneEnvLibretro.SLOT_META:
+        if (1 <= _slot <= 9 or 50 <= _slot <= 68 or 90 <= _slot <= 94) and _slot in PowerStoneEnvLibretro.SLOT_META:
             continue
         meta[_slot] = (1, 8) if 30 <= _slot <= 43 else (1, 2)
     return meta
