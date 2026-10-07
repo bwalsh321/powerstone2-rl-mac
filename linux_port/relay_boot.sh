@@ -11,10 +11,13 @@
 cd "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 log() { echo "[boot $(date '+%F %r')] $*" | tee -a wrapper_league.log; }
 sleep "${PS2_BOOT_DELAY:-90}"                    # let the NVIDIA driver and the network come up
-INHIBIT="systemd-inhibit --what=sleep:idle --who=ps2rl"
+# Oct 6 2026: from cron at boot (nobody logged in) polkit refuses systemd-inhibit, which killed both sessions on the
+# first real reboot. Use it only if it works here; a headless box at the login screen did not suspend.
+INHIBIT=""
+systemd-inhibit --what=sleep:idle --who=ps2rl --why=probe true 2>/dev/null && INHIBIT="systemd-inhibit --what=sleep:idle --who=ps2rl"
 log "relay_boot after reboot (uptime $(cut -d' ' -f1 /proc/uptime)s)"
 if ! tmux has-session -t relay 2>/dev/null; then
-  tmux new -s relay -d "$INHIBIT --why=league bash $(pwd)/relay_watch_linux.sh" && log "relay watcher started"
+  tmux new -s relay -d "${INHIBIT:+$INHIBIT --why=league} bash $(pwd)/relay_watch_linux.sh" && log "relay watcher started"
 fi
 read N PREV < league_state.txt
 MODE="$(tr -d '[:space:]' < league_trainer.txt 2>/dev/null)"
@@ -33,6 +36,6 @@ if [ "$TRAINING" -eq 0 ] && ! tmux has-session -t ps2train 2>/dev/null && ! tmux
    && ! { [ -f "train_leg${N}_out.txt" ] && grep -q "leg complete" "train_leg${N}_out.txt"; }; then
   mkdir -p archive
   [ -f "train_leg${N}_out.txt" ] && mv "train_leg${N}_out.txt" "archive/train_leg${N}_out_interrupted_$(date +%Y%m%d_%H%M).txt"
-  tmux new -s ps2train -d "$INHIBIT --why=league-leg bash $(pwd)/league_leg_async.sh" \
+  tmux new -s ps2train -d "${INHIBIT:+$INHIBIT --why=league-leg} bash $(pwd)/league_leg_async.sh" \
     && log "leg $N was interrupted mid-training; relaunched from $PREV"
 fi
