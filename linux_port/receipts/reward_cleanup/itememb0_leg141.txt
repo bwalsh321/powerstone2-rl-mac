@@ -1,0 +1,17 @@
+python surgery_zero_itememb.py powerstone_v6_leg141_league.zip powerstone_v6_leg141_ie0.zip --obs real_obs.npz
+(real_obs.npz: surgery_zero_itememb.py --collect, 2000 learner steps of leg 141 (sampled actions) in FFASelfPlayEnv
+under the live league_env.txt flags (ITEMEMB=keep), pool = prog_leg140/141, instance 80, seed 7)
+
+[ie0] /home/superserver/powerstone2-rl-mac/linux_port/powerstone_v6_leg141_league.zip (SkipLSTM): zeroed obs[12:18] columns in ['lstm_actor.weight_ih_l0', 'lstm_critic.weight_ih_l0', 'mlp_extractor.policy_net.0.weight', 'mlp_extractor.value_net.0.weight']: 27648 nonzero weights -> 0, 55296 nonzero Adam moment entries -> 0
+[ie0] structure: 0 entries differ from the parent outside the zeroed columns / nonzero inside them
+[ie0] zeroed real obs (2000 steps, 5 episode starts): surgered vs parent max |logit diff| 0, max |value diff| 0 -> EXACT
+[ie0] unzeroed real obs (258/2000 steps carry a nonzero obs[12:18]): greedy action changes 44/2000 = 2.20%; policy TV mean 0.0210 (max 0.774), KL(parent||surgered) mean 0.02329; value |diff| mean 0.0133 (max 0.832)
+[ie0] -> PASS
+--check on the surgered zip: exit 0 (already zeroed); on leg 141: exit 1
+
+Wrapper hook (league_leg_async.sh copy in a scratch dir, stub trainer, league_surgery.txt "143 itememb0"):
+  ITEMEMB=keep  -> "[wrapper-async] leg 143 REFUSED: itememb0 surgery listed but league_env.txt lacks PS2_OBS_V4_ITEMEMB=zero", exit 2
+  ITEMEMB=zero  -> surgery itememb0 ./powerstone_v6_leg141_league.zip -> ./powerstone_v6_leg142_ie0.zip, PASS; trainer saw
+                   PS2_WARM=./powerstone_v6_leg142_ie0.zip PS2_OBS_V4_ITEMEMB=zero PS2_DMG_ATTRIB=hitsrc PS2_GEM_EP_CAP=9;
+                   leg_modes.txt row ends "... PS2_DMG_ATTRIB=hitsrc PS2_GEM_EP_CAP=9 ... ITEMEMB=zero"
+  leg 144 warm from the _ie0 zip -> CHECK passes, no second surgery

@@ -1,0 +1,23 @@
+[cmp] ffa  flags-off obs_55     (151, 430): BIT-IDENTICAL
+[cmp] ffa  flags-off rew_55     (150,): BIT-IDENTICAL
+[cmp] ffa  flags-off done_55    (150,): BIT-IDENTICAL
+[cmp] ffa  flags-off obs_61     (151, 430): BIT-IDENTICAL
+[cmp] ffa  flags-off rew_61     (150,): BIT-IDENTICAL
+[cmp] ffa  flags-off done_61    (150,): BIT-IDENTICAL
+[cmp] ffa  flags-off obs_33     (151, 430): BIT-IDENTICAL
+[cmp] ffa  flags-off rew_33     (150,): BIT-IDENTICAL
+[cmp] ffa  flags-off done_33    (150,): BIT-IDENTICAL
+[cmp] ffa  flags-off obs_12     (151, 430): BIT-IDENTICAL
+[cmp] ffa  flags-off rew_12     (150,): BIT-IDENTICAL
+[cmp] ffa  flags-off done_12    (150,): BIT-IDENTICAL
+[cmp] ffa  flags-off views      (1200, 430): BIT-IDENTICAL
+[on ] ffa  flags-on obs/done/views BIT-IDENTICAL; rewards changed on 3/600 steps; per-slot reward-sum change {"rew_55": 0.374, "rew_61": 0.0, "rew_33": 0.0, "rew_12": 0.0}
+[cmp] base flags-off obs_90     (151, 430): BIT-IDENTICAL
+[cmp] base flags-off rew_90     (150,): BIT-IDENTICAL
+[cmp] base flags-off done_90    (150,): BIT-IDENTICAL
+[cmp] base flags-off obs_93     (151, 430): BIT-IDENTICAL
+[cmp] base flags-off rew_93     (150,): BIT-IDENTICAL
+[cmp] base flags-off done_93    (150,): BIT-IDENTICAL
+[cmp] base flags-off views      (0, 160): BIT-IDENTICAL
+[on ] base flags-on obs/done/views BIT-IDENTICAL; rewards changed on 0/300 steps; per-slot reward-sum change {"rew_90": 0.0, "rew_93": 0.0}
+reward-cleanup flag-off bit-identity: PASS
