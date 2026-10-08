@@ -31,7 +31,6 @@ against legs 139-141 (46.2%). With paired grading (from leg 142) legs are compar
 - Second sealed held-out lineup set (Desert, new 3-CPU lineups) for confirming big claims.
 - Scout upgrades: count double jumps / taps per episode in the log; 15-30 fps clips around events; scout a
   held-out lineup.
-- Cross-machine calibration (grade an M4 leg on the Ryzen).
 - Fresh drills under vision for Blake (DAgger stays off; idea: use drill states as RL start points, no imitation).
 - Cleanup: disk pruning (~2.5 GB/day), dead reward code, gym warnings, stale docs.
 
