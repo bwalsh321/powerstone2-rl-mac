@@ -40,8 +40,7 @@ my own play, and DAgger-style imitation of my drill corrections (two versions, b
   4M steps per leg. Each episode is a four-player FFA: either three lv8 CPUs, or one lv8 CPU plus two copies of
   past versions of the bot (the opponent pool).
 - **Transport:** the flycast libretro core in-process through
-  [sdlarch-rl](https://github.com/paulo101977/sdlarch-rl) (fork:
-  [bwalsh321/sdlarch-rl](https://github.com/bwalsh321/sdlarch-rl)), rendered headless on the GPU (EGL).
+  [sdlarch-rl](https://github.com/paulo101977/sdlarch-rl) (patched copy in `sdlarch-rl/`), rendered headless on the GPU (EGL).
 
 ## The relay
 
@@ -62,13 +61,13 @@ Nothing copyrighted ships here. You supply:
 
 1. **Your own dump of Power Stone 2 (USA)** as `Power Stone 2 (USA).chd` at the repo root (gitignored).
 2. **The flycast libretro core** (RetroArch's core downloader or the libretro buildbot).
-3. **The harness:** clone [bwalsh321/sdlarch-rl](https://github.com/bwalsh321/sdlarch-rl) as `sdlarch-rl/`.
+3. **The harness** is tracked in this repo under `sdlarch-rl/` (patched [sdlarch-rl](https://github.com/paulo101977/sdlarch-rl)); build it with CMake.
 4. **Python 3.11+** with [`requirements.txt`](requirements.txt).
 5. **Savestates**, stamped from your own save with `make_savestates.py` or headlessly with `menu_drive.py`
    (game-derived, so not distributed): training lineups in `linux_port/states_mixed/` (slots 30–43, 50–68) and
    the held-out set in `linux_port/states/` (slots 90–94).
 
-Linux setup: `linux_port/setup_linux.sh` and [`linux_port/LINUX_BRINGUP.md`](linux_port/LINUX_BRINGUP.md).
+Linux setup: `linux_port/setup_9950x.sh` and [`linux_port/LINUX_BRINGUP.md`](linux_port/LINUX_BRINGUP.md).
 
 ## Quick commands
 

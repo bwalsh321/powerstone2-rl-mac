@@ -1,7 +1,6 @@
 # Linux bring-up (Ryzen 9950X, Sep 24 2026) — the one path
 
-Older notes (`docs/HOWTO_LINUX_SERVER.md`, the root `setup_linux.sh`, the previous version of this file)
-are superseded by `linux_port/setup_9950x.sh`. Do not `git clone bwalsh321/sdlarch-rl` into the repo root:
+Older notes (removed Oct 7 2026; in git history: `docs/HOWTO_LINUX_SERVER.md`, the root `setup_linux.sh`) are superseded by `linux_port/setup_9950x.sh`. Do not `git clone bwalsh321/sdlarch-rl` into the repo root:
 the patched harness source is tracked in THIS repo under `sdlarch-rl/` since Sep 23 2026.
 
 ## 1. Clone and provision
