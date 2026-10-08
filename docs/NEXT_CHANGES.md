@@ -4,9 +4,13 @@ Last updated: Oct 7 2026, 9:40 pm EDT. Current recipe on the Ryzen: vision (obs 
 KL fix (PS2_PPO_KL_REF=prox), recent-only opponent pool (legs 113+), training slots 30-43 + 50-68, no DAgger.
 Last 3-leg reads: vision legs 134-138 = 44.6% lv8mix; + pool/mix legs 139-141 = 46.2%.
 
-## NEXT CHANGE (Blake, Oct 7): "reward cleanup" bundle, one 3-leg read
+## NOW RUNNING FROM LEG 143 (set Oct 7, 9:50 pm): "reward cleanup" bundle, one 3-leg read (legs 143-145)
 
-Being built by an agent in a separate worktree, all behind flags that default OFF:
+Built and tested (merge 435901b; receipts in linux_port/receipts/reward_cleanup/), behind flags that default OFF;
+turned on in league_env.txt + `143 itememb0` in league_surgery.txt. Previous recipe saved as
+claude_bridge/league_env_leg142_poolmix.txt. Measured before the switch: the hit-source pointer resolves ~58% of
+hits (the rest fall back to the old guess); learner-credited damage moves ~+21% net; the item surgery changes
+2.2% of greedy actions.
 1. **Damage credit from the game's own hit-source pointer** (`PS2_DMG_ATTRIB=hitsrc`) instead of the
    "nearest alive seat" guess. The agent first measures how often the two disagree.
 2. **Stone-reward cap 19 -> 9** (`PS2_GEM_EP_CAP=9`), so stones can't earn almost as much as a win (+20).
