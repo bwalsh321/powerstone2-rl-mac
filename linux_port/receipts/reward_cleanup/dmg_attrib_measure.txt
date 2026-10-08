@@ -1,0 +1,5 @@
+{"drops": 539, "agree": 189, "disagree": 126, "hs_none": 224, "hs_absent": 0, "dmg": 27.775139999999983, "dmg_agree": 6.190600000000002, "dmg_disagree": 5.577589999999998, "dmg_hs_none": 16.006949999999996, "L_heur": 8.90624, "L_hs": 10.780310000000004, "L_out": 0.9057399999999999, "L_in": 2.7798099999999994, "Lvict_drops": 136, "Lvict_agree": 59, "Lvict_disagree": 38, "Lvict_none": 39, "com_heur": 8.30277, "com_hs": 7.36349, "steps": 6000, "episodes": 11}
+steps=6000 episodes=11 damage events=539 (pointer resolved 315 = 58.4%, none/unowned 224, absent seat 0)
+agreement (resolved events): 60.0% of events, 52.6% of damage; over ALL events incl. fallback: credit unchanged on 76.6%
+learner-credited damage: heuristic 8.906, hitsrc 10.780 (moved out 0.906 = 10.2% of heuristic credit, moved in 2.780 = 31.2%; net change +21.0%)
+learner as victim: 136 events, agree 59, disagree 38, fallback 39; COM seat (P4) credit heuristic 8.303 -> hitsrc 7.363

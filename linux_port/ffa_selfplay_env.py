@@ -95,6 +95,13 @@ SPECIAL_ATTRIB = os.environ.get("PS2_SPECIAL_ATTRIB", "0") == "1"
 HITSRC_OFF = 0x32E4            # PLAYER_MAT[k] + HITSRC_OFF: u32 physical pointer to the last hit source
 HITSRC_OWNER_OFF = 0x10        # inside a non-player source object: u32 physical pointer to the owning player object
 PLAYER_OBJ_LEAD, PLAYER_OBJ_LEN = 0x490, 0x3938
+# Oct 7 2026 (reward-cleanup bundle, item 1): PS2_DMG_ATTRIB = who is CREDITED with a seat's health loss in the
+# zero-sum sum (DAMAGE_DEALT_W, the largest dense term). "nearest" (default, unchanged) = the nearest alive other
+# seat in xz; "hitsrc" = the seat the game's own hit-source pointer names (_hit_attacker: +0x32E4, owner +0x10 for
+# projectiles/items), falling back to "nearest" only when the pointer is null / unowned / self / outside RAM or names
+# a seat that is not present. Measured before the change with measure_dmg_attrib.py (see the commit message).
+DMG_ATTRIB = os.environ.get("PS2_DMG_ATTRIB", "nearest").strip() or "nearest"
+assert DMG_ATTRIB in ("nearest", "hitsrc"), f"PS2_DMG_ATTRIB={DMG_ATTRIB!r} (nearest|hitsrc)"
 _SH = os.environ.get("PS2_START_HEALTH", "").strip()
 START_HEALTH = tuple(float(x) for x in _SH.split(",")) if _SH else None
 
@@ -215,7 +222,13 @@ class FFASelfPlayEnv(PowerStoneEnvLibretro):
         self._pen_step = {}        # seat -> [spec_pen, lost_pen] for the current step (net telemetry)
         self._ev = open(SPECIAL_EVENTS, "a") if SPECIAL_EVENTS not in ("", "0") else None
         if ZERO_SUM:
-            print("[config] zero_sum=1 (r = own - mean(others); nearest-attacker damage attribution)", flush=True)
+            print("[config] zero_sum=1 (r = own - mean(others); nearest-attacker damage attribution)"
+                  if DMG_ATTRIB == "nearest" else
+                  "[config] zero_sum=1 (r = own - mean(others); damage attribution=hitsrc: +0x32e4 hit source, "
+                  "owner +0x10, nearest-seat fallback)", flush=True)
+            if self.GEM_EP_CAP != 19.0:
+                print(f"[config] gem_ep_cap={self.GEM_EP_CAP:g} (PS2_GEM_EP_CAP; default 19; every seat's zero-sum "
+                      f"gem clamp uses it)", flush=True)
             if SPECIAL_DMG_W > 0.0 or LOST_EXTRA_W > 0.0:
                 print(f"[config] reward2: special_dmg_w={SPECIAL_DMG_W} special_r={SPECIAL_R:.0f} lost_extra_w={LOST_EXTRA_W}"
                       f" special_window={SPECIAL_WINDOW:g}s ({self._spec_win} steps | {self._spec_win_frames} frames, clock={self._spec_clock})"
@@ -320,7 +333,8 @@ class FFASelfPlayEnv(PowerStoneEnvLibretro):
                       + (f" spec_pen={z.get('spec_pen', 0.0):+.2f} lost_pen={z.get('lost_pen', 0.0):+.2f}"
                          f" spec_net={z.get('spec_net', 0.0):+.2f} lost_net={z.get('lost_net', 0.0):+.2f}"
                          if (SPECIAL_DMG_W > 0.0 or LOST_EXTRA_W > 0.0) else "")
-                      + (f" attr={z.get('attr_p', 0)}/{z.get('attr_n', 0)} spec_dmg={z.get('spec_dmg', 0.0):.2f}" if SPECIAL_ATTRIB else ""), flush=True)
+                      + (f" attr={z.get('attr_p', 0)}/{z.get('attr_n', 0)} spec_dmg={z.get('spec_dmg', 0.0):.2f}" if SPECIAL_ATTRIB else "")
+                      + (f" dmg_src={z.get('hs_p', 0)}/{z.get('hs_n', 0)}" if DMG_ATTRIB == "hitsrc" else ""), flush=True)
         if done and info.get("timeout") and self.TIMEOUT_IS_LOSS and "result" not in info:
             level = self.SLOT_META.get(getattr(self, "_episode_slot", 0), (0, 2))[1]
             r -= self.LOSS_PENALTY * self.LOSS_SCALE_BY_LEVEL.get(level, 1.0)
@@ -416,15 +430,24 @@ class FFASelfPlayEnv(PowerStoneEnvLibretro):
             drop = max(0.0, prev_h[k] - h[k])
             if drop <= 0.0:
                 continue
-            pk = prev_s["players"][k]["pos"]
-            best, bd = None, float("inf")
-            for m in present:
-                if m == k or not self._alive(prev_h[m]):
-                    continue
-                pm = prev_s["players"][m]["pos"]
-                d = (pk[0] - pm[0]) ** 2 + (pk[2] - pm[2]) ** 2
-                if d < bd:
-                    best, bd = m, d
+            best = None
+            if DMG_ATTRIB == "hitsrc":
+                att = self._hit_attacker(k)
+                if att is not None and att in present and att != k:
+                    best = att
+                if self._zs is not None:
+                    key = "hs_p" if best is not None else "hs_n"
+                    self._zs[key] = self._zs.get(key, 0) + 1
+            if best is None:
+                pk = prev_s["players"][k]["pos"]
+                bd = float("inf")
+                for m in present:
+                    if m == k or not self._alive(prev_h[m]):
+                        continue
+                    pm = prev_s["players"][m]["pos"]
+                    d = (pk[0] - pm[0]) ** 2 + (pk[2] - pm[2]) ** 2
+                    if d < bd:
+                        best, bd = m, d
             if best is not None:
                 dealt[best] = dealt.get(best, 0.0) + drop
         # Sep 27: special-window bookkeeping (state 25/26 seen this step -> stamp the seat, in steps AND frames)

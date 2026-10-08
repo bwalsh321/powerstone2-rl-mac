@@ -300,7 +300,10 @@ class PowerStoneEnvV6(gym.Env):
     KNOCK_R = 200.0
     # Aug 3 evening fix — slot-0 phantom gem storm (18 picks / 5 "forms"
     # per ep, gem_rew +25 avg while losing every game):
-    GEM_EP_CAP = 19.0        # LEG I: reverted from Leg H's 6.0. was 19.0 (Leg H) — the single highest-leverage
+    # Oct 7 2026 (reward-cleanup bundle, item 2): PS2_GEM_EP_CAP overrides the ceiling (unset = 19.0, unchanged).
+    # Used by the base env's clamp AND by FFASelfPlayEnv._seat_reward (every seat's zero-sum gem mirror reads
+    # self.GEM_EP_CAP). The negative floors (GEM_EP_CAP_NEG 6.0, 1.5 at lv8) are separate and unchanged.
+    GEM_EP_CAP = float(os.environ.get("PS2_GEM_EP_CAP", "19.0"))   # LEG I: reverted from Leg H's 6.0. was 19.0 (Leg H) — the single highest-leverage
                              # knob, because saturation is what killed the
                              # gradient. At GEM_W 1.5 this is 4 picks; one
                              # full transform cycle (3 picks = 4.5) still pays
@@ -315,6 +318,7 @@ class PowerStoneEnvV6(gym.Env):
                              # clamp, on the wire). New cycle = 3x4+6 = 18;
                              # cap 19 gives it headroom + a knock or chest,
                              # and stays strictly < WIN_BONUS (20).
+    assert 0.0 <= GEM_EP_CAP < WIN_BONUS, f"PS2_GEM_EP_CAP={GEM_EP_CAP} must be in [0, WIN_BONUS={WIN_BONUS})"
     GEM_EP_CAP_NEG = 6.0     # Aug 8 pm: negative floor SPLIT from the
                              # ceiling — at 12 a bad-gem episode outweighed
                              # the LOSS_PENALTY (10), so gem noise punished
