@@ -2,9 +2,14 @@
 
 Last updated: Oct 7 2026, 9:40 pm EDT. Current recipe on the Ryzen: vision (obs v4 + OBJ_GRID_N=208), taps, learner
 KL fix (PS2_PPO_KL_REF=prox), recent-only opponent pool (legs 113+), training slots 30-43 + 50-68, no DAgger.
-Last 3-leg reads: vision legs 134-138 = 44.6% lv8mix; + pool/mix legs 139-141 = 46.2%.
+Reads: vision legs 134-138 = 44.6% lv8mix; + pool/mix legs 139-142 = 47.6% (142 = 51.6%, the record).
 
-## NOW RUNNING FROM LEG 143 (set Oct 7, 9:50 pm): "reward cleanup" bundle, one 3-leg read (legs 143-145)
+## TRIED AND REVERTED (Oct 8): "reward cleanup" bundle at leg 143
+
+Leg 143 = 40.2% vs leg 142 = 51.6% on the same 1000 games (286 win->loss vs 172 loss->win); slot 91 collapsed
+116 -> 30 while slots 90/94 set records. The hold gate stopped the relay; Blake chose to revert. Leg 144 continues
+from leg 142 on the leg 142 recipe. If retried, test the three parts one at a time (the stone cap is the most
+likely culprit). Bundle details as built:
 
 Built and tested (merge 435901b; receipts in linux_port/receipts/reward_cleanup/), behind flags that default OFF;
 turned on in league_env.txt + `143 itememb0` in league_surgery.txt. Previous recipe saved as
