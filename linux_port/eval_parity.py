@@ -111,10 +111,21 @@ def main():
     env._legacy_item_main = env._legacy_item = (_d <= 160)     # Oct 5 (obs v4): a v2/v3 MAIN model keeps [12..17]; no v4 block
     assert _d <= env.OBS_DIM, f"model reads {_d}/frame but the env builds {env.OBS_DIM}: set PS2_OBS_V4=1 (leg_modes row)"
 
+    PAIRED = os.environ.get("PS2_PREROLL", "paired") == "paired"
     eps = []
     for ep in range(args.episodes):
         if args.slots:                                   # Sep 25 (Astra): balanced, deterministic
             env.STATE_SLOTS = [_slots[ep % len(_slots)]]  # round-robin over the held-out set
+        if PAIRED and args.slots:
+            # Oct 7 2026 (audit): paired grading. The k-th visit to a lineup across ALL shards (shard = instance minus
+            # PS2_EVAL_INSTANCE_BASE) gets pre-roll offset k * 240 / visits, so every leg (and a 20x50 or 10x100
+            # sharding) replays the same start points and legs can be compared round by round. PS2_PREROLL=random
+            # restores the old independent draw.
+            _shard = args.instance - int(os.environ.get("PS2_EVAL_INSTANCE_BASE", "0"))
+            _visits = max(1, args.episodes // len(_slots))
+            _k = _shard * _visits + ep // len(_slots)
+            _total = max(1, int(os.environ.get("PS2_EVAL_TOTAL", "1000")) // len(_slots))
+            env._preroll_next = int(_k * int(os.environ.get("PS2_STAGGER_FRAMES", "240")) / _total) % int(os.environ.get("PS2_STAGGER_FRAMES", "240"))
         obs = _sl(env.reset()); obs = _fs.reset(obs) if _fs else obs
         runner.reset()                                   # Oct 2: fresh LSTM state every episode
         done, info = False, {}

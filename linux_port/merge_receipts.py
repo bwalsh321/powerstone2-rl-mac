@@ -143,9 +143,17 @@ def main():
         picks = sum(p["picks"] * p["n"] for p in parts) / n
         forms = sum(p["forms"] * p["n"] for p in parts) / n
         uniq = sum(p["uniq"] for p in parts)
+        # Oct 7 2026 (audit): the per-shard tuple count never saw duplicates ACROSS shards (the leg 110/111 seed bug
+        # replayed the same 50 rounds in every shard and still read ~950). Count globally distinct [ep] lines.
+        _eps = set()
+        for _sh in a.shards:
+            try:
+                _eps.update(l.strip() for l in open(_sh) if l.startswith("[ep]"))
+            except OSError:
+                pass
         lines += ["", "================ EVAL SUMMARY ================",
                   f"model={os.path.basename(a.model)}  slot={a.slot}  n={n}  mode=deterministic  "
-                  f"distinct-outcome-tuples~{uniq}  shards={len(parts)}x{a.per_shard}" + (f"  slots={a.slots}" if a.slots else ""),
+                  f"distinct-outcome-tuples~{uniq}  distinct-episodes={len(_eps)}  shards={len(parts)}x{a.per_shard}" + (f"  slots={a.slots}" if a.slots else ""),
                   f"win% : {100.0*W/n:5.1f}   ({W}W/{L}L/{T}T)   95% Wilson [{lo:.0f}-{hi:.0f}]",
                   f"picks: {picks:5.2f} /ep", f"forms: {forms:5.2f} /ep"]
         if a.slots:

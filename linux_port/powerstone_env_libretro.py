@@ -94,7 +94,10 @@ class PowerStoneEnvLibretro(PowerStoneEnvV6):
             # 240 distinct offsets (~93%% distinct episodes per 50-ep deterministic
             # shard vs ~95%% before), zero pre-roll damage. Eval contract change:
             # champion + candidates re-baselined (HANDOFF "PRE-ROLL FIX").
-            self._lr_bridge.run_frames(random.randrange(int(os.environ.get("PS2_STAGGER_FRAMES", "240"))))
+            # Oct 7 2026 (audit, paired grading): eval_parity may schedule the offset (self._preroll_next) so every leg
+            # is graded on the same 1000 start points; training and other callers keep the random draw.
+            _pre = getattr(self, "_preroll_next", None); self._preroll_next = None
+            self._lr_bridge.run_frames(_pre if _pre is not None else random.randrange(int(os.environ.get("PS2_STAGGER_FRAMES", "240"))))
             # Oct 5 2026 (obs v4): the reader's onset clocks / per-frame cache restart on every loadstate.
             if getattr(self, "_v4", None) is not None:
                 self._v4.reset()

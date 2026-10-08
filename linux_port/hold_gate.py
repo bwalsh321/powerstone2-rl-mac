@@ -50,6 +50,22 @@ def main(n, root="receipts"):
             why.append("unparseable lv8mix receipt")
         elif mix < LV8MIX_FLOOR:
             why.append(f"lv8mix {mix:.1f} < {LV8MIX_FLOOR:g} (n={nm})")
+        else:
+            # Oct 7 2026 (audit): the 20% floor is far below the ~45% the bot now plays at. Also hold when a leg falls
+            # more than PS2_DROP_HOLD points (default 6, ~2.8 SE of a difference at n=1000) below the best of the
+            # previous 5 graded legs.
+            prev = [wins(f"{root}/eval_leg{k}_lv8mix_out.txt")[0] for k in range(int(n) - 5, int(n))]
+            prev = [p for p in prev if p is not None]
+            drop = float(os.environ.get("PS2_DROP_HOLD", "6"))
+            if prev and mix < max(prev) - drop:
+                why.append(f"lv8mix {mix:.1f} is more than {drop:g} below the best of the last {len(prev)} legs ({max(prev):.1f})")
+        # Oct 7 2026 (audit): too few distinct rounds = the eval replayed itself (seed bug class); real legs show ~800+.
+        try:
+            m_ = re.search(r"distinct-episodes=(\d+)", open(f"{root}/eval_leg{n}_lv8mix_out.txt").read())
+            if m_ and int(m_.group(1)) < int(os.environ.get("PS2_MIN_DISTINCT", "600")):
+                why.append(f"only {m_.group(1)} distinct rounds of {nm} (the eval repeated itself)")
+        except OSError:
+            pass
     return "; ".join(why)
 
 if __name__ == "__main__":
