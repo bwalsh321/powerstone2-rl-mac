@@ -48,4 +48,4 @@ own recipe (see docs/NEXT_CHANGES.md). Nothing here changes `league_env.txt`, th
 - macOS: `pgrep -c` does not exist (use `pgrep -f ... | wc -l`); the 4-player harness needs
   `PYTHONPATH=../sdlarch-rl/p4:../sdlarch-rl:.`.
 - Report back: hunter behaviour clip, hunted-mode win % for leg 145 vs its normal 56.5%, and the code on branch
-  `hunter` pushed to GitHub (the M4 has credentials) so the Ryzen can pull it.
+  `hunter` pushed to GitHub (the Macs have credentials) so the Ryzen can pull it.
