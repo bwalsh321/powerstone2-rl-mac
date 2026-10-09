@@ -26,10 +26,10 @@ Turn-on steps (once the agent's tests pass and the branch is merged): add the fl
 `<N> itememb0` line to league_surgery.txt, between legs (relay scripts only by atomic mv). Read it as a 3-leg pool
 against legs 139-141 (46.2%). With paired grading (from leg 142) legs are compared on the same 1000 games.
 
-## Side project (M4): hunter bot
+## Side project (M2): hunter bot
 
 A scripted opponent that only hunts our bot (Blake's aimbot, retargeted): measure how the bot does when it is
-not ignored, then maybe train against it. Spec: docs/HUNTER_PROJECT.md. Runs on the M4; the Ryzen is untouched.
+not ignored, then maybe train against it. Spec: docs/HUNTER_PROJECT.md. Runs on the M2 (1-2 test legs); the Ryzen is untouched.
 
 ## Later (from the Oct 6 audit)
 - Frame stack 7 -> 2 (the LSTM may make it redundant; model shape changes, own read).
