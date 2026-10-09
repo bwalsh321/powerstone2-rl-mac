@@ -4,7 +4,13 @@ Last updated: Oct 7 2026, 9:40 pm EDT. Current recipe on the Ryzen: vision (obs 
 KL fix (PS2_PPO_KL_REF=prox), recent-only opponent pool (legs 113+), training slots 30-43 + 50-68, no DAgger.
 Reads: vision legs 134-138 = 44.6% lv8mix; + pool/mix legs 139-142 = 47.6% (142 = 51.6%, the record).
 
-## NOW RUNNING FROM LEG 149 (set Oct 8, 11:15 pm): learner batching fixes, one 3-leg read (legs 149-151)
+## TRIED AND REVERTED (Oct 9): learner batching fixes, legs 149-152
+
+Top-move grade 58.2 / 57.6 / 53.8 / 53.1, but the policy's entropy rose every leg (1.99 -> 2.35, it had been
+falling), training win rate on 3-CPU slots fell 52 -> 44%, and the sampled-move grade of 151 was 44.0 vs 145's
+54.4. Likely cause: whole-batch advantage normalisation weakened the policy signal relative to the entropy bonus.
+Reverted at Blake's call; leg 153 restarts from leg 149 on the 145-148 learner settings. If retried: split clipping
+alone, or with a lower ent_coef, and watch entropy + the sampled-move grade. Details of what was built:
 
 Plateau reached: legs 146/147 (55.6/51.7) did not beat leg 145 (56.5, the record). Changes (ppo_train.py, all
 flags; flags off was bit-identical in a test): `PS2_PPO_ADV_NORM=global` (normalise advantages over the whole
