@@ -225,6 +225,8 @@ echo DONE > "claude_bridge/battery_leg${N}_done.txt"
 # reviewer, in its own tmux session so the relay never waits (scout_leg.sh, ~5-25 min on instance 11).
 if [ "${PS2_LEG_VIDEO:-1}" = "1" ]; then
   tmux new -s "scout${N}" -d "bash $(pwd)/scout_leg.sh $N > videos/scout_leg${N}.log 2>&1" && echo "battery leg $N: scouting clip started in tmux scout${N}"
+  # Oct 9 2026 (Blake): sampled-move grade beside the next leg (stoch_grade.sh; never gates the relay)
+  tmux new -s "stoch${N}" -d "bash $(pwd)/stoch_grade.sh $N > claude_bridge/stoch_leg${N}.log 2>&1" && echo "battery leg $N: sampled-move grade started in tmux stoch${N}"
 fi
 LAUNCH_MODE="$(tr -d '[:space:]' < league_trainer.txt 2>/dev/null || echo lockstep)"
 # Oct 1 2026 (GPT review P1): the battery may evaluate anywhere, but only the training host launches.
