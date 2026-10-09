@@ -4,6 +4,15 @@ Last updated: Oct 7 2026, 9:40 pm EDT. Current recipe on the Ryzen: vision (obs 
 KL fix (PS2_PPO_KL_REF=prox), recent-only opponent pool (legs 113+), training slots 30-43 + 50-68, no DAgger.
 Reads: vision legs 134-138 = 44.6% lv8mix; + pool/mix legs 139-142 = 47.6% (142 = 51.6%, the record).
 
+## NOW RUNNING FROM LEG 149 (set Oct 8, 11:15 pm): learner batching fixes, one 3-leg read (legs 149-151)
+
+Plateau reached: legs 146/147 (55.6/51.7) did not beat leg 145 (56.5, the record). Changes (ppo_train.py, all
+flags; flags off was bit-identical in a test): `PS2_PPO_ADV_NORM=global` (normalise advantages over the whole
+batch, not per 256-step slice), `PS2_PPO_SPLIT_CLIP=1` (clip policy and critic gradients separately: on real games
+the critic's gradient was ~20-32 vs the policy's ~0.7, so the shared clip shrank policy steps ~40x),
+`PS2_BATCH_SIZE=1024` in league_optim.txt (was 256). Previous settings: claude_bridge/league_env_leg148.txt and
+league_optim_leg148.txt. Read: legs 149-151 vs legs 145-147 on the same 1000 games.
+
 ## TRIED AND REVERTED (Oct 8): "reward cleanup" bundle at leg 143
 
 Leg 143 = 40.2% vs leg 142 = 51.6% on the same 1000 games (286 win->loss vs 172 loss->win); slot 91 collapsed
