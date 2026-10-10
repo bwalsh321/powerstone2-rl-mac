@@ -1096,7 +1096,9 @@ class PowerStoneEnvV6(gym.Env):
                   f"chests={e['chesto']}({e['chestb']}) "
                   f"stonev={e['stonev']} dmgF={e['dmg_form']:.2f}"
                   + (f"  STEP_TIMEOUTS={self._ep_step_timeouts}"
-                     if getattr(self, "_ep_step_timeouts", 0) else ""))
+                     if getattr(self, "_ep_step_timeouts", 0) else "")
+                  # Oct 10 2026: an episode started from a practice start point (ffa_selfplay_env PS2_DRILL_DIR)
+                  + (f"  drill={self._drill_name}" if getattr(self, "_drill_name", None) else ""))
             try:
                 # columns 17-19 (chesto, chestb, stonev) APPENDED Aug 10 —
                 # appended, not inserted, so positional readers of the first

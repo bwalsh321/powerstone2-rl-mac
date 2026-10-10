@@ -104,6 +104,39 @@ DMG_ATTRIB = os.environ.get("PS2_DMG_ATTRIB", "nearest").strip() or "nearest"
 assert DMG_ATTRIB in ("nearest", "hitsrc"), f"PS2_DMG_ATTRIB={DMG_ATTRIB!r} (nearest|hitsrc)"
 _SH = os.environ.get("PS2_START_HEALTH", "").strip()
 START_HEALTH = tuple(float(x) for x in _SH.split(",")) if _SH else None
+# Oct 10 2026 (Blake: "practice start points"): PS2_DRILL_DIR = comma list of drill folders written by drill_capture.py
+# (gzip raw emulator states + json; snapshots seconds before the CURRENT bot lost a round on a training lineup) and
+# PS2_DRILL_P = probability that a reset starts from a random drill instead of the slot savestate. Ordinary RL from
+# there: same reward, same done rules; the episode ends at the KO / win like any other. Both unset/0 = off (no code
+# path below runs, the random stream is untouched). Drills from the held-out grading lineups 90-94 are refused.
+DRILL_DIRS = [d.strip() for d in os.environ.get("PS2_DRILL_DIR", "").split(",") if d.strip()]
+DRILL_P = float(os.environ.get("PS2_DRILL_P", "0") or 0)
+DRILL_HELDOUT = set(range(90, 95))
+
+
+def load_drill_index(dirs):
+    """Every <name>.json + <name>.state.gz pair in the given folders (index.jsonl is not needed)."""
+    import json
+    out = []
+    for d in dirs:
+        if not os.path.isdir(d):
+            raise RuntimeError(f"PS2_DRILL_DIR: {d!r} is not a directory")
+        for f in sorted(os.listdir(d)):
+            if not f.endswith(".json") or f in ("index.json",):
+                continue
+            blob = os.path.join(d, f[:-5] + ".state.gz")
+            if not os.path.exists(blob):
+                continue
+            meta = json.load(open(os.path.join(d, f)))
+            if "slot" not in meta:
+                continue
+            if int(meta["slot"]) in DRILL_HELDOUT:
+                raise RuntimeError(f"drill {d}/{f} comes from held-out grading lineup slot{meta['slot']}: "
+                                   f"refusing to train on the test set")
+            meta["_state"] = blob
+            meta["_dir"] = os.path.basename(os.path.normpath(d))
+            out.append(meta)
+    return out
 
 
 class PFSPPool(OpponentPool):
@@ -236,9 +269,91 @@ class FFASelfPlayEnv(PowerStoneEnvLibretro):
                       + (" special_attrib=1 (learner-only; +0x32e4 hit source, owner +0x10)" if SPECIAL_ATTRIB else ""), flush=True)
         if START_HEALTH:
             print(f"[config] start_health=U{START_HEALTH} per seat (RAM write at reset)", flush=True)
+        self._drill = None             # meta of the drill this episode started from (None = slot savestate)
+        self._drills = []
+        if DRILL_DIRS and DRILL_P > 0.0:
+            self._drills = load_drill_index(DRILL_DIRS)
+            if not self._drills:
+                raise RuntimeError(f"PS2_DRILL_DIR={','.join(DRILL_DIRS)}: no drills found")
+            dslots = sorted({int(m["slot"]) for m in self._drills})
+            # context dims come from the drill's SOURCE slot (same table the slot itself uses)
+            self.SLOT_META = ffa_slot_meta(list(self.STATE_SLOTS) + dslots, self.SLOT_META)
+            print(f"[config] drills: {len(self._drills)} start points from {','.join(DRILL_DIRS)} p={DRILL_P:g} "
+                  f"source slots={dslots} (no pool seats, no start-health draw, no pre-roll in a drill episode)", flush=True)
+
+    # ------------------------------------------------------------- drills
+    def _match_ready(self, s, provisional=False):
+        if getattr(self, "_drill", None) is None:
+            return super()._match_ready(s, provisional)
+        # a drill is mid-round, often at low health (drill_play.py's rule): alive is enough
+        i = self._learner_idx
+        return s["h"][i] > 1.0 and any(h > 1.0 for j, h in enumerate(s["h"]) if j != i)
+
+    def _detect_opp(self, s, i):
+        if getattr(self, "_drill", None) is None:
+            return super()._detect_opp(s, i)
+        # the lineup's tracked set from the capture (dead seats included, exactly as a full round keeps a KO'd
+        # opponent in _active_opp: obs/rewards filter by alive, the zero-sum mean keeps the seat)
+        act = [int(j) for j in self._drill.get("active_opp", []) if int(j) != i]
+        if not act:
+            act = [j for j in range(4) if j != i and s["v4"] and np.any(s["players"][j]["pos"] != 0)]
+        return act
+
+    def _drill_reset(self, meta):
+        import gzip
+        blob = gzip.open(meta["_state"], "rb").read()
+        br = self._lr_bridge
+        env = self
+
+        def load_drill(_slot):
+            if br.emu.set_state(blob) is False:
+                raise RuntimeError(f"core rejected drill {meta['_state']}")
+            br.clear_inputs()
+            for syn in br._synths:
+                syn.on_loadstate()
+            br.run_frames(2)
+            env._preroll_next = 0      # start AT the saved moment: no idle pre-roll (read right after this load)
+
+        saved_slots = self.STATE_SLOTS
+        self._drill = meta
+        self.STATE_SLOTS = [int(meta["slot"])]
+        br.loadstate = load_drill
+        try:
+            obs = super().reset()
+        finally:
+            del br.loadstate
+            self.STATE_SLOTS = saved_slots
+        self._did_first_load = False   # the next episode always reloads its slot (whatever PS2_RELOAD_ON_RESET says)
+        c = meta.get("counters") or {}
+        if c:                          # the capture env's heuristic counters at this moment (obs[8..9] fallbacks)
+            self._form_timer = int(c.get("form_timer", 0))
+            self._my_g_int = int(c.get("my_g_int", 0))
+            self._opp_g_int = int(c.get("opp_g_int", 0))
+            obs = self._observe(self.prev, self.prev)
+        s = self.prev
+        alive = [j for j in self._active_opp if self._alive(self.prev_health[j])]
+        print(f"[drill] start {meta['_dir']}/{meta['drill']} slot{meta['slot']} ko_was={meta.get('seconds_before_ko')}s "
+              f"kind={meta.get('kind', '-')} h={[round(float(x)) for x in s['h']]} opps_alive={len(alive)}/{len(self._active_opp)}",
+              flush=True)
+        return obs
 
     # ---------------------------------------------------------------- lifecycle
     def reset(self):
+        self._drill = None
+        if self._drills and random.random() < DRILL_P:
+            meta = random.choice(self._drills)
+            for v in self._views.values():   # drill lineups are 3 COMs: no pool policy on a COM seat
+                v.reset()
+                v.model, v.path = None, None
+            self._drill_name = f"{meta['_dir']}/{meta['drill']}"
+            obs = self._drill_reset(meta)
+            self._zs_gem = {}
+            self._spec_last = {}
+            self._spec_last_frame = {}
+            self._spec_t = 0
+            self._zs = {"raw": 0.0, "opp_mean": 0.0, "adj": 0.0, "dealt_nn": 0.0, "n": 0}
+            return obs
+        self._drill_name = None
         for v in self._views.values():
             v.reset()
             v.model = self._pool.sample()
