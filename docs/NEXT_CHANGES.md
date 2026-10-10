@@ -4,12 +4,16 @@ Last updated: Oct 7 2026, 9:40 pm EDT. Current recipe on the Ryzen: vision (obs 
 KL fix (PS2_PPO_KL_REF=prox), recent-only opponent pool (legs 113+), training slots 30-43 + 50-68, no DAgger.
 Reads: vision legs 134-138 = 44.6% lv8mix; + pool/mix legs 139-142 = 47.6% (142 = 51.6%, the record).
 
-## NEXT CHANGE (Blake, Oct 10): practice start points (drill resets), being built
+## NOW RUNNING FROM LEG 157 (set Oct 10, 8:25 am): practice start points (drill resets), 3-leg read (157-159)
 
 Some training rounds start from saved moments where the CURRENT bot (leg 155) was about to lose, harvested on
 training lineups 50-68 only (never the graded 90-94), and the bot plays them out with ordinary RL: no imitation,
 no reward change (unlike DAgger, which copied Blake's inputs before vision). Target: the KO study's finding that
 4 of 5 losses come right after the bot's transforms run out. Flags PS2_DRILL_DIR / PS2_DRILL_P (~0.2), 3-leg read.
+Built and merged (2937403): 163 drills from leg 155 (60 losses; 8 s / 4 s before KO + form-end), none from 90-94.
+Harvest finding: in 72% of losses an opponent had transformed within 3 s of the KO (the stronger pattern);
+only 27% died within 10 s of the bot's own form ending. Training [ep] lines for drill rounds end in drill=...;
+exclude them when reading training win rate. Previous settings: claude_bridge/league_env_leg156.txt.
 Not planned: a per-KO reward (the KO study showed the bot already lands ~90% of KOs).
 
 ## TRIED AND REVERTED (Oct 9): learner batching fixes, legs 149-152
