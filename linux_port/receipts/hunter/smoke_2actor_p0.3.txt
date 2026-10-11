@@ -1,0 +1,47 @@
+[config] hunters: seats=- p=0.3 target=P2 eligible slots=[0, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43] (hunter_bot.py)
+[config] hunters: seats=- p=0.3 target=P2 eligible slots=[0, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43] (hunter_bot.py)
+[hunter] slot35 P1=HUNTER(was prog_leg159.zip)
+[ep] slot35 opps=3    loss len= 310  dmg +1.42/-0.70  stones: picked=1 lost=2 opp=2(-2) forms=0/0  gem_rew=+3.00 shape=+0.00 appr=+0.00  chests=3(0) stonev=41 dmgF=0.00  hunters=1
+[hunt] slot35 loss hunters=P1 bot_dmg_from P1=0.68 x=0.02 ko_by=x forms=- P1_ladder=mug:306,pass_stone:4
+[hunter] slot40 P3=HUNTER(was prog_leg155.zip)
+[hunt] slot52 win hunters=- bot_dmg_from x=0.52 ko_by=- forms=P2:3
+[ep] slot40 opps=3     win len= 608  dmg +4.27/-0.66  stones: picked=8 lost=3 opp=8(-4) forms=2/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=20(0) stonev=230 dmgF=0.43  hunters=1
+[hunt] slot40 win hunters=P3 bot_dmg_from P1=0.09 P3=0.12 P4=0.21 x=0.24 ko_by=- forms=P1:1,P2:2 P3_ladder=finish_set:18,hunt:19,mug:559,pass_stone:12
+[hunt] slot50 win hunters=- bot_dmg_from P1=0.32 x=0.15 ko_by=- forms=P1:1,P2:2,P3:1
+[hunt] slot52 loss hunters=- bot_dmg_from P1=0.13 P3=0.09 P4=0.04 x=0.33 ko_by=P1 forms=P1:1,P2:2
+[hunt] slot39 loss hunters=- bot_dmg_from P1=0.14 P3=0.07 x=0.79 ko_by=x forms=P1:2,P2:2
+[hunt] slot32 loss hunters=- bot_dmg_from P1=0.12 P3=0.34 x=0.40 ko_by=P3 forms=P2:2,P3:3
+[hunter] slot40 P1=HUNTER(was prog_leg159.zip)
+[ep] slot40 opps=3    loss len= 198  dmg +0.46/-0.54  stones: picked=1 lost=2 opp=2(-1) forms=0/0  gem_rew=+3.00 shape=+0.00 appr=+0.00  chests=4(1) stonev=34 dmgF=0.00  hunters=1
+[hunt] slot40 loss hunters=P1 bot_dmg_from P1=0.41 x=0.13 ko_by=P1 forms=- P1_ladder=hunt:57,mug:139,pass_stone:2
+[hunt] slot33 win hunters=- bot_dmg_from P3=0.23 x=0.57 ko_by=- forms=P2:3,P3:3
+[hunt] slot56 loss hunters=- bot_dmg_from P1=0.15 P3=0.18 P4=0.21 x=0.18 ko_by=P3 forms=P2:2,P3:1
+[hunt] slot67 win hunters=- bot_dmg_from P3=0.38 P4=0.11 x=0.04 ko_by=- forms=P2:2,P3:1
+[hunt] slot62 loss hunters=- bot_dmg_from P4=0.18 x=0.47 ko_by=x forms=-
+[hunt] slot66 loss hunters=- bot_dmg_from P4=0.12 x=0.46 ko_by=P4 forms=P2:1,P4:1
+[hunt] slot54 loss hunters=- bot_dmg_from x=0.60 ko_by=x forms=P1:1,P2:2
+[hunt] slot60 loss hunters=- bot_dmg_from P1=0.29 P3=0.02 P4=0.23 x=0.23 ko_by=P1 forms=P1:1,P2:3
+[hunt] slot33 loss hunters=- bot_dmg_from P1=0.18 P4=0.05 x=0.56 ko_by=x forms=P1:1,P2:1
+[hunt] slot62 loss hunters=- bot_dmg_from P1=0.06 P4=0.10 x=0.59 ko_by=x forms=P1:1,P2:2,P3:1,P4:1
+[hunt] slot63 loss hunters=- bot_dmg_from P1=0.49 P3=0.10 P4=0.06 x=0.13 ko_by=P1 forms=P2:1,P3:1
+[hunt] slot62 loss hunters=- bot_dmg_from x=0.72 ko_by=x forms=P1:1
+[hunt] slot54 loss hunters=- bot_dmg_from P1=0.10 P3=0.18 P4=0.21 x=0.15 ko_by=P3 forms=P3:1
+[hunter] slot39 P3=HUNTER(was prog_leg158.zip)
+[hunt] slot36 loss hunters=- bot_dmg_from P1=0.09 P4=0.04 x=0.44 ko_by=x forms=P1:2,P2:3
+[hunter] slot37 P3=HUNTER(was prog_leg155.zip)
+[ep] slot39 opps=3    loss len= 265  dmg +1.05/-0.69  stones: picked=2 lost=3 opp=4(-3) forms=0/0  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=8(0) stonev=94 dmgF=0.00  hunters=1
+[hunt] slot39 loss hunters=P3 bot_dmg_from P3=0.28 P4=0.04 x=0.36 ko_by=P3 forms=- P3_ladder=hunt:100,mug:142,pass_chest:7,pass_stone:16
+[ep] slot37 opps=3    loss len= 294  dmg +2.68/-0.74  stones: picked=0 lost=1 opp=5(-3) forms=0/1  gem_rew=+0.00 shape=+0.00 appr=+0.00  chests=6(0) stonev=52 dmgF=0.00  hunters=1
+[hunt] slot37 loss hunters=P3 bot_dmg_from P3=0.35 P4=0.15 x=0.24 ko_by=x forms=P1:1 P3_ladder=hunt:177,mug:102,pass_chest:4,pass_stone:11
+[hunter] slot31 P1=HUNTER(was prog_leg155.zip)
+[ep] slot31 opps=3    loss len= 326  dmg +3.14/-0.59  stones: picked=4 lost=2 opp=2(-4) forms=1/0  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=9(0) stonev=88 dmgF=1.60  hunters=1
+[hunt] slot31 loss hunters=P1 bot_dmg_from P1=0.28 P3=0.09 P4=0.22 ko_by=P4 forms=P2:1 P1_ladder=hunt:14,mug:281,pass_stone:31
+[hunt] slot52 win hunters=- bot_dmg_from P3=0.08 P4=0.23 x=0.40 ko_by=- forms=P2:3
+[hunt] slot67 win hunters=- bot_dmg_from P3=0.12 x=0.20 ko_by=- forms=P2:2
+[hunt] slot63 win hunters=- bot_dmg_from P4=0.29 x=0.10 ko_by=- forms=P2:4
+[hunt] slot57 win hunters=- bot_dmg_from P1=0.58 x=0.13 ko_by=- forms=P1:1,P2:1
+[hunt] slot68 win hunters=- bot_dmg_from P3=0.36 P4=0.12 x=0.42 ko_by=- forms=P2:3,P3:1,P4:1
+[hunt] slot54 loss hunters=- bot_dmg_from P3=0.04 P4=0.12 x=0.64 ko_by=x forms=P2:3,P4:1
+[hunt] slot35 loss hunters=- bot_dmg_from P1=0.18 x=0.61 ko_by=x forms=P1:2,P2:2
+[hunter] slot38 P3=HUNTER(was prog_leg157.zip)
+leg complete -> /tmp/claude-1000/-home-superserver-powerstone2-rl-mac/8ef05911-ae2f-4799-bdec-aaa18f602650/scratchpad/hunt/smoke/powerstone_v6_hsmoke.zip

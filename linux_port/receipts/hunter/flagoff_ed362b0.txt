@@ -1,0 +1,22 @@
+[cmp] new       obs_30   old (301, 430) vs (301, 430): BIT-IDENTICAL
+[cmp] new       rew_30   old (300,) vs (300,): BIT-IDENTICAL
+[cmp] new       done_30  old (300,) vs (300,): BIT-IDENTICAL
+[cmp] new       obs_55   old (301, 430) vs (301, 430): BIT-IDENTICAL
+[cmp] new       rew_55   old (300,) vs (300,): BIT-IDENTICAL
+[cmp] new       done_55  old (300,) vs (300,): BIT-IDENTICAL
+[cmp] new       views    old (1200, 430) vs (1200, 430): BIT-IDENTICAL
+[cmp] off_stats obs_30   old (301, 430) vs (301, 430): BIT-IDENTICAL
+[cmp] off_stats rew_30   old (300,) vs (300,): BIT-IDENTICAL
+[cmp] off_stats done_30  old (300,) vs (300,): BIT-IDENTICAL
+[cmp] off_stats obs_55   old (301, 430) vs (301, 430): BIT-IDENTICAL
+[cmp] off_stats rew_55   old (300,) vs (300,): BIT-IDENTICAL
+[cmp] off_stats done_55  old (300,) vs (300,): BIT-IDENTICAL
+[cmp] off_stats views    old (1200, 430) vs (1200, 430): BIT-IDENTICAL
+[cmp] on_com    obs_30   old (301, 430) vs (301, 430): BIT-IDENTICAL
+[cmp] on_com    rew_30   old (300,) vs (300,): BIT-IDENTICAL
+[cmp] on_com    done_30  old (300,) vs (300,): BIT-IDENTICAL
+[cmp] on_com    obs_55   old (301, 430) vs (301, 430): BIT-IDENTICAL
+[cmp] on_com    rew_55   old (300,) vs (300,): BIT-IDENTICAL
+[cmp] on_com    done_55  old (300,) vs (300,): BIT-IDENTICAL
+[cmp] on_com    views    old (1200, 430) vs (1200, 430): BIT-IDENTICAL
+hunter flag-off bit-identity: PASS

@@ -49,3 +49,20 @@ own recipe (see docs/NEXT_CHANGES.md). Nothing here changes `league_env.txt`, th
   `PYTHONPATH=../sdlarch-rl/p4:../sdlarch-rl:.`.
 - Report back: hunter behaviour clip, hunted-mode win % for leg 145 vs its normal 56.5%, and the code on branch
   `hunter` pushed to GitHub (the Macs have credentials) so the Ryzen can pull it.
+
+## Results (Ryzen worktree, Oct 10 2026; done here instead of on the M2)
+- Code: `linux_port/hunter_bot.py`, the hook in `ffa_selfplay_env.py` (`PS2_HUNTER_SEATS`, `PS2_HUNTER_P`,
+  `PS2_HUNTER_SLOTS`, `PS2_HUNTER_TARGET`, `PS2_HUNTER_STATS`), `eval_hunted.py`, `test_hunter_flagoff.py`. Flags off
+  (also stats-only, and hunters set with no eligible slot): bit-identical to ed362b0 on slots 30 and 55 (PASS).
+- Hunted grading of leg 159, slots 30-43, 280 rounds (20 per slot, round-robin), deterministic, paired pre-roll:
+
+  | P1 / P3 | win % | bot damage taken /round by source (P1, P3, P4 COM, unattributed) | KOs of the bot (P1, P3, P4, unattr.) | median length |
+  |---|---|---|---|---|
+  | frozen leg 159 (baseline) | 40.4 (113/280) | 0.09, 0.10, 0.15, 0.50 | 15, 21, 18, 113 | 697 |
+  | hunters | 7.1 (20/280) | 0.39, 0.34, 0.11, 0.14 | 89, 78, 52, 40 | 346 |
+
+  Paired by start point: 99 rounds won only in the baseline, 6 only when hunted. Receipts: `linux_port/receipts/hunter/`.
+  "Unattributed" = the game's hit-source pointer is null or unowned; most of the frozen bots' damage lands there
+  (projectiles / specials), so the per-seat split of the baseline understates P1/P3.
+- Training readiness: 2-actor smoke of `train_selfplay_async.py` (live recipe + `PS2_HUNTER_P=0.3`, warm leg 159,
+  16,384 steps) ended in "leg complete"; 6 of the 12 slot-30-43 episodes had `hunters=1`.
