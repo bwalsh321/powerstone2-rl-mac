@@ -4,7 +4,10 @@ Last updated: Oct 7 2026, 9:40 pm EDT. Current recipe on the Ryzen: vision (obs 
 KL fix (PS2_PPO_KL_REF=prox), recent-only opponent pool (legs 113+), training slots 30-43 + 50-68, no DAgger.
 Reads: vision legs 134-138 = 44.6% lv8mix; + pool/mix legs 139-142 = 47.6% (142 = 51.6%, the record).
 
-## NOW RUNNING FROM LEG 157 (set Oct 10, 8:25 am): practice start points (drill resets), 3-leg read (157-159)
+## TRIED AND TURNED OFF (Oct 10): practice start points (drill resets), legs 157-160
+
+Legs 157-159 = 55.9% vs 153-155 = 56.0% on the same games (738 gained / 743 lost): no effect. Drill rounds stayed
+~26% won every leg (normal ~51%): the bot did not learn to get out of those spots. Off from leg 161 (Blake).
 
 Some training rounds start from saved moments where the CURRENT bot (leg 155) was about to lose, harvested on
 training lineups 50-68 only (never the graded 90-94), and the bot plays them out with ordinary RL: no imitation,
@@ -53,7 +56,12 @@ Turn-on steps (once the agent's tests pass and the branch is merged): add the fl
 `<N> itememb0` line to league_surgery.txt, between legs (relay scripts only by atomic mv). Read it as a 3-leg pool
 against legs 139-141 (46.2%). With paired grading (from leg 142) legs are compared on the same 1000 games.
 
-## Side project (M2): hunter bot
+## NEXT CHANGE (Blake, Oct 10): hunter bot, on the Ryzen
+
+Plan in docs/HUNTER_PROJECT.md (written for the M2; now built and run on the Ryzen). Note: a 512-wide network was
+tried long ago and did worse than 256, so a bigger network is lower on the list.
+
+## (was) Side project (M2): hunter bot
 
 A scripted opponent that only hunts our bot (Blake's aimbot, retargeted): measure how the bot does when it is
 not ignored, then maybe train against it. Spec: docs/HUNTER_PROJECT.md. Runs on the M2 (1-2 test legs); the Ryzen is untouched.
