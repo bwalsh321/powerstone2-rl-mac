@@ -56,7 +56,7 @@ Turn-on steps (once the agent's tests pass and the branch is merged): add the fl
 `<N> itememb0` line to league_surgery.txt, between legs (relay scripts only by atomic mv). Read it as a 3-leg pool
 against legs 139-141 (46.2%). With paired grading (from leg 142) legs are compared on the same 1000 games.
 
-## NOW RUNNING FROM LEG 163 (set Oct 11, 7 am): hunters in training (PS2_HUNTER_P=0.3), 3-leg read (163-165)
+## NOW RUNNING FROM LEG 162 (restarted Oct 11, 7 am; 162 on the plain recipe was stopped): hunters in training (PS2_HUNTER_P=0.3), 3-leg read (162-164)
 
 Test result (leg 159, slots 30-43, 280 paired rounds): 40.4% vs two copies of itself, 7.1% vs two hunters.
 In training, 30% of the slot 30-43 rounds put hunters (Blake's aimbot ladder retargeted at our bot) in the open
