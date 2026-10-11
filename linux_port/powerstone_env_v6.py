@@ -1098,7 +1098,9 @@ class PowerStoneEnvV6(gym.Env):
                   + (f"  STEP_TIMEOUTS={self._ep_step_timeouts}"
                      if getattr(self, "_ep_step_timeouts", 0) else "")
                   # Oct 10 2026: an episode started from a practice start point (ffa_selfplay_env PS2_DRILL_DIR)
-                  + (f"  drill={self._drill_name}" if getattr(self, "_drill_name", None) else ""))
+                  + (f"  drill={self._drill_name}" if getattr(self, "_drill_name", None) else "")
+                  # Oct 10 2026: scripted hunter seats this episode (ffa_selfplay_env PS2_HUNTER_SEATS / PS2_HUNTER_P)
+                  + (f"  hunters={self._hunter_n}" if getattr(self, "_hunter_n", 0) else ""))
             try:
                 # columns 17-19 (chesto, chestb, stonev) APPENDED Aug 10 —
                 # appended, not inserted, so positional readers of the first
