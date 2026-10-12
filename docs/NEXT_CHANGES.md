@@ -1,6 +1,6 @@
 # Next leg changes (queue) — kept current by the Ryzen session
 
-Last updated: Oct 7 2026, 9:40 pm EDT. Current recipe on the Ryzen: vision (obs v4 + OBJ_GRID_N=208), taps, learner
+Last updated: Oct 12 2026, 9:30 am EDT. Full session state: docs/SESSION_HANDOFF_RYZEN.md.
 KL fix (PS2_PPO_KL_REF=prox), recent-only opponent pool (legs 113+), training slots 30-43 + 50-68, no DAgger.
 Reads: vision legs 134-138 = 44.6% lv8mix; + pool/mix legs 139-142 = 47.6% (142 = 51.6%, the record).
 
