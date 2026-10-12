@@ -15,6 +15,13 @@ def wins(path):
     m = re.search(r"win% :\s*([\d.]+)\s*\((\d+)W/(\d+)L/(\d+)T\)", t)
     return (float(m.group(1)), int(m.group(2)) + int(m.group(3)) + int(m.group(4))) if m else (None, 0)
 
+def _mode(path):
+    try:
+        return "stochastic" if "mode=stochastic" in open(path).read() else "deterministic"
+    except OSError:
+        return None
+
+
 def main(n, root="receipts"):
     why = []
     lv8, n8 = wins(f"{root}/eval_leg{n}_slot3_out.txt")
@@ -54,11 +61,26 @@ def main(n, root="receipts"):
             # Oct 7 2026 (audit): the 20% floor is far below the ~45% the bot now plays at. Also hold when a leg falls
             # more than PS2_DROP_HOLD points (default 6, ~2.8 SE of a difference at n=1000) below the best of the
             # previous 5 graded legs.
-            prev = [wins(f"{root}/eval_leg{k}_lv8mix_out.txt")[0] for k in range(int(n) - 5, int(n))]
-            prev = [p for p in prev if p is not None]
             drop = float(os.environ.get("PS2_DROP_HOLD", "6"))
-            if prev and mix < max(prev) - drop:
-                why.append(f"lv8mix {mix:.1f} is more than {drop:g} below the best of the last {len(prev)} legs ({max(prev):.1f})")
+            if _mode(f"{root}/eval_leg{n}_lv8mix_out.txt") == "stochastic":
+                # Oct 12 2026: sampled-move grades are compared with sampled-move grades only (earlier legs' sampled
+                # numbers live in eval_leg<k>_lv8mix_stoch_out.txt, n=500), against their MEAN: single sampled grades
+                # carry +-4 noise, so the best of five would trip on noise.
+                prev = []
+                for k in range(int(n) - 5, int(n)):
+                    main = f"{root}/eval_leg{k}_lv8mix_out.txt"
+                    src = main if _mode(main) == "stochastic" else f"{root}/eval_leg{k}_lv8mix_stoch_out.txt"
+                    v = wins(src)[0]
+                    if v is not None:
+                        prev.append(v)
+                if prev and mix < sum(prev) / len(prev) - drop:
+                    why.append(f"sampled lv8mix {mix:.1f} is more than {drop:g} below the mean of the last {len(prev)} "
+                               f"sampled grades ({sum(prev) / len(prev):.1f})")
+            else:
+                prev = [wins(f"{root}/eval_leg{k}_lv8mix_out.txt")[0] for k in range(int(n) - 5, int(n))]
+                prev = [p for p in prev if p is not None]
+                if prev and mix < max(prev) - drop:
+                    why.append(f"lv8mix {mix:.1f} is more than {drop:g} below the best of the last {len(prev)} legs ({max(prev):.1f})")
         # Oct 7 2026 (audit): too few distinct rounds = the eval replayed itself (seed bug class); real legs show ~800+.
         try:
             m_ = re.search(r"distinct-episodes=(\d+)", open(f"{root}/eval_leg{n}_lv8mix_out.txt").read())

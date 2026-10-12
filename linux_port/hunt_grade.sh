@@ -1,6 +1,7 @@
 #!/bin/bash
 # hunt_grade.sh <N> — "hunted" grade of leg N (Oct 11 2026, Blake): 280 rounds on slots 30-43 with P1 and P3 driven by
-# hunter_bot.py (they only attack our bot) and P4 the lv8 CPU, deterministic, the same start points every leg
+# hunter_bot.py (they only attack our bot) and P4 the lv8 CPU, SAMPLED moves since leg 165 (Oct 12; top-move grades
+# swing +-15 from brittleness), the same start points every leg
 # (eval_hunted.py). Leg 159 scored 7.1% here vs 40.4% against copies of itself. Runs beside the next leg's training,
 # low priority, instances 60-62; writes receipts/eval_leg<N>_hunted_out.txt + claude_bridge/hunt_leg<N>_done.txt.
 # Started by league_battery.sh after the launch, like stoch_grade.sh; never gates the relay.
@@ -19,7 +20,7 @@ mkdir -p receipts/hunter claude_bridge
 i=0
 for spec in "0 98" "7 98" "14 84"; do
   set -- $spec
-  ( sleep $((i * 5)); nice -n 15 python eval_hunted.py --model "$M" --hunters 0,2 --slots 30-43 --episodes $2 \
+  ( sleep $((i * 5)); nice -n 15 python eval_hunted.py --model "$M" --stochastic --hunters 0,2 --slots 30-43 --episodes $2 \
       --visit-offset $1 --visits-total 20 --instance $((60 + i)) --out "receipts/hunter/leg${N}_hunted_s${i}.jsonl" \
       > "receipts/hunter/leg${N}_hunted_s${i}.log" 2>&1 ) &
   i=$((i + 1))

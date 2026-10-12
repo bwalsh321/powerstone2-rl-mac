@@ -82,6 +82,7 @@ def main():
     ap.add_argument("--model", default="./powerstone_v6_leg159_league.zip")
     ap.add_argument("--opp", default=None, help="frozen policy for non-hunter policy seats (default: --model)")
     ap.add_argument("--hunters", default="0,2", help="policy seats driven by hunter_bot.py ('' = none)")
+    ap.add_argument("--stochastic", action="store_true", help="Oct 12 2026: sample the bot's moves (the way it trains)")
     ap.add_argument("--slots", default="30-43")
     ap.add_argument("--episodes", type=int, default=280)
     ap.add_argument("--visit-offset", type=int, default=0)
@@ -134,7 +135,7 @@ def main():
         runner.reset()
         done, info = False, {}
         while not done:
-            act = runner.act(obs, deterministic=True)
+            act = runner.act(obs, deterministic=not a.stochastic)
             obs, r, done, info = env.step(act)
             obs = obs[:d_]
             obs = fs.push(obs) if fs else obs

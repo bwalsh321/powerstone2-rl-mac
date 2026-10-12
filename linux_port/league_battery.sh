@@ -156,11 +156,15 @@ fi
 # Sep 25 2026 (Blake: "it has to be a test"): 4th eval = five HELD-OUT three-lv8-COM lineups (states/slot90-94,
 # never trained on), n = SHARDS x S3_PER over the set, uniformly sampled per episode. Not part of the hold rule.
 # PS2_LV8MIX=0 disables.
+# Oct 12 2026 (Blake): the per-leg grade samples the bot's moves (the way it trains). Top-move grades swung +-15 points
+# from brittleness (145-148, 163-164) while sampled play held; the top-move number now runs beside the next leg
+# (top_grade.sh). PS2_LV8MIX_MODE=deterministic restores the old grade.
+LV8MIX_STOCH=""; [ "${PS2_LV8MIX_MODE:-stochastic}" = "stochastic" ] && LV8MIX_STOCH="--stochastic"
 if [ "${PS2_LV8MIX:-1}" = "1" ]; then
-  echo "battery leg $N: lv8mix held-out set (slots 90-94)"
+  echo "battery leg $N: lv8mix held-out set (slots 90-94), ${LV8MIX_STOCH:+sampled moves}${LV8MIX_STOCH:-top moves}"
   # Oct 1 2026 (Blake: lv8mix is the number that matters): n = 1000 (200 per lineup) = SHARDS x (1000/SHARDS).
   sharded_eval lv8mix slot "${PS2_LV8MIX_PER_SHARD:-$((1000 / SHARDS))}" --model "$M" --slot 90 --slots 90,91,92,93,94 -- \
-    python eval_parity.py --core "$CORE" --game "$GAME" --slots 90,91,92,93,94 --model "$M"
+    python eval_parity.py --core "$CORE" --game "$GAME" --slots 90,91,92,93,94 --model "$M" $LV8MIX_STOCH
 fi
 
 if [ ${#FAILED[@]} -gt 0 ]; then
@@ -226,7 +230,11 @@ echo DONE > "claude_bridge/battery_leg${N}_done.txt"
 if [ "${PS2_LEG_VIDEO:-1}" = "1" ]; then
   tmux new -s "scout${N}" -d "bash $(pwd)/scout_leg.sh $N > videos/scout_leg${N}.log 2>&1" && echo "battery leg $N: scouting clip started in tmux scout${N}"
   # Oct 9 2026 (Blake): sampled-move grade beside the next leg (stoch_grade.sh; never gates the relay)
-  tmux new -s "stoch${N}" -d "bash $(pwd)/stoch_grade.sh $N > claude_bridge/stoch_leg${N}.log 2>&1" && echo "battery leg $N: sampled-move grade started in tmux stoch${N}"
+  if [ -n "$LV8MIX_STOCH" ]; then
+    tmux new -s "top${N}" -d "bash $(pwd)/top_grade.sh $N > claude_bridge/top_leg${N}.log 2>&1" && echo "battery leg $N: top-move grade started in tmux top${N}"
+  else
+    tmux new -s "stoch${N}" -d "bash $(pwd)/stoch_grade.sh $N > claude_bridge/stoch_leg${N}.log 2>&1" && echo "battery leg $N: sampled-move grade started in tmux stoch${N}"
+  fi
   # Oct 11 2026 (Blake): hunted grade (hunt_grade.sh: two hunter bots + one lv8 CPU on slots 30-43; never gates the relay)
   tmux new -s "hunt${N}" -d "bash $(pwd)/hunt_grade.sh $N > claude_bridge/hunt_leg${N}.log 2>&1" && echo "battery leg $N: hunted grade started in tmux hunt${N}"
 fi
