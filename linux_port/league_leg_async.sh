@@ -89,6 +89,7 @@ for kv in $ARENA; do case "$kv" in PS2_ZERO_SUM=*|PS2_START_HEALTH=*|PS2_STATE_S
 # PS2_OBS_V4=1 in league_env.txt. With PS2_OBS_V4_ITEMEMB=zero the parent's [12..17] columns are zeroed too.
 # Oct 7 2026: itememb0 = zero the [12..17] columns of an already-430-wide zip (surgery_zero_itememb.py); needs
 # PS2_OBS_V4_ITEMEMB=zero in league_env.txt.
+# Oct 13 2026: framestack2 = narrow the 7-frame stack to 2 (surgery_frame_stack.py); needs PS2_OBS_STACK=2 in league_env.txt.
 while read -r SURG_FROM SURG_KIND; do
   [ -n "$SURG_FROM" ] && [ "$N" -ge "$SURG_FROM" ] || continue
   case "$SURG_KIND" in
@@ -114,6 +115,19 @@ while read -r SURG_FROM SURG_KIND; do
       CHECK="from surgery_zero_itememb import is_zeroed as f; ok = f('${PREV}')"
       OUT="./powerstone_v6_leg$((N-1))_ie0.zip"
       CMD="python surgery_zero_itememb.py \"$PREV\" \"$OUT\""; TAG="ITEMEMB=zero" ;;
+    framestack*)
+      # Oct 13 2026 (frame-stack option): framestack<K> narrows the stacked input to K frames (surgery_frame_stack.py
+      # keeps the K most recent lags of obs_stack.OFFSETS_BY_K and their weights: K=2 -> lags [1, 0], 3010 -> 860
+      # inputs; first-layer columns + Adam moments sliced, everything else bit for bit). framestack<K>fold also adds
+      # the dropped lags' weights onto lag 1 (measured closer to the parent; see the commit). The trainer asserts zip
+      # width == 430 x PS2_OBS_STACK, so refuse unless league_env.txt says PS2_OBS_STACK=K.
+      FS_K="${SURG_KIND#framestack}"; FS_FOLD=""
+      case "$FS_K" in *fold) FS_K="${FS_K%fold}"; FS_FOLD="--fold" ;; esac
+      case "$FS_K" in ''|*[!0-9]*) echo "[wrapper-async] leg $N REFUSED: bad surgery kind '$SURG_KIND' (framestack<K> or framestack<K>fold); nothing launched $(date)" | tee -a wrapper_league.log >&2; exit 2 ;; esac
+      [ "${PS2_OBS_STACK:-1}" = "$FS_K" ] || { echo "[wrapper-async] leg $N REFUSED: $SURG_KIND surgery listed but league_env.txt has PS2_OBS_STACK=${PS2_OBS_STACK:-unset}, not $FS_K; nothing launched $(date)" | tee -a wrapper_league.log >&2; exit 2; }
+      CHECK="from obs_stack import kd_for; from recurrent_policy import load_model as f; ok = kd_for(f('${PREV}'))[0] == ${FS_K}"
+      OUT="./powerstone_v6_leg$((N-1))_fs${FS_K}${FS_FOLD:+fold}.zip"
+      CMD="python surgery_frame_stack.py \"$PREV\" \"$OUT\" --k $FS_K $FS_FOLD"; TAG="FRAMESTACK=${FS_K}${FS_FOLD:+fold}" ;;
     *) echo "[wrapper-async] leg $N REFUSED: unknown surgery kind '$SURG_KIND'; nothing launched $(date)" | tee -a wrapper_league.log >&2; exit 2 ;;
   esac
   if ! python -c "import sys; ${CHECK}; sys.exit(0 if ok else 1)" 2>/dev/null; then

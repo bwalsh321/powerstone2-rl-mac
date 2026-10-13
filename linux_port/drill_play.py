@@ -86,7 +86,8 @@ def main():
     env.BUTTON_TAP = not args.hold        # Oct 4 2026: buttons are taps, so double jumps and rocket volleys work
     print(f"[drill] buttons: {'held until the next decision (old)' if args.hold else 'taps (double jump / repeated attacks work)'}", flush=True)
     env.MAX_STEPS = 10 ** 9
-    K, d = 7, env.OBS_DIM                             # the current bot's input: strided 7-frame stack
+    # the current bot's input: strided 7-frame stack; Oct 13 2026: PS2_OBS_STACK=2 (frame-stack option) records 2-frame demos
+    K, d = int(os.environ.get("PS2_OBS_STACK", "").strip() or 7), env.OBS_DIM
     br, emu = env._lr_bridge, env._lr_bridge.emu
     h, w = emu.get_shape()
 

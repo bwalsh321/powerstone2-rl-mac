@@ -12,6 +12,9 @@ for the trainer. At a reset the ring is filled with copies of the first frame.
   FrameStack(k_or_offsets, dim)   reset(obs) / push(obs) -> stacked vector
   StackedEnv(env, k_or_offsets)   old-gym env wrapper for the learner
   k_for(model, dim)               frame count implied by a model's observation space
+  stack_for(model)                kd_for + check against PS2_OBS_STACK when set (the graded / trained policy)
+Oct 13 2026: K=2 ([1, 0]) is the frame-stack option for the v4 lineage (PS2_OBS_STACK=2 + league_surgery.txt
+framestack2 = surgery_frame_stack.py, 3010 -> 860 inputs).
   offsets_for(k)                  lag list for a frame count (or the PS2_STACK_OFFSETS override)
 """
 import os
@@ -101,6 +104,21 @@ def kd_for(model):
         if n % d == 0 and (n // d) in OFFSETS_BY_K:
             return n // d, d
     raise ValueError(f"model obs dim {n} is not K x 122, K x 160 or K x 430 for a known K")
+
+
+def stack_for(model, flag="PS2_OBS_STACK"):
+    """(K, per-frame dim) of the policy being TRAINED, GRADED, SCOUTED or RECORDED: kd_for(model), cross-checked against
+    PS2_OBS_STACK when it is set (Oct 13 2026, frame-stack option). The graders export PS2_OBS_STACK from the leg's
+    leg_modes.txt row (like PS2_OBJ_GRID_N), so a zip whose width disagrees with the recipe it was trained under fails
+    loudly instead of being graded under the wrong stack. Unset = no check (the width alone decides, as before).
+    Pool / opponent seats keep using kd_for: their stack is their own, whatever the learner's."""
+    k, d = kd_for(model)
+    want = os.environ.get(flag, "").strip()
+    if want and int(want) != k:
+        raise ValueError(f"{flag}={want} but the model reads {int(model.observation_space.shape[0])} inputs = "
+                         f"K={k} x {d}: wrong zip for this recipe, or the leg_modes.txt row / league_env.txt is wrong "
+                         f"(surgery_frame_stack.py converts a zip)")
+    return k, d
 
 
 def k_for(model, base_dim=None):

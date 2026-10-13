@@ -83,8 +83,8 @@ def main():
     model = load_model(args.model)
     runner = PolicyRunner(model)
     from obs_stack import k_for, FrameStack            # Sep 22: stacked policies
-    from obs_stack import kd_for
-    _k, _d = kd_for(model); _fs = FrameStack(_k, _d) if _k > 1 else None   # Sep 23: v3 models are 160/frame
+    from obs_stack import stack_for                     # Oct 13 2026: + PS2_OBS_STACK check (frame-stack option)
+    _k, _d = stack_for(model); _fs = FrameStack(_k, _d) if _k > 1 else None   # Sep 23: v3 models are 160/frame
     _sl = (lambda o: o[:_d])                                   # a v2 model under an obs v3 env reads obs[:122]
     if args.mode == "1v1":
         env = PowerStoneEnvLibretro(core_path=args.core, game_path=args.game, states_dir="./states",

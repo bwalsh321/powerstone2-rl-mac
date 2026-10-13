@@ -1,0 +1,74 @@
+diff -ru a/linux_port/eval_hunted.py b/linux_port/eval_hunted.py
+--- a/linux_port/eval_hunted.py	2026-10-13 05:42:24.617323018 -0400
++++ b/linux_port/eval_hunted.py	2026-10-13 05:42:43.068157700 -0400
+@@ -106,7 +106,7 @@
+     th.set_num_threads(1)
+     from ffa_selfplay_env import FFASelfPlayEnv
+     from recurrent_policy import load_model, PolicyRunner
+-    from obs_stack import kd_for, FrameStack
++    from obs_stack import stack_for, FrameStack       # Oct 13 2026: stack_for = kd_for + PS2_OBS_STACK check
+ 
+     pool = tempfile.mkdtemp(prefix="hunted_pool_")
+     os.symlink(os.path.abspath(a.opp or a.model), os.path.join(pool, "opp.zip"))
+@@ -117,7 +117,7 @@
+     model = load_model(a.model)
+     runner = PolicyRunner(model)
+     env.set_action_mode(int(model.action_space.n))
+-    k_, d_ = kd_for(model)
++    k_, d_ = stack_for(model)
+     fs = FrameStack(k_, d_) if k_ > 1 else None
+     env._legacy_proj_main = env._legacy_proj = (d_ == 122)
+     env._legacy_item_main = env._legacy_item = (d_ <= 160)
+diff -ru a/linux_port/hunt_grade.sh b/linux_port/hunt_grade.sh
+--- a/linux_port/hunt_grade.sh	2026-10-13 05:42:24.617323018 -0400
++++ b/linux_port/hunt_grade.sh	2026-10-13 05:42:43.069157745 -0400
+@@ -16,6 +16,7 @@
+ G="$(echo "$ROW" | grep -o "PS2_OBJ_GRID_N=[0-9]*" | head -1)"; [ -n "$G" ] && export "$G"
+ if echo "$ROW" | grep -q "PS2_OBS_V4=1"; then export PS2_OBS_V4=1
+   E="$(echo "$ROW" | grep -o "PS2_OBS_V4_ITEMEMB=[a-z]*" | head -1)"; [ -n "$E" ] && export "$E"; fi
++K="$(echo "$ROW" | grep -o "PS2_OBS_STACK=[0-9]*" | head -1)"; [ -n "$K" ] && export "$K"   # Oct 13 2026: frame-stack option (eval stack_for checks the zip)
+ mkdir -p receipts/hunter claude_bridge
+ i=0
+ for spec in "0 98" "7 98" "14 84"; do
+diff -ru a/linux_port/record_hunted.py b/linux_port/record_hunted.py
+--- a/linux_port/record_hunted.py	2026-10-13 05:42:24.617323018 -0400
++++ b/linux_port/record_hunted.py	2026-10-13 05:42:43.069157745 -0400
+@@ -7,14 +7,14 @@
+ th.set_num_threads(1)
+ from ffa_selfplay_env import FFASelfPlayEnv
+ from recurrent_policy import load_model, PolicyRunner
+-from obs_stack import kd_for, FrameStack
++from obs_stack import stack_for, FrameStack   # Oct 13 2026: stack_for = kd_for + PS2_OBS_STACK check
+ model_path, slots, out, inst = sys.argv[1], [int(x) for x in sys.argv[2].split(",")], sys.argv[3], int(sys.argv[4])
+ pool = tempfile.mkdtemp(prefix="rec_hunt_"); os.symlink(os.path.abspath(model_path), os.path.join(pool, "opp.zip"))
+ env = FFASelfPlayEnv(core_path=os.path.expanduser("~/cores/flycast_libretro.so"), game_path=os.path.abspath("../Power Stone 2 (USA).chd"),
+                      states_dir="./states_mixed", state_slots=slots, instance_id=inst, bridge_dir=os.path.abspath(f"bridge_eval_{inst}"),
+                      pool_dir=pool, opp_deterministic=True)
+ model = load_model(model_path); runner = PolicyRunner(model); env.set_action_mode(int(model.action_space.n))
+-k_, d_ = kd_for(model); fs = FrameStack(k_, d_) if k_ > 1 else None
++k_, d_ = stack_for(model); fs = FrameStack(k_, d_) if k_ > 1 else None
+ env._legacy_proj_main = env._legacy_proj = (d_ == 122); env._legacy_item_main = env._legacy_item = (d_ <= 160)
+ br = env._lr_bridge; emu = br.emu; h, w = emu.get_shape(); buf = np.zeros((h, w, 3), np.uint8)
+ ff = shutil.which("ffmpeg")
+diff -ru a/linux_port/stoch_grade.sh b/linux_port/stoch_grade.sh
+--- a/linux_port/stoch_grade.sh	2026-10-13 05:42:24.617323018 -0400
++++ b/linux_port/stoch_grade.sh	2026-10-13 05:42:43.069157745 -0400
+@@ -17,6 +17,7 @@
+ G="$(echo "$ROW" | grep -o "PS2_OBJ_GRID_N=[0-9]*" | head -1)"; [ -n "$G" ] && export "$G"
+ if echo "$ROW" | grep -q "PS2_OBS_V4=1"; then export PS2_OBS_V4=1
+   E="$(echo "$ROW" | grep -o "PS2_OBS_V4_ITEMEMB=[a-z]*" | head -1)"; [ -n "$E" ] && export "$E"; fi
++K="$(echo "$ROW" | grep -o "PS2_OBS_STACK=[0-9]*" | head -1)"; [ -n "$K" ] && export "$K"   # Oct 13 2026: frame-stack option (eval stack_for checks the zip)
+ CORE="${PS2_CORE:-$HOME/cores/flycast_libretro.so}"; GAME="../Power Stone 2 (USA).chd"
+ export PS2_EVAL_INSTANCE_BASE=50 PS2_EVAL_TOTAL=500
+ mkdir -p receipts/shards claude_bridge
+diff -ru a/linux_port/top_grade.sh b/linux_port/top_grade.sh
+--- a/linux_port/top_grade.sh	2026-10-13 05:42:24.617323018 -0400
++++ b/linux_port/top_grade.sh	2026-10-13 05:42:43.069157745 -0400
+@@ -14,6 +14,7 @@
+ G="$(echo "$ROW" | grep -o "PS2_OBJ_GRID_N=[0-9]*" | head -1)"; [ -n "$G" ] && export "$G"
+ if echo "$ROW" | grep -q "PS2_OBS_V4=1"; then export PS2_OBS_V4=1
+   E="$(echo "$ROW" | grep -o "PS2_OBS_V4_ITEMEMB=[a-z]*" | head -1)"; [ -n "$E" ] && export "$E"; fi
++K="$(echo "$ROW" | grep -o "PS2_OBS_STACK=[0-9]*" | head -1)"; [ -n "$K" ] && export "$K"   # Oct 13 2026: frame-stack option (eval stack_for checks the zip)
+ CORE="${PS2_CORE:-$HOME/cores/flycast_libretro.so}"; GAME="../Power Stone 2 (USA).chd"
+ export PS2_EVAL_INSTANCE_BASE=50 PS2_EVAL_TOTAL=500
+ mkdir -p receipts/shards claude_bridge

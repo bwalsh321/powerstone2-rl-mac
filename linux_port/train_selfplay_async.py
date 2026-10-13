@@ -256,13 +256,14 @@ def main():
     obs_space, act_space = probe.observation_space, probe.action_space
     del probe
     # Sep 22 (frame stacking): PS2_OBS_STACK=K must match the warm zip's input (122*K).
+    # Oct 13 2026: K=2 (lags [1, 0]) is the frame-stack option for the v4 lineage; surgery_frame_stack.py narrows a K=7 zip.
     OBS_STACK = int(os.environ.get("PS2_OBS_STACK", "1"))
     _D = (430 if os.environ.get("PS2_OBS_V4", "0") == "1"
           else 160 if os.environ.get("PS2_OBS_V3", "0") == "1" else 122)
     assert _D != 430 or os.environ.get("PS2_OBS_V3", "0") == "1", "PS2_OBS_V4=1 needs PS2_OBS_V3=1"
     assert obs_space.shape[0] == _D * OBS_STACK, (
         f"warm zip expects {obs_space.shape[0]} inputs but PS2_OBS_STACK={OBS_STACK} x obs dim {_D} gives {_D * OBS_STACK}; "
-        f"run surgery_stack.py or fix league_env.txt")
+        f"run surgery_frame_stack.py (league_surgery.txt framestack<K>) or fix PS2_OBS_STACK in league_env.txt")
     if OBS_STACK > 1:
         print(f"[config] obs_stack={OBS_STACK} (learner sees the last {OBS_STACK} frames, oldest first)", flush=True)
 
