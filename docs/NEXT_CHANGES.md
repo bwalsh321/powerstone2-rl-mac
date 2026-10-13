@@ -1,6 +1,6 @@
 # Next leg changes (queue) — kept current by the Ryzen session
 
-Last updated: Oct 13 2026, 12:30 am EDT. Full session state: docs/SESSION_HANDOFF_RYZEN.md.
+Last updated: Oct 13 2026, 4 pm EDT. Full session state: docs/SESSION_HANDOFF_RYZEN.md.
 KL fix (PS2_PPO_KL_REF=prox), recent-only opponent pool (legs 113+), training slots 30-43 + 50-68, no DAgger.
 Reads: vision legs 134-138 = 44.6% lv8mix; + pool/mix legs 139-142 = 47.6% (142 = 51.6%, the record).
 
@@ -8,7 +8,11 @@ Reads: vision legs 134-138 = 44.6% lv8mix; + pool/mix legs 139-142 = 47.6% (142 
 
 Hunters at 50% (legs 165-167): sampled lv8mix 57.2 / 51.0 / 49.6 (168 = 52.2), hunted 17.5 / 11.4 / 15.4: no lasting
 gain over ~50 / ~12 before. Hunters stay at 50% (not changed).
-1. **NOW: learning rate 1e-4 -> 5e-5 from leg 170** (league_optim.txt; previous: claude_bridge/league_optim_leg169.txt).
+RESULT: lr 5e-5 KEPT. Legs 170-172 sampled 56.9 / 61.3 / 57.5 = 58.6 vs 52.0 (166-169); top-move 68.0 / 64.6 (records).
+2. **NOW: frame stack 7 -> 2 (fold) from leg 174** (league_env.txt PS2_OBS_STACK=2 + `174 framestack2fold` in
+   league_surgery.txt; previous: claude_bridge/league_env_leg173.txt). Fold = dropped frames' weights added onto lag 1
+   (51% same top action as the parent vs 31% for plain drop). Read 174-176 vs 170-173 (sampled).
+1. (done) learning rate 1e-4 -> 5e-5 from leg 170 (league_optim.txt; previous: claude_bridge/league_optim_leg169.txt).
    Read legs 170-172 sampled lv8mix vs 166-169 (~51). Watch entropy (rose to 2.04 at 167, back to 1.75 at 168).
 2. Frame stack 7 -> 2 (model input shape changes; own read).
 3. Bigger network (the old 512-wide test predates memory and vision).
