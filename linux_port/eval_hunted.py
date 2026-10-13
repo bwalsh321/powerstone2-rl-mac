@@ -106,7 +106,7 @@ def main():
     th.set_num_threads(1)
     from ffa_selfplay_env import FFASelfPlayEnv
     from recurrent_policy import load_model, PolicyRunner
-    from obs_stack import kd_for, FrameStack
+    from obs_stack import stack_for, FrameStack       # Oct 13 2026: stack_for = kd_for + PS2_OBS_STACK check
 
     pool = tempfile.mkdtemp(prefix="hunted_pool_")
     os.symlink(os.path.abspath(a.opp or a.model), os.path.join(pool, "opp.zip"))
@@ -117,7 +117,7 @@ def main():
     model = load_model(a.model)
     runner = PolicyRunner(model)
     env.set_action_mode(int(model.action_space.n))
-    k_, d_ = kd_for(model)
+    k_, d_ = stack_for(model)
     fs = FrameStack(k_, d_) if k_ > 1 else None
     env._legacy_proj_main = env._legacy_proj = (d_ == 122)
     env._legacy_item_main = env._legacy_item = (d_ <= 160)
