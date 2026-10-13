@@ -1,8 +1,19 @@
 # Next leg changes (queue) — kept current by the Ryzen session
 
-Last updated: Oct 12 2026, 9:30 am EDT. Full session state: docs/SESSION_HANDOFF_RYZEN.md.
+Last updated: Oct 13 2026, 12:30 am EDT. Full session state: docs/SESSION_HANDOFF_RYZEN.md.
 KL fix (PS2_PPO_KL_REF=prox), recent-only opponent pool (legs 113+), training slots 30-43 + 50-68, no DAgger.
 Reads: vision legs 134-138 = 44.6% lv8mix; + pool/mix legs 139-142 = 47.6% (142 = 51.6%, the record).
+
+## QUEUED BY BLAKE (Oct 13): learning rate -> frame stack -> bigger network, one at a time, 3-leg reads
+
+Hunters at 50% (legs 165-167): sampled lv8mix 57.2 / 51.0 / 49.6 (168 = 52.2), hunted 17.5 / 11.4 / 15.4: no lasting
+gain over ~50 / ~12 before. Hunters stay at 50% (not changed).
+1. **NOW: learning rate 1e-4 -> 5e-5 from leg 170** (league_optim.txt; previous: claude_bridge/league_optim_leg169.txt).
+   Read legs 170-172 sampled lv8mix vs 166-169 (~51). Watch entropy (rose to 2.04 at 167, back to 1.75 at 168).
+2. Frame stack 7 -> 2 (model input shape changes; own read).
+3. Bigger network (the old 512-wide test predates memory and vision).
+Later ideas: a small reward for finishing low-health opponents / not standing next to transformed ones (scouts keep
+showing both; reward changes have hurt before, leg 143).
 
 ## TRIED AND TURNED OFF (Oct 10): practice start points (drill resets), legs 157-160
 
