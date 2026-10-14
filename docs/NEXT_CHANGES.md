@@ -1,6 +1,6 @@
 # Next leg changes (queue) — kept current by the Ryzen session
 
-Last updated: Oct 13 2026, 4 pm EDT. Full session state: docs/SESSION_HANDOFF_RYZEN.md.
+Last updated: Oct 14 2026, 9 am EDT. Full session state: docs/SESSION_HANDOFF_RYZEN.md.
 KL fix (PS2_PPO_KL_REF=prox), recent-only opponent pool (legs 113+), training slots 30-43 + 50-68, no DAgger.
 Reads: vision legs 134-138 = 44.6% lv8mix; + pool/mix legs 139-142 = 47.6% (142 = 51.6%, the record).
 
@@ -15,7 +15,10 @@ RESULT: lr 5e-5 KEPT. Legs 170-172 sampled 56.9 / 61.3 / 57.5 = 58.6 vs 52.0 (16
 1. (done) learning rate 1e-4 -> 5e-5 from leg 170 (league_optim.txt; previous: claude_bridge/league_optim_leg169.txt).
    Read legs 170-172 sampled lv8mix vs 166-169 (~51). Watch entropy (rose to 2.04 at 167, back to 1.75 at 168).
 2. Frame stack 7 -> 2 (model input shape changes; own read).
-3. Bigger network (the old 512-wide test predates memory and vision).
+RESULT: frame stack 2 (fold) KEPT. Legs 174-176 = 57.4 / 61.9 / 61.4 (60.2 on the same 1000 games vs 59.8 for 171-173);
+   hunted ~20 vs ~16.5; legs ~20% longer (more gradient steps before the KL stop).
+3. **BUILDING (Oct 14): bigger network** (agent, worktree .claude/worktrees/bignet, branch bignet): function-preserving
+   widening 256 -> 512 (Net2Net style), speed cost measured before turn-on. The old 512-wide test predates memory and vision.
 4. Another learning-rate cut (5e-5 -> 2.5e-5) whenever the grade goes flat for 3-4 legs again (Blake, Oct 13:
    lr 1e-4 -> 5e-5 took sampled 52 -> 59; not touched while another change is being read).
 Later ideas: a small reward for finishing low-health opponents / not standing next to transformed ones (scouts keep
