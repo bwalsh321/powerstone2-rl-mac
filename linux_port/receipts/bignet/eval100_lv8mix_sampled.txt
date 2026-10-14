@@ -1,0 +1,29 @@
+== eval50_leg176_s0.txt (eval_parity.py --stochastic --slots 90,91,92,93,94 --episodes 50, PS2_EVAL_TOTAL=500, shard 0)
+================ EVAL SUMMARY ================
+model=leg176.zip  slot=90  n=50  mode=stochastic  distinct-outcome-tuples~31  slots=90,91,92,93,94
+win% :  78.0   (39W/11L/0T)   95% Wilson [65-87]
+picks: 10.84 /ep
+forms:  3.08 /ep
+per-slot: slot90=7W/10  slot91=6W/10  slot92=7W/10  slot93=10W/10  slot94=9W/10
+== eval50_leg176_s1.txt (eval_parity.py --stochastic --slots 90,91,92,93,94 --episodes 50, PS2_EVAL_TOTAL=500, shard 1)
+================ EVAL SUMMARY ================
+model=leg176.zip  slot=90  n=50  mode=stochastic  distinct-outcome-tuples~39  slots=90,91,92,93,94
+win% :  56.0   (28W/22L/0T)   95% Wilson [42-69]
+picks: 10.36 /ep
+forms:  2.70 /ep
+per-slot: slot90=4W/10  slot91=6W/10  slot92=4W/10  slot93=5W/10  slot94=9W/10
+== eval50_leg176_width512_s0.txt (eval_parity.py --stochastic --slots 90,91,92,93,94 --episodes 50, PS2_EVAL_TOTAL=500, shard 0)
+================ EVAL SUMMARY ================
+model=leg176_width512.zip  slot=90  n=50  mode=stochastic  distinct-outcome-tuples~40  slots=90,91,92,93,94
+win% :  52.0   (26W/24L/0T)   95% Wilson [39-65]
+picks: 11.44 /ep
+forms:  3.02 /ep
+per-slot: slot90=5W/10  slot91=6W/10  slot92=4W/10  slot93=5W/10  slot94=6W/10
+== eval50_leg176_width512_s1.txt (eval_parity.py --stochastic --slots 90,91,92,93,94 --episodes 50, PS2_EVAL_TOTAL=500, shard 1)
+================ EVAL SUMMARY ================
+model=leg176_width512.zip  slot=90  n=50  mode=stochastic  distinct-outcome-tuples~42  slots=90,91,92,93,94
+win% :  56.0   (28W/22L/0T)   95% Wilson [42-69]
+picks: 10.94 /ep
+forms:  3.04 /ep
+per-slot: slot90=4W/10  slot91=7W/10  slot92=6W/10  slot93=5W/10  slot94=6W/10
+== total: leg176 (256) 67/100 = 67.0%; leg176 widened 512 54/100 = 54.0% (unseeded, independent samples; two-proportion z = 1.88, p ~ 0.06); shard 1 alone 28/50 vs 28/50. Same start points, independent random draws. See paired_sampled_eval_seed5.txt: with the SAME random draws the two models play 10/10 rounds identical move for move.

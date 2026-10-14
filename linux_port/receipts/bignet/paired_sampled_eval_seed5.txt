@@ -1,0 +1,12 @@
+== test_widen_paired_eval.py: leg176 (256) vs leg176 widened to 512 (surgery_widen_net.py --width 512), 10 sampled rounds slots 90-94 (shard-0 start points), same --seed 5 for both
+[paired] round  0: 698 vs 698 sampled moves, IDENTICAL; result win vs win
+[paired] round  1: 559 vs 559 sampled moves, IDENTICAL; result win vs win
+[paired] round  2: 505 vs 505 sampled moves, IDENTICAL; result loss vs loss
+[paired] round  3: 652 vs 652 sampled moves, IDENTICAL; result loss vs loss
+[paired] round  4: 563 vs 563 sampled moves, IDENTICAL; result win vs win
+[paired] round  5: 565 vs 565 sampled moves, IDENTICAL; result win vs win
+[paired] round  6: 1038 vs 1038 sampled moves, IDENTICAL; result loss vs loss
+[paired] round  7: 882 vs 882 sampled moves, IDENTICAL; result win vs win
+[paired] round  8: 780 vs 780 sampled moves, IDENTICAL; result win vs win
+[paired] round  9: 909 vs 909 sampled moves, IDENTICAL; result win vs win
+[paired] 10/10 rounds identical move for move; wins 7/10 vs 7/10

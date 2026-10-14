@@ -1,0 +1,16 @@
+== bench_netwidth.py, same batch (10 x 2048 recorded real obs, fixed actions/rewards), live optimizer (lr 5e-5, batch 256, prox KL ref), target_kl off + n_epochs=2 so every model takes 160 grad steps; learner torch 4 threads (live OMP_NUM_THREADS=4); models interleaved; run nice 15 beside the live leg-177 trainer (16 actors), so absolute ms are contended, ratios are the result.
+== run 1 (3 rounds, 4 models)
+[actor] leg176.zip ([256, 256], [256, 256], 128) params=1,227,840: learner-seat step 0.646 ms (policy fwd + value, 1 thread); pool-seat PolicyRunner.act 0.316 ms
+[actor] leg176_width512.zip ([512, 512], [512, 512], 128) params=2,144,320: learner-seat step 0.786 ms (policy fwd + value, 1 thread); pool-seat PolicyRunner.act 0.349 ms
+[actor] leg176_lstmhidden256.zip ([256, 256], [256, 256], 256) params=2,128,960: learner-seat step 1.201 ms (policy fwd + value, 1 thread); pool-seat PolicyRunner.act 0.444 ms
+[actor] leg176_width512lstmhidden256.zip ([512, 512], [512, 512], 256) params=3,110,976: learner-seat step 2.680 ms (policy fwd + value, 1 thread); pool-seat PolicyRunner.act 0.575 ms
+[learner] leg176.zip ([256, 256], [256, 256], 128): update with 160 grad steps (batch 256, 10x2048): 32.2s 24.0s 36.1s -> median 201.5 ms/grad step (1.00x the first); at the live mean of 408 grad steps/update: 82.2 s
+[learner] leg176_width512.zip ([512, 512], [512, 512], 128): update with 160 grad steps (batch 256, 10x2048): 34.3s 28.6s 34.3s -> median 214.2 ms/grad step (1.06x the first); at the live mean of 408 grad steps/update: 87.4 s
+[learner] leg176_lstmhidden256.zip ([256, 256], [256, 256], 256): update with 160 grad steps (batch 256, 10x2048): 57.0s 48.3s 56.7s -> median 354.3 ms/grad step (1.76x the first); at the live mean of 408 grad steps/update: 144.5 s
+[learner] leg176_width512lstmhidden256.zip ([512, 512], [512, 512], 256): update with 160 grad steps (batch 256, 10x2048): 55.4s 52.7s 60.7s -> median 346.3 ms/grad step (1.72x the first); at the live mean of 408 grad steps/update: 141.3 s
+== run 2 (5 rounds, 256 vs 512, 6000 actor steps)
+[actor] leg176.zip ([256, 256], [256, 256], 128) params=1,227,840: learner-seat step 0.786 ms (policy fwd + value, 1 thread); pool-seat PolicyRunner.act 0.414 ms
+[actor] leg176_width512.zip ([512, 512], [512, 512], 128) params=2,144,320: learner-seat step 1.105 ms (policy fwd + value, 1 thread); pool-seat PolicyRunner.act 0.468 ms
+[learner] leg176.zip ([256, 256], [256, 256], 128): update with 160 grad steps (batch 256, 10x2048): 31.0s 26.4s 23.0s 20.5s 20.6s -> median 144.0 ms/grad step (1.00x the first); at the live mean of 408 grad steps/update: 58.7 s
+[learner] leg176_width512.zip ([512, 512], [512, 512], 128): update with 160 grad steps (batch 256, 10x2048): 29.9s 22.6s 25.4s 22.7s 23.5s -> median 147.1 ms/grad step (1.02x the first); at the live mean of 408 grad steps/update: 60.0 s
+== live reference: train_leg177_out.txt updates 1-44: mean train=70.6 s, mean grad_steps=408/800 (173 ms/grad step), 255 steps/s, policy lag up to 4 (learner-bound: ~80 s wall per 20480-step update, ~195 updates per 4M-step leg = ~4h20m)

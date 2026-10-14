@@ -1,0 +1,48 @@
+== f) flag off (live surgery list + live env), OLD wrapper
+    -> exit 0 PREV=./powerstone_v6_leg177_league.zip PS2_WARM=unset NET_WIDTH=unset LSTM_HIDDEN=unset
+    leg_modes: 178 mixed 0.01 PS2_LR=5e-5 PS2_ZERO_SUM=1 PS2_OBS_STACK=2 PS2_OBS_V3=1 PS2_OBS_V4=1 PS2_OBS_V4_ITEMEMB=keep PS2_OBJ_GRID_N=208 PS2_PPO_KL_REF=prox RECURRENT=lstm128 ACTIONS=joint63 OBS=v4 FRAMESTACK=2fold
+  (status 0)
+== f) flag off (live surgery list + live env), NEW wrapper
+    -> exit 0 PREV=./powerstone_v6_leg177_league.zip PS2_WARM=unset NET_WIDTH=unset LSTM_HIDDEN=unset
+    leg_modes: 178 mixed 0.01 PS2_LR=5e-5 PS2_ZERO_SUM=1 PS2_OBS_STACK=2 PS2_OBS_V3=1 PS2_OBS_V4=1 PS2_OBS_V4_ITEMEMB=keep PS2_OBJ_GRID_N=208 PS2_PPO_KL_REF=prox RECURRENT=lstm128 ACTIONS=joint63 OBS=v4 FRAMESTACK=2fold
+  (status 0)
+== b) widen512 listed but PS2_NET_WIDTH unset
+[wrapper-async] leg 178 REFUSED: widen512 surgery listed but league_env.txt has PS2_NET_WIDTH=unset, not 512; nothing launched Wed Oct 14 09:48:20 AM EDT 2026
+  (status 2)
+  log| [wrapper-async] leg 178 REFUSED: widen512 surgery listed but league_env.txt has PS2_NET_WIDTH=unset, not 512; nothing launched Wed Oct 14 09:48:20 AM EDT 2026
+== c) widen512 listed, PS2_NET_WIDTH=256
+[wrapper-async] leg 178 REFUSED: widen512 surgery listed but league_env.txt has PS2_NET_WIDTH=256, not 512; nothing launched Wed Oct 14 09:48:30 AM EDT 2026
+  (status 2)
+  log| [wrapper-async] leg 178 REFUSED: widen512 surgery listed but league_env.txt has PS2_NET_WIDTH=256, not 512; nothing launched Wed Oct 14 09:48:30 AM EDT 2026
+== e) bad kind widenx
+[wrapper-async] leg 178 REFUSED: bad surgery kind 'widenx' (widen<W> or lstm<H>); nothing launched Wed Oct 14 09:48:42 AM EDT 2026
+  (status 2)
+  log| [wrapper-async] leg 178 REFUSED: bad surgery kind 'widenx' (widen<W> or lstm<H>); nothing launched Wed Oct 14 09:48:42 AM EDT 2026
+== a) widen512 from leg 178, PS2_NET_WIDTH=512
+    -> exit 0 PREV=./powerstone_v6_leg177_w512.zip PS2_WARM=./powerstone_v6_leg177_w512.zip NET_WIDTH=512 LSTM_HIDDEN=unset
+    leg_modes: 178 mixed 0.01 PS2_LR=5e-5 PS2_ZERO_SUM=1 PS2_OBS_STACK=2 PS2_OBS_V3=1 PS2_OBS_V4=1 PS2_OBS_V4_ITEMEMB=keep PS2_OBJ_GRID_N=208 PS2_PPO_KL_REF=prox PS2_NET_WIDTH=512 RECURRENT=lstm128 ACTIONS=joint63 OBS=v4 FRAMESTACK=2fold NET=512
+  (status 0)
+  log| [wrapper-async] leg 178: surgery widen512 ./powerstone_v6_leg177_league.zip -> ./powerstone_v6_leg177_w512.zip Wed Oct 14 09:48:56 AM EDT 2026
+  log| [wn] ./powerstone_v6_leg177_league.zip (SkipLSTM, 860 inputs, MLP 2x256, LSTM 128, 1,227,840 params) -> ./powerstone_v6_leg177_w512.zip (MLP 2x512, LSTM 128, 2,144,320 params); widened 10 tensors; Adam moments placed (new entries 0): 20; init_scale 0.1
+  log| [wn] structure: 0 parent entries moved/changed, 0 non-zero outgoing weights of new units, 0 optimizer entries off; exact check (random inputs, recurrent): max |logit diff| 2.29e-05 (rel 4.4e-07 of |51.9|), max |value diff| 1.91e-05 (rel 2.8e-07 of |69.2|), rel tol 1e-05 -> PASS
+  log| [wn] wrote ./powerstone_v6_leg177_w512.zip; num_timesteps=4014080 n_updates=93638
+== d) next leg: warm zip already 512 (no second surgery)
+    -> exit 0 PREV=./powerstone_v6_leg177_w512.zip PS2_WARM=unset NET_WIDTH=512 LSTM_HIDDEN=unset
+    leg_modes: 178 mixed 0.01 PS2_LR=5e-5 PS2_ZERO_SUM=1 PS2_OBS_STACK=2 PS2_OBS_V3=1 PS2_OBS_V4=1 PS2_OBS_V4_ITEMEMB=keep PS2_OBJ_GRID_N=208 PS2_PPO_KL_REF=prox PS2_NET_WIDTH=512 RECURRENT=lstm128 ACTIONS=joint63 OBS=v4 FRAMESTACK=2fold NET=512
+  (status 0)
+== g) widen512 + lstm256 (both flags)
+    -> exit 0 PREV=./powerstone_v6_leg177_lstm256.zip PS2_WARM=./powerstone_v6_leg177_lstm256.zip NET_WIDTH=512 LSTM_HIDDEN=256
+    leg_modes: 178 mixed 0.01 PS2_LR=5e-5 PS2_ZERO_SUM=1 PS2_OBS_STACK=2 PS2_OBS_V3=1 PS2_OBS_V4=1 PS2_OBS_V4_ITEMEMB=keep PS2_OBJ_GRID_N=208 PS2_PPO_KL_REF=prox PS2_NET_WIDTH=512 PS2_LSTM_HIDDEN=256 RECURRENT=lstm128 ACTIONS=joint63 OBS=v4 FRAMESTACK=2fold NET=512 LSTM=256
+  (status 0)
+  log| [wrapper-async] leg 178: surgery widen512 ./powerstone_v6_leg177_league.zip -> ./powerstone_v6_leg177_w512.zip Wed Oct 14 09:49:29 AM EDT 2026
+  log| [wn] ./powerstone_v6_leg177_league.zip (SkipLSTM, 860 inputs, MLP 2x256, LSTM 128, 1,227,840 params) -> ./powerstone_v6_leg177_w512.zip (MLP 2x512, LSTM 128, 2,144,320 params); widened 10 tensors; Adam moments placed (new entries 0): 20; init_scale 0.1
+  log| [wn] structure: 0 parent entries moved/changed, 0 non-zero outgoing weights of new units, 0 optimizer entries off; exact check (random inputs, recurrent): max |logit diff| 2.29e-05 (rel 4.4e-07 of |51.9|), max |value diff| 1.91e-05 (rel 2.8e-07 of |69.2|), rel tol 1e-05 -> PASS
+  log| [wn] wrote ./powerstone_v6_leg177_w512.zip; num_timesteps=4014080 n_updates=93638
+  log| [wrapper-async] leg 178: surgery lstm256 ./powerstone_v6_leg177_w512.zip -> ./powerstone_v6_leg177_lstm256.zip Wed Oct 14 09:49:36 AM EDT 2026
+  log| [wn] ./powerstone_v6_leg177_w512.zip (SkipLSTM, 860 inputs, MLP 2x512, LSTM 128, 2,144,320 params) -> ./powerstone_v6_leg177_lstm256.zip (MLP 2x512, LSTM 256, 3,110,976 params); widened 10 tensors; Adam moments placed (new entries 0): 20; init_scale 0.1
+  log| [wn] structure: 0 parent entries moved/changed, 0 non-zero outgoing weights of new units, 0 optimizer entries off; exact check (random inputs, recurrent): max |logit diff| 0.00e+00 (rel 0.0e+00 of |51.9|), max |value diff| 0.00e+00 (rel 0.0e+00 of |69.2|), rel tol 1e-05 -> PASS
+  log| [wn] wrote ./powerstone_v6_leg177_lstm256.zip; num_timesteps=4014080 n_updates=93638
+== h) lstm256 listed, PS2_LSTM_HIDDEN unset
+[wrapper-async] leg 178 REFUSED: lstm256 surgery listed but league_env.txt has PS2_LSTM_HIDDEN=unset, not 256; nothing launched Wed Oct 14 09:49:51 AM EDT 2026
+  (status 2)
+  log| [wrapper-async] leg 178 REFUSED: lstm256 surgery listed but league_env.txt has PS2_LSTM_HIDDEN=unset, not 256; nothing launched Wed Oct 14 09:49:51 AM EDT 2026

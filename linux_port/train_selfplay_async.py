@@ -279,6 +279,12 @@ def main():
         assert lstm_mod.input_size == _D, (
             f"LSTM reads {lstm_mod.input_size} features (newest frame) but the env builds {_D}/frame; "
             f"run surgery_widen_v4.py (league_surgery.txt obsv4) or fix league_env.txt")
+    # Oct 14 2026 (bigger-network option): PS2_NET_WIDTH / PS2_LSTM_HIDDEN unset = no check (the zip's width, as
+    # always); set = the warm zip must already be that wide (surgery_widen_net.py, league_surgery.txt widen<W>/lstm<H>).
+    from recurrent_policy import check_net_flags
+    _net_note = check_net_flags(model.policy)
+    if _net_note:
+        print(f"[config] {_net_note}", flush=True)
     model.verbose = 1            # SB3 prints "Early stopping ... max kl" notices + its table
     # Sep 16 (entropy trigger fired at leg 38): optional entropy-coefficient override.
     # Unset = the zip's stored value (0.01 for this lineage). Blake decides per leg.

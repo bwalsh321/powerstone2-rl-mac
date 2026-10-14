@@ -124,11 +124,14 @@ def main():
                          custom_objects={"clip_range": 0.2,
                                          "lr_schedule": lambda _: 2.5e-4})
     else:
-        print("fresh model, net_arch [256,256]")
+        # Oct 14 2026 (bigger-network option): PS2_NET_WIDTH=W builds [W, W] (default 256 = unchanged); a warm start
+        # keeps its zip's width (widen a zip with surgery_widen_net.py)
+        _w = int(os.environ.get("PS2_NET_WIDTH", "").strip() or 256)
+        print(f"fresh model, net_arch [{_w},{_w}]")
         model = PPO("MlpPolicy", venv, device="cpu", verbose=1,
                     n_steps=512, batch_size=512, learning_rate=2.5e-4,
                     tensorboard_log=os.path.join(ROOT, "powerstone_logs"),
-                    policy_kwargs=dict(net_arch=[256, 256]))
+                    policy_kwargs=dict(net_arch=[_w, _w]))
 
     # resolved configuration of the model that will actually train (audit
     # R6: comments and constructors drift; the loaded object is the truth)

@@ -1,0 +1,12 @@
+[cmp] learner flags=unset  old vs new after 2 updates: 20 policy tensors BIT-IDENTICAL; 20 Adam entries BIT-IDENTICAL; clocks (8192, 93647); log lines 15 old / 15 new, missing 0, extra 0 -> PASS
+[cmp] learner flags=match  old vs new after 2 updates: 20 policy tensors BIT-IDENTICAL; 20 Adam entries BIT-IDENTICAL; clocks (8192, 93647); log lines 15 old / 16 new, missing 0, extra ['[config] net_width=[256, 256] lstm_hidden=128 (PS2_NET_WIDTH=256 PS2_LSTM_HIDDEN=128: zip matches)'] -> PASS
+[cmp] learner PS2_NET_WIDTH=512 on the 256 zip: exit 1, PS2_NET_WIDTH=512 but the warm zip's MLPs are pi=[256, 256] vf=[256, 256]; run surgery_widen_net.py (league_surgery.txt widen512) or drop PS2_NET_WIDTH from league_env.txt -> REFUSED (PASS)
+[cmp] eval    flags=unset  obs      old (1555, 860) vs new (1555, 860): BIT-IDENTICAL
+[cmp] eval    flags=unset  act      old (1555,) vs new (1555,): BIT-IDENTICAL
+[cmp] eval    flags=unset  summary  old (253,) vs new (253,): BIT-IDENTICAL
+[cmp] eval    flags=unset  exit     old (1,) vs new (1,): BIT-IDENTICAL
+[cmp] eval    flags=wide   obs      old (1555, 860) vs new (1555, 860): BIT-IDENTICAL
+[cmp] eval    flags=wide   act      old (1555,) vs new (1555,): BIT-IDENTICAL
+[cmp] eval    flags=wide   summary  old (253,) vs new (253,): BIT-IDENTICAL
+[cmp] eval    flags=wide   exit     old (1,) vs new (1,): BIT-IDENTICAL
+net-width flag-off bit-identity: PASS
