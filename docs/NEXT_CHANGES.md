@@ -16,6 +16,8 @@ RESULT: lr 5e-5 KEPT. Legs 170-172 sampled 56.9 / 61.3 / 57.5 = 58.6 vs 52.0 (16
    Read legs 170-172 sampled lv8mix vs 166-169 (~51). Watch entropy (rose to 2.04 at 167, back to 1.75 at 168).
 2. Frame stack 7 -> 2 (model input shape changes; own read).
 3. Bigger network (the old 512-wide test predates memory and vision).
+4. Another learning-rate cut (5e-5 -> 2.5e-5) whenever the grade goes flat for 3-4 legs again (Blake, Oct 13:
+   lr 1e-4 -> 5e-5 took sampled 52 -> 59; not touched while another change is being read).
 Later ideas: a small reward for finishing low-health opponents / not standing next to transformed ones (scouts keep
 showing both; reward changes have hurt before, leg 143).
 
