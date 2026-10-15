@@ -17,7 +17,8 @@ RESULT: lr 5e-5 KEPT. Legs 170-172 sampled 56.9 / 61.3 / 57.5 = 58.6 vs 52.0 (16
 2. Frame stack 7 -> 2 (model input shape changes; own read).
 RESULT: frame stack 2 (fold) KEPT. Legs 174-176 = 57.4 / 61.9 / 61.4 (60.2 on the same 1000 games vs 59.8 for 171-173);
    hunted ~20 vs ~16.5; legs ~20% longer (more gradient steps before the KL stop).
-3. **NOW: bigger network, MLP 256 -> 512 from leg 179** (league_env.txt PS2_NET_WIDTH=512 + `179 widen512`; previous:
+RESULT: 512 KEPT. Legs 179-181 = 64.4 / 62.8 / 64.8 = 64.0 vs 60.9 (176-178) on the same 1000 games; legs ~4 h.
+3. (done) bigger network, MLP 256 -> 512 from leg 179 (league_env.txt PS2_NET_WIDTH=512 + `179 widen512`; previous:
    claude_bridge/league_env_leg178.txt; built (agent, worktree .claude/worktrees/bignet, branch bignet): function-preserving
    widening 256 -> 512 (Net2Net style), speed cost measured before turn-on. The old 512-wide test predates memory and vision.
 4. Another learning-rate cut (5e-5 -> 2.5e-5) whenever the grade goes flat for 3-4 legs again (Blake, Oct 13:
