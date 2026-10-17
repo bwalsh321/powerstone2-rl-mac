@@ -21,7 +21,9 @@ RESULT: 512 KEPT. Legs 179-181 = 64.4 / 62.8 / 64.8 = 64.0 vs 60.9 (176-178) on 
 3. (done) bigger network, MLP 256 -> 512 from leg 179 (league_env.txt PS2_NET_WIDTH=512 + `179 widen512`; previous:
    claude_bridge/league_env_leg178.txt; built (agent, worktree .claude/worktrees/bignet, branch bignet): function-preserving
    widening 256 -> 512 (Net2Net style), speed cost measured before turn-on. The old 512-wide test predates memory and vision.
-4. **NOW (Claude, vacation plan): learning rate 5e-5 -> 2.5e-5 from leg 191.** 512 rode 179-190: 3-leg highs 64.0 ->
+RESULT: lr 2.5e-5 KEPT. Legs 191-193 = 71.1 / 66.8 / 71.2 = 69.7 vs 66.0 (187-190) on the same 1000 games; top-move
+   74.4 / 77.4 / 73.4. Riding until the next plateau; then LSTM 256 (vacation plan step 4).
+4. (done) learning rate 5e-5 -> 2.5e-5 from leg 191. 512 rode 179-190: 3-leg highs 64.0 ->
    68.4 (185-187), then 68.1, 66.3 (leg 189 = 64.5); leg 190 would need 74.6 to set a new high. Previous:
    claude_bridge/league_optim_leg190.txt. Read 191-193 vs 187-190 (sampled ~66-67). (Was: another learning-rate cut (5e-5 -> 2.5e-5) whenever the grade goes flat for 3-4 legs again (Blake, Oct 13:
    lr 1e-4 -> 5e-5 took sampled 52 -> 59; not touched while another change is being read).
