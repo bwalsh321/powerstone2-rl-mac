@@ -46,3 +46,10 @@ Safe restart points:
 - Reports depend on this chat session staying open (background waits). If it dies, the relay keeps training; reports
   resume when a session picks this up again.
 - Disk: 275 GB free, ~2.5 GB/day: fine.
+
+## Revised Oct 17 (audit, Blake agreed): order after the current ride
+1. Opponent pool recent-only: move pool snapshots older than ~leg 170 to pool_league_archive/ (no deletes).
+2. lr 2.5e-5 -> 1.25e-5 at the following plateau.
+3. Entropy 0.01 -> 0.005 (needs the PS2_ENT_COEF pass-through merged; agent building it on branch sealed-ent).
+4. Second sealed test set (agent, same branch); graded rarely.
+5. LSTM 256 last.
