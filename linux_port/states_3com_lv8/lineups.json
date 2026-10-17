@@ -88,5 +88,40 @@
   "P3": "Julia",
   "P4": "Mel",
   "role": "held-out"
+ },
+ "95": {
+  "P1": "Jack",
+  "P3": "Accel",
+  "P4": "Wang-Tang",
+  "role": "sealed",
+  "stage": "Desert"
+ },
+ "96": {
+  "P1": "Mel",
+  "P3": "Falcon",
+  "P4": "Ayame",
+  "role": "sealed",
+  "stage": "Desert"
+ },
+ "97": {
+  "P1": "Gourmand",
+  "P3": "Pete",
+  "P4": "Rouge",
+  "role": "sealed",
+  "stage": "Desert"
+ },
+ "98": {
+  "P1": "Ryoma",
+  "P3": "Gunrock",
+  "P4": "Wang-Tang",
+  "role": "sealed",
+  "stage": "Blue Sky"
+ },
+ "99": {
+  "P1": "Pride",
+  "P3": "Galuda",
+  "P4": "Accel",
+  "role": "sealed",
+  "stage": "Dark Castle"
  }
 }
