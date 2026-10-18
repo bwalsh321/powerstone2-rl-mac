@@ -21,6 +21,13 @@ RESULT: 512 KEPT. Legs 179-181 = 64.4 / 62.8 / 64.8 = 64.0 vs 60.9 (176-178) on 
 3. (done) bigger network, MLP 256 -> 512 from leg 179 (league_env.txt PS2_NET_WIDTH=512 + `179 widen512`; previous:
    claude_bridge/league_env_leg178.txt; built (agent, worktree .claude/worktrees/bignet, branch bignet): function-preserving
    widening 256 -> 512 (Net2Net style), speed cost measured before turn-on. The old 512-wide test predates memory and vision.
+**NOW (Claude, vacation plan, from leg 198): opponent pool recent-only.** Pool snapshots from legs <170 (513 of 741
+files) MOVED to pool_league_archive/ in the battery window after leg 197 trains (no deletes; move back to undo).
+Plateau: the 3-leg high is 69.7 (191-193), then 68.7 / 69.4 / 68.4 (leg 196 = 68.0). Read 198-200 on lv8mix AND the
+sealed set (sealed_grade.sh, branch sealed-ent; baseline leg 196 running).
+Sealed set (Oct 17, slots 95-99: 3 new Desert lineups + Blue Sky + Dark Castle), Desert 95-97:
+leg 169 = 54.7, 178 = 63.7, 193 = 64.0; new stages ~2% (the bot never trains off Desert).
+So 169 -> 178 generalized (+9), but 178 -> 193 (+10 on lv8mix) did not show on unseen lineups.
 RESULT: lr 2.5e-5 KEPT. Legs 191-193 = 71.1 / 66.8 / 71.2 = 69.7 vs 66.0 (187-190) on the same 1000 games; top-move
    74.4 / 77.4 / 73.4. Riding until the next plateau; then LSTM 256 (vacation plan step 4).
 4. (done) learning rate 5e-5 -> 2.5e-5 from leg 191. 512 rode 179-190: 3-leg highs 64.0 ->
