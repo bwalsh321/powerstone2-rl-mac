@@ -35,6 +35,7 @@ import os
 
 os.environ.setdefault("PS2_OBS_V2", "1")
 os.environ.setdefault("PS2_FFA_MAX_STEPS", "1000000000")
+os.environ.pop("PS2_HANDICAP", None)   # Oct 19 2026: the adaptive handicap is training-only
 
 import numpy as np
 import pygame

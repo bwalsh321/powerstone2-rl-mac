@@ -143,6 +143,13 @@ def _parse_slots(text):
 HUNTER_SLOTS = _parse_slots(os.environ.get("PS2_HUNTER_SLOTS", "0,10-22,30-43"))
 HUNTER_ON = bool(HUNTER_SEATS) or HUNTER_P > 0.0
 HUNTER_STATS = HUNTER_ON or os.environ.get("PS2_HUNTER_STATS", "0") == "1"
+# Oct 19 2026 (IDEA QUEUE #1, warlock.ai): adaptive handicap. PS2_HANDICAP=1 multiplies the LEARNER's start health by
+# h in [PS2_HANDICAP_MIN, 1] on PS2_HANDICAP_SLOTS (default the 3-CPU slots 50-68; on top of the PS2_START_HEALTH
+# draw); h falls while the learner wins more than PS2_HANDICAP_TARGET of those rounds and rises while it wins fewer
+# (handicap.py: rule, step, carry-over). Unset = off: no code path below runs, no random draw is added.
+import handicap as _handicap
+HANDICAP_ON = _handicap.enabled()
+HANDICAP_LOG_EVERY = max(1, int(os.environ.get("PS2_HANDICAP_LOG_EVERY", "25") or 25))   # [hcap] status line every N counted episodes (per env; logging only)
 
 
 def load_drill_index(dirs):
@@ -311,6 +318,11 @@ class FFASelfPlayEnv(PowerStoneEnvLibretro):
             self._hunter_rng = random.Random()     # own stream: pool / slot / start-health draws are unchanged
             print(f"[config] hunters: seats={HUNTER_SEATS or '-'} p={HUNTER_P:g} target=P{HUNTER_TARGET + 1} "
                   f"eligible slots={sorted(HUNTER_SLOTS)} (hunter_bot.py)", flush=True)
+        self._hcap = None              # handicap.Handicap when PS2_HANDICAP=1
+        self._hcap_ep = None           # h applied to the learner THIS episode (None = not a handicapped episode)
+        if HANDICAP_ON:
+            self._hcap = _handicap.Handicap.from_env(tag=str(kwargs.get("instance_id", 0)))
+            print(self._hcap.config_line(), flush=True)
         self._drill = None             # meta of the drill this episode started from (None = slot savestate)
         self._drills = []
         if DRILL_DIRS and DRILL_P > 0.0:
@@ -383,6 +395,7 @@ class FFASelfPlayEnv(PowerStoneEnvLibretro):
     def reset(self):
         self._drill = None
         self._hunter_n, self._hunt = 0, None
+        self._hcap_ep = None           # drill episodes are never handicapped nor counted
         if self._drills and random.random() < DRILL_P:
             meta = random.choice(self._drills)
             for v in self._views.values():   # drill lineups are 3 COMs: no pool policy on a COM seat
@@ -416,8 +429,14 @@ class FFASelfPlayEnv(PowerStoneEnvLibretro):
             self._assign_hunters()
         if HUNTER_STATS:
             self._hunt_reset()
+        if self._hcap is not None and self._hcap.applies(getattr(self, "_episode_slot", -1)):
+            self._hcap_ep = self._hcap.h
         if START_HEALTH:
             obs = self._randomize_start_health()
+            if HUNTER_STATS:
+                self._hunt_reset()
+        elif self._hcap_ep is not None and self._hcap_ep < 1.0:
+            obs = self._write_start_health({self._learner_idx: self._hcap_ep})
             if HUNTER_STATS:
                 self._hunt_reset()
         return obs
@@ -504,12 +523,20 @@ class FFASelfPlayEnv(PowerStoneEnvLibretro):
         written into SYSTEM_RAM, then re-anchor prev/prev_health/views so the first
         step does not read the write as damage. baseline stays max(h, 1000)."""
         lo, hi = START_HEALTH
+        mult = {}
+        for k in self._present_seats():
+            mult[k] = random.uniform(lo, hi)
+        if self._hcap_ep is not None:
+            mult[self._learner_idx] *= self._hcap_ep   # handicap: learner only, on top of its own draw
+        return self._write_start_health(mult)
+
+    def _write_start_health(self, mult):
+        """Write health x mult[k] for every seat in mult (in order) into SYSTEM_RAM, then re-anchor."""
         ram = self._lr_bridge.ram
         base = A.RAM_BASE + A.RAM_DELTA
         s = self._read_state()
         drawn = []
-        for k in self._present_seats():
-            f = random.uniform(lo, hi)
+        for k, f in mult.items():
             v = float(s["h"][k]) * f
             packed = np.frombuffer(struct.pack("<f", v), dtype=np.uint8)
             for addr in (A.HEALTH_OBJ[k], A.HEALTH[k], A.HEALTH[k] + 0x30, A.HEALTH[k] + 0x50):
@@ -522,7 +549,8 @@ class FFASelfPlayEnv(PowerStoneEnvLibretro):
         self.prev_health = self._frac(s["h"])
         for v in self._views.values():
             v.prev = None
-        print("[start] health " + " ".join(drawn), flush=True)
+        print("[start] health " + " ".join(drawn)
+              + (f" hcap={self._hcap_ep:.3f}" if self._hcap_ep is not None else ""), flush=True)
         return self._observe(s, s)
 
     def step(self, action):
@@ -607,6 +635,10 @@ class FFASelfPlayEnv(PowerStoneEnvLibretro):
             level = self.SLOT_META.get(getattr(self, "_episode_slot", 0), (0, 2))[1]
             r -= self.LOSS_PENALTY * self.LOSS_SCALE_BY_LEVEL.get(level, 1.0)
             info["result"] = "timeout"          # keeps the [ep] label; scored as a loss
+        if done and self._hcap_ep is not None:
+            self._hcap.update(info.get("result") == "win")      # timeout / loss = not a win
+            if self._hcap.n % HANDICAP_LOG_EVERY == 0:
+                print(self._hcap.status_line(), flush=True)
         if done and self._pool.sampling == "pfsp":
             won = info.get("result") == "win"
             for v in self._views.values():

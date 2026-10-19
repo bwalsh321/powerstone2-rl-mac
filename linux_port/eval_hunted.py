@@ -100,7 +100,7 @@ def main():
     os.environ.setdefault("PS2_FFA_SEATS", "0,2")
     os.environ.setdefault("PS2_FFA_MAX_STEPS", "6000")
     os.environ.pop("PS2_HUNTER_P", None)
-    for k in ("PS2_ZERO_SUM", "PS2_START_HEALTH", "PS2_DRILL_DIR", "PS2_DRILL_P"):
+    for k in ("PS2_ZERO_SUM", "PS2_START_HEALTH", "PS2_DRILL_DIR", "PS2_DRILL_P", "PS2_HANDICAP"):   # Oct 19: + handicap
         os.environ.pop(k, None)                     # grading: no training-only arena levers
     import torch as th
     th.set_num_threads(1)
