@@ -41,6 +41,15 @@ RESULT: lr 2.5e-5 KEPT. Legs 191-193 = 71.1 / 66.8 / 71.2 = 69.7 vs 66.0 (187-19
 Later ideas: a small reward for finishing low-health opponents / not standing next to transformed ones (scouts keep
 showing both; reward changes have hurt before, leg 143).
 
+## IDEA QUEUE from warlock.ai's Warcraft III agent (Oct 18, https://warlock.ai/blog/warcraftsim-1/)
+1. **Adaptive handicap to keep training ~50/50.** They taxed the built-in AI's resources after losses and untaxed
+   it after wins. Our 3-CPU training win rate is 66% and lv8 is the CPU max, so handicap the BOT instead: lower its
+   start health (PS2_START_HEALTH exists) when training win rate is high. Top pick after the current lr read.
+2. UPGO credit assignment (algorithm change; later).
+3. Throughput: "most of the speed came from removing waste". Profile the learner (now the bottleneck).
+Their eval on an unseen map matches our sealed set; their weakness (one strategy, no diversity) matches ours
+(Desert-only, familiar lineups).
+
 ## TRIED AND TURNED OFF (Oct 10): practice start points (drill resets), legs 157-160
 
 Legs 157-159 = 55.9% vs 153-155 = 56.0% on the same games (738 gained / 743 lost): no effect. Drill rounds stayed
