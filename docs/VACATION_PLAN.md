@@ -53,3 +53,14 @@ Safe restart points:
 3. Entropy 0.01 -> 0.005 (needs the PS2_ENT_COEF pass-through merged; agent building it on branch sealed-ent).
 4. Second sealed test set (agent, same branch); graded rarely.
 5. LSTM 256 last.
+
+## Outcome (Oct 19, leg 204)
+| Change | Legs | Main test (lv8mix sampled) | Sealed Desert | Verdict |
+|---|---|---|---|---|
+| 512-wide net | 179-181 | 60.9 -> 64.0, rose to 68.4 (185-187) | flat 63.7 -> 64.0 (178 -> 193) | kept |
+| lr 2.5e-5 | 191-193 | 66.0 -> 69.7 | 64.0 -> 66.0 (193 -> 196) | kept |
+| recent-only pool | 198-200 | 69.6 -> 69.3 | 66.0 -> 71.3 / 72.0 | kept |
+| lr 1.25e-5 | 202-204 | 70.7 -> 69.8 | 72.0 -> 70.7 | neutral, kept |
+
+Best legs: lv8mix 72.0 (197), top-move 77.6 (196), sealed Desert 72.0 (200). Not done: entropy 0.01 -> 0.005 (needs
+the sealed-ent merge), LSTM 256, adaptive handicap.

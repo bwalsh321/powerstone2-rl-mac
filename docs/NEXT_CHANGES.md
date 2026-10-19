@@ -21,7 +21,11 @@ RESULT: 512 KEPT. Legs 179-181 = 64.4 / 62.8 / 64.8 = 64.0 vs 60.9 (176-178) on 
 3. (done) bigger network, MLP 256 -> 512 from leg 179 (league_env.txt PS2_NET_WIDTH=512 + `179 widen512`; previous:
    claude_bridge/league_env_leg178.txt; built (agent, worktree .claude/worktrees/bignet, branch bignet): function-preserving
    widening 256 -> 512 (Net2Net style), speed cost measured before turn-on. The old 512-wide test predates memory and vision.
-**NOW (Claude, vacation plan): learning rate 2.5e-5 -> 1.25e-5 from leg 202** (previous:
+RESULT (Oct 19): lr 1.25e-5 NEUTRAL, kept (no harm). lv8mix 202-204 = 69.8 vs 70.7 (199-201) on the same games;
+sealed Desert 204 = 70.7 vs 200 = 72.0. The lr lever looks spent. Next: the adaptive handicap (warlock.ai idea; needs
+code: lower the bot's start health while its training win rate is high), or more lineup/stage diversity. Blake decides
+after vacation.
+(done) learning rate 2.5e-5 -> 1.25e-5 from leg 202 (previous:
 claude_bridge/league_optim_leg201.txt). Main test flat since 191-193 (69.7); read 202-204 on lv8mix + sealed.
 RESULT: pool recent-only KEPT. lv8mix even (198-200 = 69.3 vs 69.6), but sealed Desert 196 = 66.0 -> 198 = 71.3,
 200 = 72.0 (unseen lineups). Old snapshots stay in pool_league_archive/.
