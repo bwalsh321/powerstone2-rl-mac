@@ -1,0 +1,6 @@
+==== leg 200 hunted n=280  win% 13.9 +- 2.1 (39W/241L/0T)
+  bot damage taken /ep (health fractions): -0.968  by source: P1=0.371 P3=0.314 P4=0.124 x=0.158
+  KO'd by (losses): P1=59 P3=63 P4=67 x=52   hunters=['P1', 'P3']
+  transforms /ep: P1=0.16 P2=0.82 P3=0.21 P4=0.41
+  bot dmg_out /ep 3.797  picks/ep 4.45  bot forms/ep 0.82  len 395
+  per-slot: 30=6/20 31=4/20 32=3/20 33=1/20 34=2/20 35=2/20 36=3/20 37=1/20 38=1/20 39=2/20 40=2/20 41=2/20 42=2/20 43=8/20
