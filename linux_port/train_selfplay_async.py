@@ -78,6 +78,12 @@ CHECKPOINT_EVERY = 100_000
 # (base env reset does random.choice over STATE_SLOTS); PS2_STATE_SLOT stays as the single-slot form.
 STATE_SLOTS = ([int(x) for x in os.environ["PS2_STATE_SLOTS"].split(",") if x.strip()]
                if os.environ.get("PS2_STATE_SLOTS") else [int(os.environ.get("PS2_STATE_SLOT", "1"))])
+# Oct 17 2026: the grading lineups never train. 90-94 = the per-leg held-out set (lv8mix), 95-99 = the SEALED set
+# (sealed_grade.sh). A check only: with a legal slot list nothing else changes.
+_GRADING_SLOTS = set(range(90, 100))
+if _GRADING_SLOTS & set(STATE_SLOTS):
+    raise SystemExit(f"refusing to train on grading lineups {sorted(_GRADING_SLOTS & set(STATE_SLOTS))} "
+                     f"(90-94 held-out, 95-99 sealed): remove them from PS2_STATE_SLOTS")
 # Sep 13: PS2_ENV=ffa -> ffa_selfplay_env.FFASelfPlayEnv (four-seat self-play FFA,
 # obs v2); default = the 2-seat SelfPlayEnv the league has always used.
 ENV_KIND = os.environ.get("PS2_ENV", "selfplay")

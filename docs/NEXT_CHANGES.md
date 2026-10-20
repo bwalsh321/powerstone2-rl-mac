@@ -132,7 +132,9 @@ not ignored, then maybe train against it. Spec: docs/HUNTER_PROJECT.md. Runs on 
 
 ## Later (from the Oct 6 audit)
 - Frame stack 7 -> 2 (the LSTM may make it redundant; model shape changes, own read).
-- Second sealed held-out lineup set (Desert, new 3-CPU lineups) for confirming big claims.
+- Second sealed held-out lineup set: BUILT Oct 17 on branch sealed-ent (states/slot95-99: three Desert + Blue Sky +
+  Dark Castle, new 3-CPU lineups; `sealed_grade.sh <N>`, 500 sampled rounds, run by hand only to confirm big claims;
+  linux_port/states_sealed/README.md). Same branch: PS2_ENT_COEF=<x> accepted in league_optim.txt (audit item 2).
 - Scout upgrades: count double jumps / taps per episode in the log; 15-30 fps clips around events; scout a
   held-out lineup.
 - Fresh drills under vision for Blake (DAgger stays off; idea: use drill states as RL start points, no imitation).

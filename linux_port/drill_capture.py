@@ -26,6 +26,7 @@ import argparse, collections, gzip, json, os
 import numpy as np
 
 HELDOUT = set(range(90, 95))
+SEALED = set(range(95, 100))   # Oct 17 2026: the SEALED test set (states/slot95-99, sealed_grade.sh) -- refused always, no override
 
 ap = argparse.ArgumentParser()
 ap.add_argument("--model", required=True)
@@ -47,6 +48,9 @@ ap.add_argument("--out", required=True)
 a = ap.parse_args()
 
 slots = [int(x) for x in a.slots.split(",")]
+if SEALED & set(slots):
+    raise SystemExit(f"refusing SEALED test lineups {sorted(SEALED & set(slots))}: slots 95-99 are graded only by sealed_grade.sh "
+                     f"and never feed training or drills (no override)")
 if HELDOUT & set(slots) and not a.allow_heldout:
     raise SystemExit(f"refusing held-out grading lineups {sorted(HELDOUT & set(slots))}: drills must come from training lineups "
                      f"(pass --allow-heldout only for human DAgger drills that never enter RL training)")

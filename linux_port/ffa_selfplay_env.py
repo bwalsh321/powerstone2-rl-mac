@@ -108,10 +108,11 @@ START_HEALTH = tuple(float(x) for x in _SH.split(",")) if _SH else None
 # (gzip raw emulator states + json; snapshots seconds before the CURRENT bot lost a round on a training lineup) and
 # PS2_DRILL_P = probability that a reset starts from a random drill instead of the slot savestate. Ordinary RL from
 # there: same reward, same done rules; the episode ends at the KO / win like any other. Both unset/0 = off (no code
-# path below runs, the random stream is untouched). Drills from the held-out grading lineups 90-94 are refused.
+# path below runs, the random stream is untouched). Drills from the held-out grading lineups 90-94 are refused, and
+# (Oct 17 2026) from the SEALED test lineups 95-99 (sealed_grade.sh) as well.
 DRILL_DIRS = [d.strip() for d in os.environ.get("PS2_DRILL_DIR", "").split(",") if d.strip()]
 DRILL_P = float(os.environ.get("PS2_DRILL_P", "0") or 0)
-DRILL_HELDOUT = set(range(90, 95))
+DRILL_HELDOUT = set(range(90, 100))
 # Oct 10 2026 (Blake: "hunter bot", docs/HUNTER_PROJECT.md): scripted seats that ONLY hunt the learner (hunter_bot.py,
 # the old aimbot retargeted). Both unset/0 = off: no hunter code runs, the random stream is untouched.
 #   PS2_HUNTER_SEATS   comma list of policy-seat indices (0 = P1, 2 = P3) that are ALWAYS hunters on eligible slots
@@ -225,12 +226,13 @@ class SeatView:
 
 def ffa_slot_meta(state_slots, base_meta=None):
     """The mixed-arena context table for a configured slot list (Sep 25 2026, one function so the
-    constructor and test_obs_context.py cannot drift): COM-only lv8 arenas 1-9 / 50-68 (60-68 = Oct 6 balanced lineups) / 90-94 keep the
+    constructor and test_obs_context.py cannot drift): COM-only lv8 arenas 1-9 / 50-68 (60-68 = Oct 6 balanced lineups) / 90-94
+    (and the Oct 17 sealed set 95-99, never trained on: train_selfplay_async refuses 90-99) keep the
     base (stage 2, level 8) entry; slots 30-43 = P4 COM at level 8 -> (1, 8); every other slot (0, 10-22,
     unknown) = (1, 2), the pre-registered mixed-arena context."""
     meta = dict(base_meta if base_meta is not None else PowerStoneEnvLibretro.SLOT_META)
     for _slot in state_slots:
-        if (1 <= _slot <= 9 or 50 <= _slot <= 68 or 90 <= _slot <= 94) and _slot in PowerStoneEnvLibretro.SLOT_META:
+        if (1 <= _slot <= 9 or 50 <= _slot <= 68 or 90 <= _slot <= 99) and _slot in PowerStoneEnvLibretro.SLOT_META:
             continue
         meta[_slot] = (1, 8) if 30 <= _slot <= 43 else (1, 2)
     return meta

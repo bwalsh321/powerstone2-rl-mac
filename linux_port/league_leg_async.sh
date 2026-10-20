@@ -68,8 +68,19 @@ ENTC="$(tr -d '[:space:]' < league_entcoef.txt 2>/dev/null)"
 # league_optim.txt (e.g. "PS2_LR=1e-4" or "PS2_LR=1e-4 PS2_BATCH_SIZE=256"); absent/empty
 # = the zip's values. Exported here, printed by the trainer as "[config] ... override",
 # recorded in leg_modes.txt as a fourth column. Sweep 40 result: lr 1e-4 -> lv8 13.6.
+# Oct 17 2026 (audit item 2, entropy anneal): PS2_ENT_COEF=<x> is allowed here too (the trainer prints "[config]
+# ent_coef override -> x"); it takes precedence over league_entcoef.txt and is written into the third leg_modes column as
+# well as the optim column. A value that is not a plain number refuses the leg before any Python runs (a trainer that
+# dies at boot would hit the retry path below). Absent = exactly the old behaviour.
 OPTIM="$(tr -s '[:space:]' ' ' < league_optim.txt 2>/dev/null | sed 's/^ //;s/ $//')"
-for kv in $OPTIM; do case "$kv" in PS2_LR=*|PS2_BATCH_SIZE=*|PS2_TARGET_KL=*) export "$kv" ;; *) echo "[wrapper-async] ignoring unknown override $kv" >> wrapper_league.log ;; esac; done
+for kv in $OPTIM; do case "$kv" in
+  PS2_LR=*|PS2_BATCH_SIZE=*|PS2_TARGET_KL=*) export "$kv" ;;
+  PS2_ENT_COEF=*)
+    [[ "${kv#PS2_ENT_COEF=}" =~ ^([0-9]+\.?[0-9]*|\.[0-9]+)([eE][-+]?[0-9]+)?$ ]] || {
+      echo "[wrapper-async] leg $N REFUSED: bad $kv in league_optim.txt (want a number, e.g. PS2_ENT_COEF=0.005); nothing launched $(date)" | tee -a wrapper_league.log >&2; exit 2; }
+    export "$kv"; ENTC="${kv#PS2_ENT_COEF=}" ;;
+  *) echo "[wrapper-async] ignoring unknown override $kv" >> wrapper_league.log ;;
+esac; done
 # Sep 20: training-only ARENA flags, one line of VAR=VAL pairs in league_env.txt
 # (PS2_ZERO_SUM=1, PS2_START_HEALTH=lo,hi); absent/empty = off. Exported here, the
 # FFA env prints "[config] zero_sum=1" / "[config] start_health=...", recorded in
