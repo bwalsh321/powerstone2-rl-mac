@@ -1,0 +1,33 @@
+[env] bridge alive (frame 8, line=v7 obs_dim=430 actions=10)
+[config] zero_sum=1 (r = own - mean(others); nearest-attacker damage attribution)
+[config] reward2: special_dmg_w=1.0 special_r=700 lost_extra_w=1.0 special_window=2s (20 steps | 120 frames, clock=frames) loss_scale_lv8=0.5 special_attrib=1 (learner-only; +0x32e4 hit source, owner +0x10)
+[config] start_health=U(0.5, 1.0) per seat (RAM write at reset)
+[config] handicap: learner health x h on slots 50-68; target=0.55 min=0.5 step=0.01 ema_window=200 start h=1.000 ema=0.550 (carried from 0 file(s) in <scratch>/ram/state)
+  ok   PS2_HANDICAP=1 -> env has a handicap controller
+[start] health P2=756 P1=815 P3=840 P4=547 hcap=1.000
+[start] health P2=529 P1=815 P3=840 P4=547 hcap=0.700
+  [A start_health + slot 55] seats=[1, 0, 2, 3] health@h=1.0 P2=756.0 P1=814.9 P3=839.9 P4=547.1  health@h=0.7 P2=529.2 P1=814.9 P3=839.9 P4=547.1  ratio P2=0.7000 P1=1.0000 P3=1.0000 P4=1.0000
+  ok   A start_health + slot 55: same seats both resets
+  ok   A start_health + slot 55: learner P2 ratio 0.7000 (want 0.7)
+  ok   A start_health + slot 55: other seats unchanged
+  ok   A start_health + slot 55: episode marked handicapped = True
+[start] health P2=756 P1=815 P3=840 P4=547
+[start] health P2=756 P1=815 P3=840 P4=547
+  [B start_health + slot 30] seats=[1, 0, 2, 3] health@h=1.0 P2=756.0 P1=814.9 P3=839.9 P4=547.1  health@h=0.7 P2=756.0 P1=814.9 P3=839.9 P4=547.1  ratio P2=1.0000 P1=1.0000 P3=1.0000 P4=1.0000
+  ok   B start_health + slot 30: same seats both resets
+  ok   B start_health + slot 30: learner P2 ratio 1.0000 (want 1.0)
+  ok   B start_health + slot 30: other seats unchanged
+  ok   B start_health + slot 30: episode marked handicapped = False
+[start] health P2=700 hcap=0.700
+  [C no start_health + slot 55] seats=[1, 0, 2, 3] health@h=1.0 P2=1000.0 P1=1000.0 P3=1000.0 P4=1000.0  health@h=0.7 P2=700.0 P1=1000.0 P3=1000.0 P4=1000.0  ratio P2=0.7000 P1=1.0000 P3=1.0000 P4=1.0000
+  ok   C no start_health + slot 55: same seats both resets
+  ok   C no start_health + slot 55: learner P2 ratio 0.7000 (want 0.7)
+  ok   C no start_health + slot 55: other seats unchanged
+  ok   C no start_health + slot 55: episode marked handicapped = True
+[start] health P2=446 P1=905 P3=792 P4=801 hcap=0.700
+[ep] slot55 opps=3    loss len= 595  dmg +2.58/-0.45  stones: picked=2 lost=0 opp=8(-6) forms=1/1  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=12(0) stonev=176 dmgF=0.75  hcap=0.700 hema=0.550
+  [episode] steps=595 done=True result=loss h 0.7000 -> 0.7055 ema=0.5472
+  ok   episode ended
+  ok   h updated by the rule (loss/timeout: +0.0055)
+  ok   state file <scratch>/ram/state/hcap_i73.json written: {'h': 0.7055, 'ema': 0.54725, 'n': 1, 'wins': 0, 'target': 0.5499999999999999, 'min': 0.5}
+handicap RAM / env check: PASS

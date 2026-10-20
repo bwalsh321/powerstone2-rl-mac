@@ -2,7 +2,7 @@
 import os, sys, json, subprocess, shutil, tempfile
 sys.path.insert(0, ".")
 os.environ.update(PS2_HUNTER_SEATS="0,2", PS2_FFA_SEATS="0,2", PS2_FFA_MAX_STEPS="6000")
-for k in ("PS2_HUNTER_P", "PS2_ZERO_SUM", "PS2_START_HEALTH", "PS2_DRILL_DIR", "PS2_DRILL_P"): os.environ.pop(k, None)
+for k in ("PS2_HUNTER_P", "PS2_ZERO_SUM", "PS2_START_HEALTH", "PS2_DRILL_DIR", "PS2_DRILL_P", "PS2_HANDICAP"): os.environ.pop(k, None)
 import numpy as np, torch as th
 th.set_num_threads(1)
 from ffa_selfplay_env import FFASelfPlayEnv

@@ -49,6 +49,12 @@ showing both; reward changes have hurt before, leg 143).
 1. **Adaptive handicap to keep training ~50/50.** They taxed the built-in AI's resources after losses and untaxed
    it after wins. Our 3-CPU training win rate is 66% and lv8 is the CPU max, so handicap the BOT instead: lower its
    start health (PS2_START_HEALTH exists) when training win rate is high. Top pick after the current lr read.
+   BUILT Oct 19 (branch `handicap`, not merged, OFF by default; linux_port/handicap.py): PS2_HANDICAP=1 multiplies the
+   learner's start health by h in [0.5, 1] on slots 50-68 only (on top of its START_HEALTH draw; other seats and
+   slots 30-43 untouched). After each such round h -= 0.01 x (won - 0.55): settles where the bot wins 55%. Carried
+   across legs in claude_bridge/handicap_state/. [ep] lines on 50-68 end in `hcap=<h> hema=<win EMA>`; `[hcap]` lines
+   every 25 rounds per actor. Evals never handicapped. Turn on: add `PS2_HANDICAP=1` to league_env.txt between legs.
+   Read: training win rate on 50-68 should fall toward 55%; grade on sampled lv8mix + sealed as usual.
 2. UPGO credit assignment (algorithm change; later).
 3. Throughput: "most of the speed came from removing waste". Profile the learner (now the bottleneck).
 Their eval on an unseen map matches our sealed set; their weakness (one strategy, no diversity) matches ours

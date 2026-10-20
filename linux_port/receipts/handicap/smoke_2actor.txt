@@ -1,0 +1,71 @@
+[config] obs_stack=2 (learner sees the last 2 frames, oldest first)
+[config] actions=63 (joint direction x button)
+[config] recurrent=SkipLSTM hidden=128 layers=1 lstm_input=430 (newest frame) skip=[features,lstm]
+[config] net_width=[512, 512] lstm_hidden=128 (PS2_NET_WIDTH=512 PS2_LSTM_HIDDEN=unset: zip matches)
+[config] batch_size override -> 256
+[config] learning_rate override -> 1.25e-05
+[config] target_kl override -> 0.03
+[config] learning_rate=1.25e-05 n_steps=2048 batch_size=256 n_epochs=10 gamma=0.999 gae_lambda=0.95 ent_coef=0.01 clip_range=0.2 net_arch=[512, 512] warm=<scratch>/leg204 pool=<scratch>/pool n_envs=2 n_actors=2 total_steps=8192 instance_base=74 pull_every=64 env=ffa state_slots=[30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68] obs_v2=1 obs_ctx_fix=1 zs_time=1 obs_v3=1 obs_dim=430 obs_v4=1 obs_v4_itememb=keep obj_grid_n=208 pool_sampling=uniform states=<scratch>/states_mixed seats=0,2 mode=async
+[config] zero_sum=1 (r = own - mean(others); nearest-attacker damage attribution)
+[config] reward2: special_dmg_w=1.0 special_r=700 lost_extra_w=1.0 special_window=2s (20 steps | 120 frames, clock=frames) loss_scale_lv8=0.5 special_attrib=1 (learner-only; +0x32e4 hit source, owner +0x10)
+[config] start_health=U(0.5, 1.0) per seat (RAM write at reset)
+[config] hunters: seats=- p=0.5 target=P2 eligible slots=[0, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43] (hunter_bot.py)
+[config] handicap: learner health x h on slots 50-68; target=0.55 min=0.5 step=0.01 ema_window=200 start h=0.850 ema=0.660 (carried from 1 file(s) in <scratch>/smoke/state)
+[actor 0] up: instance 74, policy v0
+[config] zero_sum=1 (r = own - mean(others); nearest-attacker damage attribution)
+[config] reward2: special_dmg_w=1.0 special_r=700 lost_extra_w=1.0 special_window=2s (20 steps | 120 frames, clock=frames) loss_scale_lv8=0.5 special_attrib=1 (learner-only; +0x32e4 hit source, owner +0x10)
+[config] start_health=U(0.5, 1.0) per seat (RAM write at reset)
+[config] hunters: seats=- p=0.5 target=P2 eligible slots=[0, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43] (hunter_bot.py)
+[config] handicap: learner health x h on slots 50-68; target=0.55 min=0.5 step=0.01 ema_window=200 start h=0.850 ema=0.660 (carried from 1 file(s) in <scratch>/smoke/state)
+[start] health P2=755 P1=962 P3=621 P4=558 hcap=0.850
+[actor 1] up: instance 75, policy v0
+[start] health P2=743 P1=503 P3=767 P4=652 hcap=0.850
+[ep] slot58 opps=3     win len= 522  dmg +4.28/-0.69  stones: picked=6 lost=1 opp=9(-6) forms=2/1  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=16(2) stonev=209 dmgF=3.02  hcap=0.850 hema=0.660
+[start] health P2=591 P1=666 P3=660 P4=785
+[ep] slot68 opps=3     win len= 532  dmg +3.84/-0.34  stones: picked=6 lost=1 opp=10(-9) forms=2/1  gem_rew=+18.00 shape=+0.00 appr=+0.00  chests=17(0) stonev=227 dmgF=2.35  hcap=0.850 hema=0.660
+[start] health P2=537 P1=980 P3=896 P4=694 hcap=0.846
+[ep] slot30 opps=3    loss len= 229  dmg +2.58/-0.59  stones: picked=4 lost=2 opp=2(-3) forms=1/0  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=5(0) stonev=110 dmgF=1.58  hunters=2
+[start] health P2=626 P1=742 P3=778 P4=790 hcap=0.846
+[ep] slot63 opps=3     win len= 596  dmg +5.14/-0.42  stones: picked=15 lost=4 opp=4(-6) forms=4/0  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=20(0) stonev=239 dmgF=3.89  hcap=0.846 hema=0.662
+[hcap] i75 n=2 wins=2 h=0.841 ema=0.663 target=0.55
+[start] health P2=759 P1=705 P3=772 P4=571
+[ep] slot62 opps=3     win len= 572  dmg +4.62/-0.44  stones: picked=9 lost=1 opp=11(-8) forms=3/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=16(4) stonev=346 dmgF=3.02  hcap=0.846 hema=0.662
+[hcap] i74 n=2 wins=2 h=0.841 ema=0.663 target=0.55
+[start] health P2=473 P1=593 P3=889 P4=766 hcap=0.841
+[ep] slot43 opps=3    loss len= 321  dmg +2.68/-0.76  stones: picked=2 lost=3 opp=8(-8) forms=0/1  gem_rew=+6.00 shape=+0.00 appr=+0.00  chests=5(0) stonev=147 dmgF=0.00  hunters=2
+[start] health P2=443 P1=839 P3=558 P4=812 hcap=0.841
+[ep] slot60 opps=3    loss len= 351  dmg +1.42/-0.47  stones: picked=1 lost=2 opp=3(-2) forms=0/1  gem_rew=+3.00 shape=+0.00 appr=+0.00  chests=11(0) stonev=68 dmgF=0.00  hcap=0.841 hema=0.663
+[start] health P2=690 P1=785 P3=872 P4=948
+[ep] slot42 opps=3    loss len= 179  dmg +1.27/-0.69  stones: picked=3 lost=4 opp=1(-2) forms=0/0  gem_rew=+9.00 shape=+0.00 appr=+0.00  chests=3(2) stonev=106 dmgF=0.00  hunters=2
+[start] health P2=654 P1=707 P3=617 P4=773 hcap=0.847
+[ep] slot62 opps=3     win len= 416  dmg +4.42/-0.09  stones: picked=8 lost=1 opp=5(-5) forms=2/0  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=12(2) stonev=205 dmgF=3.65  hcap=0.841 hema=0.663
+[start] health P2=603 P1=614 P3=588 P4=705 hcap=0.837
+[ep] slot65 opps=3     win len= 582  dmg +4.19/-0.28  stones: picked=12 lost=1 opp=3(-4) forms=4/0  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=18(0) stonev=229 dmgF=3.22  hcap=0.847 hema=0.660
+[hcap] i74 n=4 wins=3 h=0.842 ema=0.662 target=0.55
+[start] health P2=593 P1=758 P3=579 P4=772
+[ep] slot30 opps=3    loss len= 208  dmg +1.46/-0.59  stones: picked=0 lost=1 opp=6(-5) forms=0/0  gem_rew=+0.00 shape=+0.00 appr=+0.00  chests=3(0) stonev=59 dmgF=0.00  hunters=1
+[ep] slot60 opps=3     win len= 432  dmg +3.81/-0.25  stones: picked=7 lost=2 opp=7(-7) forms=2/0  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=12(1) stonev=257 dmgF=3.12  hcap=0.837 hema=0.665
+[hcap] i75 n=4 wins=4 h=0.832 ema=0.667 target=0.55
+[start] health P2=785 P1=607 P3=652 P4=990 hcap=0.842
+[start] health P2=615 P1=540 P3=932 P4=521
+[stats] update 1 approx_kl=0.00709 clip_fraction=0.05129 entropy_loss=-1.825 explained_variance=0.9364 value_loss=4.408 policy_gradient_loss=-0.02875 loss=2.754 n_updates=1.21e+05
+[ep] slot33 opps=3     win len= 471  dmg +3.99/-0.15  stones: picked=5 lost=0 opp=8(-6) forms=2/1  gem_rew=+15.00 shape=+0.00 appr=+0.00  chests=16(4) stonev=191 dmgF=1.95
+[start] health P2=820 P1=949 P3=802 P4=599
+[ep] slot40 opps=3    loss len= 197  dmg +2.06/-0.82  stones: picked=1 lost=2 opp=5(-6) forms=0/1  gem_rew=+3.00 shape=+0.00 appr=+0.00  chests=5(0) stonev=88 dmgF=0.00  hunters=1
+[start] health P2=639 P1=533 P3=509 P4=774 hcap=0.832
+[ep] slot65 opps=3     win len= 646  dmg +4.50/-0.66  stones: picked=14 lost=3 opp=4(-5) forms=4/0  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=16(2) stonev=375 dmgF=3.74  hcap=0.842 hema=0.662
+[start] health P2=670 P1=867 P3=583 P4=859 hcap=0.838
+[ep] slot54 opps=3    loss len= 371  dmg +1.89/-0.64  stones: picked=4 lost=2 opp=6(-3) forms=1/1  gem_rew=+12.00 shape=+0.00 appr=+0.00  chests=10(0) stonev=232 dmgF=0.75  hcap=0.832 hema=0.667
+[start] health P2=626 P1=895 P3=599 P4=712
+[ep] slot50 opps=3     win len= 623  dmg +4.88/-0.46  stones: picked=13 lost=2 opp=3(-3) forms=4/0  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=20(2) stonev=308 dmgF=4.27  hcap=0.838 hema=0.663
+[hcap] i74 n=6 wins=5 h=0.833 ema=0.665 target=0.55
+[start] health P2=731 P1=884 P3=807 P4=934 hcap=0.833
+[ep] slot32 opps=3     win len= 474  dmg +4.97/-0.50  stones: picked=7 lost=2 opp=7(-5) forms=2/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=14(0) stonev=207 dmgF=2.29
+[start] health P2=598 P1=961 P3=686 P4=702 hcap=0.838
+[ep] slot55 opps=3     win len= 491  dmg +4.70/-0.21  stones: picked=9 lost=1 opp=4(-5) forms=3/0  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=16(1) stonev=194 dmgF=3.45  hcap=0.838 hema=0.663
+[hcap] i75 n=6 wins=5 h=0.833 ema=0.665 target=0.55
+[start] health P2=763 P1=634 P3=808 P4=564 hcap=0.833
+[ep] slot53 opps=3     win len= 609  dmg +5.25/-0.49  stones: picked=12 lost=1 opp=7(-3) forms=4/2  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=23(1) stonev=289 dmgF=4.18  hcap=0.833 hema=0.665
+[start] health P2=837 P1=606 P3=855 P4=702
+[stats] update 2 approx_kl=0.01216 clip_fraction=0.1012 entropy_loss=-1.819 explained_variance=0.9511 value_loss=3.538 policy_gradient_loss=-0.03465 loss=0.3655 n_updates=1.21e+05
+leg complete -> <scratch>/smoke/smoke_out.zip

@@ -1,0 +1,49 @@
+[1] update rule
+  ok   starts at h=1.0, ema=target
+  ok   forced wins: h only falls, first step 0.0045 (= 0.01 x 0.45)
+  ok   forced wins: h clamps at MIN (h=0.5)
+  ok   forced wins: ema rises toward 1 (ema=0.835 after 200)
+  ok   forced losses: h back to 1.0 and clamps (h=1.0)
+  ok   win share = target: net move 0 over 200 episodes (h=0.800000)
+  ok   slot parsing
+  ok   PS2_HANDICAP switch
+  ok   defaults: target 0.55, min 0.5, slots 50-68
+  ok   applies to 50-68 only
+[2] carry-over
+  ok   missing folder -> h=1.0
+  ok   only corrupt / out-of-range / incomplete files -> h=1.0, no crash
+  ok   pooled mean of the 2 fresh files, stale + bad ones skipped (h=0.750 ema=0.550 n=2)
+  ok   update() writes its own file atomically (no tmp left)
+  ok   state_dir '' -> nothing written
+  ok   unwritable folder: update still works (save swallowed)
+[3] controller simulation (synthetic win curve; h* = 0.84 gives 55%)
+     per_result legs 2-5: win share 0.551  h range 0.74-0.92  h sd 0.036
+  ok   per-result rule settles at target with small wobble
+     sign_ema   legs 2-5: win share 0.546  h range 0.50-1.00  h sd 0.140
+  ok   sign-of-EMA rule swings far wider (why it was not used)
+     per_result: h first below 0.88 after 161 episodes (one leg of one actor = ~330)
+  ok   per-result rule reaches the neighbourhood of h* within one leg
+[4] league_leg_async.sh ARENA parsing (extracted lines only)
+  ok   extracted block runs nothing but parsing
+  ok   PS2_ZERO_SUM -> '1' (want '1')
+  ok   PS2_START_HEALTH -> '0.5,1.0' (want '0.5,1.0')
+  ok   PS2_HANDICAP -> '1' (want '1')
+  ok   PS2_HANDICAP_TARGET -> '0.55' (want '0.55')
+  ok   PS2_HANDICAP_MIN -> '0.5' (want '0.5')
+  ok   PS2_HANDICAP_SLOTS -> '50-68' (want '50-68')
+  ok   PS2_HANDICAP_STEP -> '0.01' (want '0.01')
+  ok   PS2_HANDICAP_EMA -> '200' (want '200')
+  ok   PS2_HANDICAP_STATE -> 'claude_bridge/handicap_state' (want 'claude_bridge/handicap_state')
+  ok   PS2_HANDICAPX -> 'UNSET' (want 'UNSET')
+  ok   unknown look-alike flag is ignored and logged
+  ok   flag absent from league_env.txt -> an inherited PS2_HANDICAP is unset (off)
+[5] eval isolation (static)
+  ok   PS2_HANDICAP read only in ['ffa_selfplay_env.py', 'handicap.py']
+  ok   eval_parity.py builds the base env
+  ok   stoch_grade.sh: grades through eval_parity.py
+  ok   top_grade.sh: grades through eval_parity.py
+  ok   league_battery.sh: grades through eval_parity.py
+  ok   eval_hunted.py: drops PS2_HANDICAP before importing the FFA env
+  ok   record_hunted.py: drops PS2_HANDICAP before importing the FFA env
+  ok   play_vs.py: drops PS2_HANDICAP before importing the FFA env
+handicap unit tests: PASS

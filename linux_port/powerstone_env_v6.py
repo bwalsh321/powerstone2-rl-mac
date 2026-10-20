@@ -1103,7 +1103,11 @@ class PowerStoneEnvV6(gym.Env):
                   # Oct 10 2026: an episode started from a practice start point (ffa_selfplay_env PS2_DRILL_DIR)
                   + (f"  drill={self._drill_name}" if getattr(self, "_drill_name", None) else "")
                   # Oct 10 2026: scripted hunter seats this episode (ffa_selfplay_env PS2_HUNTER_SEATS / PS2_HUNTER_P)
-                  + (f"  hunters={self._hunter_n}" if getattr(self, "_hunter_n", 0) else ""))
+                  + (f"  hunters={self._hunter_n}" if getattr(self, "_hunter_n", 0) else "")
+                  # Oct 19 2026: adaptive handicap (ffa_selfplay_env PS2_HANDICAP): h applied to the learner this
+                  # episode, and the env's win-share EMA on handicapped slots before this result
+                  + (f"  hcap={self._hcap_ep:.3f} hema={self._hcap.ema:.3f}"
+                     if getattr(self, "_hcap_ep", None) is not None else ""))
             try:
                 # columns 17-19 (chesto, chestb, stonev) APPENDED Aug 10 —
                 # appended, not inserted, so positional readers of the first
