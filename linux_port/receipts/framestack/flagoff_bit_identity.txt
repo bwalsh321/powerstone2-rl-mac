@@ -1,0 +1,21 @@
+[cmp] train PS2_OBS_STACK=unset obs_30   old (301, 430) vs new (301, 430): BIT-IDENTICAL
+[cmp] train PS2_OBS_STACK=unset rew_30   old (300,) vs new (300,): BIT-IDENTICAL
+[cmp] train PS2_OBS_STACK=unset done_30  old (300,) vs new (300,): BIT-IDENTICAL
+[cmp] train PS2_OBS_STACK=unset obs_55   old (301, 430) vs new (301, 430): BIT-IDENTICAL
+[cmp] train PS2_OBS_STACK=unset rew_55   old (300,) vs new (300,): BIT-IDENTICAL
+[cmp] train PS2_OBS_STACK=unset done_55  old (300,) vs new (300,): BIT-IDENTICAL
+[cmp] train PS2_OBS_STACK=7     obs_30   old (301, 3010) vs new (301, 3010): BIT-IDENTICAL
+[cmp] train PS2_OBS_STACK=7     rew_30   old (300,) vs new (300,): BIT-IDENTICAL
+[cmp] train PS2_OBS_STACK=7     done_30  old (300,) vs new (300,): BIT-IDENTICAL
+[cmp] train PS2_OBS_STACK=7     obs_55   old (301, 3010) vs new (301, 3010): BIT-IDENTICAL
+[cmp] train PS2_OBS_STACK=7     rew_55   old (300,) vs new (300,): BIT-IDENTICAL
+[cmp] train PS2_OBS_STACK=7     done_55  old (300,) vs new (300,): BIT-IDENTICAL
+[cmp] eval  PS2_OBS_STACK=unset obs      old (1158, 3010) vs new (1158, 3010): BIT-IDENTICAL
+[cmp] eval  PS2_OBS_STACK=unset act      old (1158,) vs new (1158,): BIT-IDENTICAL
+[cmp] eval  PS2_OBS_STACK=unset summary  old (274,) vs new (274,): BIT-IDENTICAL
+[cmp] eval  PS2_OBS_STACK=unset exit     old (1,) vs new (1,): BIT-IDENTICAL
+[cmp] eval  PS2_OBS_STACK=7     obs      old (1713, 3010) vs new (1713, 3010): BIT-IDENTICAL
+[cmp] eval  PS2_OBS_STACK=7     act      old (1713,) vs new (1713,): BIT-IDENTICAL
+[cmp] eval  PS2_OBS_STACK=7     summary  old (276,) vs new (276,): BIT-IDENTICAL
+[cmp] eval  PS2_OBS_STACK=7     exit     old (1,) vs new (1,): BIT-IDENTICAL
+frame-stack flag-off bit-identity: PASS

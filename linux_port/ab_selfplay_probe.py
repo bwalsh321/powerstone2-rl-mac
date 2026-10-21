@@ -52,8 +52,8 @@ def main():
     runner = PolicyRunner(model)
     env.set_action_mode(int(model.action_space.n))   # Oct 3 2026: 10 legacy / 63 joint (action_space.py)
     from obs_stack import k_for, FrameStack            # Sep 22: stacked policies
-    from obs_stack import kd_for
-    _k, _d = kd_for(model); _fs = FrameStack(_k, _d) if _k > 1 else None   # Sep 23: v3 models are 160/frame
+    from obs_stack import stack_for                     # Oct 13 2026: + PS2_OBS_STACK check (frame-stack option)
+    _k, _d = stack_for(model); _fs = FrameStack(_k, _d) if _k > 1 else None   # Sep 23: v3 models are 160/frame
     _sl = (lambda o: o[:_d])                                   # a v2 model under an obs v3 env reads obs[:122]
     env._legacy_proj_main = env._legacy_proj = (_d == 122)      # Sep 28 (Astra 3): a v2 MAIN model gets the v2-rule projectile prefix too
     print(f"[ab] model={os.path.basename(args.model)} "

@@ -1,0 +1,8 @@
+
+================ EVAL SUMMARY ================
+model=powerstone_v6_leg170_league.zip  slot=90  n=500  mode=deterministic  distinct-outcome-tuples~275  distinct-episodes=497  shards=10x50  slots=90,91,92,93,94
+win% :  68.0   (340W/160L/0T)   95% Wilson [64-72]
+picks: 11.27 /ep
+forms:  3.20 /ep
+per-slot: slot90=70W/100  slot91=78W/100  slot92=69W/100  slot93=59W/100  slot94=64W/100
+shard files: eval_leg170_lv8mix_top_s0_out.txt eval_leg170_lv8mix_top_s1_out.txt eval_leg170_lv8mix_top_s2_out.txt eval_leg170_lv8mix_top_s3_out.txt eval_leg170_lv8mix_top_s4_out.txt eval_leg170_lv8mix_top_s5_out.txt eval_leg170_lv8mix_top_s6_out.txt eval_leg170_lv8mix_top_s7_out.txt eval_leg170_lv8mix_top_s8_out.txt eval_leg170_lv8mix_top_s9_out.txt

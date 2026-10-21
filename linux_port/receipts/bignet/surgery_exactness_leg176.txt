@@ -1,0 +1,15 @@
+== surgery_widen_net.py leg176 --width 512 --obs real_obs_leg176.npz
+[wn] checkpoints_bignet/leg176.zip (SkipLSTM, 860 inputs, MLP 2x256, LSTM 128, 1,227,840 params) -> checkpoints_bignet/leg176_width512.zip (MLP 2x512, LSTM 128, 2,144,320 params); widened 10 tensors; Adam moments placed (new entries 0): 20; init_scale 0.1
+[wn] structure: 0 parent entries moved/changed, 0 non-zero outgoing weights of new units, 0 optimizer entries off; exact check (random inputs, recurrent): max |logit diff| 2.29e-05 (rel 4.4e-07 of |51.9|), max |value diff| 1.91e-05 (rel 2.8e-07 of |69.2|), rel tol 1e-05 -> PASS
+[wn] real obs (2000 steps, 5 episode starts, recurrent): top action agrees 2000/2000 = 100.0%; max |logit diff| 3.81e-06 (rel 8.8e-08), max |action prob diff| 1.79e-07, max |value diff| 3.81e-06 (rel 1.6e-07) -> PASS
+[wn] wrote checkpoints_bignet/leg176_width512.zip; num_timesteps=4014080 n_updates=93638
+== surgery_widen_net.py leg176 --lstm-hidden 256 --obs real_obs_leg176.npz
+[wn] checkpoints_bignet/leg176.zip (SkipLSTM, 860 inputs, MLP 2x256, LSTM 128, 1,227,840 params) -> checkpoints_bignet/leg176_lstmhidden256.zip (MLP 2x256, LSTM 256, 2,128,960 params); widened 10 tensors; Adam moments placed (new entries 0): 20; init_scale 0.1
+[wn] structure: 0 parent entries moved/changed, 0 non-zero outgoing weights of new units, 0 optimizer entries off; exact check (random inputs, recurrent): max |logit diff| 0.00e+00 (rel 0.0e+00 of |51.9|), max |value diff| 0.00e+00 (rel 0.0e+00 of |69.2|), rel tol 1e-05 -> PASS
+[wn] real obs (2000 steps, 5 episode starts, recurrent): top action agrees 2000/2000 = 100.0%; max |logit diff| 0.00e+00 (rel 0.0e+00), max |action prob diff| 0.00e+00, max |value diff| 0.00e+00 (rel 0.0e+00) -> PASS
+[wn] wrote checkpoints_bignet/leg176_lstmhidden256.zip; num_timesteps=4014080 n_updates=93638
+== surgery_widen_net.py leg176 --width 512 --lstm-hidden 256 --obs real_obs_leg176.npz
+[wn] checkpoints_bignet/leg176.zip (SkipLSTM, 860 inputs, MLP 2x256, LSTM 128, 1,227,840 params) -> checkpoints_bignet/leg176_width512lstmhidden256.zip (MLP 2x512, LSTM 256, 3,110,976 params); widened 18 tensors; Adam moments placed (new entries 0): 36; init_scale 0.1
+[wn] structure: 0 parent entries moved/changed, 0 non-zero outgoing weights of new units, 0 optimizer entries off; exact check (random inputs, recurrent): max |logit diff| 2.29e-05 (rel 4.4e-07 of |51.9|), max |value diff| 1.91e-05 (rel 2.8e-07 of |69.2|), rel tol 1e-05 -> PASS
+[wn] real obs (2000 steps, 5 episode starts, recurrent): top action agrees 2000/2000 = 100.0%; max |logit diff| 3.81e-06 (rel 8.8e-08), max |action prob diff| 1.79e-07, max |value diff| 3.81e-06 (rel 1.6e-07) -> PASS
+[wn] wrote checkpoints_bignet/leg176_width512lstmhidden256.zip; num_timesteps=4014080 n_updates=93638

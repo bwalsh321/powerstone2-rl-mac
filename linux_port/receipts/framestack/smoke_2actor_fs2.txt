@@ -1,0 +1,19 @@
+[config] obs_stack=2 (learner sees the last 2 frames, oldest first)
+[config] actions=63 (joint direction x button)
+[config] recurrent=SkipLSTM hidden=128 layers=1 lstm_input=430 (newest frame) skip=[features,lstm]
+[config] batch_size override -> 256
+[config] learning_rate override -> 5e-05
+[config] target_kl override -> 0.03
+[config] learning_rate=5e-05 n_steps=2048 batch_size=256 n_epochs=10 gamma=0.999 gae_lambda=0.95 ent_coef=0.01 clip_range=0.2 net_arch=[256, 256] warm=fs_work/leg169_fs2 pool=./fs_work/pool n_envs=2 n_actors=2 total_steps=8192 instance_base=74 pull_every=0 env=ffa state_slots=[30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68] obs_v2=1 obs_ctx_fix=1 zs_time=1 obs_v3=1 obs_dim=430 obs_v4=1 obs_v4_itememb=keep obj_grid_n=208 pool_sampling=uniform states=./fs_work/states_mixed seats=0,2 mode=async
+[config] zero_sum=1 (r = own - mean(others); nearest-attacker damage attribution)
+[config] reward2: special_dmg_w=1.0 special_r=700 lost_extra_w=1.0 special_window=2s (20 steps | 120 frames, clock=frames) loss_scale_lv8=0.5 special_attrib=1 (learner-only; +0x32e4 hit source, owner +0x10)
+[config] start_health=U(0.5, 1.0) per seat (RAM write at reset)
+[actor 0] up: instance 74, policy v0
+[config] zero_sum=1 (r = own - mean(others); nearest-attacker damage attribution)
+[config] reward2: special_dmg_w=1.0 special_r=700 lost_extra_w=1.0 special_window=2s (20 steps | 120 frames, clock=frames) loss_scale_lv8=0.5 special_attrib=1 (learner-only; +0x32e4 hit source, owner +0x10)
+[config] start_health=U(0.5, 1.0) per seat (RAM write at reset)
+[actor 1] up: instance 75, policy v0
+[stats] update 1 approx_kl=0.01367 clip_fraction=0.117 entropy_loss=-1.85 explained_variance=0.8651 value_loss=5.391 policy_gradient_loss=-0.03658 loss=1.023 n_updates=8.574e+04
+[stats] update 2 approx_kl=0.01574 clip_fraction=0.1479 entropy_loss=-1.775 explained_variance=0.7731 value_loss=7.333 policy_gradient_loss=-0.03394 loss=1.169 n_updates=8.574e+04
+leg complete -> ./fs_work/smoke_fs2_out.zip
+episodes: 18

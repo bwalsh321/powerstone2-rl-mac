@@ -16,6 +16,7 @@ echo "$ROW" | grep -q "PS2_BUTTON_TAP=1" && export PS2_BUTTON_TAP=1
 G="$(echo "$ROW" | grep -o "PS2_OBJ_GRID_N=[0-9]*" | head -1)"; [ -n "$G" ] && export "$G"
 if echo "$ROW" | grep -q "PS2_OBS_V4=1"; then export PS2_OBS_V4=1
   E="$(echo "$ROW" | grep -o "PS2_OBS_V4_ITEMEMB=[a-z]*" | head -1)"; [ -n "$E" ] && export "$E"; fi
+K="$(echo "$ROW" | grep -o "PS2_OBS_STACK=[0-9]*" | head -1)"; [ -n "$K" ] && export "$K"   # Oct 13 2026: frame-stack option (eval stack_for checks the zip)
 mkdir -p receipts/hunter claude_bridge
 i=0
 for spec in "0 98" "7 98" "14 84"; do

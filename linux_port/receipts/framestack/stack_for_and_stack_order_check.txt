@@ -1,0 +1,8 @@
+stack_for leg169 (3010)     PS2_OBS_STACK=unset -> ok K,d=(7, 430)
+stack_for leg169 (3010)     PS2_OBS_STACK=7     -> ok K,d=(7, 430)
+stack_for leg169 (3010)     PS2_OBS_STACK=2     -> REFUSED (PS2_OBS_STACK=2 but the model reads 3010 inputs = K=7 x 430: wrong zip...)
+stack_for leg169_fs2 (860)  PS2_OBS_STACK=unset -> ok K,d=(2, 430)
+stack_for leg169_fs2 (860)  PS2_OBS_STACK=7     -> REFUSED (PS2_OBS_STACK=7 but the model reads 860 inputs = K=2 x 430: wrong zip ...)
+stack_for leg169_fs2 (860)  PS2_OBS_STACK=2     -> ok K,d=(2, 430)
+FrameStack(2) == last 2 blocks of FrameStack(7) on 40 frames incl. reset: True; lags [16, 8, 4, 3, 2, 1, 0] -> [1, 0]
+optimizer state: kept-column Adam moments + step counts identical to the parent: True

@@ -2,19 +2,19 @@
 import os, sys, json, subprocess, shutil, tempfile
 sys.path.insert(0, ".")
 os.environ.update(PS2_HUNTER_SEATS="0,2", PS2_FFA_SEATS="0,2", PS2_FFA_MAX_STEPS="6000")
-for k in ("PS2_HUNTER_P", "PS2_ZERO_SUM", "PS2_START_HEALTH", "PS2_DRILL_DIR", "PS2_DRILL_P"): os.environ.pop(k, None)
+for k in ("PS2_HUNTER_P", "PS2_ZERO_SUM", "PS2_START_HEALTH", "PS2_DRILL_DIR", "PS2_DRILL_P", "PS2_HANDICAP"): os.environ.pop(k, None)
 import numpy as np, torch as th
 th.set_num_threads(1)
 from ffa_selfplay_env import FFASelfPlayEnv
 from recurrent_policy import load_model, PolicyRunner
-from obs_stack import kd_for, FrameStack
+from obs_stack import stack_for, FrameStack   # Oct 13 2026: stack_for = kd_for + PS2_OBS_STACK check
 model_path, slots, out, inst = sys.argv[1], [int(x) for x in sys.argv[2].split(",")], sys.argv[3], int(sys.argv[4])
 pool = tempfile.mkdtemp(prefix="rec_hunt_"); os.symlink(os.path.abspath(model_path), os.path.join(pool, "opp.zip"))
 env = FFASelfPlayEnv(core_path=os.path.expanduser("~/cores/flycast_libretro.so"), game_path=os.path.abspath("../Power Stone 2 (USA).chd"),
                      states_dir="./states_mixed", state_slots=slots, instance_id=inst, bridge_dir=os.path.abspath(f"bridge_eval_{inst}"),
                      pool_dir=pool, opp_deterministic=True)
 model = load_model(model_path); runner = PolicyRunner(model); env.set_action_mode(int(model.action_space.n))
-k_, d_ = kd_for(model); fs = FrameStack(k_, d_) if k_ > 1 else None
+k_, d_ = stack_for(model); fs = FrameStack(k_, d_) if k_ > 1 else None
 env._legacy_proj_main = env._legacy_proj = (d_ == 122); env._legacy_item_main = env._legacy_item = (d_ <= 160)
 br = env._lr_bridge; emu = br.emu; h, w = emu.get_shape(); buf = np.zeros((h, w, 3), np.uint8)
 ff = shutil.which("ffmpeg")

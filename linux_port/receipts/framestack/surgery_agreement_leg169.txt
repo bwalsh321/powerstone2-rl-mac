@@ -1,0 +1,11 @@
+merged 2000 steps
+== variant: drop (default)
+[fs] powerstone_v6_leg169_league.zip (SkipLSTM, K=7 lags [16, 8, 4, 3, 2, 1, 0], 430/frame, 3010 inputs) -> fs_work/tmp_agree.zip (K=2 lags [1, 0], 860 inputs); kept src blocks [5, 6]; dropped lags [16, 8, 4, 3, 2]; narrowed ['mlp_extractor.policy_net.0.weight', 'mlp_extractor.value_net.0.weight']; Adam moments sliced: 4
+[fs] structure: 0 non-matching entries; exact check (dropped blocks = 0, random inputs, recurrent): max |logit diff| 2.29e-05 (rel 4.7e-07 of |49.0|), max |value diff| 3.43e-05 (rel 4.9e-07 of |69.4|), rel tol 1e-05 -> PASS
+[fs] real obs (2000 steps, 7 episode starts): top action agrees 630/2000 = 31.5%; policy TV mean 0.4941 (max 0.999), KL(parent||narrowed) mean 1.2913; sampled-move match vs parent-with-itself 64.4%; value |diff| mean 1.9113
+[fs] wrote fs_work/tmp_agree.zip; num_timesteps=4014080 n_updates=85725
+== variant: --fold
+[fs] powerstone_v6_leg169_league.zip (SkipLSTM, K=7 lags [16, 8, 4, 3, 2, 1, 0], 430/frame, 3010 inputs) -> fs_work/tmp_agree.zip (K=2 lags [1, 0], 860 inputs); kept src blocks [5, 6]; dropped lags [16, 8, 4, 3, 2]; folded {1: [16, 8, 4, 3, 2]}; narrowed ['mlp_extractor.policy_net.0.weight', 'mlp_extractor.value_net.0.weight']; Adam moments sliced: 4
+[fs] structure: 0 non-matching entries; exact check (dropped blocks = their fold target, random inputs, recurrent): max |logit diff| 6.48e-05 (rel 1.2e-06 of |52.0|), max |value diff| 1.45e-04 (rel 1.9e-06 of |78.0|), rel tol 1e-05 -> PASS
+[fs] real obs (2000 steps, 7 episode starts): top action agrees 1026/2000 = 51.3%; policy TV mean 0.3128 (max 0.975), KL(parent||narrowed) mean 0.5010; sampled-move match vs parent-with-itself 82.0%; value |diff| mean 0.3450
+[fs] wrote fs_work/tmp_agree.zip; num_timesteps=4014080 n_updates=85725

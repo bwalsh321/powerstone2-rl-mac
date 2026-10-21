@@ -1,0 +1,18 @@
+[dump] obs_dim=430 slots=(30, 55) steps=1500 views=6000 dones=5 -> <scratch>/flagoff1500/hcapflag_new.npz
+[dump] obs_dim=430 slots=(30, 55) steps=1500 views=6000 dones=5 -> <scratch>/flagoff1500/hcapflag_on_noslot.npz
+[dump] obs_dim=430 slots=(30, 55) steps=1500 views=6000 dones=5 -> <scratch>/flagoff1500/hcapflag_old.npz
+[cmp] new       obs_30   old (1503, 430) vs (1503, 430): BIT-IDENTICAL
+[cmp] new       rew_30   old (1500,) vs (1500,): BIT-IDENTICAL
+[cmp] new       done_30  old (1500,) vs (1500,): BIT-IDENTICAL
+[cmp] new       obs_55   old (1504, 430) vs (1504, 430): BIT-IDENTICAL
+[cmp] new       rew_55   old (1500,) vs (1500,): BIT-IDENTICAL
+[cmp] new       done_55  old (1500,) vs (1500,): BIT-IDENTICAL
+[cmp] new       views    old (6000, 430) vs (6000, 430): BIT-IDENTICAL
+[cmp] on_noslot obs_30   old (1503, 430) vs (1503, 430): BIT-IDENTICAL
+[cmp] on_noslot rew_30   old (1500,) vs (1500,): BIT-IDENTICAL
+[cmp] on_noslot done_30  old (1500,) vs (1500,): BIT-IDENTICAL
+[cmp] on_noslot obs_55   old (1504, 430) vs (1504, 430): BIT-IDENTICAL
+[cmp] on_noslot rew_55   old (1500,) vs (1500,): BIT-IDENTICAL
+[cmp] on_noslot done_55  old (1500,) vs (1500,): BIT-IDENTICAL
+[cmp] on_noslot views    old (6000, 430) vs (6000, 430): BIT-IDENTICAL
+handicap flag-off bit-identity: PASS

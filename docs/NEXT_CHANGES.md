@@ -1,8 +1,64 @@
 # Next leg changes (queue) — kept current by the Ryzen session
 
-Last updated: Oct 12 2026, 9:30 am EDT. Full session state: docs/SESSION_HANDOFF_RYZEN.md.
+Last updated: Oct 14 2026, 9 am EDT. Full session state: docs/SESSION_HANDOFF_RYZEN.md.
 KL fix (PS2_PPO_KL_REF=prox), recent-only opponent pool (legs 113+), training slots 30-43 + 50-68, no DAgger.
 Reads: vision legs 134-138 = 44.6% lv8mix; + pool/mix legs 139-142 = 47.6% (142 = 51.6%, the record).
+
+## QUEUED BY BLAKE (Oct 13): learning rate -> frame stack -> bigger network, one at a time, 3-leg reads
+
+Hunters at 50% (legs 165-167): sampled lv8mix 57.2 / 51.0 / 49.6 (168 = 52.2), hunted 17.5 / 11.4 / 15.4: no lasting
+gain over ~50 / ~12 before. Hunters stay at 50% (not changed).
+RESULT: lr 5e-5 KEPT. Legs 170-172 sampled 56.9 / 61.3 / 57.5 = 58.6 vs 52.0 (166-169); top-move 68.0 / 64.6 (records).
+2. **NOW: frame stack 7 -> 2 (fold) from leg 174** (league_env.txt PS2_OBS_STACK=2 + `174 framestack2fold` in
+   league_surgery.txt; previous: claude_bridge/league_env_leg173.txt). Fold = dropped frames' weights added onto lag 1
+   (51% same top action as the parent vs 31% for plain drop). Read 174-176 vs 170-173 (sampled).
+1. (done) learning rate 1e-4 -> 5e-5 from leg 170 (league_optim.txt; previous: claude_bridge/league_optim_leg169.txt).
+   Read legs 170-172 sampled lv8mix vs 166-169 (~51). Watch entropy (rose to 2.04 at 167, back to 1.75 at 168).
+2. Frame stack 7 -> 2 (model input shape changes; own read).
+RESULT: frame stack 2 (fold) KEPT. Legs 174-176 = 57.4 / 61.9 / 61.4 (60.2 on the same 1000 games vs 59.8 for 171-173);
+   hunted ~20 vs ~16.5; legs ~20% longer (more gradient steps before the KL stop).
+RESULT: 512 KEPT. Legs 179-181 = 64.4 / 62.8 / 64.8 = 64.0 vs 60.9 (176-178) on the same 1000 games; legs ~4 h.
+3. (done) bigger network, MLP 256 -> 512 from leg 179 (league_env.txt PS2_NET_WIDTH=512 + `179 widen512`; previous:
+   claude_bridge/league_env_leg178.txt; built (agent, worktree .claude/worktrees/bignet, branch bignet): function-preserving
+   widening 256 -> 512 (Net2Net style), speed cost measured before turn-on. The old 512-wide test predates memory and vision.
+RESULT (Oct 19): lr 1.25e-5 NEUTRAL, kept (no harm). lv8mix 202-204 = 69.8 vs 70.7 (199-201) on the same games;
+sealed Desert 204 = 70.7 vs 200 = 72.0. The lr lever looks spent. Next: the adaptive handicap (warlock.ai idea; needs
+code: lower the bot's start health while its training win rate is high), or more lineup/stage diversity. Blake decides
+after vacation.
+(done) learning rate 2.5e-5 -> 1.25e-5 from leg 202 (previous:
+claude_bridge/league_optim_leg201.txt). Main test flat since 191-193 (69.7); read 202-204 on lv8mix + sealed.
+RESULT: pool recent-only KEPT. lv8mix even (198-200 = 69.3 vs 69.6), but sealed Desert 196 = 66.0 -> 198 = 71.3,
+200 = 72.0 (unseen lineups). Old snapshots stay in pool_league_archive/.
+(done) opponent pool recent-only from leg 198. Pool snapshots from legs <170 (513 of 741
+files) MOVED to pool_league_archive/ in the battery window after leg 197 trains (no deletes; move back to undo).
+Plateau: the 3-leg high is 69.7 (191-193), then 68.7 / 69.4 / 68.4 (leg 196 = 68.0). Read 198-200 on lv8mix AND the
+sealed set (sealed_grade.sh, branch sealed-ent; baseline leg 196 running).
+Sealed set (Oct 17, slots 95-99: 3 new Desert lineups + Blue Sky + Dark Castle), Desert 95-97:
+leg 169 = 54.7, 178 = 63.7, 193 = 64.0; new stages ~2% (the bot never trains off Desert).
+So 169 -> 178 generalized (+9), but 178 -> 193 (+10 on lv8mix) did not show on unseen lineups.
+RESULT: lr 2.5e-5 KEPT. Legs 191-193 = 71.1 / 66.8 / 71.2 = 69.7 vs 66.0 (187-190) on the same 1000 games; top-move
+   74.4 / 77.4 / 73.4. Riding until the next plateau; then LSTM 256 (vacation plan step 4).
+4. (done) learning rate 5e-5 -> 2.5e-5 from leg 191. 512 rode 179-190: 3-leg highs 64.0 ->
+   68.4 (185-187), then 68.1, 66.3 (leg 189 = 64.5); leg 190 would need 74.6 to set a new high. Previous:
+   claude_bridge/league_optim_leg190.txt. Read 191-193 vs 187-190 (sampled ~66-67). (Was: another learning-rate cut (5e-5 -> 2.5e-5) whenever the grade goes flat for 3-4 legs again (Blake, Oct 13:
+   lr 1e-4 -> 5e-5 took sampled 52 -> 59; not touched while another change is being read).
+Later ideas: a small reward for finishing low-health opponents / not standing next to transformed ones (scouts keep
+showing both; reward changes have hurt before, leg 143).
+
+## IDEA QUEUE from warlock.ai's Warcraft III agent (Oct 18, https://warlock.ai/blog/warcraftsim-1/)
+1. **Adaptive handicap to keep training ~50/50.** They taxed the built-in AI's resources after losses and untaxed
+   it after wins. Our 3-CPU training win rate is 66% and lv8 is the CPU max, so handicap the BOT instead: lower its
+   start health (PS2_START_HEALTH exists) when training win rate is high. Top pick after the current lr read.
+   BUILT Oct 19 (branch `handicap`, not merged, OFF by default; linux_port/handicap.py): PS2_HANDICAP=1 multiplies the
+   learner's start health by h in [0.5, 1] on slots 50-68 only (on top of its START_HEALTH draw; other seats and
+   slots 30-43 untouched). After each such round h -= 0.01 x (won - 0.55): settles where the bot wins 55%. Carried
+   across legs in claude_bridge/handicap_state/. [ep] lines on 50-68 end in `hcap=<h> hema=<win EMA>`; `[hcap]` lines
+   every 25 rounds per actor. Evals never handicapped. Turn on: add `PS2_HANDICAP=1` to league_env.txt between legs.
+   Read: training win rate on 50-68 should fall toward 55%; grade on sampled lv8mix + sealed as usual.
+2. UPGO credit assignment (algorithm change; later).
+3. Throughput: "most of the speed came from removing waste". Profile the learner (now the bottleneck).
+Their eval on an unseen map matches our sealed set; their weakness (one strategy, no diversity) matches ours
+(Desert-only, familiar lineups).
 
 ## TRIED AND TURNED OFF (Oct 10): practice start points (drill resets), legs 157-160
 
@@ -82,7 +138,9 @@ not ignored, then maybe train against it. Spec: docs/HUNTER_PROJECT.md. Runs on 
 
 ## Later (from the Oct 6 audit)
 - Frame stack 7 -> 2 (the LSTM may make it redundant; model shape changes, own read).
-- Second sealed held-out lineup set (Desert, new 3-CPU lineups) for confirming big claims.
+- Second sealed held-out lineup set: BUILT Oct 17 on branch sealed-ent (states/slot95-99: three Desert + Blue Sky +
+  Dark Castle, new 3-CPU lineups; `sealed_grade.sh <N>`, 500 sampled rounds, run by hand only to confirm big claims;
+  linux_port/states_sealed/README.md). Same branch: PS2_ENT_COEF=<x> accepted in league_optim.txt (audit item 2).
 - Scout upgrades: count double jumps / taps per episode in the log; 15-30 fps clips around events; scout a
   held-out lineup.
 - Fresh drills under vision for Blake (DAgger stays off; idea: use drill states as RL start points, no imitation).

@@ -22,6 +22,8 @@ GRID_N="$(awk -v n="$N" '$1==n' leg_modes.txt 2>/dev/null | grep -o "PS2_OBJ_GRI
 # Oct 5 2026 (obs v4): a leg trained with PS2_OBS_V4=1 is scouted under the v4 contract (and its [12..17] mode)
 if awk -v n="$N" '$1==n' leg_modes.txt 2>/dev/null | grep -q "PS2_OBS_V4=1"; then export PS2_OBS_V4=1
   V4EMB="$(awk -v n="$N" '$1==n' leg_modes.txt 2>/dev/null | grep -o "PS2_OBS_V4_ITEMEMB=[a-z]*" | head -1)"; [ -n "$V4EMB" ] && export "$V4EMB"; fi
+# Oct 13 2026 (frame-stack option): the leg's stack (watch_play.py builds it from the zip, stack_for checks it against this)
+STACK_K="$(awk -v n="$N" '$1==n' leg_modes.txt 2>/dev/null | grep -o "PS2_OBS_STACK=[0-9]*" | head -1)"; [ -n "$STACK_K" ] && export "$STACK_K"
 if [ "$(uname)" = "Darwin" ]; then CORE="$HOME/Library/Application Support/RetroArch/cores/flycast_libretro.dylib"; else CORE="${PS2_CORE:-$HOME/cores/flycast_libretro.so}"; fi; GAME="../Power Stone 2 (USA).chd"
 mkdir -p videos claude_bridge
 echo "scout leg $N start $(date)"

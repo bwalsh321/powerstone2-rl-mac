@@ -1,0 +1,9 @@
+
+================ EVAL SUMMARY ================
+model=powerstone_v6_leg204_league.zip  slot=95  n=500  mode=stochastic  distinct-outcome-tuples~446  distinct-episodes=500  shards=10x50  slots=95,96,97,98,99
+win% :  42.8   (214W/286L/0T)   95% Wilson [39-47]
+picks:  8.25 /ep
+forms:  2.17 /ep
+per-slot: slot95=75W/100  slot96=76W/100  slot97=61W/100  slot98=2W/100  slot99=0W/100
+shard files: eval_leg204_sealed_s0_out.txt eval_leg204_sealed_s1_out.txt eval_leg204_sealed_s2_out.txt eval_leg204_sealed_s3_out.txt eval_leg204_sealed_s4_out.txt eval_leg204_sealed_s5_out.txt eval_leg204_sealed_s6_out.txt eval_leg204_sealed_s7_out.txt eval_leg204_sealed_s8_out.txt eval_leg204_sealed_s9_out.txt
+desert 95-97: 70.7% (212W/300)   new stages 98-99: 1.0% (2W/200)

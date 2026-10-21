@@ -7,6 +7,7 @@ the LSTMs keep their fresh initialisation (their output is multiplied by zero un
 columns). Hyperparameters, num_timesteps and n_updates are carried over. Check with equivalence_lstm.py.
 """
 import argparse
+import os
 
 import gymnasium
 import numpy as np
@@ -19,7 +20,7 @@ from recurrent_policy import CUSTOM_OBJECTS, SkipLSTMPolicy
 
 ap = argparse.ArgumentParser()
 ap.add_argument("src"); ap.add_argument("dst")
-ap.add_argument("--hidden", type=int, default=128)
+ap.add_argument("--hidden", type=int, default=int(os.environ.get("PS2_LSTM_HIDDEN", "").strip() or 128))  # Oct 14 2026
 ap.add_argument("--seed", type=int, default=0)
 a = ap.parse_args()
 th.manual_seed(a.seed)
