@@ -1,0 +1,25 @@
+[config] net_width=[512, 512] lstm_hidden=128 (PS2_NET_WIDTH=512 PS2_LSTM_HIDDEN=unset: zip matches)
+[config] learning_rate=5e-05 n_steps=2048 batch_size=256 n_epochs=10 gamma=0.999 gae_lambda=0.95 ent_coef=0.01 clip_range=0.2 net_arch=[512, 512] warm=./checkpoints_bignet/leg176_width512 pool=./checkpoints_bignet/pool_smoke n_envs=2 n_actors=2 total_steps=12288 instance_base=76 pull_every=64 env=ffa obs_v2=1 obs_ctx_fix=1 zs_time=1 obs_v3=1 obs_dim=430 obs_v4=1 obs_v4_itememb=keep obj_grid_n=208 pool_sampling=uniform states=./checkpoints_bignet/states_mixed seats=0,2 mode=async
+      6 [opp] P1=leg175_256.zip P3=leg175_256.zip
+      8 [opp] P1=leg175_256.zip P3=leg176_w512.zip
+      7 [opp] P1=leg176_w512.zip P3=leg175_256.zip
+     10 [opp] P1=leg176_w512.zip P3=leg176_w512.zip
+[check] update 1 lag0_steps=4096/4096 logp_maxdiff=1.34e-05 value_maxdiff=1.14e-05
+[ppo] update 1 kl_ref=prox grad_steps=43/160 (26.9%) epochs_started=3 adv_norm=minibatch split_clip=0 kl0_staleness=0.0000
+[learner] update 1 steps=4096 nan steps/s (since end of update 1) train=10.1s lag(min/mean/max)=0/0.00/0 step_lag=0.00 actors=[0, 1] ep_starts_in_batch=10 mean_reward=+0.0480
+[stats] update 1 approx_kl=0.01385 clip_fraction=0.09925 entropy_loss=-2.275 explained_variance=0.9477 value_loss=5.236 policy_gradient_loss=-0.01553 loss=0.05118 n_updates=9.364e+04
+[check] update 2 lag0_steps=3264/4096 logp_maxdiff=1.34e-05 value_maxdiff=1.91e-05
+[ppo] update 2 kl_ref=prox grad_steps=72/160 (45.0%) epochs_started=5 adv_norm=minibatch split_clip=0 kl0_staleness=0.0000
+[learner] update 2 steps=8192 31.3 steps/s (since end of update 1) train=15.5s lag(min/mean/max)=1/1.00/1 step_lag=0.20 actors=[0, 1] ep_starts_in_batch=10 mean_reward=+0.0275
+[stats] update 2 approx_kl=0.01714 clip_fraction=0.1141 entropy_loss=-2.055 explained_variance=0.9317 value_loss=5.724 policy_gradient_loss=-0.02349 loss=0.1373 n_updates=9.365e+04
+[check] update 3 lag0_steps=3136/4096 logp_maxdiff=1.53e-05 value_maxdiff=1.81e-05
+[ppo] update 3 kl_ref=prox grad_steps=160/160 (100.0%) epochs_started=10 adv_norm=minibatch split_clip=0 kl0_staleness=0.0025
+[learner] update 3 steps=12288 31.1 steps/s (since end of update 1) train=26.4s lag(min/mean/max)=1/1.00/1 step_lag=0.23 actors=[0, 1] ep_starts_in_batch=7 mean_reward=+0.0265
+[stats] update 3 approx_kl=0.01786 clip_fraction=0.1644 entropy_loss=-2.119 explained_variance=0.9488 value_loss=2.909 policy_gradient_loss=-0.0456 loss=1.978 n_updates=9.366e+04
+leg complete -> ./checkpoints_bignet/smoke_w512_out.zip
+== after 3 updates, the new units' outgoing weights have left zero:
+smoke out widths ([512, 512], [512, 512], 128)
+mlp_extractor.policy_net.2.weight old rows x new cols max|w| = 0.007653607986867428  old cols mean|w| = 0.37560901045799255
+mlp_extractor.value_net.2.weight old rows x new cols max|w| = 0.017499299719929695  old cols mean|w| = 0.42138463258743286
+action_net.weight new cols max|w| = 0.010037192143499851  old cols mean|w| = 0.21757274866104126
+value_net.weight new cols max|w| = 0.012467973865568638  old cols mean|w| = 0.7761985659599304

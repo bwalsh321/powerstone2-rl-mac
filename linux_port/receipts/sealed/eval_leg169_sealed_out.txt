@@ -1,0 +1,9 @@
+
+================ EVAL SUMMARY ================
+model=powerstone_v6_leg169_league.zip  slot=95  n=500  mode=stochastic  distinct-outcome-tuples~470  distinct-episodes=500  shards=10x50  slots=95,96,97,98,99
+win% :  33.6   (168W/332L/0T)   95% Wilson [30-38]
+picks:  7.71 /ep
+forms:  1.88 /ep
+per-slot: slot95=58W/100  slot96=52W/100  slot97=54W/100  slot98=2W/100  slot99=2W/100
+shard files: eval_leg169_sealed_s0_out.txt eval_leg169_sealed_s1_out.txt eval_leg169_sealed_s2_out.txt eval_leg169_sealed_s3_out.txt eval_leg169_sealed_s4_out.txt eval_leg169_sealed_s5_out.txt eval_leg169_sealed_s6_out.txt eval_leg169_sealed_s7_out.txt eval_leg169_sealed_s8_out.txt eval_leg169_sealed_s9_out.txt
+desert 95-97: 54.7% (164W/300)   new stages 98-99: 2.0% (4W/200)

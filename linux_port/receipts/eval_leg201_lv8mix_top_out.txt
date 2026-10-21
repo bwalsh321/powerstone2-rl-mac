@@ -1,0 +1,8 @@
+
+================ EVAL SUMMARY ================
+model=powerstone_v6_leg201_league.zip  slot=90  n=500  mode=deterministic  distinct-outcome-tuples~356  distinct-episodes=500  shards=10x50  slots=90,91,92,93,94
+win% :  75.8   (379W/121L/0T)   95% Wilson [72-79]
+picks: 11.76 /ep
+forms:  3.44 /ep
+per-slot: slot90=73W/100  slot91=69W/100  slot92=74W/100  slot93=75W/100  slot94=88W/100
+shard files: eval_leg201_lv8mix_top_s0_out.txt eval_leg201_lv8mix_top_s1_out.txt eval_leg201_lv8mix_top_s2_out.txt eval_leg201_lv8mix_top_s3_out.txt eval_leg201_lv8mix_top_s4_out.txt eval_leg201_lv8mix_top_s5_out.txt eval_leg201_lv8mix_top_s6_out.txt eval_leg201_lv8mix_top_s7_out.txt eval_leg201_lv8mix_top_s8_out.txt eval_leg201_lv8mix_top_s9_out.txt

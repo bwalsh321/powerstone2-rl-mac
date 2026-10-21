@@ -62,6 +62,11 @@ fi
 # Oct 5 2026: the object-grid width a leg trained with (PS2_OBJ_GRID_N=208 in its row) is its eval contract too.
 GRID_N="$(awk -v n="$N" '$1==n' leg_modes.txt 2>/dev/null | grep -o "PS2_OBJ_GRID_N=[0-9]*" | head -1)"
 if [ -n "$GRID_N" ]; then export "$GRID_N"; echo "battery leg $N: object-grid eval contract ($GRID_N)"; fi
+# Oct 13 2026 (frame-stack option): the stack a leg trained with (PS2_OBS_STACK=K in its row). The evaluators build the
+# stack from the zip's width (obs_stack.stack_for) and refuse a zip that disagrees with this. No echo: the battery log
+# of a K=7 leg stays as it was.
+STACK_K="$(awk -v n="$N" '$1==n' leg_modes.txt 2>/dev/null | grep -o "PS2_OBS_STACK=[0-9]*" | head -1)"
+if [ -n "$STACK_K" ]; then export "$STACK_K"; else unset PS2_OBS_STACK; fi
 # Oct 5 2026 (obs v4): a leg trained with PS2_OBS_V4=1 (430/frame) is evaluated under the v4 contract, with the same
 # [12..17] item-embedding mode; older (<=160/frame) champions/opponents read obs[:160] with their own [12..17].
 if awk -v n="$N" '$1==n' leg_modes.txt 2>/dev/null | grep -q "PS2_OBS_V4=1"; then
@@ -156,11 +161,15 @@ fi
 # Sep 25 2026 (Blake: "it has to be a test"): 4th eval = five HELD-OUT three-lv8-COM lineups (states/slot90-94,
 # never trained on), n = SHARDS x S3_PER over the set, uniformly sampled per episode. Not part of the hold rule.
 # PS2_LV8MIX=0 disables.
+# Oct 12 2026 (Blake): the per-leg grade samples the bot's moves (the way it trains). Top-move grades swung +-15 points
+# from brittleness (145-148, 163-164) while sampled play held; the top-move number now runs beside the next leg
+# (top_grade.sh). PS2_LV8MIX_MODE=deterministic restores the old grade.
+LV8MIX_STOCH=""; [ "${PS2_LV8MIX_MODE:-stochastic}" = "stochastic" ] && LV8MIX_STOCH="--stochastic"
 if [ "${PS2_LV8MIX:-1}" = "1" ]; then
-  echo "battery leg $N: lv8mix held-out set (slots 90-94)"
+  echo "battery leg $N: lv8mix held-out set (slots 90-94), ${LV8MIX_STOCH:+sampled moves}${LV8MIX_STOCH:-top moves}"
   # Oct 1 2026 (Blake: lv8mix is the number that matters): n = 1000 (200 per lineup) = SHARDS x (1000/SHARDS).
   sharded_eval lv8mix slot "${PS2_LV8MIX_PER_SHARD:-$((1000 / SHARDS))}" --model "$M" --slot 90 --slots 90,91,92,93,94 -- \
-    python eval_parity.py --core "$CORE" --game "$GAME" --slots 90,91,92,93,94 --model "$M"
+    python eval_parity.py --core "$CORE" --game "$GAME" --slots 90,91,92,93,94 --model "$M" $LV8MIX_STOCH
 fi
 
 if [ ${#FAILED[@]} -gt 0 ]; then
@@ -225,6 +234,14 @@ echo DONE > "claude_bridge/battery_leg${N}_done.txt"
 # reviewer, in its own tmux session so the relay never waits (scout_leg.sh, ~5-25 min on instance 11).
 if [ "${PS2_LEG_VIDEO:-1}" = "1" ]; then
   tmux new -s "scout${N}" -d "bash $(pwd)/scout_leg.sh $N > videos/scout_leg${N}.log 2>&1" && echo "battery leg $N: scouting clip started in tmux scout${N}"
+  # Oct 9 2026 (Blake): sampled-move grade beside the next leg (stoch_grade.sh; never gates the relay)
+  if [ -n "$LV8MIX_STOCH" ]; then
+    tmux new -s "top${N}" -d "bash $(pwd)/top_grade.sh $N > claude_bridge/top_leg${N}.log 2>&1" && echo "battery leg $N: top-move grade started in tmux top${N}"
+  else
+    tmux new -s "stoch${N}" -d "bash $(pwd)/stoch_grade.sh $N > claude_bridge/stoch_leg${N}.log 2>&1" && echo "battery leg $N: sampled-move grade started in tmux stoch${N}"
+  fi
+  # Oct 11 2026 (Blake): hunted grade (hunt_grade.sh: two hunter bots + one lv8 CPU on slots 30-43; never gates the relay)
+  tmux new -s "hunt${N}" -d "bash $(pwd)/hunt_grade.sh $N > claude_bridge/hunt_leg${N}.log 2>&1" && echo "battery leg $N: hunted grade started in tmux hunt${N}"
 fi
 LAUNCH_MODE="$(tr -d '[:space:]' < league_trainer.txt 2>/dev/null || echo lockstep)"
 # Oct 1 2026 (GPT review P1): the battery may evaluate anywhere, but only the training host launches.

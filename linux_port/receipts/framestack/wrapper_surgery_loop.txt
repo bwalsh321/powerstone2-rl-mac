@@ -1,0 +1,32 @@
+== f) flag off (no framestack line), OLD wrapper
+    -> exit 0 PREV=./powerstone_v6_leg169_league.zip PS2_WARM=unset ARENA=PS2_OBS_STACK=7 RECURRENT=lstm128 ACTIONS=joint63 OBS=v4
+  (status 0)
+== f) flag off (no framestack line), NEW wrapper
+    -> exit 0 PREV=./powerstone_v6_leg169_league.zip PS2_WARM=unset ARENA=PS2_OBS_STACK=7 RECURRENT=lstm128 ACTIONS=joint63 OBS=v4
+  (status 0)
+== c) framestack2 listed but PS2_OBS_STACK=7
+  [wrapper-async] leg 170 REFUSED: framestack2 surgery listed but league_env.txt has PS2_OBS_STACK=7, not 2; nothing launched Tue Oct 13 06:19:56 AM EDT 2026
+  (status 2)
+== e) bad kind framestackx
+  [wrapper-async] leg 170 REFUSED: bad surgery kind 'framestackx' (framestack<K> or framestack<K>fold); nothing launched Tue Oct 13 06:20:05 AM EDT 2026
+  (status 2)
+== a) framestack2 from leg 170, PS2_OBS_STACK=2
+    -> exit 0 PREV=./powerstone_v6_leg169_fs2.zip PS2_WARM=./powerstone_v6_leg169_fs2.zip ARENA=PS2_OBS_STACK=2 RECURRENT=lstm128 ACTIONS=joint63 OBS=v4 FRAMESTACK=2
+  (status 0)
+== b) next leg: warm zip already K=2 (no second surgery)
+    -> exit 0 PREV=./powerstone_v6_leg169_fs2.zip PS2_WARM=unset ARENA=PS2_OBS_STACK=2 RECURRENT=lstm128 ACTIONS=joint63 OBS=v4 FRAMESTACK=2
+  (status 0)
+== d) framestack2fold
+    -> exit 0 PREV=./powerstone_v6_leg169_fs2fold.zip PS2_WARM=./powerstone_v6_leg169_fs2fold.zip ARENA=PS2_OBS_STACK=2 RECURRENT=lstm128 ACTIONS=joint63 OBS=v4 FRAMESTACK=2fold
+  (status 0)
+== wrapper_league.log
+[wrapper-async] leg 170 REFUSED: framestack2 surgery listed but league_env.txt has PS2_OBS_STACK=7, not 2; nothing launched Tue Oct 13 06:19:56 AM EDT 2026
+[wrapper-async] leg 170 REFUSED: bad surgery kind 'framestackx' (framestack<K> or framestack<K>fold); nothing launched Tue Oct 13 06:20:05 AM EDT 2026
+[wrapper-async] leg 170: surgery framestack2 ./powerstone_v6_leg169_league.zip -> ./powerstone_v6_leg169_fs2.zip Tue Oct 13 06:20:17 AM EDT 2026
+[fs] ./powerstone_v6_leg169_league.zip (SkipLSTM, K=7 lags [16, 8, 4, 3, 2, 1, 0], 430/frame, 3010 inputs) -> ./powerstone_v6_leg169_fs2.zip (K=2 lags [1, 0], 860 inputs); kept src blocks [5, 6]; dropped lags [16, 8, 4, 3, 2]; narrowed ['mlp_extractor.policy_net.0.weight', 'mlp_extractor.value_net.0.weight']; Adam moments sliced: 4
+[fs] structure: 0 non-matching entries; exact check (dropped blocks = 0, random inputs, recurrent): max |logit diff| 2.29e-05 (rel 4.7e-07 of |49.0|), max |value diff| 3.43e-05 (rel 4.9e-07 of |69.4|), rel tol 1e-05 -> PASS
+[fs] wrote ./powerstone_v6_leg169_fs2.zip; num_timesteps=4014080 n_updates=85725
+[wrapper-async] leg 170: surgery framestack2fold ./powerstone_v6_leg169_league.zip -> ./powerstone_v6_leg169_fs2fold.zip Tue Oct 13 06:20:45 AM EDT 2026
+[fs] ./powerstone_v6_leg169_league.zip (SkipLSTM, K=7 lags [16, 8, 4, 3, 2, 1, 0], 430/frame, 3010 inputs) -> ./powerstone_v6_leg169_fs2fold.zip (K=2 lags [1, 0], 860 inputs); kept src blocks [5, 6]; dropped lags [16, 8, 4, 3, 2]; folded {1: [16, 8, 4, 3, 2]}; narrowed ['mlp_extractor.policy_net.0.weight', 'mlp_extractor.value_net.0.weight']; Adam moments sliced: 4
+[fs] structure: 0 non-matching entries; exact check (dropped blocks = their fold target, random inputs, recurrent): max |logit diff| 6.48e-05 (rel 1.2e-06 of |52.0|), max |value diff| 1.45e-04 (rel 1.9e-06 of |78.0|), rel tol 1e-05 -> PASS
+[fs] wrote ./powerstone_v6_leg169_fs2fold.zip; num_timesteps=4014080 n_updates=85725

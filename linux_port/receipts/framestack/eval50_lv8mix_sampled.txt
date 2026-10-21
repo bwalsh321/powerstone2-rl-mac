@@ -1,0 +1,36 @@
+== leg169 shard 0
+================ EVAL SUMMARY ================
+model=powerstone_v6_leg169_league.zip  slot=90  n=25  mode=stochastic  distinct-outcome-tuples~23  slots=90,91,92,93,94
+win% :  48.0   (12W/13L/0T)   95% Wilson [30-67]
+picks: 10.88 /ep
+forms:  2.88 /ep
+== leg169 shard 1
+================ EVAL SUMMARY ================
+model=powerstone_v6_leg169_league.zip  slot=90  n=25  mode=stochastic  distinct-outcome-tuples~23  slots=90,91,92,93,94
+win% :  56.0   (14W/11L/0T)   95% Wilson [37-73]
+picks:  9.80 /ep
+forms:  2.68 /ep
+== fs2 shard 0
+================ EVAL SUMMARY ================
+model=leg169_fs2.zip  slot=90  n=25  mode=stochastic  distinct-outcome-tuples~21  slots=90,91,92,93,94
+win% :  60.0   (15W/10L/0T)   95% Wilson [41-77]
+picks: 10.88 /ep
+forms:  3.00 /ep
+== fs2 shard 1
+================ EVAL SUMMARY ================
+model=leg169_fs2.zip  slot=90  n=25  mode=stochastic  distinct-outcome-tuples~21  slots=90,91,92,93,94
+win% :  56.0   (14W/11L/0T)   95% Wilson [37-73]
+picks: 10.60 /ep
+forms:  2.72 /ep
+== fs2fold shard 0
+================ EVAL SUMMARY ================
+model=leg169_fs2fold.zip  slot=90  n=25  mode=stochastic  distinct-outcome-tuples~23  slots=90,91,92,93,94
+win% :  48.0   (12W/13L/0T)   95% Wilson [30-67]
+picks:  9.72 /ep
+forms:  2.40 /ep
+== fs2fold shard 1
+================ EVAL SUMMARY ================
+model=leg169_fs2fold.zip  slot=90  n=25  mode=stochastic  distinct-outcome-tuples~23  slots=90,91,92,93,94
+win% :  44.0   (11W/14L/0T)   95% Wilson [27-63]
+picks:  9.76 /ep
+forms:  2.52 /ep

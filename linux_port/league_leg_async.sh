@@ -68,16 +68,33 @@ ENTC="$(tr -d '[:space:]' < league_entcoef.txt 2>/dev/null)"
 # league_optim.txt (e.g. "PS2_LR=1e-4" or "PS2_LR=1e-4 PS2_BATCH_SIZE=256"); absent/empty
 # = the zip's values. Exported here, printed by the trainer as "[config] ... override",
 # recorded in leg_modes.txt as a fourth column. Sweep 40 result: lr 1e-4 -> lv8 13.6.
+# Oct 17 2026 (audit item 2, entropy anneal): PS2_ENT_COEF=<x> is allowed here too (the trainer prints "[config]
+# ent_coef override -> x"); it takes precedence over league_entcoef.txt and is written into the third leg_modes column as
+# well as the optim column. A value that is not a plain number refuses the leg before any Python runs (a trainer that
+# dies at boot would hit the retry path below). Absent = exactly the old behaviour.
 OPTIM="$(tr -s '[:space:]' ' ' < league_optim.txt 2>/dev/null | sed 's/^ //;s/ $//')"
-for kv in $OPTIM; do case "$kv" in PS2_LR=*|PS2_BATCH_SIZE=*|PS2_TARGET_KL=*) export "$kv" ;; *) echo "[wrapper-async] ignoring unknown override $kv" >> wrapper_league.log ;; esac; done
+for kv in $OPTIM; do case "$kv" in
+  PS2_LR=*|PS2_BATCH_SIZE=*|PS2_TARGET_KL=*) export "$kv" ;;
+  PS2_ENT_COEF=*)
+    [[ "${kv#PS2_ENT_COEF=}" =~ ^([0-9]+\.?[0-9]*|\.[0-9]+)([eE][-+]?[0-9]+)?$ ]] || {
+      echo "[wrapper-async] leg $N REFUSED: bad $kv in league_optim.txt (want a number, e.g. PS2_ENT_COEF=0.005); nothing launched $(date)" | tee -a wrapper_league.log >&2; exit 2; }
+    export "$kv"; ENTC="${kv#PS2_ENT_COEF=}" ;;
+  *) echo "[wrapper-async] ignoring unknown override $kv" >> wrapper_league.log ;;
+esac; done
 # Sep 20: training-only ARENA flags, one line of VAR=VAL pairs in league_env.txt
 # (PS2_ZERO_SUM=1, PS2_START_HEALTH=lo,hi); absent/empty = off. Exported here, the
 # FFA env prints "[config] zero_sum=1" / "[config] start_health=...", recorded in
 # leg_modes.txt as a fifth column. Evals never see these (base env), so the eval
 # contract is unchanged.
 ARENA="$(tr -s '[:space:]' ' ' < league_env.txt 2>/dev/null | sed 's/^ //;s/ $//')"
-unset PS2_OBS_V4 PS2_OBS_V4_ITEMEMB PS2_DMG_ATTRIB PS2_GEM_EP_CAP    # Oct 5 2026 (Oct 7: + reward-cleanup flags): the v4 contract comes from league_env.txt only, never an inherited env
-for kv in $ARENA; do case "$kv" in PS2_ZERO_SUM=*|PS2_START_HEALTH=*|PS2_STATE_SLOTS=*|PS2_OBS_STACK=*|PS2_OBS_CTX_FIX=*|PS2_ZS_TIME=*|PS2_OBS_V3=*|PS2_SPECIAL_DMG_W=*|PS2_SPECIAL_R=*|PS2_LOST_EXTRA_W=*|PS2_LOSS_SCALE_LV8=*|PS2_SPECIAL_WINDOW=*|PS2_SPECIAL_WINDOW_CLOCK=*|PS2_SPECIAL_EVENTS=*|PS2_SPECIAL_ATTRIB=*|PS2_BUTTON_TAP=*|PS2_DEMOS=*|PS2_BC_COEF=*|PS2_BC_STEPS=*|PS2_BC_SEQS=*|PS2_BC_ANNEAL=*|PS2_BC_HOLDOUT=*|PS2_BC_EVAL=*|PS2_BC_PATIENCE=*|PS2_BC_RESULTS=*|PS2_OBJ_GRID_N=*|PS2_OBS_V4=*|PS2_OBS_V4_ITEMEMB=*|PS2_PPO_KL_REF=*|PS2_DMG_ATTRIB=*|PS2_GEM_EP_CAP=*) export "$kv" ;; *) echo "[wrapper-async] ignoring unknown arena flag $kv" >> wrapper_league.log ;; esac; done
+# Oct 10 2026 (practice start points): PS2_DRILL_DIR=<dir[,dir]> PS2_DRILL_P=<p> start that fraction of training episodes
+# from drill states (ffa_selfplay_env.py; drill_capture.py on training lineups 50-68 only). Absent = off.
+# Oct 10 2026 (hunter bot): PS2_HUNTER_P=<p> (and/or PS2_HUNTER_SEATS=0,2) make policy seats scripted hunters of the learner
+# on the human-seat slots (ffa_selfplay_env.py, hunter_bot.py; PS2_HUNTER_SLOTS / _TARGET / _STATS optional). Absent = off.
+# Oct 19 2026 (adaptive handicap): PS2_HANDICAP=1 (+ optional PS2_HANDICAP_TARGET / _MIN / _SLOTS / _STEP / _EMA / _STATE) lowers the
+# learner's start health on the 3-CPU slots while it wins more than the target (ffa_selfplay_env.py, handicap.py). Absent = off.
+unset PS2_OBS_V4 PS2_OBS_V4_ITEMEMB PS2_DMG_ATTRIB PS2_GEM_EP_CAP PS2_DRILL_DIR PS2_DRILL_P PS2_HUNTER_SEATS PS2_HUNTER_P PS2_HUNTER_SLOTS PS2_HUNTER_TARGET PS2_HUNTER_STATS PS2_NET_WIDTH PS2_LSTM_HIDDEN PS2_HANDICAP PS2_HANDICAP_TARGET PS2_HANDICAP_MIN PS2_HANDICAP_SLOTS PS2_HANDICAP_STEP PS2_HANDICAP_EMA PS2_HANDICAP_STATE    # Oct 19: + handicap flags; Oct 14: + net-width flags; Oct 10: + drill flags, + hunter flags; Oct 5 2026 (Oct 7: + reward-cleanup flags): the v4 contract comes from league_env.txt only, never an inherited env
+for kv in $ARENA; do case "$kv" in PS2_ZERO_SUM=*|PS2_START_HEALTH=*|PS2_STATE_SLOTS=*|PS2_OBS_STACK=*|PS2_OBS_CTX_FIX=*|PS2_ZS_TIME=*|PS2_OBS_V3=*|PS2_SPECIAL_DMG_W=*|PS2_SPECIAL_R=*|PS2_LOST_EXTRA_W=*|PS2_LOSS_SCALE_LV8=*|PS2_SPECIAL_WINDOW=*|PS2_SPECIAL_WINDOW_CLOCK=*|PS2_SPECIAL_EVENTS=*|PS2_SPECIAL_ATTRIB=*|PS2_BUTTON_TAP=*|PS2_DEMOS=*|PS2_BC_COEF=*|PS2_BC_STEPS=*|PS2_BC_SEQS=*|PS2_BC_ANNEAL=*|PS2_BC_HOLDOUT=*|PS2_BC_EVAL=*|PS2_BC_PATIENCE=*|PS2_BC_RESULTS=*|PS2_OBJ_GRID_N=*|PS2_OBS_V4=*|PS2_OBS_V4_ITEMEMB=*|PS2_PPO_KL_REF=*|PS2_DMG_ATTRIB=*|PS2_GEM_EP_CAP=*|PS2_PPO_ADV_NORM=*|PS2_PPO_SPLIT_CLIP=*|PS2_DRILL_DIR=*|PS2_DRILL_P=*|PS2_HUNTER_SEATS=*|PS2_HUNTER_P=*|PS2_HUNTER_SLOTS=*|PS2_HUNTER_TARGET=*|PS2_HUNTER_STATS=*|PS2_NET_WIDTH=*|PS2_LSTM_HIDDEN=*|PS2_HANDICAP=*|PS2_HANDICAP_TARGET=*|PS2_HANDICAP_MIN=*|PS2_HANDICAP_SLOTS=*|PS2_HANDICAP_STEP=*|PS2_HANDICAP_EMA=*|PS2_HANDICAP_STATE=*) export "$kv" ;; *) echo "[wrapper-async] ignoring unknown arena flag $kv" >> wrapper_league.log ;; esac; done
 # Oct 3 2026 (Blake: action space "is priority"): league_surgery.txt holds one "<from_leg> <kind>" per line, applied in
 # file order. lstm128 = SkipLSTM memory (surgery_lstm.py); joint63 = 63-action direction x button set
 # (surgery_actions.py, combo penalty 3). Each applies only to a warm zip that does not have it yet.
@@ -85,6 +102,9 @@ for kv in $ARENA; do case "$kv" in PS2_ZERO_SUM=*|PS2_START_HEALTH=*|PS2_STATE_S
 # PS2_OBS_V4=1 in league_env.txt. With PS2_OBS_V4_ITEMEMB=zero the parent's [12..17] columns are zeroed too.
 # Oct 7 2026: itememb0 = zero the [12..17] columns of an already-430-wide zip (surgery_zero_itememb.py); needs
 # PS2_OBS_V4_ITEMEMB=zero in league_env.txt.
+# Oct 13 2026: framestack2 = narrow the 7-frame stack to 2 (surgery_frame_stack.py); needs PS2_OBS_STACK=2 in league_env.txt.
+# Oct 14 2026: widen512 = MLP 256 -> 512 (surgery_widen_net.py, function-preserving); needs PS2_NET_WIDTH=512 in league_env.txt.
+# lstm256 = LSTM hidden 128 -> 256 (same script); needs PS2_LSTM_HIDDEN=256. Optional, a separate step.
 while read -r SURG_FROM SURG_KIND; do
   [ -n "$SURG_FROM" ] && [ "$N" -ge "$SURG_FROM" ] || continue
   case "$SURG_KIND" in
@@ -110,6 +130,36 @@ while read -r SURG_FROM SURG_KIND; do
       CHECK="from surgery_zero_itememb import is_zeroed as f; ok = f('${PREV}')"
       OUT="./powerstone_v6_leg$((N-1))_ie0.zip"
       CMD="python surgery_zero_itememb.py \"$PREV\" \"$OUT\""; TAG="ITEMEMB=zero" ;;
+    framestack*)
+      # Oct 13 2026 (frame-stack option): framestack<K> narrows the stacked input to K frames (surgery_frame_stack.py
+      # keeps the K most recent lags of obs_stack.OFFSETS_BY_K and their weights: K=2 -> lags [1, 0], 3010 -> 860
+      # inputs; first-layer columns + Adam moments sliced, everything else bit for bit). framestack<K>fold also adds
+      # the dropped lags' weights onto lag 1 (measured closer to the parent; see the commit). The trainer asserts zip
+      # width == 430 x PS2_OBS_STACK, so refuse unless league_env.txt says PS2_OBS_STACK=K.
+      FS_K="${SURG_KIND#framestack}"; FS_FOLD=""
+      case "$FS_K" in *fold) FS_K="${FS_K%fold}"; FS_FOLD="--fold" ;; esac
+      case "$FS_K" in ''|*[!0-9]*) echo "[wrapper-async] leg $N REFUSED: bad surgery kind '$SURG_KIND' (framestack<K> or framestack<K>fold); nothing launched $(date)" | tee -a wrapper_league.log >&2; exit 2 ;; esac
+      [ "${PS2_OBS_STACK:-1}" = "$FS_K" ] || { echo "[wrapper-async] leg $N REFUSED: $SURG_KIND surgery listed but league_env.txt has PS2_OBS_STACK=${PS2_OBS_STACK:-unset}, not $FS_K; nothing launched $(date)" | tee -a wrapper_league.log >&2; exit 2; }
+      CHECK="from obs_stack import kd_for; from recurrent_policy import load_model as f; ok = kd_for(f('${PREV}'))[0] == ${FS_K}"
+      OUT="./powerstone_v6_leg$((N-1))_fs${FS_K}${FS_FOLD:+fold}.zip"
+      CMD="python surgery_frame_stack.py \"$PREV\" \"$OUT\" --k $FS_K $FS_FOLD"; TAG="FRAMESTACK=${FS_K}${FS_FOLD:+fold}" ;;
+    widen*|lstm[0-9]*)
+      # Oct 14 2026 (bigger-network option): widen<W> widens both MLPs (policy + value, both layers) to W units;
+      # lstm<H> (H != 128; lstm128 above is the MLP -> SkipLSTM surgery) widens both LSTMs to H. surgery_widen_net.py:
+      # new units get small random incoming weights and ZERO outgoing weights, so the widened zip computes the
+      # parent's outputs (exactness-gated, Adam moments of new entries zeroed). The trainer refuses a warm zip whose
+      # width disagrees with a SET flag, so refuse here unless league_env.txt carries the matching flag.
+      case "$SURG_KIND" in
+        widen*) NW_V="${SURG_KIND#widen}"; NW_FLAG=PS2_NET_WIDTH; NW_ARG="--width"; NW_SUF="w" ;;
+        *)      NW_V="${SURG_KIND#lstm}";  NW_FLAG=PS2_LSTM_HIDDEN; NW_ARG="--lstm-hidden"; NW_SUF="lstm" ;;
+      esac
+      case "$NW_V" in ''|*[!0-9]*) echo "[wrapper-async] leg $N REFUSED: bad surgery kind '$SURG_KIND' (widen<W> or lstm<H>); nothing launched $(date)" | tee -a wrapper_league.log >&2; exit 2 ;; esac
+      [ "${!NW_FLAG:-unset}" = "$NW_V" ] || { echo "[wrapper-async] leg $N REFUSED: $SURG_KIND surgery listed but league_env.txt has $NW_FLAG=${!NW_FLAG:-unset}, not $NW_V; nothing launched $(date)" | tee -a wrapper_league.log >&2; exit 2; }
+      if [ "$NW_FLAG" = PS2_NET_WIDTH ]; then NW_HAS="${NW_V}, None"; else NW_HAS="None, ${NW_V}"; fi
+      CHECK="from surgery_widen_net import has as f; ok = f('${PREV}', ${NW_HAS})"
+      OUT="./powerstone_v6_leg$((N-1))_${NW_SUF}${NW_V}.zip"
+      CMD="python surgery_widen_net.py \"$PREV\" \"$OUT\" $NW_ARG $NW_V"
+      if [ "$NW_FLAG" = PS2_NET_WIDTH ]; then TAG="NET=${NW_V}"; else TAG="LSTM=${NW_V}"; fi ;;
     *) echo "[wrapper-async] leg $N REFUSED: unknown surgery kind '$SURG_KIND'; nothing launched $(date)" | tee -a wrapper_league.log >&2; exit 2 ;;
   esac
   if ! python -c "import sys; ${CHECK}; sys.exit(0 if ok else 1)" 2>/dev/null; then

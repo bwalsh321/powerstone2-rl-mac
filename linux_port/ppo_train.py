@@ -18,6 +18,24 @@ from gymnasium import spaces
 from stable_baselines3.common.utils import explained_variance
 
 KL_REF = os.environ.get("PS2_PPO_KL_REF", "behav")
+# Oct 8 2026 (audit, "learner batching fixes"; both default OFF = stock arithmetic):
+#  PS2_PPO_ADV_NORM=global  normalise advantages once over the whole rollout buffer. Stock normalises inside each
+#                           minibatch, and recurrent minibatches are contiguous stretches of one actor's play, so a
+#                           stretch that went well or badly had about half its advantages flipped in sign.
+#  PS2_PPO_SPLIT_CLIP=1     clip the actor's and the critic's gradient norms separately (max_grad_norm each). Stock
+#                           clips them together, so the large value-loss gradients (returns up to +-20) set the clip
+#                           and shrink the policy step.
+#  Bigger minibatches need no code: PS2_BATCH_SIZE in league_optim.txt (must divide n_steps x n_envs = 20480).
+ADV_NORM = os.environ.get("PS2_PPO_ADV_NORM", "minibatch")
+SPLIT_CLIP = os.environ.get("PS2_PPO_SPLIT_CLIP", "0") == "1"
+_CRITIC_KEYS = ("mlp_extractor.value_net", "value_net", "lstm_critic")
+
+
+def _split_params(policy):
+    actor, critic = [], []
+    for n, p in policy.named_parameters():
+        (critic if n.startswith(_CRITIC_KEYS) else actor).append(p)
+    return actor, critic
 
 
 def train(self, n_update=None):
@@ -38,6 +56,11 @@ def train(self, n_update=None):
         prox.load_state_dict(self.policy.state_dict())
         prox.set_training_mode(False)
 
+    if ADV_NORM == "global" and self.normalize_advantage:
+        adv = self.rollout_buffer.advantages
+        self.rollout_buffer.advantages = ((adv - adv.mean()) / (adv.std() + 1e-8)).astype(adv.dtype)
+    actor_params, critic_params = _split_params(self.policy) if SPLIT_CLIP else (None, None)
+    gn_actor, gn_critic = [], []
     entropy_losses, pg_losses, value_losses, clip_fractions = [], [], [], []
     continue_training = True
     n_steps = n_possible = 0
@@ -55,7 +78,7 @@ def train(self, n_update=None):
                 rollout_data.observations, actions, rollout_data.lstm_states, rollout_data.episode_starts)
             values = values.flatten()
             advantages = rollout_data.advantages
-            if self.normalize_advantage:
+            if self.normalize_advantage and ADV_NORM != "global":
                 advantages = (advantages - advantages[mask].mean()) / (advantages[mask].std() + 1e-8)
             ratio = th.exp(log_prob - rollout_data.old_log_prob)
             policy_loss_1 = advantages * ratio
@@ -99,7 +122,11 @@ def train(self, n_update=None):
 
             self.policy.optimizer.zero_grad()
             loss.backward()
-            th.nn.utils.clip_grad_norm_(self.policy.parameters(), self.max_grad_norm)
+            if SPLIT_CLIP:
+                gn_actor.append(float(th.nn.utils.clip_grad_norm_(actor_params, self.max_grad_norm)))
+                gn_critic.append(float(th.nn.utils.clip_grad_norm_(critic_params, self.max_grad_norm)))
+            else:
+                th.nn.utils.clip_grad_norm_(self.policy.parameters(), self.max_grad_norm)
             self.policy.optimizer.step()
             n_steps += 1
 
@@ -123,5 +150,6 @@ def train(self, n_update=None):
         self.logger.record("train/clip_range_vf", clip_range_vf)
     total = n_possible * self.n_epochs
     print(f"[ppo] update {n_update if n_update is not None else '?'} kl_ref={KL_REF} grad_steps={n_steps}/{total} "
-          f"({100 * n_steps / max(total, 1):.1f}%) epochs_started={epoch + 1} kl0_staleness={kl0 if kl0 is not None else float('nan'):.4f}",
+          f"({100 * n_steps / max(total, 1):.1f}%) epochs_started={epoch + 1} adv_norm={ADV_NORM} split_clip={int(SPLIT_CLIP)}"
+          + (f" gradnorm_actor={np.mean(gn_actor):.3f} gradnorm_critic={np.mean(gn_critic):.3f}" if gn_actor else "") + f" kl0_staleness={kl0 if kl0 is not None else float('nan'):.4f}",
           flush=True)

@@ -1,5 +1,8 @@
 # M4 vision arm — setup for the Mac session (Oct 5 2026)
 
+> **STATUS (Oct 8 2026): ended.** The arm ran legs 1129 (40.2%) and 1130 (46.6%), which confirmed vision before
+> the Ryzen switched to it at leg 134. The M4 is now used for other projects; nothing in this repo runs there.
+
 Blake approved this on Oct 5: while the 9950X relay runs DAgger v2 (legs 129-131), the M4 runs a **parallel vision
 arm**: obs v4 (`linux_port/re/obs_v4`, commit 3d95b23) plus the object-grid fix (`PS2_OBJ_GRID_N=208`), starting from
 the same bot (leg 128). Both arms are graded on lv8mix n=1000 and read against the same baseline (legs 117-124 + 128).

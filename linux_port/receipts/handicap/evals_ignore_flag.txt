@@ -1,0 +1,11 @@
+# PS2_HANDICAP=1 PS2_HANDICAP_SLOTS=55 PS2_START_HEALTH=0.5,1.0 PS2_ZERO_SUM=1 set in the environment; slot 55, 2 rounds each
+== hunted.py: lines mentioning hcap/handicap/[start]: 0
+[ep] slot55 opps=3     win len= 673  dmg +6.11/-0.41  stones: picked=12 lost=4 opp=3(-5) forms=3/0  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=11(0) stonev=234 dmgF=5.08
+[ep] slot55 opps=3     win len= 600  dmg +6.42/-0.66  stones: picked=11 lost=3 opp=5(-7) forms=3/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=21(4) stonev=324 dmgF=4.49
+==== leg204.zip hunters=0,2 n=2  win% 100.0 +- 0.0 (2W/0L/0T)
+== parity.py: lines mentioning hcap/handicap/[start]: 0
+[ep] slot55 opps=3     win len= 512  dmg +6.00/-0.25  stones: picked=11 lost=3 opp=2(-5) forms=3/0  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=15(1) stonev=280 dmgF=5.05
+[ep] slot55 opps=3    loss len= 498  dmg +3.90/-1.09  stones: picked=7 lost=5 opp=7(-4) forms=1/1  gem_rew=+19.00 shape=+0.00 appr=+0.00  chests=13(0) stonev=198 dmgF=2.33
+win% :  50.0   (1W/1L/0T)   95% Wilson [9-91]
+== handicap state folder written by the evals: 0 files
+(eval_parity.py exit 139 = the known core teardown segfault after the summary; eval_hunted.py exit 0)

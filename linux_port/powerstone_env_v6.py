@@ -120,7 +120,10 @@ class PowerStoneEnvV6(gym.Env):
     # Sep 25 2026: 90 = fresh lv8 HELD-OUT trio (P1 COM Gunrock, P3 COM Julia, P4 COM Mel, all lv8; states/slot90)
     # Sep 25 2026: 50-59 = THREE lv8 COMs + P2 Falcon (training lineups, states_mixed), 90-94 = five held-out
     # three-COM lv8 lineups (states/); all mirror slot 3's context (stage dim 2, level 8). states_3com_lv8/lineups.json.
-    SLOT_META = {**{k: (1, 8) for k in range(30, 44)}, **{k: (2, 8) for k in range(50, 69)}, **{k: (2, 8) for k in range(90, 95)},
+    # Oct 17 2026: 95-99 = the SEALED test set (states/slot95-99; graded only by sealed_grade.sh, rarely; training refuses
+    # 90-99). New lineups, three on Desert and 98 Blue Sky / 99 Dark Castle; same (2, 8) context as 90-94 (the stage dim
+    # is the three-COM-lv8 regime flag here, not the stage). states_3com_lv8/lineups.json.
+    SLOT_META = {**{k: (1, 8) for k in range(30, 44)}, **{k: (2, 8) for k in range(50, 69)}, **{k: (2, 8) for k in range(90, 100)},
                  0: (3, 4), 1: (1, 2), 2: (2, 3),
                  3: (2, 8), 4: (2, 4), 5: (1, 5), 6: (1, 5),
                  # Leg I (Aug 19): 7/8 = Falcon-ditto SELF-PLAY states
@@ -1096,7 +1099,15 @@ class PowerStoneEnvV6(gym.Env):
                   f"chests={e['chesto']}({e['chestb']}) "
                   f"stonev={e['stonev']} dmgF={e['dmg_form']:.2f}"
                   + (f"  STEP_TIMEOUTS={self._ep_step_timeouts}"
-                     if getattr(self, "_ep_step_timeouts", 0) else ""))
+                     if getattr(self, "_ep_step_timeouts", 0) else "")
+                  # Oct 10 2026: an episode started from a practice start point (ffa_selfplay_env PS2_DRILL_DIR)
+                  + (f"  drill={self._drill_name}" if getattr(self, "_drill_name", None) else "")
+                  # Oct 10 2026: scripted hunter seats this episode (ffa_selfplay_env PS2_HUNTER_SEATS / PS2_HUNTER_P)
+                  + (f"  hunters={self._hunter_n}" if getattr(self, "_hunter_n", 0) else "")
+                  # Oct 19 2026: adaptive handicap (ffa_selfplay_env PS2_HANDICAP): h applied to the learner this
+                  # episode, and the env's win-share EMA on handicapped slots before this result
+                  + (f"  hcap={self._hcap_ep:.3f} hema={self._hcap.ema:.3f}"
+                     if getattr(self, "_hcap_ep", None) is not None else ""))
             try:
                 # columns 17-19 (chesto, chestb, stonev) APPENDED Aug 10 —
                 # appended, not inserted, so positional readers of the first

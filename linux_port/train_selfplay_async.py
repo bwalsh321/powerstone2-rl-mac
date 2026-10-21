@@ -78,6 +78,12 @@ CHECKPOINT_EVERY = 100_000
 # (base env reset does random.choice over STATE_SLOTS); PS2_STATE_SLOT stays as the single-slot form.
 STATE_SLOTS = ([int(x) for x in os.environ["PS2_STATE_SLOTS"].split(",") if x.strip()]
                if os.environ.get("PS2_STATE_SLOTS") else [int(os.environ.get("PS2_STATE_SLOT", "1"))])
+# Oct 17 2026: the grading lineups never train. 90-94 = the per-leg held-out set (lv8mix), 95-99 = the SEALED set
+# (sealed_grade.sh). A check only: with a legal slot list nothing else changes.
+_GRADING_SLOTS = set(range(90, 100))
+if _GRADING_SLOTS & set(STATE_SLOTS):
+    raise SystemExit(f"refusing to train on grading lineups {sorted(_GRADING_SLOTS & set(STATE_SLOTS))} "
+                     f"(90-94 held-out, 95-99 sealed): remove them from PS2_STATE_SLOTS")
 # Sep 13: PS2_ENV=ffa -> ffa_selfplay_env.FFASelfPlayEnv (four-seat self-play FFA,
 # obs v2); default = the 2-seat SelfPlayEnv the league has always used.
 ENV_KIND = os.environ.get("PS2_ENV", "selfplay")
@@ -256,13 +262,14 @@ def main():
     obs_space, act_space = probe.observation_space, probe.action_space
     del probe
     # Sep 22 (frame stacking): PS2_OBS_STACK=K must match the warm zip's input (122*K).
+    # Oct 13 2026: K=2 (lags [1, 0]) is the frame-stack option for the v4 lineage; surgery_frame_stack.py narrows a K=7 zip.
     OBS_STACK = int(os.environ.get("PS2_OBS_STACK", "1"))
     _D = (430 if os.environ.get("PS2_OBS_V4", "0") == "1"
           else 160 if os.environ.get("PS2_OBS_V3", "0") == "1" else 122)
     assert _D != 430 or os.environ.get("PS2_OBS_V3", "0") == "1", "PS2_OBS_V4=1 needs PS2_OBS_V3=1"
     assert obs_space.shape[0] == _D * OBS_STACK, (
         f"warm zip expects {obs_space.shape[0]} inputs but PS2_OBS_STACK={OBS_STACK} x obs dim {_D} gives {_D * OBS_STACK}; "
-        f"run surgery_stack.py or fix league_env.txt")
+        f"run surgery_frame_stack.py (league_surgery.txt framestack<K>) or fix PS2_OBS_STACK in league_env.txt")
     if OBS_STACK > 1:
         print(f"[config] obs_stack={OBS_STACK} (learner sees the last {OBS_STACK} frames, oldest first)", flush=True)
 
@@ -278,6 +285,12 @@ def main():
         assert lstm_mod.input_size == _D, (
             f"LSTM reads {lstm_mod.input_size} features (newest frame) but the env builds {_D}/frame; "
             f"run surgery_widen_v4.py (league_surgery.txt obsv4) or fix league_env.txt")
+    # Oct 14 2026 (bigger-network option): PS2_NET_WIDTH / PS2_LSTM_HIDDEN unset = no check (the zip's width, as
+    # always); set = the warm zip must already be that wide (surgery_widen_net.py, league_surgery.txt widen<W>/lstm<H>).
+    from recurrent_policy import check_net_flags
+    _net_note = check_net_flags(model.policy)
+    if _net_note:
+        print(f"[config] {_net_note}", flush=True)
     model.verbose = 1            # SB3 prints "Early stopping ... max kl" notices + its table
     # Sep 16 (entropy trigger fired at leg 38): optional entropy-coefficient override.
     # Unset = the zip's stored value (0.01 for this lineage). Blake decides per leg.

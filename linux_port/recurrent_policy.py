@@ -13,6 +13,8 @@ Policy-agnostic helpers used by the trainer, evaluators and pool seats:
   is_recurrent_zip(path)     True if the zip was saved by RecurrentPPO
   load_model(path)           PPO or RecurrentPPO, CPU
   PolicyRunner(model)        .reset() at every episode start, .act(obs, deterministic) per step
+  net_widths(policy)         (pi MLP widths, vf MLP widths, LSTM hidden) of a built policy (= its zip's)
+  check_net_flags(policy)    trainer-only PS2_NET_WIDTH / PS2_LSTM_HIDDEN guard (unset = no check)
 """
 import json
 import zipfile
@@ -59,6 +61,36 @@ class SkipLSTMPolicy(RecurrentActorCriticPolicy):
         data = super()._get_constructor_parameters()
         data["lstm_input_dim"] = self.lstm_input_dim
         return data
+
+
+def net_widths(policy):
+    """(policy MLP widths, value MLP widths, LSTM hidden size or 0), read from the built modules (i.e. from the zip
+    the policy was loaded from), never from an env flag."""
+    def widths(seq):
+        return [int(m.out_features) for m in seq if isinstance(m, th.nn.Linear)]
+    me = policy.mlp_extractor
+    h = int(policy.lstm_actor.hidden_size) if hasattr(policy, "lstm_actor") else 0
+    return widths(me.policy_net), widths(me.value_net), h
+
+
+def check_net_flags(policy):
+    """Oct 14 2026 (bigger-network option): PS2_NET_WIDTH / PS2_LSTM_HIDDEN are RECIPE flags for the trainer only.
+    Unset (the default) = no check, nothing printed: the warm zip's own width is used, as always. Set = the warm zip
+    must already have that width (league_surgery.txt widen<W> / lstm<H> makes it, surgery_widen_net.py); a mismatch
+    refuses the leg instead of silently training the old width. Returns a [config] note, or None when both are unset.
+    Evaluators, pool seats and every other loader ignore the flags: load_model builds the net the zip describes."""
+    import os
+    fw, fh = os.environ.get("PS2_NET_WIDTH", "").strip(), os.environ.get("PS2_LSTM_HIDDEN", "").strip()
+    if not fw and not fh:
+        return None
+    w_pi, w_vf, h = net_widths(policy)
+    if fw and set(w_pi + w_vf) != {int(fw)}:
+        raise SystemExit(f"PS2_NET_WIDTH={fw} but the warm zip's MLPs are pi={w_pi} vf={w_vf}; run surgery_widen_net.py "
+                         f"(league_surgery.txt widen{fw}) or drop PS2_NET_WIDTH from league_env.txt")
+    if fh and h != int(fh):
+        raise SystemExit(f"PS2_LSTM_HIDDEN={fh} but the warm zip's LSTM hidden size is {h}; run surgery_widen_net.py "
+                         f"--lstm-hidden {fh} (league_surgery.txt lstm{fh}) or drop PS2_LSTM_HIDDEN from league_env.txt")
+    return f"net_width={w_pi} lstm_hidden={h} (PS2_NET_WIDTH={fw or 'unset'} PS2_LSTM_HIDDEN={fh or 'unset'}: zip matches)"
 
 
 def is_recurrent_zip(path):

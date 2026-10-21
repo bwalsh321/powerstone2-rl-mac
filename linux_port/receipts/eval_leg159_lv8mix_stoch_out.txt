@@ -1,0 +1,8 @@
+
+================ EVAL SUMMARY ================
+model=powerstone_v6_leg159_league.zip  slot=90  n=500  mode=deterministic  distinct-outcome-tuples~409  distinct-episodes=500  shards=10x50  slots=90,91,92,93,94
+win% :  56.2   (281W/219L/0T)   95% Wilson [52-60]
+picks: 10.35 /ep
+forms:  2.79 /ep
+per-slot: slot90=55W/100  slot91=61W/100  slot92=53W/100  slot93=54W/100  slot94=58W/100
+shard files: eval_leg159_lv8mix_stoch_s0_out.txt eval_leg159_lv8mix_stoch_s1_out.txt eval_leg159_lv8mix_stoch_s2_out.txt eval_leg159_lv8mix_stoch_s3_out.txt eval_leg159_lv8mix_stoch_s4_out.txt eval_leg159_lv8mix_stoch_s5_out.txt eval_leg159_lv8mix_stoch_s6_out.txt eval_leg159_lv8mix_stoch_s7_out.txt eval_leg159_lv8mix_stoch_s8_out.txt eval_leg159_lv8mix_stoch_s9_out.txt

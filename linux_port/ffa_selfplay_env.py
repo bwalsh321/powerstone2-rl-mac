@@ -104,6 +104,78 @@ DMG_ATTRIB = os.environ.get("PS2_DMG_ATTRIB", "nearest").strip() or "nearest"
 assert DMG_ATTRIB in ("nearest", "hitsrc"), f"PS2_DMG_ATTRIB={DMG_ATTRIB!r} (nearest|hitsrc)"
 _SH = os.environ.get("PS2_START_HEALTH", "").strip()
 START_HEALTH = tuple(float(x) for x in _SH.split(",")) if _SH else None
+# Oct 10 2026 (Blake: "practice start points"): PS2_DRILL_DIR = comma list of drill folders written by drill_capture.py
+# (gzip raw emulator states + json; snapshots seconds before the CURRENT bot lost a round on a training lineup) and
+# PS2_DRILL_P = probability that a reset starts from a random drill instead of the slot savestate. Ordinary RL from
+# there: same reward, same done rules; the episode ends at the KO / win like any other. Both unset/0 = off (no code
+# path below runs, the random stream is untouched). Drills from the held-out grading lineups 90-94 are refused, and
+# (Oct 17 2026) from the SEALED test lineups 95-99 (sealed_grade.sh) as well.
+DRILL_DIRS = [d.strip() for d in os.environ.get("PS2_DRILL_DIR", "").split(",") if d.strip()]
+DRILL_P = float(os.environ.get("PS2_DRILL_P", "0") or 0)
+DRILL_HELDOUT = set(range(90, 100))
+# Oct 10 2026 (Blake: "hunter bot", docs/HUNTER_PROJECT.md): scripted seats that ONLY hunt the learner (hunter_bot.py,
+# the old aimbot retargeted). Both unset/0 = off: no hunter code runs, the random stream is untouched.
+#   PS2_HUNTER_SEATS   comma list of policy-seat indices (0 = P1, 2 = P3) that are ALWAYS hunters on eligible slots
+#   PS2_HUNTER_P       probability, drawn per episode per configured policy seat (PS2_FFA_SEATS), that the seat is a
+#                      hunter instead of its sampled pool policy (own RNG: the pool / slot / start-health draws are
+#                      the same as with the flag off)
+#   PS2_HUNTER_SLOTS   slots whose savestate has those seats HUMAN-controlled (default 0,10-22,30-43 = states_mixed;
+#                      the all-COM lineups 50-68 / 90-94 cannot be driven, so no hunter there)
+#   PS2_HUNTER_TARGET  the hunted seat (default 1 = in-game P2, the learner)
+#   PS2_HUNTER_STATS   1 = per-episode "[hunt]" line (damage the learner took by source seat, who KO'd it) even with no
+#                      hunter (the self-play baseline of eval_hunted.py); on automatically when hunters are configured
+HUNTER_SEATS = [int(x) for x in os.environ.get("PS2_HUNTER_SEATS", "").split(",") if x.strip()]
+HUNTER_P = float(os.environ.get("PS2_HUNTER_P", "0") or 0)
+HUNTER_TARGET = int(os.environ.get("PS2_HUNTER_TARGET", "1"))
+
+
+def _parse_slots(text):
+    out = set()
+    for part in text.split(","):
+        part = part.strip()
+        if "-" in part:
+            lo, hi = part.split("-")
+            out.update(range(int(lo), int(hi) + 1))
+        elif part:
+            out.add(int(part))
+    return out
+
+
+HUNTER_SLOTS = _parse_slots(os.environ.get("PS2_HUNTER_SLOTS", "0,10-22,30-43"))
+HUNTER_ON = bool(HUNTER_SEATS) or HUNTER_P > 0.0
+HUNTER_STATS = HUNTER_ON or os.environ.get("PS2_HUNTER_STATS", "0") == "1"
+# Oct 19 2026 (IDEA QUEUE #1, warlock.ai): adaptive handicap. PS2_HANDICAP=1 multiplies the LEARNER's start health by
+# h in [PS2_HANDICAP_MIN, 1] on PS2_HANDICAP_SLOTS (default the 3-CPU slots 50-68; on top of the PS2_START_HEALTH
+# draw); h falls while the learner wins more than PS2_HANDICAP_TARGET of those rounds and rises while it wins fewer
+# (handicap.py: rule, step, carry-over). Unset = off: no code path below runs, no random draw is added.
+import handicap as _handicap
+HANDICAP_ON = _handicap.enabled()
+HANDICAP_LOG_EVERY = max(1, int(os.environ.get("PS2_HANDICAP_LOG_EVERY", "25") or 25))   # [hcap] status line every N counted episodes (per env; logging only)
+
+
+def load_drill_index(dirs):
+    """Every <name>.json + <name>.state.gz pair in the given folders (index.jsonl is not needed)."""
+    import json
+    out = []
+    for d in dirs:
+        if not os.path.isdir(d):
+            raise RuntimeError(f"PS2_DRILL_DIR: {d!r} is not a directory")
+        for f in sorted(os.listdir(d)):
+            if not f.endswith(".json") or f in ("index.json",):
+                continue
+            blob = os.path.join(d, f[:-5] + ".state.gz")
+            if not os.path.exists(blob):
+                continue
+            meta = json.load(open(os.path.join(d, f)))
+            if "slot" not in meta:
+                continue
+            if int(meta["slot"]) in DRILL_HELDOUT:
+                raise RuntimeError(f"drill {d}/{f} comes from held-out grading lineup slot{meta['slot']}: "
+                                   f"refusing to train on the test set")
+            meta["_state"] = blob
+            meta["_dir"] = os.path.basename(os.path.normpath(d))
+            out.append(meta)
+    return out
 
 
 class PFSPPool(OpponentPool):
@@ -156,16 +228,18 @@ class SeatView:
         self.form_timer = 0
         self.stack = None          # Sep 22: FrameStack for a K-frame opponent model (None = single-frame)
         self.runner = None         # Oct 2: per-episode stateful runner (recurrent pool policies keep LSTM state)
+        self.hunter = None         # Oct 10: HunterBot driving this seat this episode (None = pool policy / idle)
 
 
 def ffa_slot_meta(state_slots, base_meta=None):
     """The mixed-arena context table for a configured slot list (Sep 25 2026, one function so the
-    constructor and test_obs_context.py cannot drift): COM-only lv8 arenas 1-9 / 50-68 (60-68 = Oct 6 balanced lineups) / 90-94 keep the
+    constructor and test_obs_context.py cannot drift): COM-only lv8 arenas 1-9 / 50-68 (60-68 = Oct 6 balanced lineups) / 90-94
+    (and the Oct 17 sealed set 95-99, never trained on: train_selfplay_async refuses 90-99) keep the
     base (stage 2, level 8) entry; slots 30-43 = P4 COM at level 8 -> (1, 8); every other slot (0, 10-22,
     unknown) = (1, 2), the pre-registered mixed-arena context."""
     meta = dict(base_meta if base_meta is not None else PowerStoneEnvLibretro.SLOT_META)
     for _slot in state_slots:
-        if (1 <= _slot <= 9 or 50 <= _slot <= 68 or 90 <= _slot <= 94) and _slot in PowerStoneEnvLibretro.SLOT_META:
+        if (1 <= _slot <= 9 or 50 <= _slot <= 68 or 90 <= _slot <= 99) and _slot in PowerStoneEnvLibretro.SLOT_META:
             continue
         meta[_slot] = (1, 8) if 30 <= _slot <= 43 else (1, 2)
     return meta
@@ -236,9 +310,110 @@ class FFASelfPlayEnv(PowerStoneEnvLibretro):
                       + (" special_attrib=1 (learner-only; +0x32e4 hit source, owner +0x10)" if SPECIAL_ATTRIB else ""), flush=True)
         if START_HEALTH:
             print(f"[config] start_health=U{START_HEALTH} per seat (RAM write at reset)", flush=True)
+        self._hunter_n = 0             # hunters this episode (the [ep] line prints "hunters=N" when > 0)
+        self._hunt = None              # per-episode [hunt] bookkeeping (HUNTER_STATS only)
+        if HUNTER_ON:
+            bad = [k for k in HUNTER_SEATS if k not in self._views]
+            if bad or HUNTER_TARGET in self._views or HUNTER_TARGET != self._learner_idx:
+                raise RuntimeError(f"PS2_HUNTER_SEATS={HUNTER_SEATS} must be policy seats of PS2_FFA_SEATS="
+                                   f"{sorted(self._views)} and PS2_HUNTER_TARGET={HUNTER_TARGET} the learner")
+            self._hunter_rng = random.Random()     # own stream: pool / slot / start-health draws are unchanged
+            print(f"[config] hunters: seats={HUNTER_SEATS or '-'} p={HUNTER_P:g} target=P{HUNTER_TARGET + 1} "
+                  f"eligible slots={sorted(HUNTER_SLOTS)} (hunter_bot.py)", flush=True)
+        self._hcap = None              # handicap.Handicap when PS2_HANDICAP=1
+        self._hcap_ep = None           # h applied to the learner THIS episode (None = not a handicapped episode)
+        if HANDICAP_ON:
+            self._hcap = _handicap.Handicap.from_env(tag=str(kwargs.get("instance_id", 0)))
+            print(self._hcap.config_line(), flush=True)
+        self._drill = None             # meta of the drill this episode started from (None = slot savestate)
+        self._drills = []
+        if DRILL_DIRS and DRILL_P > 0.0:
+            self._drills = load_drill_index(DRILL_DIRS)
+            if not self._drills:
+                raise RuntimeError(f"PS2_DRILL_DIR={','.join(DRILL_DIRS)}: no drills found")
+            dslots = sorted({int(m["slot"]) for m in self._drills})
+            # context dims come from the drill's SOURCE slot (same table the slot itself uses)
+            self.SLOT_META = ffa_slot_meta(list(self.STATE_SLOTS) + dslots, self.SLOT_META)
+            print(f"[config] drills: {len(self._drills)} start points from {','.join(DRILL_DIRS)} p={DRILL_P:g} "
+                  f"source slots={dslots} (no pool seats, no start-health draw, no pre-roll in a drill episode)", flush=True)
+
+    # ------------------------------------------------------------- drills
+    def _match_ready(self, s, provisional=False):
+        if getattr(self, "_drill", None) is None:
+            return super()._match_ready(s, provisional)
+        # a drill is mid-round, often at low health (drill_play.py's rule): alive is enough
+        i = self._learner_idx
+        return s["h"][i] > 1.0 and any(h > 1.0 for j, h in enumerate(s["h"]) if j != i)
+
+    def _detect_opp(self, s, i):
+        if getattr(self, "_drill", None) is None:
+            return super()._detect_opp(s, i)
+        # the lineup's tracked set from the capture (dead seats included, exactly as a full round keeps a KO'd
+        # opponent in _active_opp: obs/rewards filter by alive, the zero-sum mean keeps the seat)
+        act = [int(j) for j in self._drill.get("active_opp", []) if int(j) != i]
+        if not act:
+            act = [j for j in range(4) if j != i and s["v4"] and np.any(s["players"][j]["pos"] != 0)]
+        return act
+
+    def _drill_reset(self, meta):
+        import gzip
+        blob = gzip.open(meta["_state"], "rb").read()
+        br = self._lr_bridge
+        env = self
+
+        def load_drill(_slot):
+            if br.emu.set_state(blob) is False:
+                raise RuntimeError(f"core rejected drill {meta['_state']}")
+            br.clear_inputs()
+            for syn in br._synths:
+                syn.on_loadstate()
+            br.run_frames(2)
+            env._preroll_next = 0      # start AT the saved moment: no idle pre-roll (read right after this load)
+
+        saved_slots = self.STATE_SLOTS
+        self._drill = meta
+        self.STATE_SLOTS = [int(meta["slot"])]
+        br.loadstate = load_drill
+        try:
+            obs = super().reset()
+        finally:
+            del br.loadstate
+            self.STATE_SLOTS = saved_slots
+        self._did_first_load = False   # the next episode always reloads its slot (whatever PS2_RELOAD_ON_RESET says)
+        c = meta.get("counters") or {}
+        if c:                          # the capture env's heuristic counters at this moment (obs[8..9] fallbacks)
+            self._form_timer = int(c.get("form_timer", 0))
+            self._my_g_int = int(c.get("my_g_int", 0))
+            self._opp_g_int = int(c.get("opp_g_int", 0))
+            obs = self._observe(self.prev, self.prev)
+        s = self.prev
+        alive = [j for j in self._active_opp if self._alive(self.prev_health[j])]
+        print(f"[drill] start {meta['_dir']}/{meta['drill']} slot{meta['slot']} ko_was={meta.get('seconds_before_ko')}s "
+              f"kind={meta.get('kind', '-')} h={[round(float(x)) for x in s['h']]} opps_alive={len(alive)}/{len(self._active_opp)}",
+              flush=True)
+        return obs
 
     # ---------------------------------------------------------------- lifecycle
     def reset(self):
+        self._drill = None
+        self._hunter_n, self._hunt = 0, None
+        self._hcap_ep = None           # drill episodes are never handicapped nor counted
+        if self._drills and random.random() < DRILL_P:
+            meta = random.choice(self._drills)
+            for v in self._views.values():   # drill lineups are 3 COMs: no pool policy on a COM seat
+                v.reset()
+                v.model, v.path = None, None
+            self._drill_name = f"{meta['_dir']}/{meta['drill']}"
+            obs = self._drill_reset(meta)
+            self._zs_gem = {}
+            self._spec_last = {}
+            self._spec_last_frame = {}
+            self._spec_t = 0
+            self._zs = {"raw": 0.0, "opp_mean": 0.0, "adj": 0.0, "dealt_nn": 0.0, "n": 0}
+            if HUNTER_STATS:
+                self._hunt_reset()
+            return obs
+        self._drill_name = None
         for v in self._views.values():
             v.reset()
             v.model = self._pool.sample()
@@ -252,9 +427,94 @@ class FFASelfPlayEnv(PowerStoneEnvLibretro):
         self._spec_last_frame = {}
         self._spec_t = 0
         self._zs = {"raw": 0.0, "opp_mean": 0.0, "adj": 0.0, "dealt_nn": 0.0, "n": 0}
+        if HUNTER_ON:
+            self._assign_hunters()
+        if HUNTER_STATS:
+            self._hunt_reset()
+        if self._hcap is not None and self._hcap.applies(getattr(self, "_episode_slot", -1)):
+            self._hcap_ep = self._hcap.h
         if START_HEALTH:
             obs = self._randomize_start_health()
+            if HUNTER_STATS:
+                self._hunt_reset()
+        elif self._hcap_ep is not None and self._hcap_ep < 1.0:
+            obs = self._write_start_health({self._learner_idx: self._hcap_ep})
+            if HUNTER_STATS:
+                self._hunt_reset()
         return obs
+
+    # ------------------------------------------------------------- hunters
+    def _assign_hunters(self):
+        """Oct 10 2026: after the slot is known, turn configured policy seats into hunters (hunter_bot.py). The pool
+        policy sampled for such a seat is dropped for this episode (sampling itself is unchanged)."""
+        from hunter_bot import HunterBot
+        slot = getattr(self, "_episode_slot", -1)
+        self._hunter_n = 0
+        names = []
+        for k, v in self._views.items():
+            v.hunter = None
+            if slot not in HUNTER_SLOTS:
+                continue
+            on = k in HUNTER_SEATS
+            if not on and HUNTER_P > 0.0:
+                on = self._hunter_rng.random() < HUNTER_P
+            if on:
+                v.hunter = HunterBot(seat=k, target=HUNTER_TARGET, ram=self._lr_bridge.ram)
+                if v.path:
+                    names.append(f"P{k + 1}=HUNTER(was {os.path.basename(v.path)})")
+                else:
+                    names.append(f"P{k + 1}=HUNTER")
+                v.model, v.path, v.runner = None, None, None
+                self._hunter_n += 1
+        if names:
+            print(f"[hunter] slot{slot} " + " ".join(names), flush=True)
+
+    def _hunt_reset(self):
+        s = self.prev
+        self._hunt = {"h": list(s["h"]), "dmg": {}, "ko": None, "forms": {}, "form_prev": [p.get("form", 0) for p in
+                                                                                         s["players"]]}
+
+    def _hunt_track(self, s):
+        """Per step: the learner's raw health loss by source seat (game hit-source pointer, 'x' = unattributed),
+        every seat's damage dealt to the learner, transforms per seat, and who landed the KO."""
+        z = self._hunt
+        i = self._learner_idx
+        h0, h1 = z["h"], s["h"]
+        drop = max(0.0, float(h0[i]) - float(h1[i]))
+        if drop > 0.0:
+            att = self._hit_attacker(i)
+            key = f"P{att + 1}" if att is not None else "x"
+            z["dmg"][key] = z["dmg"].get(key, 0.0) + drop / max(1000.0, self.baseline[i])
+            if h1[i] <= 0.001 * self.baseline[i] and z["ko"] is None:
+                z["ko"] = key
+        for k, p in enumerate(s["players"]):
+            f = p.get("form", 0)
+            if f == 1 and z["form_prev"][k] != 1:
+                z["forms"][f"P{k + 1}"] = z["forms"].get(f"P{k + 1}", 0) + 1
+            z["form_prev"][k] = f
+        z["h"] = list(h1)
+
+    def _step_with_hunter_taps(self, action, taps):
+        """The learner's step with the hunters' buttons as TAPS (PS2_BUTTON_TAP=1): a held mask is one long press (no
+        double jump, one shot), so after ACTION_FRAMES - TAP_RELEASE emulated frames of this step each tapping
+        hunter's mask drops to its direction bits. Same frames, same learner inputs; only the hunter ports change."""
+        br = self._lr_bridge
+        orig = br.run_frames
+        at = self.ACTION_FRAMES - self.TAP_RELEASE
+        cnt = [0]
+
+        def run_frames(n):
+            for _ in range(n):
+                if cnt[0] == at:
+                    for port, dbits in taps:
+                        br.combo(dbits, None, 0, player=port)
+                orig(1)
+                cnt[0] += 1
+        br.run_frames = run_frames
+        try:
+            return super().step(action)
+        finally:
+            del br.run_frames
 
     # ------------------------------------------------ start randomization
     def _present_seats(self):
@@ -265,12 +525,20 @@ class FFASelfPlayEnv(PowerStoneEnvLibretro):
         written into SYSTEM_RAM, then re-anchor prev/prev_health/views so the first
         step does not read the write as damage. baseline stays max(h, 1000)."""
         lo, hi = START_HEALTH
+        mult = {}
+        for k in self._present_seats():
+            mult[k] = random.uniform(lo, hi)
+        if self._hcap_ep is not None:
+            mult[self._learner_idx] *= self._hcap_ep   # handicap: learner only, on top of its own draw
+        return self._write_start_health(mult)
+
+    def _write_start_health(self, mult):
+        """Write health x mult[k] for every seat in mult (in order) into SYSTEM_RAM, then re-anchor."""
         ram = self._lr_bridge.ram
         base = A.RAM_BASE + A.RAM_DELTA
         s = self._read_state()
         drawn = []
-        for k in self._present_seats():
-            f = random.uniform(lo, hi)
+        for k, f in mult.items():
             v = float(s["h"][k]) * f
             packed = np.frombuffer(struct.pack("<f", v), dtype=np.uint8)
             for addr in (A.HEALTH_OBJ[k], A.HEALTH[k], A.HEALTH[k] + 0x30, A.HEALTH[k] + 0x50):
@@ -283,13 +551,27 @@ class FFASelfPlayEnv(PowerStoneEnvLibretro):
         self.prev_health = self._frac(s["h"])
         for v in self._views.values():
             v.prev = None
-        print("[start] health " + " ".join(drawn), flush=True)
+        print("[start] health " + " ".join(drawn)
+              + (f" hcap={self._hcap_ep:.3f}" if self._hcap_ep is not None else ""), flush=True)
         return self._observe(s, s)
 
     def step(self, action):
         # 1) every policy-driven seat acts first; masks persist through the
         #    learner's frames (four humans pressing simultaneously)
+        taps = []
         for v in self._views.values():
+            if v.hunter is not None:
+                # Oct 10 2026: scripted hunter seat (hunter_bot.py), 63-action interface, reads the raw RAM state
+                a = v.hunter.decide(self.prev, v.player, HUNTER_TARGET, self._lr_bridge.ram)
+                v.last_action, v.n_act = int(a), 63
+                self._apply_action_for(int(a), player_port=v.player, run=False, n_act=63)
+                if self.BUTTON_TAP:
+                    from action_space import execution as _ex, DC_A, DC_B, DC_X, DC_Y
+                    dm, ax, _fr = _ex(int(a), 63, self.ACTION_FRAMES)
+                    bb = dm & (DC_A | DC_B | DC_X | DC_Y)
+                    if bb or ax:
+                        taps.append((v.player, dm & ~bb))
+                continue
             if v.model is None:
                 continue
             from obs_stack import kd_for
@@ -323,7 +605,23 @@ class FFASelfPlayEnv(PowerStoneEnvLibretro):
             self._apply_action_for(int(a), player_port=v.player, run=False, n_act=v.n_act)
         # 2) learner acts; frames run inside
         prev_s, prev_h = self.prev, list(self.prev_health)
-        obs, r, done, info = super().step(action)
+        if taps:
+            obs, r, done, info = self._step_with_hunter_taps(action, taps)
+        else:
+            obs, r, done, info = super().step(action)
+        if self._hunt is not None:
+            self._hunt_track(self.prev)
+            if done:
+                z = self._hunt
+                hs = sorted(f"P{v.player + 1}" for v in self._views.values() if v.hunter is not None)
+                info["hunt"] = dict(z["dmg"], ko=z["ko"], hunters=hs)
+                print(f"[hunt] slot{getattr(self, '_episode_slot', -1)} {info.get('result', 'timeout')} "
+                      f"hunters={','.join(hs) or '-'} bot_dmg_from "
+                      + " ".join(f"{k}={z['dmg'][k]:.2f}" for k in sorted(z["dmg"]))
+                      + f" ko_by={z['ko'] or '-'} forms="
+                      + (",".join(f"{k}:{n}" for k, n in sorted(z["forms"].items())) or "-")
+                      + "".join(f" {'P%d' % (v.player + 1)}_ladder=" + ",".join(f"{k}:{n}" for k, n in sorted(
+                          v.hunter.counts.items())) for v in self._views.values() if v.hunter is not None), flush=True)
         if ZERO_SUM:
             r = self._zero_sum_reward(prev_s, prev_h, self.prev, self.prev_health, info)
             if done:
@@ -339,6 +637,10 @@ class FFASelfPlayEnv(PowerStoneEnvLibretro):
             level = self.SLOT_META.get(getattr(self, "_episode_slot", 0), (0, 2))[1]
             r -= self.LOSS_PENALTY * self.LOSS_SCALE_BY_LEVEL.get(level, 1.0)
             info["result"] = "timeout"          # keeps the [ep] label; scored as a loss
+        if done and self._hcap_ep is not None:
+            self._hcap.update(info.get("result") == "win")      # timeout / loss = not a win
+            if self._hcap.n % HANDICAP_LOG_EVERY == 0:
+                print(self._hcap.status_line(), flush=True)
         if done and self._pool.sampling == "pfsp":
             won = info.get("result") == "win"
             for v in self._views.values():
